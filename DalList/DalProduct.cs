@@ -11,7 +11,7 @@ public class DalProduct
     /// <param name="product"></param>
     /// <returns>int</returns>
     /// <exception cref="Exception"></exception>
-    public int Add(Product product)
+    public static int Add(Product product)
     {
         if (!DataSource._lstPruducts.Exists(x => x.ID == product.ID))
         {
@@ -26,7 +26,7 @@ public class DalProduct
     /// <param name="id"></param>
     /// <returns>Product</returns>
     /// <exception cref="Exception"></exception>
-    public Product Get(int id)
+    public static Product Get(int id)
     {
         if (DataSource._lstPruducts.Exists(x => x.ID == id))
             return DataSource._lstPruducts.Find(x => x.ID == id);
@@ -37,7 +37,7 @@ public class DalProduct
     /// gets an ID and deletes the product with this ID
     /// </summary>
     /// <param name="id"></param>
-    public void Delete(int id)
+    public static void Delete(int id)
     {
         DataSource._lstPruducts.Remove(Get(id));
     }
@@ -46,7 +46,7 @@ public class DalProduct
     /// gets an product and updetes it
     /// </summary>
     /// <param name="product"></param>
-    public void Update(Product product)
+    public static void Update(Product product)
     {
         Delete(product.ID);
         Add(product);
@@ -56,7 +56,7 @@ public class DalProduct
     /// return the list of products
     /// </summary>
     /// <returns>List<Order></returns>
-    public List<Product> Get()
+    public static List<Product> Get()
     {
         return DataSource._lstPruducts.ToList();
     }
