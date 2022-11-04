@@ -11,6 +11,7 @@ public class DalOrderItem
     /// <returns>int</returns>
     public int Add(OrderItem orderItem)
     {
+        orderItem.OrderItemID = DataSource.config._ItemOrderID;
         DataSource._lstOrderItems.Add(orderItem);
         return orderItem.OrderItemID;
     }

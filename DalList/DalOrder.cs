@@ -12,6 +12,7 @@ public class DalOrder
     /// <returns>int</returns>
     public int Add(Order order)
     {
+        order.ID = DataSource.config._OrderID;
         DataSource._lstOreders.Add(order);
         return order.ID; 
     }
