@@ -13,8 +13,8 @@ namespace DalTest
 {
     public class Program
     {
-        private DalOrder dalOrder = new DalOrder();
-        private DalProduct dalProduct = new DalProduct();
+        private static DalOrder dalOrder = new DalOrder();
+        private static DalProduct dalProduct = new DalProduct();
         private DalOrderItem dalOrderItem = new DalOrderItem();
 
         public static Order GetOrder()
@@ -58,22 +58,36 @@ namespace DalTest
         {
             Product InputProductDetails()
             {
-                Console.WriteLine("Enter product's id, name, price, category and amount in stock");
+                Product product = new Product();
+                int id = 0;
+                double price = 0;
+                int inStock = 0;
 
-                int id = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter product's id:");
+                id = int.Parse(Console.ReadLine());
+                if(id!=0)
+                    product.ID = id;
+
+                Console.WriteLine("Enter product's name:");
                 string name = Console.ReadLine();
-                double price = double.Parse(Console.ReadLine());
+                if(name!=" ")
+                    product.Name = name;
+
+                Console.WriteLine("Enter product's price:");
+                price = double.Parse(Console.ReadLine());
+                if(price!=0)
+                    product.Price = price;
+
+                Console.WriteLine("Enter product's category:");
                 string category1 = Console.ReadLine();
                 Enums.Category category = (Enums.Category)Convert.ToInt32(category1);
-                int inStock = int.Parse(Console.ReadLine());
+                if(category1!=" ")
+                    product.Category = category;
 
-                Product product = new Product();
-
-                product.ID = id;
-                product.Name = name;
-                product.Price = price;
-                product.Category = category;
-                product.InStock = inStock;
+                Console.WriteLine("Enter product's amount in stock:");
+                inStock = int.Parse(Console.ReadLine());
+                if(inStock!=0)
+                    product.InStock = inStock;
 
                 return product;
             }
@@ -84,14 +98,15 @@ namespace DalTest
                 Console.WriteLine("Enter product's id");
                 int id = int.Parse(Console.ReadLine());
 
-                product = DalProduct.Get(id);
-                product.ToString();
+                product = dalProduct.Get(id);
+                Console.WriteLine(product.ToString());
             }
 
-            Console.WriteLine("1. check order\n2. check product\n3. check order's item check\n0. to exit\n");
-            int firstChoice = int.Parse(Console.ReadLine());
-            DateTime dateTime = DateTime.Parse(Console.ReadLine());
             int firstChoice = 0;
+
+            //Console.WriteLine("1. check order\n2. check product\n3. check order's item check\n0. to exit\n");
+            //int firstChoice = int.Parse(Console.ReadLine());
+            //DateTime dateTime = DateTime.Parse(Console.ReadLine());
             do
             {
                 try
@@ -147,19 +162,18 @@ namespace DalTest
                     case 2:
                         Console.WriteLine("a. add product\nb. update product\nc. get product\nd. get all products\ne. delete product");
                         secondChoise = char.Parse(Console.ReadLine());
-                        Console.WriteLine("Enter product's id, name, price, category and amount in stock");
                         Product product;
                         switch (secondChoise)
                         {
                             case 'a':
                                 product = InputProductDetails();
-                                Console.WriteLine(DalProduct.Add(product));
+                                Console.WriteLine(dalProduct.Add(product));
                                 break;
 
                             case 'b':
                                 InputIDAndprintProduct();
                                 product = InputProductDetails();
-                                DalProduct.Update(product);
+                                dalProduct.Update(product);
                                 break;
 
                             case 'c':
@@ -172,7 +186,7 @@ namespace DalTest
                             case 'e':
                                 Console.WriteLine("Enter product's id");
                                 int id = int.Parse(Console.ReadLine());
-                                DalProduct.Delete(id);
+                                dalProduct.Delete(id);
 
                                 break;
                         }
