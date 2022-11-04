@@ -56,8 +56,8 @@ public class DalProduct
     /// return the list of products
     /// </summary>
     /// <returns>List<Order></returns>
-    public List<Product> Get()
+    public IEnumerable<Product> Get()
     {
-        return DataSource._lstPruducts.ToList();
+        return DataSource._lstPruducts;
     }
 }

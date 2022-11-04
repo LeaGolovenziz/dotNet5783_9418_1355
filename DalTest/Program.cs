@@ -53,7 +53,6 @@ namespace DalTest
         }
         static void Main()
         {
-            DateTime dateTime = DateTime.Parse(Console.ReadLine());
             int firstChoice = 0;
             do
             {
@@ -95,8 +94,11 @@ namespace DalTest
                                     Console.WriteLine(order.ToString());
                                     break;
                                 case 'd':
-                                    List<Order> lstOrders = dalOrder.Get();
-                                    //print?
+                                    IEnumerable<Order> ieOrders = dalOrder.Get();
+                                    foreach(Order o in ieOrders)
+                                    {
+                                        Console.WriteLine(o.ToString());
+                                    }
                                     break;
                                 case 'e':
                                     Console.WriteLine("ender order id:");

@@ -66,9 +66,9 @@ public class DalOrderItem
     ///  return the list of order's items
     /// </summary>
     /// <returns>List<Order></Order></returns>
-    public List<OrderItem> Get()
+    public IEnumerable<OrderItem> Get()
     {
-        return DataSource._lstOrderItems.ToList();
+        return DataSource._lstOrderItems;
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public class DalOrderItem
     /// </summary>
     /// <param name="orderID"></param>
     /// <returns>List<OrderItem></returns>
-    public List<OrderItem> GeOrderItems(int orderID)
+    public IEnumerable<OrderItem> GeOrderItems(int orderID)
     {
        return DataSource._lstOrderItems.Where(x => x.OrderID == orderID).ToList();
     }
