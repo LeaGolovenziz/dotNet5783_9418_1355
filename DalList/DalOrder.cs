@@ -53,7 +53,7 @@ public class DalOrder
     ///  return the list of orders
     /// </summary>
     /// <returns>List<Order></returns>
-    public  IEnumerable<Order>  Get()
+    public IEnumerable<Order> Get()
     {
         return DataSource._lstOreders;
     }
