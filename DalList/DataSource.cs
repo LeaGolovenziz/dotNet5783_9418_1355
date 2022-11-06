@@ -1,5 +1,4 @@
-﻿
-using DO;
+﻿using DO;
 
 namespace Dal;
 
@@ -8,7 +7,7 @@ internal static class DataSource
     /// <summary>
     /// 
     /// </summary>
-    public static readonly Random rand = new Random();
+    static readonly Random rand = new Random();
 
     internal static List<Order> _lstOreders = new List<Order>();
     internal static List<OrderItem> _lstOrderItems = new List<OrderItem>();
@@ -72,18 +71,25 @@ internal static class DataSource
             // draw a city and a street fron the cities and streeats arrays
             order.CustumerAdress = streets[rand.Next(0, 4)] + " " + rand.Next(1, 100) + " " + cities[rand.Next(0, 4)];
             // draw a date in the rang between last year and two months ago
-            order.OrderDate = DateTime.Now.AddMonths(rand.Next(-12, -2));
+            order.OrderDate = DateTime.Now.Add(new TimeSpan(rand.Next(-360, 0), 0, 0, 0));
 
-            //TimeSpan timeSpan = (TimeSpan)(order.OrderDate.Value.AddMonths(2)-order.OrderDate) ;
+            // about 80% of the orders have a ship date
+            if (i < 16)
+                // draw a date in the range between the order date and 7 days after
+                order.ShipDate = order.OrderDate.Value.Add(new TimeSpan(rand.Next(1, 7), 0, 0, 0));
+            else
+                order.ShipDate = DateTime.MinValue;
 
-            // draw a date in the range between the order date and 7 days after
-            order.ShipDate = order.OrderDate.Value.AddDays(rand.Next(7, 21));
-            // draw a date in the range between the ship date and 2 days after
-            order.DeliveryDate = order.ShipDate.Value.AddDays(rand.Next(2, 6));
+            // about 60% of the shipped orders have a delivery date
+            if (i < 10)
+                // draw a date in the range between the ship date and 2 days after
+                order.DeliveryDate = order.ShipDate.Value.Add(new TimeSpan(rand.Next(1, 2), 0, 0, 0));
+            else
+                order.DeliveryDate = DateTime.MinValue;
 
             _lstOreders.Add(order);
         }
-        for(int i = 0; i < 20; i++)
+        for (int i = 0; i < 20; i++)
         {
             for (int j = 0; j < 2; j++)
             {
@@ -120,7 +126,8 @@ internal static class DataSource
         private static int _itemOrderID = 100000;
         private static int _orderID = 100000;
 
-        public static int _ItemOrderID
+        public static int
+            _ItemOrderID
         {
             get { return _itemOrderID++; }
         }
