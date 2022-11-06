@@ -153,7 +153,7 @@ namespace DalTest
 
                 return orderItem;
             }
-            // gets order's item, ask id from the user and print and return the order's id
+            // gets order's item, ask id from user and print and return the order's id
             void InputOrderItemIDAndPrint(ref OrderItem orderItem)
             {
                 Console.WriteLine("enter order's item id:");
