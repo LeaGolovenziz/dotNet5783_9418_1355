@@ -46,7 +46,6 @@ namespace DalTest
                 if (dateTime1.Equals(""))
                 {
                     DateTime.TryParse(dateTime1, out dateTime);
-                    //if (DateTime.TryParse(dateTime1, out dateTime))
                     order.OrderDate = dateTime;
                 }
 
@@ -55,7 +54,6 @@ namespace DalTest
                 if (dateTime1.Equals(""))
                 {
                     DateTime.TryParse(dateTime1, out dateTime);
-                    //if (DateTime.TryParse(dateTime1, out dateTime))
                     order.ShipDate = dateTime;
                 }
 
@@ -64,7 +62,6 @@ namespace DalTest
                 if (dateTime1.Equals(""))
                 {
                     DateTime.TryParse(dateTime1, out dateTime);
-                    //if (DateTime.TryParse(dateTime1, out dateTime))
                     order.DeliveryDate = dateTime;
                 }
 
