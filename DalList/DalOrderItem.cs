@@ -11,7 +11,7 @@ public class DalOrderItem
     /// <returns>int</returns>
     public int Add(OrderItem orderItem)
     {
-        orderItem.OrderItemID = DataSource.config._ItemOrderID;
+        orderItem.OrderItemID = DataSource.config.ItemOrderID;
         DataSource._lstOrderItems.Add(orderItem);
         return orderItem.OrderItemID;
     }
@@ -58,8 +58,10 @@ public class DalOrderItem
     /// <param name="orderItem"></param>
     public void Update(OrderItem orderItem)
     {
-        Delete(orderItem.OrderItemID);
-        Add(orderItem);
+        int index = DataSource._lstOrderItems.FindIndex(x => x.OrderID == orderItem.OrderID);
+        if (index == -1)
+            throw new Exception("the order's item doesn't exist");
+        DataSource._lstOrderItems[index] = orderItem;
     }
 
     /// <summary>

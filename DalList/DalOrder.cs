@@ -12,7 +12,7 @@ public class DalOrder
     /// <returns>int</returns>
     public int Add(Order order)
     {
-        order.ID = DataSource.config._OrderID;
+        order.ID = DataSource.config.OrderID;
         DataSource._lstOreders.Add(order);
         return order.ID; 
     }
@@ -45,8 +45,10 @@ public class DalOrder
     /// <param name="order"></param>
     public void Update(Order order)
     {
-        Delete(order.ID);
-        Add(order);
+        int index = DataSource._lstOreders.FindIndex(x => x.ID == order.ID);
+        if(index==-1)
+            throw new Exception("the order doesn't exist");
+        DataSource._lstOreders[index]=order;
     }
 
     /// <summary>

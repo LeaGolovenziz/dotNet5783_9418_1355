@@ -14,9 +14,9 @@ namespace DalTest
 {
     public class Program
     {
-        private static DalOrder dalOrder = new DalOrder();
-        private static DalProduct dalProduct = new DalProduct();
-        private static DalOrderItem dalOrderItem = new DalOrderItem();
+        private static DalOrder _dalOrder = new DalOrder();
+        private static DalProduct _dalProduct = new DalProduct();
+        private static DalOrderItem _dalOrderItem = new DalOrderItem();
 
         static void Main()
         {
@@ -73,7 +73,7 @@ namespace DalTest
                 Console.WriteLine("enter order id:");
                 int orderID = int.Parse(Console.ReadLine());
                 // print the order with "orderID" ID
-                order = dalOrder.Get(orderID);
+                order = _dalOrder.Get(orderID);
                 Console.WriteLine(order.ToString());
             }
 
@@ -115,7 +115,7 @@ namespace DalTest
                 int.TryParse(tempProductsID, out ProductsID);
                 product.ID = int.Parse(Console.ReadLine());
                 // get the product with this ID and print it 
-                product = dalProduct.Get(product.ID);
+                product = _dalProduct.Get(product.ID);
                 Console.WriteLine(product.ToString());
             }
 
@@ -158,7 +158,7 @@ namespace DalTest
             {
                 Console.WriteLine("enter order's item id:");
                 orderItem.OrderItemID = int.Parse(Console.ReadLine());
-                orderItem = dalOrderItem.Get(orderItem.OrderItemID);
+                orderItem = _dalOrderItem.Get(orderItem.OrderItemID);
                 Console.WriteLine(orderItem.ToString());
             }
 
@@ -193,7 +193,7 @@ namespace DalTest
                                 case 'a':
                                     InputOrderDetails(ref order);
 
-                                    Console.WriteLine(dalOrder.Add(order));
+                                    Console.WriteLine(_dalOrder.Add(order));
 
                                     break;
                                 // update order
@@ -204,7 +204,7 @@ namespace DalTest
                                     InputOrderDetails(ref order);
 
                                     // update the order in the list
-                                    dalOrder.Update(order);
+                                    _dalOrder.Update(order);
 
                                     break;
 
@@ -215,7 +215,7 @@ namespace DalTest
 
                                 case 'd':
                                     // gets ienumerable of the list 
-                                    IEnumerator<Order> ieOrders = dalOrder.Get().GetEnumerator();
+                                    IEnumerator<Order> ieOrders = _dalOrder.Get().GetEnumerator();
                                     // prints the list
                                     while (ieOrders.MoveNext())
                                     {
@@ -232,7 +232,7 @@ namespace DalTest
                                     int.TryParse(tempOrderID, out orderID);
 
                                     // deletes an order from the list
-                                    dalOrder.Delete(orderID);
+                                    _dalOrder.Delete(orderID);
 
                                     break;
                             }
@@ -255,7 +255,7 @@ namespace DalTest
                                     // input the other 
                                     product = GetProductDetails(ref product);
                                     // add product to the list
-                                    Console.WriteLine(dalProduct.Add(product));
+                                    Console.WriteLine(_dalProduct.Add(product));
                                     break;
                                 // update product's details 
                                 case 'b':
@@ -265,7 +265,7 @@ namespace DalTest
                                     GetProductDetails(ref product);
 
                                     // update the product in the list
-                                    dalProduct.Update(product);
+                                    _dalProduct.Update(product);
 
                                     break;
 
@@ -275,7 +275,7 @@ namespace DalTest
 
                                 case 'd':
                                     // gets ienumerable of the list
-                                    IEnumerator<Product> ieProduct = dalProduct.Get().GetEnumerator();
+                                    IEnumerator<Product> ieProduct = _dalProduct.Get().GetEnumerator();
                                     //print the lis
                                     while (ieProduct.MoveNext())
                                     {
@@ -291,7 +291,7 @@ namespace DalTest
                                     int.TryParse(tempID, out id);
 
                                     // delete the product from the list
-                                    dalProduct.Delete(id);
+                                    _dalProduct.Delete(id);
 
                                     break;
                             }
@@ -309,7 +309,7 @@ namespace DalTest
                                 case 'a':
                                     GetOrderItemDetails(ref orderItem);
 
-                                    Console.WriteLine(dalOrderItem.Add(orderItem));
+                                    Console.WriteLine(_dalOrderItem.Add(orderItem));
 
                                     break;
                                 // update order item
@@ -318,7 +318,7 @@ namespace DalTest
 
                                     GetOrderItemDetails(ref orderItem);
 
-                                    dalOrderItem.Update(orderItem);
+                                    _dalOrderItem.Update(orderItem);
 
                                     break;
                                 // print certain order item - by id
@@ -328,7 +328,7 @@ namespace DalTest
                                     break;
                                 // print all order items
                                 case 'd':
-                                    IEnumerable<OrderItem> ieOrderItems = dalOrderItem.Get();
+                                    IEnumerable<OrderItem> ieOrderItems = _dalOrderItem.Get();
                                     foreach (OrderItem oi in ieOrderItems)
                                     {
                                         Console.WriteLine(oi.ToString());
@@ -340,7 +340,7 @@ namespace DalTest
                                     Console.WriteLine("enter order's item id:");
                                     string tepOrderItemID = Console.ReadLine();
                                     int.TryParse(tepOrderItemID, out orderItemID);
-                                    dalOrderItem.Delete(orderItemID);
+                                    _dalOrderItem.Delete(orderItemID);
 
                                     break;
                                 // print certain order item - by product and order
@@ -353,7 +353,7 @@ namespace DalTest
                                     int.TryParse(tempOrderID, out orderID);
 
                                     // gets the order's item
-                                    orderItem = dalOrderItem.Get(productID, orderID);
+                                    orderItem = _dalOrderItem.Get(productID, orderID);
 
                                     // prints the order's item
                                     Console.WriteLine(orderItem.ToString());
@@ -365,10 +365,9 @@ namespace DalTest
                                     Console.WriteLine("enter order's id:");
                                     tempOrderID = Console.ReadLine();
                                     int.TryParse(tempOrderID, out orderID);
-                                    orderID = int.Parse(Console.ReadLine());
 
                                     // gets ienumerable of the list
-                                    IEnumerable<OrderItem> ieItems = dalOrderItem.GeOrderItems(orderID);
+                                    IEnumerable<OrderItem> ieItems = _dalOrderItem.GeOrderItems(orderID);
 
                                     // prints the list
                                     foreach (OrderItem oi in ieItems)

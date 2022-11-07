@@ -5,9 +5,9 @@ namespace Dal;
 internal static class DataSource
 {
     /// <summary>
-    /// 
+    /// unique random varient to draw numbers
     /// </summary>
-    static readonly Random rand = new Random();
+    static readonly Random _rand = new Random();
 
     internal static List<Order> _lstOreders = new List<Order>();
     internal static List<OrderItem> _lstOrderItems = new List<OrderItem>();
@@ -38,18 +38,18 @@ internal static class DataSource
             // draws an id while there's alredy a product in the list with the same id
             do
             {
-                product.ID = rand.Next(100000, 999999);
+                product.ID = _rand.Next(100000, 999999);
             }
             while (_lstPruducts.Exists(x => x.ID == product.ID));
 
             // select the name of the product from the names array
             product.Name = productsNamesArray[i];
             // draw the price of the product
-            product.Price = (double)rand.Next(50, 200);
+            product.Price = (double)_rand.Next(50, 200);
             // the stock is 0 the  first time
             product.InStock = i;
             //draw the category of the froduct
-            product.Category = (Enums.Category)rand.Next(0, 4);
+            product.Category = (Enums.Category)_rand.Next(0, 4);
 
             // add the product to the list
             _lstPruducts.Add(product);
@@ -61,29 +61,29 @@ internal static class DataSource
             Order order = new Order();
 
             // gets the next available id
-            order.ID = config._OrderID;
+            order.ID = config.OrderID;
             // draw a name and last name from the names and last names arrays
-            string custumerFirstName = firstNames[rand.Next(0, 4)];
-            string custumerLastName = lastNames[rand.Next(0, 4)];
+            string custumerFirstName = firstNames[_rand.Next(0, 4)];
+            string custumerLastName = lastNames[_rand.Next(0, 4)];
 
             order.CustumerName = custumerFirstName + " " + custumerLastName;
             order.CustumerEmail = custumerFirstName + custumerLastName + "@gmail.com";
             // draw a city and a street fron the cities and streeats arrays
-            order.CustumerAdress = streets[rand.Next(0, 4)] + " " + rand.Next(1, 100) + " " + cities[rand.Next(0, 4)];
+            order.CustumerAdress = streets[_rand.Next(0, 4)] + " " + _rand.Next(1, 100) + " " + cities[_rand.Next(0, 4)];
             // draw a date in the rang between last year and two months ago
-            order.OrderDate = DateTime.Now.Add(new TimeSpan(rand.Next(-360, 0), 0, 0, 0));
+            order.OrderDate = DateTime.Now.Add(new TimeSpan(_rand.Next(-360, 0), 0, 0, 0));
 
             // about 80% of the orders have a ship date
             if (i < 16)
                 // draw a date in the range between the order date and 7 days after
-                order.ShipDate = order.OrderDate.Value.Add(new TimeSpan(rand.Next(1, 7), 0, 0, 0));
+                order.ShipDate = order.OrderDate.Value.Add(new TimeSpan(_rand.Next(1, 7), 0, 0, 0));
             else
                 order.ShipDate = DateTime.MinValue;
 
             // about 60% of the shipped orders have a delivery date
             if (i < 10)
                 // draw a date in the range between the ship date and 2 days after
-                order.DeliveryDate = order.ShipDate.Value.Add(new TimeSpan(rand.Next(1, 2), 0, 0, 0));
+                order.DeliveryDate = order.ShipDate.Value.Add(new TimeSpan(_rand.Next(1, 2), 0, 0, 0));
             else
                 order.DeliveryDate = DateTime.MinValue;
 
@@ -95,12 +95,12 @@ internal static class DataSource
             {
                 OrderItem orderItem = new OrderItem();
 
-                orderItem.OrderItemID = config._ItemOrderID;
-                Product p = _lstPruducts[rand.Next(0, 9)];
+                orderItem.OrderItemID = config.ItemOrderID;
+                Product p = _lstPruducts[_rand.Next(0, 9)];
                 orderItem.ProductID = p.ID;
                 orderItem.Price = p.Price;
                 orderItem.OrderID = 100000 + i;
-                orderItem.Amount = rand.Next(1, 10);
+                orderItem.Amount = _rand.Next(1, 10);
 
                 _lstOrderItems.Add(orderItem);
             }
@@ -126,13 +126,12 @@ internal static class DataSource
         private static int _itemOrderID = 100000;
         private static int _orderID = 100000;
 
-        public static int
-            _ItemOrderID
+        public static int  ItemOrderID
         {
             get { return _itemOrderID++; }
         }
 
-        public static int _OrderID
+        public static int OrderID
         {
             get { return _orderID++; }
         }

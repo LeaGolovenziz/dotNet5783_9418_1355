@@ -48,8 +48,10 @@ public class DalProduct
     /// <param name="product"></param>
     public void Update(Product product)
     {
-        Delete(product.ID);
-        Add(product);
+        int index = DataSource._lstPruducts.FindIndex(x => x.ID == product.ID);
+        if (index == -1)
+            throw new Exception("the product doesn't exist");
+        DataSource._lstPruducts[index] = product;
     }
 
     /// <summary>
