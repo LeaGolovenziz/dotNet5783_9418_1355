@@ -1,8 +1,8 @@
 ﻿using DO;
-
 namespace Dal;
+using DalApi;
 
-public class DalOrderItem
+public class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// adds the orderItem to the orderItems list and return it's id
@@ -24,9 +24,9 @@ public class DalOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem Get(int id)
     {
-        if (DataSource._lstOrderItems.Exists(x => x.OrderItemID == id))
-            return DataSource._lstOrderItems.Find(x => x.OrderItemID == id);
-        throw new Exception("the order's item doesn't exist");
+        if (!DataSource._lstOrderItems.Exists(x => x.OrderItemID == id))
+            NotFound.Messege();
+        return DataSource._lstOrderItems.Find(x => x.OrderItemID == id);
     }
 
     /// <summary>
@@ -38,9 +38,9 @@ public class DalOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem Get(int productID, int orderID)
     {
-        if (DataSource._lstOrderItems.Exists(x => x.ProductID == productID && x.OrderID == orderID))
-            return DataSource._lstOrderItems.Find(x => x.ProductID == productID && x.OrderID == orderID);
-        throw new Exception("the order's item doesn't exist");
+        if (!DataSource._lstOrderItems.Exists(x => x.ProductID == productID && x.OrderID == orderID))
+            NotFound.Messege();
+        return DataSource._lstOrderItems.Find(x => x.ProductID == productID && x.OrderID == orderID);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public class DalOrderItem
     {
         int index = DataSource._lstOrderItems.FindIndex(x => x.OrderID == orderItem.OrderID);
         if (index == -1)
-            throw new Exception("the order's item doesn't exist");
+            NotFound.Messege();
         DataSource._lstOrderItems[index] = orderItem;
     }
 

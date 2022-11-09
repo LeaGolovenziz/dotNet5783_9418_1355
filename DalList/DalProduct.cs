@@ -1,9 +1,9 @@
 ﻿using DO;
 using System.Security.Cryptography.X509Certificates;
-
+using DalApi;
 namespace Dal;
 
-public class DalProduct
+public class DalProduct : IProduct
 {
     /// <summary>
     /// adds the product to the produts list and return it's id if doesn't already exist
@@ -13,12 +13,11 @@ public class DalProduct
     /// <exception cref="Exception"></exception>
     public int Add(Product product)
     {
-        if (!DataSource._lstPruducts.Exists(x => x.ID == product.ID))
-        {
-            DataSource._lstPruducts.Add(product);
-            return product.ID;
-        }
-        throw new Exception("the product is already exist");
+        if (DataSource._lstPruducts.Exists(x => x.ID == product.ID))
+            AlreadyExist.Messege();
+        DataSource._lstPruducts.Add(product);
+        return product.ID;
+       
     }
     /// <summary>
     /// gets an id and return the product with this id
@@ -28,9 +27,9 @@ public class DalProduct
     /// <exception cref="Exception"></exception>
     public Product Get(int id)
     {
-        if (DataSource._lstPruducts.Exists(x => x.ID == id))
-            return DataSource._lstPruducts.Find(x => x.ID == id);
-        throw new Exception("the product doesn't exist");
+        if (!DataSource._lstPruducts.Exists(x => x.ID == id))
+            NotFound.Messege();
+        return DataSource._lstPruducts.Find(x => x.ID == id);
     }
 
     /// <summary>
@@ -50,7 +49,7 @@ public class DalProduct
     {
         int index = DataSource._lstPruducts.FindIndex(x => x.ID == product.ID);
         if (index == -1)
-            throw new Exception("the product doesn't exist");
+            NotFound.Messege();
         DataSource._lstPruducts[index] = product;
     }
 

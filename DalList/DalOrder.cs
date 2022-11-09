@@ -1,9 +1,10 @@
 ﻿using DO;
 using System.Security.Cryptography.X509Certificates;
+using DalApi;
 
 namespace Dal;
 
-public class DalOrder
+public class DalOrder : IOrder
 {
     /// <summary>
     /// adds the order to the orders list and return it's id
@@ -26,8 +27,8 @@ public class DalOrder
     public Order Get(int id)
     {
         if (DataSource._lstOreders.Exists(x => x.ID == id))
-            return DataSource._lstOreders.Find(x=>x.ID==id);
-        throw new Exception("the order doesn't exist");
+            NotFound.Messege();
+        return DataSource._lstOreders.Find(x=>x.ID==id);
     }
 
     /// <summary>
@@ -47,7 +48,7 @@ public class DalOrder
     {
         int index = DataSource._lstOreders.FindIndex(x => x.ID == order.ID);
         if(index==-1)
-            throw new Exception("the order doesn't exist");
+            NotFound.Messege();
         DataSource._lstOreders[index]=order;
     }
 
