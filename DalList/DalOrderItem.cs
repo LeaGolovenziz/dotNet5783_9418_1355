@@ -25,7 +25,7 @@ internal class DalOrderItem : IOrderItem
     public OrderItem Get(int id)
     {
         if (!DataSource._lstOrderItems.Exists(x => x.OrderItemID == id))
-            NotFound.Messege();
+            throw new NotFound();
         return DataSource._lstOrderItems.Find(x => x.OrderItemID == id);
     }
 
@@ -39,7 +39,7 @@ internal class DalOrderItem : IOrderItem
     public OrderItem Get(int productID, int orderID)
     {
         if (!DataSource._lstOrderItems.Exists(x => x.ProductID == productID && x.OrderID == orderID))
-            NotFound.Messege();
+            throw new NotFound();
         return DataSource._lstOrderItems.Find(x => x.ProductID == productID && x.OrderID == orderID);
     }
 
@@ -60,7 +60,7 @@ internal class DalOrderItem : IOrderItem
     {
         int index = DataSource._lstOrderItems.FindIndex(x => x.OrderID == orderItem.OrderID);
         if (index == -1)
-            NotFound.Messege();
+            throw new NotFound();
         DataSource._lstOrderItems[index] = orderItem;
     }
 

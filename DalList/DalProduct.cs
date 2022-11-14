@@ -14,7 +14,7 @@ internal class DalProduct : IProduct
     public int Add(Product product)
     {
         if (DataSource._lstPruducts.Exists(x => x.ID == product.ID))
-            AlreadyExist.Messege();
+            throw new AlreadyExist();
         DataSource._lstPruducts.Add(product);
         return product.ID;
        
@@ -28,7 +28,7 @@ internal class DalProduct : IProduct
     public Product Get(int id)
     {
         if (!DataSource._lstPruducts.Exists(x => x.ID == id))
-            NotFound.Messege();
+            throw new NotFound();
         return DataSource._lstPruducts.Find(x => x.ID == id);
     }
 
@@ -49,7 +49,7 @@ internal class DalProduct : IProduct
     {
         int index = DataSource._lstPruducts.FindIndex(x => x.ID == product.ID);
         if (index == -1)
-            NotFound.Messege();
+            throw new NotFound();
         DataSource._lstPruducts[index] = product;
     }
 

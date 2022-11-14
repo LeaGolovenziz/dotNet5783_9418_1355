@@ -28,17 +28,17 @@ namespace DalTest
                 Console.WriteLine("enter costumer name:");
                 string costumerName = Console.ReadLine();
                 if (!costumerName.Equals(""))
-                    order.CustumerName = costumerName;
+                    order.CustomerName = costumerName;
 
                 Console.WriteLine("enter costumer Email:");
                 string costumerEmail = Console.ReadLine();
                 if (!costumerEmail.Equals(""))
-                    order.CustumerEmail = costumerEmail;
+                    order.CustomerEmail = costumerEmail;
 
                 Console.WriteLine("enter costumer adress:");
                 string costumerAdress = Console.ReadLine();
                 if (!costumerAdress.Equals(""))
-                    order.CustumerAdress = costumerAdress;
+                    order.CustomerAdress = costumerAdress;
 
                 Console.WriteLine("enter order's date in a dd.mm.yy format:");
                 dateTime1 = Console.ReadLine();

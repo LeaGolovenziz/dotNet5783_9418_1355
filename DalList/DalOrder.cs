@@ -26,8 +26,8 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"></exception>
     public Order Get(int id)
     {
-        if (DataSource._lstOreders.Exists(x => x.ID == id))
-            NotFound.Messege();
+        if (!DataSource._lstOreders.Exists(x => x.ID == id))
+            throw new NotFound();
         return DataSource._lstOreders.Find(x=>x.ID==id);
     }
 
@@ -48,7 +48,7 @@ internal class DalOrder : IOrder
     {
         int index = DataSource._lstOreders.FindIndex(x => x.ID == order.ID);
         if(index==-1)
-            NotFound.Messege();
+            throw new NotFound();
         DataSource._lstOreders[index]=order;
     }
 

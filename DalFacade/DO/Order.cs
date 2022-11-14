@@ -12,15 +12,15 @@ public struct Order
     /// <summary>
     /// Unique custumer's name of order
     /// </summary>
-    public string? CustumerName { get; set; }
+    public string? CustomerName { get; set; }
     /// <summary>
     /// Unique austumer's email of order
     /// </summary>
-    public string? CustumerEmail{ get; set; }
+    public string? CustomerEmail{ get; set; }
     /// <summary>
     /// Unique custumer's adress of order
     /// </summary>
-    public string? CustumerAdress { get; set; }
+    public string? CustomerAdress { get; set; }
     /// <summary>
     /// Unique date of order
     /// </summary>
@@ -40,9 +40,9 @@ public struct Order
     /// <returns>string</returns>
     public override string ToString() => $@"
        Order's ID - {ID}: 
-       Custumer's name - {CustumerName}
-       Custumer's Email - {CustumerEmail}
-       Custumer's adress - {CustumerAdress}
+       Custumer's name - {CustomerName}
+       Custumer's Email - {CustomerEmail}
+       Custumer's adress - {CustomerAdress}
        Order's date - {OrderDate}
        Order's ship date - {ShipDate}
        Order's delivery date - {DeliveryDate}

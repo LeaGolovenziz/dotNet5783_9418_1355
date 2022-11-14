@@ -1,0 +1,51 @@
+﻿using DO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static BO.Enums;
+
+namespace BO
+{
+    public class ProductItem
+    {
+        /// <summary>
+        /// unique ID of productItem
+        /// </summary>
+        public int ID { get; set; }
+        /// <summary>
+        /// unique name of product
+        /// </summary>
+        public string? ProductName { get; set; }
+        /// <summary>
+        /// unique price of product
+        /// </summary>
+        public double? ProductPrice { get; set; }
+        /// <summary>
+        /// unique category of product
+        /// </summary>
+        public Category? ProductCategory { get; set; }
+        /// <summary>
+        /// unique is in stock flag
+        /// </summary>
+        public bool? IsInStock { get; set; }
+        /// <summary>
+        /// unique amount of product in cart
+        /// </summary>
+        public int AmountInCart { get; set; }
+
+        /// <summary>
+        /// returns a string of the ordered item's details
+        /// </summary>
+        /// <returns>string</returns>
+        public override string ToString() => $@"
+        Product item ID - {ID}:
+        Product's name: {ProductName}   
+                  price: {ProductPrice}
+                  category: {ProductCategory}
+        Is in stock: {IsInStock}
+        Amount of product in cart: {AmountInCart}
+";
+    }
+}

@@ -6,19 +6,13 @@ using System.Threading.Tasks;
 
 namespace DalApi
 {
-    public class NotFound
+    public class NotFound:Exception
     {
-        public static void Messege()
-        {
-            throw new Exception("The requested object wasn't found");
-        }
+        public NotFound():base("The requested object wasn't found") {}
     }
 
-    public class AlreadyExist
+    public class AlreadyExist : Exception
     {
-        public static string Messege()
-        {
-            throw new Exception("The object already exists");
-        }
+        public AlreadyExist():base("The object already exists") { }
     }
 }

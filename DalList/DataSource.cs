@@ -66,10 +66,10 @@ internal static class DataSource
             string custumerFirstName = firstNames[_rand.Next(0, 4)];
             string custumerLastName = lastNames[_rand.Next(0, 4)];
 
-            order.CustumerName = custumerFirstName + " " + custumerLastName;
-            order.CustumerEmail = custumerFirstName + custumerLastName + "@gmail.com";
+            order.CustomerName = custumerFirstName + " " + custumerLastName;
+            order.CustomerEmail = custumerFirstName + custumerLastName + "@gmail.com";
             // draw a city and a street fron the cities and streeats arrays
-            order.CustumerAdress = streets[_rand.Next(0, 4)] + " " + _rand.Next(1, 100) + " " + cities[_rand.Next(0, 4)];
+            order.CustomerAdress = streets[_rand.Next(0, 4)] + " " + _rand.Next(1, 100) + " " + cities[_rand.Next(0, 4)];
             // draw a date in the rang between last year and two months ago
             order.OrderDate = DateTime.Now.Add(new TimeSpan(_rand.Next(-360, 0), 0, 0, 0));
 
