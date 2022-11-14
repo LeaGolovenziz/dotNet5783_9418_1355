@@ -2,7 +2,7 @@
 namespace Dal;
 using DalApi;
 
-public class DalOrderItem : IOrderItem
+internal class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// adds the orderItem to the orderItems list and return it's id

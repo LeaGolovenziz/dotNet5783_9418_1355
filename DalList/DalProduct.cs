@@ -3,7 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 using DalApi;
 namespace Dal;
 
-public class DalProduct : IProduct
+internal class DalProduct : IProduct
 {
     /// <summary>
     /// adds the product to the produts list and return it's id if doesn't already exist

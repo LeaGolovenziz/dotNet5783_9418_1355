@@ -1,4 +1,4 @@
-﻿namespace DalList
+﻿namespace BL
 {
     public class Class1
     {

@@ -4,7 +4,7 @@ using DalApi;
 
 namespace Dal;
 
-public class DalOrder : IOrder
+internal class DalOrder : IOrder
 {
     /// <summary>
     /// adds the order to the orders list and return it's id
