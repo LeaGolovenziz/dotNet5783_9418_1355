@@ -12,7 +12,7 @@ namespace BO
         /// <summary>
         /// unique ID of orders' list
         /// </summary>
-        public int ID { get; set; }
+        public int OrderID { get; set; }
         /// <summary>
         /// unique name of costumer
         /// </summary>
@@ -34,7 +34,7 @@ namespace BO
         /// </summary>
         /// <returns>string</returns>
         public override string ToString() => $@"
-        Order for list ID - {ID}:
+        Order for list ID - {OrderID}:
         Custumer's name: {CostumerName}
         Order's status: {OrderStatus}
         Amount of items: {Amount}

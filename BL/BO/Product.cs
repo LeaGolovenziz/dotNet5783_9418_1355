@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using static DO.Enums;
+using static BO.Enums;
 
 namespace BO
 {

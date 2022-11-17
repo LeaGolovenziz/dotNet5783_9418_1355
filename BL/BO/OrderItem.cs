@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace BO
         /// <summary>
         /// Unique ID of the Ordered Item
         /// </summary>
-        public int OrderItemID { get; set; }
+        public int OrderID { get; set; }
         /// <summary>
         /// Unique Product's ID of the Ordered Item
         /// </summary>
@@ -38,7 +39,7 @@ namespace BO
         /// </summary>
         /// <returns>string</returns>
         public override string ToString() => $@"
-       Order item ID -{OrderItemID}
+       Order item ID -{OrderID}
        Product's ID - {ProductID}
                  name - {ProductName}   
                  price - {ProductPrice}

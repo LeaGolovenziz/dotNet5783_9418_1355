@@ -14,7 +14,7 @@ namespace BO
         /// <summary>
         /// unique ID of the order
         /// </summary>
-        public int ID { get; set; }
+        public int OrderID { get; set; }
         /// <summary>
         /// unique status of order
         /// </summary>
@@ -28,7 +28,7 @@ namespace BO
         /// </summary>
         /// <returns></returns>
         public override string ToString() => $@"
-        Order tracking ID - {ID}:
+        Order tracking ID - {OrderID}:
         Order's status: {OrderStatus} 
         tracking: {Tracking}
 ";
