@@ -36,6 +36,12 @@ namespace BlApi
         /// <returns></returns>
         public Order DeliverOrder(int orderID);
         /// <summary>
+        /// gets order id, and returns order tracking of that order
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns>OrderTracking</returns>
+        public OrderTracking TrackOrder(int orderID);
+        /// <summary>
         /// gets order id, update its details and returns the updated order
         /// </summary>
         /// <param name="orderID"></param>
