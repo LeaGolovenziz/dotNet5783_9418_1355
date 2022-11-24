@@ -16,7 +16,7 @@ public struct OrderItem
     /// <summary>
     /// Unique Order's ID of the Ordered Item
     /// </summary>
-    public int? OrderID { get; set; }
+    public int OrderID { get; set; }
     /// <summary>
     /// Unique Price of the Ordered Item
     /// </summary>

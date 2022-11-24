@@ -18,9 +18,9 @@ namespace BO
     {
         public UnvalPrice() : base("The price you entered isn't valid") { }
     }
-    public class UnvalidAmount : Exception
+    public class UnvalAmount : Exception
     {
-        public UnvalidAmount() : base("The amount you entered isn't valid") { }
+        public UnvalAmount() : base("The amount you entered isn't valid") { }
     }
     public class DoesntExist : Exception
     {
@@ -40,5 +40,10 @@ namespace BO
     public class ProductNotInStock : Exception
     {
         public ProductNotInStock() : base("The product isn't in stock") { }
+    }
+
+    public class AlreadyShipped : Exception
+    {
+        public AlreadyShipped() : base("The order has already been shipped") { }
     }
 }

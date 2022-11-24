@@ -24,7 +24,7 @@ public struct Product
     /// </summary>
     public Category Category { get; set; }
     /// <summary>
-    /// Unique inStock of product
+    /// Unique amount in stock of product
     /// </summary>
     public int? InStock { get; set; }
 

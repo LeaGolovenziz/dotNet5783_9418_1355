@@ -40,7 +40,7 @@ namespace BlApi
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        public Order UpdateOrderDetails(int orderID);
+        public Order UpdateOrderDetails(int orderID, int productID, int amountToChange);
 
     }
 }
