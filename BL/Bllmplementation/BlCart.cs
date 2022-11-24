@@ -21,6 +21,7 @@ namespace Bllmplementation
 
         Cart ICart.AddProductToCart(Cart cart, int productID)
         {
+            // checks if product exists and in stock
             try
             {
                 if (_dal.Product.Get(productID).InStock == 0)
@@ -33,22 +34,31 @@ namespace Bllmplementation
                 throw new DoesntExist(ex);
             }
 
+            // if product's already in the order
             if (cart.OrderItems.Exists(x => x.ProductID == productID))
             {
+                // find the index of the product 
                 int index = cart.OrderItems.FindIndex(x => x.ProductID == productID);
+                // adding 1 to the amount of the product
                 cart.OrderItems.ElementAt(index).ProductAmount++;
+                // updating the total price
                 cart.OrderItems.ElementAt(index).TotalPrice += cart.OrderItems.ElementAt(index).ProductPrice;
+                // updating the cart price
                 cart.price += cart.OrderItems.ElementAt(index).ProductPrice;
             }
             else
             {
+                // getting the product's details
                 DO.Product product = _dal.Product.Get(productID);
+                // creating a new order item for the cart and updating it's details
                 BO.OrderItem orderItem = new BO.OrderItem();
                 orderItem.ProductID = productID;
                 orderItem.ProductPrice = product.Price;
                 orderItem.ProductAmount = 1;
                 orderItem.TotalPrice = product.Price;
+                // adding the order item to the cart
                 cart.OrderItems.Add(orderItem);
+                //updating the cart total price
                 cart.price += product.Price;
             }
 
@@ -58,14 +68,16 @@ namespace Bllmplementation
 
         void ICart.PlaceOrder(Cart cart, string name, string email, string address)
         {
+            // checking validity of customers details:
             if (name.Equals(""))
                 throw new UnvalidName();
-            // for cheking email validation
             EmailAddressAttribute emailAddressAttribute = new EmailAddressAttribute();
             if (emailAddressAttribute.IsValid(email))
                 throw new UnvalidEmail();
             if (address.Equals(""))
                 throw new UnvalidAddress();
+
+            //checking validity of order items
             try
             {
                 foreach (BO.OrderItem item in cart.OrderItems)
@@ -82,6 +94,7 @@ namespace Bllmplementation
                 throw new DoesntExist();
             }
 
+            // creating a new BO order
             BO.Order order= new BO.Order();
             order.CustumerAdress = address;
             order.CustumerEmail = email;
@@ -91,6 +104,7 @@ namespace Bllmplementation
             order.Price = 0;
             order.OrderItems = new List<BO.OrderItem>();
 
+            // creating a new DO order
             DO.Order tOrder = new DO.Order();
             tOrder.OrderDate = DateTime.Now;
             tOrder.CustomerAdress = address;
@@ -99,8 +113,10 @@ namespace Bllmplementation
 
             order.ID = _dal.Order.Add(tOrder);
 
+            // adding order items from the cart to the order
             foreach (BO.OrderItem item in order.OrderItems)
             {
+                //creating a DO order item
                 DO.OrderItem tOrderItem = new DO.OrderItem();
                 tOrderItem.OrderID=order.ID;
                 tOrderItem.Price = item.ProductPrice;
@@ -108,8 +124,10 @@ namespace Bllmplementation
                 tOrderItem.Amount = item.ProductAmount;
                 _dal.OrderItem.Add(tOrderItem);
 
+                // ading the BO order item to the order
                 order.OrderItems.Add(item);
 
+                // updating the amount of the product in dal
                 try
                 {
                     DO.Product product = _dal.Product.Get(item.ProductID);
@@ -126,32 +144,47 @@ namespace Bllmplementation
 
         Cart ICart.UpdateProductAmountInCart(Cart cart, int productID, int amount)
         {
+            // if product doesn't exists in the cart throw exception
             if (!cart.OrderItems.Exists(x => x.ProductID == productID))
             {
                 throw new DoesntExist();
             }
+
+            // find the index of the order item in the cart
             int index = cart.OrderItems.FindIndex(x => x.ProductID == productID);
+
+            // if the wanted amount is bigger than the current amount 
             if (amount > cart.OrderItems.ElementAt(index).ProductAmount)
             {
-                if (_dal.Product.Get(productID).InStock < (cart.OrderItems.ElementAt(index).ProductAmount - amount))
+                // checking if there is enough in stock
+                if (_dal.Product.Get(productID).InStock < amount)
                 {
                     throw new ProductNotInStock();
                 }
+                // updating the amount and the total price of the product
                 cart.OrderItems.ElementAt(index).ProductAmount += amount;
                 double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).ProductPrice * amount;
                 cart.OrderItems.ElementAt(index).TotalPrice += totalPriceAdded;
+                // updating the total price of the cart
                 cart.price += totalPriceAdded;
             }
+            // if the wanted amount equals 0
+            else if (cart.OrderItems.ElementAt(index).ProductAmount == 0)
+            {
+                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice * (int)cart.OrderItems.ElementAt(index).ProductAmount;
+                cart.OrderItems.RemoveAt(index);
+                cart.price -= totalPriceSub;
+
+            }
+            // if the wanted amount is smaller than the current amount
             else if (amount < cart.OrderItems.ElementAt(index).ProductAmount)
             {
                 cart.OrderItems.ElementAt(index).ProductAmount -= amount;
                 double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice * amount;
-                if (cart.OrderItems.ElementAt(index).ProductAmount == 0)
-                    cart.OrderItems.RemoveAt(index);
-                else
-                    cart.OrderItems.ElementAt(index).TotalPrice -= totalPriceSub;
+                cart.OrderItems.ElementAt(index).TotalPrice -= totalPriceSub;
                 cart.price -= totalPriceSub;
             }
+             
             return cart;
         }
     }

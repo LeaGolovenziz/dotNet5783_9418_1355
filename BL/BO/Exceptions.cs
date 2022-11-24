@@ -22,13 +22,13 @@ namespace BO
     {
         public UnvalidEmail() : base("The email you entered isn't valid") { }
     }
-    public class UnvalPrice : Exception
+    public class UnvalidPrice : Exception
     {
-        public UnvalPrice() : base("The price you entered isn't valid") { }
+        public UnvalidPrice() : base("The price you entered isn't valid") { }
     }
-    public class UnvalAmount : Exception
+    public class UnvalidAmount : Exception
     {
-        public UnvalAmount() : base("The amount you entered isn't valid") { }
+        public UnvalidAmount() : base("The amount you entered isn't valid") { }
     }
     public class DoesntExist : Exception
     {

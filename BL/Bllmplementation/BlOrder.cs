@@ -44,7 +44,6 @@ namespace Bllmplementation
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Confirmed;
 
             // The orderItems of order
-            IEnumerable<OrderItem> orderItems = new List<OrderItem>();
             IEnumerable<DO.OrderItem> tempOrderItems = _dal.OrderItem.GeOrderItems(orderID);
             foreach (DO.OrderItem item in tempOrderItems)
             {
@@ -128,7 +127,6 @@ namespace Bllmplementation
             }
         }
 
-
         IEnumerable<OrderForList> IOrder.GetOrderList()
         {
             IEnumerable<OrderForList> orders = new List<OrderForList>();
@@ -181,7 +179,7 @@ namespace Bllmplementation
                 try
                 {
                     if (amountToChange < 0)
-                        throw new UnvalAmount();
+                        throw new UnvalidAmount();
 
                     DO.Product dalProduct = _dal.Product.Get(productID);
                     DO.OrderItem dalOrderItem = _dal.OrderItem.Get(orderID);
