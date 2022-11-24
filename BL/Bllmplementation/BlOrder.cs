@@ -43,7 +43,7 @@ namespace Bllmplementation
             else
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Confirmed;
 
-            // The orderItems of order
+            // The orderItems of dalorder
             IEnumerable<DO.OrderItem> tempOrderItems = _dal.OrderItem.GeOrderItems(orderID);
             foreach (DO.OrderItem item in tempOrderItems)
             {
@@ -65,7 +65,7 @@ namespace Bllmplementation
             return blOrder;
         }
 
-        public BO.Order DeliverOrder(int orderID)
+        public Order DeliverOrder(int orderID)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace Bllmplementation
 
         IEnumerable<OrderForList> IOrder.GetOrderList()
         {
-            IEnumerable<OrderForList> orders = new List<OrderForList>();
+            List<OrderForList> orders = new List<OrderForList>();
             IEnumerable<DO.Order> temp = _dal.Order.Get();
             IEnumerable<DO.OrderItem> orderItems = _dal.OrderItem.Get();
 
@@ -146,6 +146,8 @@ namespace Bllmplementation
                     tempOrderForList.OrderStatus = BO.Enums.OrderStatus.Confirmed;
                 tempOrderForList.Amount = orderItems.First(x => x.OrderID == order.ID).Amount;
                 tempOrderForList.Price = orderItems.First(x => x.OrderID == order.ID).Price;
+
+                orders.Add(tempOrderForList);
             }
             return orders;
         }

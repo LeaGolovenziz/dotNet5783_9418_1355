@@ -11,6 +11,8 @@ using static BO.Enums;
 using System.Xml.Linq;
 using BlApi;
 using Bllmplementation;
+using System.Collections.Generic;
+using Microsoft.VisualBasic;
 
 namespace BlTest
 {
@@ -173,6 +175,9 @@ namespace BlTest
                 {
                     Console.WriteLine("1. check order\n2. check product\n3. check cart \n0. to exit\n");
                     firstChoice = int.Parse(Console.ReadLine());
+                    char secondChoise;
+                    string tempOrderID, tempSecondChoise, tempProductID, tempNewAmount;
+                    int newAmount;
 
                     switch (firstChoice)
                     {
@@ -182,16 +187,93 @@ namespace BlTest
                             break;
                         // order operations
                         case 1:
-                            Console.WriteLine("d. update order's delivery\ns. update order's shipping\ng. get orders' list\no. get order's details\nt. track order\nu. update order's details\ne. to return to main menue\n");
-                            string tempSecondChoise = Console.ReadLine();
-                            char secondChoise;
-                            char.TryParse(tempSecondChoise, out secondChoise);
-
-                            switch (secondChoise)
+                            do
                             {
-                                
-                            }
+                                Console.WriteLine("g. get orders' list\no. get order's details\nd. update order's delivery\ns. update order's shipping\nt. track order\nu. update order's details\ne. return to main menue\n");
+                                tempSecondChoise = Console.ReadLine();
+                                char.TryParse(tempSecondChoise, out secondChoise);
 
+                                switch (secondChoise)
+                                {
+                                    // get order's list
+                                    case 'g':
+                                        IEnumerable<OrderForList> lst = _iBl.Order.GetOrderList();
+                                        foreach(OrderForList orderInList in lst)
+                                        {
+                                            Console.WriteLine(orderInList);
+                                        }
+                                        break;
+
+                                    // get order details
+                                    case 'o':
+                                        // input order's ID
+                                        Console.WriteLine("Enter order's id");
+                                        tempOrderID = Console.ReadLine();
+                                        int.TryParse(tempOrderID, out orderID);
+
+                                        order = _iBl.Order.GetOrderDetails(orderID);
+
+                                        Console.WriteLine(order);
+                                        break;
+
+                                    // update order's delivery
+                                    case 'd':
+                                        Console.WriteLine("Enter order's id");
+                                        tempOrderID = Console.ReadLine();
+                                        int.TryParse(tempOrderID, out orderID);
+
+                                        order = _iBl.Order.DeliverOrder(orderID);
+
+                                        Console.WriteLine(order);
+
+                                        break;
+
+                                    // update order's shipping
+                                    case 's':
+                                        Console.WriteLine("Enter order's id");
+                                        tempOrderID = Console.ReadLine();
+                                        int.TryParse(tempOrderID, out orderID);
+
+                                        order = _iBl.Order.ShipOrder(orderID);
+
+                                        Console.WriteLine(order);
+
+                                        break;
+
+                                    // track order
+                                    case 't':
+                                        Console.WriteLine("Enter order's id");
+                                        tempOrderID = Console.ReadLine();
+                                        int.TryParse(tempOrderID, out orderID);
+
+                                        OrderTracking orderT= _iBl.Order.TrackOrder(orderID);
+
+                                        Console.WriteLine(orderT);
+
+                                        break;
+
+                                    // update order's details
+                                    case 'u':
+                                        // input details of the update
+                                        Console.WriteLine("Enter order's id");
+                                        tempOrderID = Console.ReadLine();
+                                        int.TryParse(tempOrderID, out orderID);
+                                        Console.WriteLine("Enter product's id");
+                                        tempProductID = Console.ReadLine();
+                                        int.TryParse(tempOrderID, out productID);
+                                        Console.WriteLine("Enter new amount");
+                                        tempNewAmount = Console.ReadLine();
+                                        int.TryParse(tempNewAmount, out newAmount);
+
+                                        order = _iBl.Order.UpdateOrderDetails(orderID, productID, newAmount);
+
+                                        Console.WriteLine(order);
+                                        
+                                        break;
+                                }
+                            }
+                            while (!secondChoise.Equals('e'));
+                            
                             break;
                         // product operations
                         case 2:
