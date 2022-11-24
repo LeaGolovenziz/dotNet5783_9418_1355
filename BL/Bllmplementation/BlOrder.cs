@@ -48,7 +48,7 @@ namespace Bllmplementation
             foreach (DO.OrderItem item in tempOrderItems)
             {
                 OrderItem tempOrderItem = new OrderItem();
-                tempOrderItem.OrderID = item.OrderID;
+                tempOrderItem.OrderID = (int)item.OrderID;
                 tempOrderItem.ProductID = item.ProductID;
                 tempOrderItem.ProductName = _dal.Product.Get(item.ProductID).Name;
                 tempOrderItem.ProductPrice = item.Price;

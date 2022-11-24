@@ -25,7 +25,7 @@ namespace Bllmplementation
             if (product.Name.Equals(""))
                 throw new UnvalidName();
             if (product.Price <= 0)
-                throw new UnvalPrice();
+                throw new UnvalidPrice();
             if (product.InStock < 0)
                 throw new UnvalidAmount();
 
@@ -70,7 +70,7 @@ namespace Bllmplementation
             if (product.Name.Equals(""))
                 throw new UnvalidName();
             if (product.Price <= 0)
-                throw new UnvalPrice();
+                throw new UnvalidPrice();
             if (product.InStock < 0)
                 throw new UnvalidAmount();
 
