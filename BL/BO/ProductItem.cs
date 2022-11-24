@@ -35,6 +35,11 @@ namespace BO
         /// </summary>
         public int AmountInCart { get; set; }
 
+        private string isInStock()
+        {
+            return (bool)IsInStock ? "true" : "false";
+        }
+
         /// <summary>
         /// returns a string of the ordered item's details
         /// </summary>
@@ -44,7 +49,7 @@ namespace BO
         Product's name: {ProductName}   
                   price: {ProductPrice}
                   category: {ProductCategory}
-        Is in stock: {IsInStock}
+        Is in stock: {isInStock()}
         Amount of product in cart: {AmountInCart}
 ";
     }

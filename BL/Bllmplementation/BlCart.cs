@@ -19,7 +19,20 @@ namespace Bllmplementation
 
         Cart ICart.AddProductToCart(Cart cart, int productID)
         {
-            throw new NotImplementedException();
+            if (_dal.Product.Get(productID).InStock == 0)
+            {
+                throw new ProductNotInStock();
+            }
+            else
+            {
+                if (cart.OrderItems.Exists(x => x.ProductID == productID))
+                {
+                    int index = cart.OrderItems.FindIndex(x => x.ProductID == productID);
+                    cart.OrderItems.ElementAt(index).ProductAmount++;
+                }
+            }
+            return cart;
+
         }
 
         void ICart.PlaceOrder(Cart cart, string name, string email, string address)

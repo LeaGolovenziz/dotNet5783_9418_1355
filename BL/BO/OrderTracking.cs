@@ -22,7 +22,7 @@ namespace BO
         /// <summary>
         /// unique list of tracking
         /// </summary>
-        public Tuple<DateTime,OrderStatus>? Tracking { get; set; }
+        public Tuple<DateTime, OrderStatus>? Tracking { get; set; }
         /// <summary>
         /// returns a string of the order's tracking
         /// </summary>
@@ -30,7 +30,7 @@ namespace BO
         public override string ToString() => $@"
         Order tracking ID - {OrderID}:
         Order's status: {OrderStatus} 
-        tracking: {Tracking}
+        tracking: {string.Join('\n', Tracking)}
 ";
     }
 }

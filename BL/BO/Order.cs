@@ -62,7 +62,7 @@ namespace BO
                date - {OrderDate}
                ship date - {ShipDate}
                delivery date - {DeliveryDate}
-        List of items - {OrderItems}
+        List of items - {string.Join('\n', OrderItems)}
         Total price - {Price}
 ";
     }

@@ -39,7 +39,7 @@ namespace BO
         Custumer's name: {CustomerName} 
                    Email: {CustomerEmail} 
                    Address: {CustomerAddress}
-        list of items: {OrderItems}
+        list of items: {string.Join('\n', OrderItems)}
     	Total price: {price}
 ";
 
