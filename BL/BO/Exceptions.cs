@@ -14,6 +14,14 @@ namespace BO
     {
         public UnvalidName() : base("The name you entered isn't valid") { }
     }
+    public class UnvalidAddress : Exception
+    {
+        public UnvalidAddress() : base("The address you entered isn't valid") { }
+    }
+    public class UnvalidEmail: Exception
+    {
+        public UnvalidEmail() : base("The email you entered isn't valid") { }
+    }
     public class UnvalPrice : Exception
     {
         public UnvalPrice() : base("The price you entered isn't valid") { }

@@ -135,7 +135,7 @@ namespace Bllmplementation
             }
         }
 
-        public BO.Order UpdateOrderDetails(int orderID)
+        Order IOrder.GetOrderDetails(int orderID)
         {
             throw new NotImplementedException();
         }
@@ -162,6 +162,34 @@ namespace Bllmplementation
                 tempOrderForList.Price = orderItems.First(x => x.OrderID == order.ID).Price;
             }
             return orders;
+        }
+
+        public OrderTracking TrackOrder(int orderID)
+        {
+            try
+            {
+                DO.Order order=_dal.Order.Get(orderID);
+
+                OrderTracking orderTracking = new OrderTracking();
+
+                orderTracking.OrderID= orderID;
+                if (order.DeliveryDate < DateTime.Now)
+                    orderTracking.OrderStatus = BO.Enums.OrderStatus.Delivered;
+                else if (order.ShipDate < DateTime.Now)
+                    orderTracking.OrderStatus = BO.Enums.OrderStatus.Sent;
+                else
+                    orderTracking.OrderStatus = BO.Enums.OrderStatus.Confirmed;
+                orderTracking.Tracking = new List<Tuple<DateTime, BO.Enums.OrderStatus>>();
+                orderTracking.Tracking.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)order.OrderDate, BO.Enums.OrderStatus.Confirmed));
+                orderTracking.Tracking.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)order.ShipDate, BO.Enums.OrderStatus.Sent));
+                orderTracking.Tracking.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)order.DeliveryDate, BO.Enums.OrderStatus.Delivered));
+
+                return orderTracking;
+            }
+            catch(NotFound e)
+            {
+                throw new DoesntExist();
+            }
         }
 
 <<<<<<< HEAD
@@ -221,7 +249,5 @@ namespace Bllmplementation
             else
                 throw new AlreadyShipped();
         }
-=======
->>>>>>> 816807b8bf99cac0cb0bcfd5252de15d332b953d
     }
 }
