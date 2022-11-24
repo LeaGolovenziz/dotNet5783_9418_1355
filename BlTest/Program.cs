@@ -13,6 +13,7 @@ using BlApi;
 using Bllmplementation;
 using System.Collections.Generic;
 using Microsoft.VisualBasic;
+using System.Collections.Specialized;
 
 namespace BlTest
 {
@@ -22,152 +23,58 @@ namespace BlTest
 
         static void Main()
         {
-            // inputs order's details, creates an order and returns it
-            //Order InputOrderDetails(ref Order order)
-            //{
-            //    DateTime dateTime;
-            //    string dateTime1;
+            Cart getCartDetails(ref Cart cart)
+            {
+                Console.WriteLine("Enter customer's name:");
+                string name = Console.ReadLine();
+                cart.CustomerName= name;
 
-            //    Console.WriteLine("enter costumer name:");
-            //    string costumerName = Console.ReadLine();
-            //    if (!costumerName.Equals(""))
-            //        order.CustomerName = costumerName;
+                Console.WriteLine("Enter customer's email:");
+                string email = Console.ReadLine();
+                cart.CustomerEmail = email;
 
-            //    Console.WriteLine("enter costumer Email:");
-            //    string costumerEmail = Console.ReadLine();
-            //    if (!costumerEmail.Equals(""))
-            //        order.CustomerEmail = costumerEmail;
+                Console.WriteLine("Enter customer's address:");
+                string address = Console.ReadLine();
+                cart.CustomerAddress = address;
 
-            //    Console.WriteLine("enter costumer adress:");
-            //    string costumerAdress = Console.ReadLine();
-            //    if (!costumerAdress.Equals(""))
-            //        order.CustomerAdress = costumerAdress;
+                return cart;
+            }
 
-            //    Console.WriteLine("enter order's date in a dd.mm.yy format:");
-            //    dateTime1 = Console.ReadLine();
-            //    if (dateTime1.Equals(""))
-            //    {
-            //        DateTime.TryParse(dateTime1, out dateTime);
-            //        order.OrderDate = dateTime;
-            //    }
+            // gets product that have an ID, inputs its other details and returns it
+            Product GetProductDetails(ref Product product)
+            {
+                Console.WriteLine("Enter product's ID:");
+                int id = int.Parse(Console.ReadLine());             
+                    product.ID = id;
 
-            //    Console.WriteLine("enter order's ship date in a dd.mm.yy format:");
-            //    dateTime1 = Console.ReadLine();
-            //    if (dateTime1.Equals(""))
-            //    {
-            //        DateTime.TryParse(dateTime1, out dateTime);
-            //        order.ShipDate = dateTime;
-            //    }
+                Console.WriteLine("Enter product's name:");
+                string name = Console.ReadLine();
+                product.Name = name;
 
-            //    Console.WriteLine("enter order's delivary date in a dd.mm.yy format:");
-            //    dateTime1 = Console.ReadLine();
-            //    if (dateTime1.Equals(""))
-            //    {
-            //        DateTime.TryParse(dateTime1, out dateTime);
-            //        order.DeliveryDate = dateTime;
-            //    }
+                Console.WriteLine("Enter product's price:");
+                double price = double.Parse(Console.ReadLine());
+                product.Price = price;
 
-            //    return order;
-            //}
-            //void inputIDAndPrintOrder(ref Order order)
-            //{
-            //    // input id
-            //    Console.WriteLine("enter order id:");
-            //    int orderID = int.Parse(Console.ReadLine());
-            //    // print the order with "orderID" ID
-            //    order = _iDal.Order.Get(orderID);
-            //    Console.WriteLine(order.ToString());
-            //}
+                Console.WriteLine("Enter product's category:");
+                string category1 = Console.ReadLine();
+                Enums.Category category = (Enums.Category)Enum.Parse(typeof(Enums.Category), category1);
+                product.Category = category;
 
-            //// gets product that have an ID, inputs its other details and returns it
-            //Product GetProductDetails(ref Product product)
-            //{
-            //    Console.WriteLine("Enter product's name:");
-            //    string name = Console.ReadLine();
-            //    if (name != " ")
-            //        product.Name = name;
+                Console.WriteLine("Enter product's amount in stock:");
+                string tempInStock = Console.ReadLine();
+                int inStock;
+                int.TryParse(tempInStock, out inStock);
+                product.InStock = inStock;
 
-            //    Console.WriteLine("Enter product's price:");
-            //    double price = double.Parse(Console.ReadLine());
-            //    if (price != 0)
-            //        product.Price = price;
-
-            //    Console.WriteLine("Enter product's category:");
-            //    string category1 = Console.ReadLine();
-            //    Enums.Category category = (Enums.Category)Enum.Parse(typeof(Enums.Category), category1);
-            //    if (category1 != " ")
-            //        product.Category = category;
-
-            //    Console.WriteLine("Enter product's amount in stock:");
-            //    string tempInStock = Console.ReadLine();
-            //    int inStock;
-            //    int.TryParse(tempInStock, out inStock);
-            //    if (inStock != 0)
-            //        product.InStock = inStock;
-
-            //    return product;
-            //}
-            //// gets produt, ask id from the user and print and return the prodect
-            //void inputIDAndPrintProduct(ref Product product)
-            //{
-            //    // input ID
-            //    Console.WriteLine("Enter product's id:");
-            //    string tempProductsID = Console.ReadLine();
-            //    int ProductsID;
-            //    int.TryParse(tempProductsID, out ProductsID);
-            //    product.ID = int.Parse(Console.ReadLine());
-            //    // get the product with this ID and print it 
-            //    product = _iDal.Product.Get(product.ID);
-            //    Console.WriteLine(product.ToString());
-            //}
-
-            //// inputs order's item details, creates an order's item and returns it
-            //OrderItem GetOrderItemDetails(ref OrderItem orderItem)
-            //{
-            //    Console.WriteLine("enter product's ID:");
-            //    string tempProductsID = Console.ReadLine();
-            //    int ProductsID;
-            //    int.TryParse(tempProductsID, out ProductsID);
-            //    int productID = ProductsID;
-            //    if (productID != 0)
-            //        orderItem.ProductID = productID;
-
-            //    Console.WriteLine("enter order's ID:");
-            //    string tempOrderID = Console.ReadLine();
-            //    int orderID;
-            //    int.TryParse(tempOrderID, out orderID);
-            //    if (orderID != 0)
-            //        orderItem.OrderID = orderID;
-
-            //    Console.WriteLine("enter product's price:");
-            //    string tempPrice = Console.ReadLine();
-            //    double price;
-            //    double.TryParse(tempPrice, out price);
-            //    if (price != 0)
-            //        orderItem.Price = price;
-
-            //    Console.WriteLine("enter product's amount:");
-            //    string tempAmount = Console.ReadLine();
-            //    int amount;
-            //    int.TryParse(tempAmount, out amount);
-            //    if (amount != 0)
-            //        orderItem.Amount = amount;
-
-            //    return orderItem;
-            //}
-            //// gets order's item, ask id from user and print and return the order's id
-            //void InputOrderItemIDAndPrint(ref OrderItem orderItem)
-            //{
-            //    Console.WriteLine("enter order's item id:");
-            //    orderItem.OrderItemID = int.Parse(Console.ReadLine());
-            //    orderItem = _iDal.OrderItem.Get(orderItem.OrderItemID);
-            //    Console.WriteLine(orderItem.ToString());
-            //}
+                return product;
+            }
 
             int firstChoice = 0, cartID, orderID, productID;
             Order order = new Order();
             Product product = new Product();
             Cart cart = new Cart();
+            string tempProductsID;
+            ProductItem productItem;
 
             do
             {
@@ -277,14 +184,54 @@ namespace BlTest
                             break;
                         // product operations
                         case 2:
-                            Console.WriteLine("g. get products' list\np. get product's details\nc. get product from catalog\na. add product\nd. delete product\nu. update product's details\ne. return to main menue");
+                            Console.WriteLine("g. get products' list\np. get product's details\nc. get product from catalog\na. add product\nd. delete product\nu. update product's details\ne. return to main menue\n");
                             tempSecondChoise = Console.ReadLine();
                             char.TryParse(tempSecondChoise, out secondChoise);
 
-                            switch (secondChoise)
+                            do
                             {
-                                
+                                switch (secondChoise)
+                                {
+                                    case 'g':
+                                        IEnumerable<ProductForList> products = _iBl.Product.GetProductsList();
+                                        foreach(ProductForList productForList in products)
+                                        {
+                                            Console.WriteLine(productForList);
+                                        }
+                                        break;
+                                    case 'p':
+                                        tempProductsID = Console.ReadLine();
+                                        int.TryParse(tempProductsID, out productID);
+                                        product = _iBl.Product.GetProductDetails(productID);
+                                        Console.WriteLine(product);
+                                        break;
+                                    case 'c':
+                                        tempProductsID = Console.ReadLine();
+                                        int.TryParse(tempProductsID, out productID);
+                                        productItem = _iBl.Product.GetProductFromCatalog(productID,cart);
+                                        Console.WriteLine(productItem);
+                                        break;
+                                    case 'a':
+                                        GetProductDetails(ref product);
+                                        _iBl.Product.AddProduct(product);
+                                        break;
+                                    case 'd':
+                                        tempProductsID = Console.ReadLine();
+                                        int.TryParse(tempProductsID, out productID);
+                                        _iBl.Product.DeleteProduct(productID);
+                                        break;
+                                    case 'u':
+                                        GetProductDetails(ref product);
+                                        _iBl.Product.UpdateProduct(product);
+                                        break;
+                                    case 'e':
+                                        break;
+                                        default: break;
+
+                                }
+                                char.TryParse(tempSecondChoise, out secondChoise);
                             }
+                            while (secondChoise != 'e');
 
                             break;
                         // cart's operations
@@ -293,16 +240,48 @@ namespace BlTest
                             tempSecondChoise = Console.ReadLine();
                             char.TryParse(tempSecondChoise, out secondChoise);
 
-                            switch (secondChoise)
+                            do
                             {
-                                
+                                switch (secondChoise)
+                                {
+                                    case 'a':
+                                        tempProductsID = Console.ReadLine();
+                                        int.TryParse(tempProductsID, out productID);
+                                        product = _iBl.Product.GetProductDetails(productID);
+                                        _iBl.Cart.AddProductToCart(cart, productID);
+                                        break;
+                                    case 'u':
+                                        tempProductsID = Console.ReadLine();
+                                        int.TryParse(tempProductsID, out productID);
+                                        product = _iBl.Product.GetProductDetails(productID);
+                                        int amount;
+                                        string tempAmount = Console.ReadLine();
+                                        int.TryParse(tempAmount, out amount);
+                                        _iBl.Cart.UpdateProductAmountInCart(cart, productID,amount);
+                                        break;
+                                    case 'p':
+                                        getCartDetails(ref cart);
+                                        _iBl.Cart.PlaceOrder(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomerAddress);
+                                        break;
+                                    case 'e':
+                                        break;
+                                    default:break;
+                                }
+                                char.TryParse(tempSecondChoise, out secondChoise);
                             }
+                            while (secondChoise != 'e');
                             break;
                     }
                 }
-                catch (DoesntExist ex)
+                catch (blExceptions ex)
                 {
-                    
+                    Console.WriteLine(ex.GetType().Name);
+                    Console.WriteLine(ex.Message);
+                    if (ex.InnerException != null)
+                    {
+                        Console.WriteLine(ex.InnerException.GetType().Name);
+                        Console.WriteLine(ex.InnerException.Message);
+                    }
                 }
             }
             while (firstChoice != 0);
