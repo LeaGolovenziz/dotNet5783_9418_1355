@@ -34,12 +34,11 @@ namespace BO
         /// </summary>
         /// <returns>string</returns>
         public override string ToString() => $@"
-        Order for list ID - {OrderID}:
+        Order ID - {OrderID}:
         Custumer's name: {CostumerName}
         Order's status: {OrderStatus}
         Amount of items: {Amount}
         Total price: {Price}
 ";
-
     }
 }
