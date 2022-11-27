@@ -30,7 +30,10 @@ namespace BO
         public override string ToString() => $@"
         Order tracking ID - {OrderID}:
         Order's status: {OrderStatus} 
-        tracking: {string.Join('\n', Tracking)}
+        tracking: 
+              {string.Join('\n', Tracking)}
+        
+        end of racking
 ";
     }
 }

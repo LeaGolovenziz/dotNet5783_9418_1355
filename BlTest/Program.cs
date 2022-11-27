@@ -103,6 +103,7 @@ namespace BlTest
                     case 0:
                         Console.WriteLine("bye");
                         break;
+
                     // order operations
                     case 1:
                         try
