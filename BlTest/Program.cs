@@ -220,43 +220,55 @@ namespace BlTest
                                     // get and print product's list
                                     case 'g':
                                         IEnumerable<ProductForList> products = _iBl.Product.GetProductsList();
+                                        
                                         foreach (ProductForList productForList in products)
                                         {
                                             Console.WriteLine(productForList);
                                         }
+
                                         break;
                                     // get and print product's details
                                     case 'p':
                                         Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
+
                                         product = _iBl.Product.GetProductDetails(productID);
+
                                         Console.WriteLine(product);
+
                                         break;
                                     // get ant print catalog's product's details
                                     case 'c':
                                         Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
+
                                         productItem = _iBl.Product.GetProductFromCatalog(productID, cart);
+                                        
                                         Console.WriteLine(productItem);
+
                                         break;
                                     // add a product
                                     case 'a':
                                         GetProductDetails(ref product);
                                         _iBl.Product.AddProduct(product);
+
                                         break;
                                     // delete a product
                                     case 'd':
                                         Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
+
                                         _iBl.Product.DeleteProduct(productID);
+
                                         break;
                                     // update product's details
                                     case 'u':
                                         GetProductDetails(ref product);
                                         _iBl.Product.UpdateProduct(product);
+
                                         break;
                                     // return to main menue
                                     case 'e':
@@ -289,25 +301,33 @@ namespace BlTest
                                         Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
+
                                         product = _iBl.Product.GetProductDetails(productID);
+
                                         _iBl.Cart.AddProductToCart(cart, productID);
+
                                         break;
                                     // update product in cart
                                     case 'u':
                                         Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
+
                                         product = _iBl.Product.GetProductDetails(productID);
+
                                         int amount;
                                         Console.WriteLine("Enter product's new amount");
                                         string tempAmount = Console.ReadLine();
                                         int.TryParse(tempAmount, out amount);
+
                                         _iBl.Cart.UpdateProductAmountInCart(cart, productID, amount);
+                                        
                                         break;
                                     // make an order from the cart
                                     case 'p':
                                         getCartDetails(ref cart);
                                         _iBl.Cart.PlaceOrder(cart);
+
                                         break;
                                     // return to main menue
                                     case 'e':
