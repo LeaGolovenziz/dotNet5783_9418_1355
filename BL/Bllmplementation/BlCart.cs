@@ -150,6 +150,12 @@ namespace Bllmplementation
                 throw new DoesntExist();
             }
 
+            // if the wanted amount is negative
+            if (amount<0)
+            {
+                throw new UnvalidAmount();
+            }
+
             // find the index of the order item in the cart
             int index = cart.OrderItems.FindIndex(x => x.ProductID == productID);
 
@@ -169,9 +175,9 @@ namespace Bllmplementation
                 cart.price += totalPriceAdded;
             }
             // if the wanted amount equals 0
-            else if (cart.OrderItems.ElementAt(index).ProductAmount == 0)
+            else if (amount == 0)
             {
-                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice * (int)cart.OrderItems.ElementAt(index).ProductAmount;
+                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).TotalPrice;
                 cart.OrderItems.RemoveAt(index);
                 cart.price -= totalPriceSub;
 
@@ -179,8 +185,9 @@ namespace Bllmplementation
             // if the wanted amount is smaller than the current amount
             else if (amount < cart.OrderItems.ElementAt(index).ProductAmount)
             {
-                cart.OrderItems.ElementAt(index).ProductAmount -= amount;
-                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice * amount;
+                int oldAmount = (int)cart.OrderItems.ElementAt(index).ProductAmount;
+                cart.OrderItems.ElementAt(index).ProductAmount = amount;
+                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice * (oldAmount-amount);
                 cart.OrderItems.ElementAt(index).TotalPrice -= totalPriceSub;
                 cart.price -= totalPriceSub;
             }

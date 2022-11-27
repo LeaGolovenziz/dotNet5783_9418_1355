@@ -109,13 +109,14 @@ namespace BlTest
                         break;
                     // order operations
                     case 1:
-                        try
+                        do
                         {
-                            do
+                            Console.WriteLine("g. get orders' list\no. get order's details\nd. update order's delivery\ns. update order's shipping\nt. track order\nu. update order's details\ne. return to main menue\n");
+                            tempSecondChoise = Console.ReadLine();
+                            char.TryParse(tempSecondChoise, out secondChoise);
+                            try
                             {
-                                Console.WriteLine("g. get orders' list\no. get order's details\nd. update order's delivery\ns. update order's shipping\nt. track order\nu. update order's details\ne. return to main menue\n");
-                                tempSecondChoise = Console.ReadLine();
-                                char.TryParse(tempSecondChoise, out secondChoise);
+
 
                                 switch (secondChoise)
                                 {
@@ -196,24 +197,26 @@ namespace BlTest
                                         break;
                                 }
                             }
-                            while (!secondChoise.Equals('e'));
+                            catch (blExceptions ex)
+                            {
+                                catchErrors(ex);
+                            }
                         }
-                        catch (blExceptions ex)
-                        {
-                            catchErrors(ex);
-                        }
+                        while (!secondChoise.Equals('e'));
+
 
                         break;
                     // product operations
                     case 2:
-                        try
+                        do
                         {
-                            do
+                            Console.WriteLine("g. get products' list\np. get product's details\nc. get product from catalog\na. add product\nd. delete product\nu. update product's details\ne. return to main menue\n");
+                            tempSecondChoise = Console.ReadLine();
+                            char.TryParse(tempSecondChoise, out secondChoise);
+                            try
                             {
 
-                                Console.WriteLine("g. get products' list\np. get product's details\nc. get product from catalog\na. add product\nd. delete product\nu. update product's details\ne. return to main menue\n");
-                                tempSecondChoise = Console.ReadLine();
-                                char.TryParse(tempSecondChoise, out secondChoise);
+
                                 switch (secondChoise)
                                 {
                                     // get and print product's list
@@ -264,23 +267,25 @@ namespace BlTest
 
                                 }
                             }
-                            while (secondChoise != 'e');
+                            catch (blExceptions ex)
+                            {
+                                catchErrors(ex);
+                            }
                         }
-                        catch (blExceptions ex)
-                        {
-                            catchErrors(ex);
-                        }
+                        while (secondChoise != 'e');
+
 
                         break;
                     // cart's operations
                     case 3:
-                        try
+                        do
                         {
-                            do
+                            Console.WriteLine("a. add produc to cart\nu. update product's amount\np. place order\ne. return to main menue");
+                            tempSecondChoise = Console.ReadLine();
+                            char.TryParse(tempSecondChoise, out secondChoise);
+                            try
                             {
-                                Console.WriteLine("a. add produc to cart\nu. update product's amount\np. place order\ne. return to main menue");
-                                tempSecondChoise = Console.ReadLine();
-                                char.TryParse(tempSecondChoise, out secondChoise);
+
                                 switch (secondChoise)
                                 {
                                     // add a product to cart
@@ -314,15 +319,15 @@ namespace BlTest
                                     default: break;
                                 }
                             }
-                            while (secondChoise != 'e');
+                            catch (blExceptions ex)
+                            {
+                                catchErrors(ex);
+                            }
                         }
-                        catch (blExceptions ex)
-                        {
-                            catchErrors(ex);
-                        }
-
+                        while (secondChoise != 'e');
                         break;
                 }
+
             }
             while (firstChoice != 0);
         }
