@@ -30,10 +30,10 @@ namespace BO
         /// </summary>
         /// <returns></returns>
         public override string ToString() => $@"
-        Product for list ID - {ProductID}
-        Product's name - {Name} 
+        Product ID - {ProductID}:
+        Product's name: {Name} 
                   price: {Price}
-                  category - {Category}
+                  category: {Category}
 ";
     }
 }
