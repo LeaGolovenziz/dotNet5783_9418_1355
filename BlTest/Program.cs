@@ -23,7 +23,9 @@ namespace BlTest
 
         static void Main()
         {
-            Cart getCartDetails(ref Cart cart)
+
+            // gets a cart and inputs its details
+            void getCartDetails(ref Cart cart)
             {
                 Console.WriteLine("Enter customer's name:");
                 string name = Console.ReadLine();
@@ -36,12 +38,10 @@ namespace BlTest
                 Console.WriteLine("Enter customer's address:");
                 string address = Console.ReadLine();
                 cart.CustomerAddress = address;
-
-                return cart;
             }
 
             // gets product that have an ID, inputs its other details and returns it
-            Product GetProductDetails(ref Product product)
+            void GetProductDetails(ref Product product)
             {
                 Console.WriteLine("Enter product's ID:");
                 int id = int.Parse(Console.ReadLine());
@@ -65,8 +65,20 @@ namespace BlTest
                 int inStock;
                 int.TryParse(tempInStock, out inStock);
                 product.InStock = inStock;
+            }
 
-                return product;
+            // gets an exception and prints its messeges
+            void catchErrors(blExceptions ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine(ex.GetType().Name);
+                Console.WriteLine(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine(ex.InnerException.GetType().Name);
+                    Console.WriteLine(ex.InnerException.Message);
+                }
+                Console.WriteLine();
             }
 
             int firstChoice = 0, cartID, orderID, productID;
@@ -79,22 +91,22 @@ namespace BlTest
 
             do
             {
-                try
-                {
-                    Console.WriteLine("1. check order\n2. check product\n3. check cart \n0. to exit\n");
-                    firstChoice = int.Parse(Console.ReadLine());
-                    char secondChoise;
-                    string tempOrderID, tempSecondChoise, tempProductID, tempNewAmount;
-                    int newAmount;
+                Console.WriteLine("1. check order\n2. check product\n3. check cart \n0. to exit\n");
+                firstChoice = int.Parse(Console.ReadLine());
+                char secondChoise;
+                string tempOrderID, tempSecondChoise, tempProductID, tempNewAmount;
+                int newAmount;
 
-                    switch (firstChoice)
-                    {
-                        // exit
-                        case 0:
-                            Console.WriteLine("bye");
-                            break;
-                        // order operations
-                        case 1:
+                switch (firstChoice)
+                {
+                    // exit
+                    case 0:
+                        Console.WriteLine("bye");
+                        break;
+                    // order operations
+                    case 1:
+                        try
+                        {
                             do
                             {
                                 Console.WriteLine("g. get orders' list\no. get order's details\nd. update order's delivery\ns. update order's shipping\nt. track order\nu. update order's details\ne. return to main menue\n");
@@ -181,13 +193,20 @@ namespace BlTest
                                 }
                             }
                             while (!secondChoise.Equals('e'));
+                        }
+                        catch (blExceptions ex)
+                        {
+                            catchErrors(ex);
+                        }
 
-                            break;
-                        // product operations
-                        case 2:
-
+                        break;
+                    // product operations
+                    case 2:
+                        try
+                        {
                             do
                             {
+
                                 Console.WriteLine("g. get products' list\np. get product's details\nc. get product from catalog\na. add product\nd. delete product\nu. update product's details\ne. return to main menue\n");
                                 tempSecondChoise = Console.ReadLine();
                                 char.TryParse(tempSecondChoise, out secondChoise);
@@ -235,10 +254,17 @@ namespace BlTest
                                 }
                             }
                             while (secondChoise != 'e');
+                        }
+                        catch (blExceptions ex)
+                        {
+                            catchErrors(ex);
+                        }
 
-                            break;
-                        // cart's operations
-                        case 3:
+                        break;
+                    // cart's operations
+                    case 3:
+                        try
+                        {
                             do
                             {
                                 Console.WriteLine("a. add produc to cart\nu. update product's amount\np. place order\ne. return to main menue");
@@ -273,18 +299,13 @@ namespace BlTest
                                 }
                             }
                             while (secondChoise != 'e');
-                            break;
-                    }
-                }
-                catch (blExceptions ex)
-                {
-                    Console.WriteLine(ex.GetType().Name);
-                    Console.WriteLine(ex.Message);
-                    if (ex.InnerException != null)
-                    {
-                        Console.WriteLine(ex.InnerException.GetType().Name);
-                        Console.WriteLine(ex.InnerException.Message);
-                    }
+                        }
+                        catch (blExceptions ex)
+                        {
+                            catchErrors(ex);
+                        }
+
+                        break;
                 }
             }
             while (firstChoice != 0);

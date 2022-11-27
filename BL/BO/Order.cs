@@ -55,15 +55,20 @@ namespace BO
         /// <returns>string</returns>
         public override string ToString() => $@"
         Order's ID - {ID}: 
-        Custumer's name - {CustumerName}
-                   Email - {CustumerEmail}
-                   adress - {CustumerAdress}
-        Order's status - {OrderStatus}
-               date - {OrderDate}
+
+        Custumer's name: {CustumerName}
+                   Email: {CustumerEmail}
+                   adress: {CustumerAdress}
+
+        Order's status: {OrderStatus}
+               order date - {OrderDate}
                ship date - {ShipDate}
                delivery date - {DeliveryDate}
-        List of items - {string.Join('\n', OrderItems)}
-        Total price - {Price}
+
+        List of items: 
+                 {string.Join('\n', OrderItems)}
+
+        Total price: {Price}
 ";
     }
 }
