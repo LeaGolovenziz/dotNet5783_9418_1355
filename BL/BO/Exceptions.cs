@@ -59,4 +59,13 @@ namespace BO
     {
         public AlreadyShipped() : base("The order has already been shipped") { }
     }
+
+    public class AlreadyDelivered : blExceptions
+    {
+        public AlreadyDelivered() : base("The order has already been delivered") { }
+    }
+    public class wasntShipped : blExceptions
+    {
+        public wasntShipped() : base("The order wasn't shipped") { }
+    }
 }

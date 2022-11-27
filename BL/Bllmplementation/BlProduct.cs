@@ -55,7 +55,8 @@ namespace Bllmplementation
             }
             try
             {
-                _dal.OrderItem.Delete(productID);
+                _dal.Product.Delete(productID);
+
             }
             catch(NotFound ex)
             {

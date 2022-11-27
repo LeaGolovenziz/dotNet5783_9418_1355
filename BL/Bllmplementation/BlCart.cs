@@ -66,15 +66,15 @@ namespace Bllmplementation
 
         }
 
-        void ICart.PlaceOrder(Cart cart, string name, string email, string address)
+        void ICart.PlaceOrder(Cart cart)
         {
             // checking validity of customers details:
-            if (name.Equals(""))
+            if (cart.CustomerName.Equals(""))
                 throw new UnvalidName();
             EmailAddressAttribute emailAddressAttribute = new EmailAddressAttribute();
-            if (emailAddressAttribute.IsValid(email))
+            if (emailAddressAttribute.IsValid(cart.CustomerEmail))
                 throw new UnvalidEmail();
-            if (address.Equals(""))
+            if (cart.CustomerAddress.Equals(""))
                 throw new UnvalidAddress();
 
             //checking validity of order items
@@ -96,9 +96,9 @@ namespace Bllmplementation
 
             // creating a new BO order
             BO.Order order= new BO.Order();
-            order.CustumerAdress = address;
-            order.CustumerEmail = email;
-            order.CustumerName=name;
+            order.CustumerAdress = cart.CustomerAddress;
+            order.CustumerEmail = cart.CustomerEmail;
+            order.CustumerName = cart.CustomerName;
             order.OrderStatus = BO.Enums.OrderStatus.Confirmed;
             order.OrderDate = DateTime.Now;
             order.Price = 0;
@@ -107,14 +107,14 @@ namespace Bllmplementation
             // creating a new DO order
             DO.Order tOrder = new DO.Order();
             tOrder.OrderDate = DateTime.Now;
-            tOrder.CustomerAdress = address;
-            tOrder.CustomerEmail = email;
-            tOrder.CustomerName = name;
+            tOrder.CustomerAdress = cart.CustomerAddress;
+            tOrder.CustomerEmail = cart.CustomerEmail;
+            tOrder.CustomerName = cart.CustomerName;
 
             order.ID = _dal.Order.Add(tOrder);
 
             // adding order items from the cart to the order
-            foreach (BO.OrderItem item in order.OrderItems)
+            foreach (BO.OrderItem item in cart.OrderItems)
             {
                 //creating a DO order item
                 DO.OrderItem tOrderItem = new DO.OrderItem();
@@ -162,8 +162,8 @@ namespace Bllmplementation
                     throw new ProductNotInStock();
                 }
                 // updating the amount and the total price of the product
-                cart.OrderItems.ElementAt(index).ProductAmount += amount;
-                double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).ProductPrice * amount;
+                cart.OrderItems.ElementAt(index).ProductAmount = amount;
+                double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).ProductPrice * amount- (double)cart.OrderItems.ElementAt(index).TotalPrice;
                 cart.OrderItems.ElementAt(index).TotalPrice += totalPriceAdded;
                 // updating the total price of the cart
                 cart.price += totalPriceAdded;

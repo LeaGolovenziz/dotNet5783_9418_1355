@@ -27,7 +27,7 @@ namespace BlTest
             {
                 Console.WriteLine("Enter customer's name:");
                 string name = Console.ReadLine();
-                cart.CustomerName= name;
+                cart.CustomerName = name;
 
                 Console.WriteLine("Enter customer's email:");
                 string email = Console.ReadLine();
@@ -44,8 +44,8 @@ namespace BlTest
             Product GetProductDetails(ref Product product)
             {
                 Console.WriteLine("Enter product's ID:");
-                int id = int.Parse(Console.ReadLine());             
-                    product.ID = id;
+                int id = int.Parse(Console.ReadLine());
+                product.ID = id;
 
                 Console.WriteLine("Enter product's name:");
                 string name = Console.ReadLine();
@@ -73,6 +73,7 @@ namespace BlTest
             Order order = new Order();
             Product product = new Product();
             Cart cart = new Cart();
+            cart.OrderItems = new List<OrderItem>();
             string tempProductsID;
             ProductItem productItem;
 
@@ -105,7 +106,7 @@ namespace BlTest
                                     // get order's list
                                     case 'g':
                                         IEnumerable<OrderForList> lst = _iBl.Order.GetOrderList();
-                                        foreach(OrderForList orderInList in lst)
+                                        foreach (OrderForList orderInList in lst)
                                         {
                                             Console.WriteLine(orderInList);
                                         }
@@ -153,7 +154,7 @@ namespace BlTest
                                         tempOrderID = Console.ReadLine();
                                         int.TryParse(tempOrderID, out orderID);
 
-                                        OrderTracking orderT= _iBl.Order.TrackOrder(orderID);
+                                        OrderTracking orderT = _iBl.Order.TrackOrder(orderID);
 
                                         Console.WriteLine(orderT);
 
@@ -167,7 +168,7 @@ namespace BlTest
                                         int.TryParse(tempOrderID, out orderID);
                                         Console.WriteLine("Enter product's id");
                                         tempProductID = Console.ReadLine();
-                                        int.TryParse(tempOrderID, out productID);
+                                        int.TryParse(tempProductID, out productID);
                                         Console.WriteLine("Enter new amount");
                                         tempNewAmount = Console.ReadLine();
                                         int.TryParse(tempNewAmount, out newAmount);
@@ -175,40 +176,42 @@ namespace BlTest
                                         order = _iBl.Order.UpdateOrderDetails(orderID, productID, newAmount);
 
                                         Console.WriteLine(order);
-                                        
+
                                         break;
                                 }
                             }
                             while (!secondChoise.Equals('e'));
-                            
+
                             break;
                         // product operations
                         case 2:
-                            Console.WriteLine("g. get products' list\np. get product's details\nc. get product from catalog\na. add product\nd. delete product\nu. update product's details\ne. return to main menue\n");
-                            tempSecondChoise = Console.ReadLine();
-                            char.TryParse(tempSecondChoise, out secondChoise);
 
                             do
                             {
+                                Console.WriteLine("g. get products' list\np. get product's details\nc. get product from catalog\na. add product\nd. delete product\nu. update product's details\ne. return to main menue\n");
+                                tempSecondChoise = Console.ReadLine();
+                                char.TryParse(tempSecondChoise, out secondChoise);
                                 switch (secondChoise)
                                 {
                                     case 'g':
                                         IEnumerable<ProductForList> products = _iBl.Product.GetProductsList();
-                                        foreach(ProductForList productForList in products)
+                                        foreach (ProductForList productForList in products)
                                         {
                                             Console.WriteLine(productForList);
                                         }
                                         break;
                                     case 'p':
+                                        Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
                                         product = _iBl.Product.GetProductDetails(productID);
                                         Console.WriteLine(product);
                                         break;
                                     case 'c':
+                                        Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
-                                        productItem = _iBl.Product.GetProductFromCatalog(productID,cart);
+                                        productItem = _iBl.Product.GetProductFromCatalog(productID, cart);
                                         Console.WriteLine(productItem);
                                         break;
                                     case 'a':
@@ -216,6 +219,7 @@ namespace BlTest
                                         _iBl.Product.AddProduct(product);
                                         break;
                                     case 'd':
+                                        Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
                                         _iBl.Product.DeleteProduct(productID);
@@ -226,48 +230,47 @@ namespace BlTest
                                         break;
                                     case 'e':
                                         break;
-                                        default: break;
+                                    default: break;
 
                                 }
-                                char.TryParse(tempSecondChoise, out secondChoise);
                             }
                             while (secondChoise != 'e');
 
                             break;
                         // cart's operations
                         case 3:
-                            Console.WriteLine("a. add produc to cart\nu. update product's amount\np. place order\ne. return to main menue");
-                            tempSecondChoise = Console.ReadLine();
-                            char.TryParse(tempSecondChoise, out secondChoise);
-
                             do
                             {
+                                Console.WriteLine("a. add produc to cart\nu. update product's amount\np. place order\ne. return to main menue");
+                                tempSecondChoise = Console.ReadLine();
+                                char.TryParse(tempSecondChoise, out secondChoise);
                                 switch (secondChoise)
                                 {
                                     case 'a':
+                                        Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
                                         product = _iBl.Product.GetProductDetails(productID);
                                         _iBl.Cart.AddProductToCart(cart, productID);
                                         break;
                                     case 'u':
+                                        Console.WriteLine("Enter product's id");
                                         tempProductsID = Console.ReadLine();
                                         int.TryParse(tempProductsID, out productID);
                                         product = _iBl.Product.GetProductDetails(productID);
                                         int amount;
                                         string tempAmount = Console.ReadLine();
                                         int.TryParse(tempAmount, out amount);
-                                        _iBl.Cart.UpdateProductAmountInCart(cart, productID,amount);
+                                        _iBl.Cart.UpdateProductAmountInCart(cart, productID, amount);
                                         break;
                                     case 'p':
                                         getCartDetails(ref cart);
-                                        _iBl.Cart.PlaceOrder(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomerAddress);
+                                        _iBl.Cart.PlaceOrder(cart);
                                         break;
                                     case 'e':
                                         break;
-                                    default:break;
+                                    default: break;
                                 }
-                                char.TryParse(tempSecondChoise, out secondChoise);
                             }
                             while (secondChoise != 'e');
                             break;

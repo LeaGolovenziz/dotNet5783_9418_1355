@@ -34,6 +34,6 @@ namespace BlApi
         /// <param name="name"></param>
         /// <param name="email"></param>
         /// <param name="address"></param>
-        public void PlaceOrder(Cart cart, string name, string email,string address);
+        public void PlaceOrder(Cart cart);
     }
 }

@@ -33,7 +33,7 @@ namespace BO
         /// <summary>
         /// unique amount of product in cart
         /// </summary>
-        public int AmountInCart { get; set; }
+        public int? AmountInCart { get; set; }
 
         private string isInStock()
         {

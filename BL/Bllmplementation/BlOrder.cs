@@ -26,6 +26,7 @@ namespace Bllmplementation
             // total price for order
             double totalPrice = 0;
             Order blOrder = new Order();
+            blOrder.OrderItems = new List<OrderItem>();
 
             blOrder.ID = dalOrder.ID;
             blOrder.CustumerName = dalOrder.CustomerName;
@@ -36,9 +37,9 @@ namespace Bllmplementation
             blOrder.DeliveryDate = dalOrder.DeliveryDate;
 
             // the status of order
-            if (dalOrder.DeliveryDate > DateTime.Now)
+            if (dalOrder.DeliveryDate <= DateTime.Now)
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Delivered;
-            else if (dalOrder.ShipDate > DateTime.Now)
+            else if (dalOrder.ShipDate <= DateTime.Now)
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Sent;
             else
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Confirmed;
@@ -48,7 +49,7 @@ namespace Bllmplementation
             foreach (DO.OrderItem item in tempOrderItems)
             {
                 OrderItem tempOrderItem = new OrderItem();
-                tempOrderItem.OrderID = (int)item.OrderID;
+                tempOrderItem.OrderID = item.OrderID;
                 tempOrderItem.ProductID = item.ProductID;
                 tempOrderItem.ProductName = _dal.Product.Get(item.ProductID).Name;
                 tempOrderItem.ProductPrice = item.Price;
@@ -71,11 +72,12 @@ namespace Bllmplementation
             {
                 DO.Order dalOrder = _dal.Order.Get(orderID);
                 if (dalOrder.ShipDate == null)
-                {
-                    dalOrder.DeliveryDate = DateTime.Now;
-                    _dal.Order.Update(dalOrder);
-                    dalOrder = _dal.Order.Get(orderID);
-                }
+                    throw new wasntShipped();
+                if (dalOrder.DeliveryDate != null)
+                    throw new AlreadyDelivered();
+                dalOrder.DeliveryDate = DateTime.Now;
+                _dal.Order.Update(dalOrder);
+
                 return copyOrderFromDal(ref dalOrder, orderID);
             }
             catch (NotFound ex)
@@ -103,11 +105,11 @@ namespace Bllmplementation
         {
             try
             {
-                DO.Order order=_dal.Order.Get(orderID);
+                DO.Order order = _dal.Order.Get(orderID);
 
                 OrderTracking orderTracking = new OrderTracking();
 
-                orderTracking.OrderID= orderID;
+                orderTracking.OrderID = orderID;
                 if (order.DeliveryDate < DateTime.Now)
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Delivered;
                 else if (order.ShipDate < DateTime.Now)
@@ -121,7 +123,7 @@ namespace Bllmplementation
 
                 return orderTracking;
             }
-            catch(NotFound e)
+            catch (NotFound e)
             {
                 throw new DoesntExist();
             }
@@ -144,9 +146,15 @@ namespace Bllmplementation
                     tempOrderForList.OrderStatus = BO.Enums.OrderStatus.Sent;
                 else
                     tempOrderForList.OrderStatus = BO.Enums.OrderStatus.Confirmed;
-                tempOrderForList.Amount = orderItems.First(x => x.OrderID == order.ID).Amount;
-                tempOrderForList.Price = orderItems.First(x => x.OrderID == order.ID).Price;
-
+                try
+                {
+                    tempOrderForList.Amount = orderItems.First(x => x.OrderID == order.ID).Amount;
+                    tempOrderForList.Price = orderItems.First(x => x.OrderID == order.ID).Price;
+                }
+                catch(NotFound e)
+                {
+                    throw new DoesntExist();
+                }
                 orders.Add(tempOrderForList);
             }
             return orders;
@@ -157,12 +165,13 @@ namespace Bllmplementation
             try
             {
                 DO.Order dalOrder = _dal.Order.Get(orderID);
-                if (dalOrder.ShipDate == null)
-                {
-                    dalOrder.ShipDate = DateTime.Now;
-                    _dal.Order.Update(dalOrder);
-                    dalOrder = _dal.Order.Get(orderID);
-                }
+                if (dalOrder.ShipDate != null)
+                    throw new AlreadyShipped();
+
+                dalOrder.ShipDate = DateTime.Now;
+                _dal.Order.Update(dalOrder);
+                dalOrder = _dal.Order.Get(orderID);
+
                 return copyOrderFromDal(ref dalOrder, orderID);
             }
             catch (NotFound ex)
@@ -184,15 +193,16 @@ namespace Bllmplementation
                         throw new UnvalidAmount();
 
                     DO.Product dalProduct = _dal.Product.Get(productID);
-                    DO.OrderItem dalOrderItem = _dal.OrderItem.Get(orderID);
-
+                    DO.OrderItem dalOrderItem = _dal.OrderItem.Get(productID, orderID);
+                  
                     if ((dalProduct.InStock + dalOrderItem.Amount - amountToChange) < 0)
                         throw new ProductNotInStock();
 
                     // update the amount of the item in the order
+                    dalOrderItem.Price = amountToChange * dalProduct.Price;
                     dalOrderItem.Amount = amountToChange;
                     _dal.OrderItem.Update(dalOrderItem);
-
+               
                     // update the amount in stock of the product
                     dalProduct.InStock += (dalOrderItem.Amount - amountToChange);
                     _dal.Product.Update(dalProduct);
