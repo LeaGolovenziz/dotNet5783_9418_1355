@@ -166,11 +166,7 @@ namespace BlTest
                         do
                         {
                             Console.WriteLine("g. get orders' list\no. get order's details\nd. update order's delivery\ns. update order's shipping\nt. track order\nu. update order's details\ne. return to main menue\n");
-                            // while the char of the second choice is unvalid - inform and input again
                             inputSecondCoice(out secondChoice);
-
-
-                            int orderID;
 
                             try
                             {
@@ -222,7 +218,6 @@ namespace BlTest
                                         int orderId = inputOrderId();
                                         int productID = inputProductId();
                                         int newAmount;
-
                                         Console.WriteLine("Enter new amount");
                                         while (!int.TryParse(Console.ReadLine(), out newAmount))
                                         {
