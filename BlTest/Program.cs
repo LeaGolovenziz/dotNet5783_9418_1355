@@ -117,8 +117,6 @@ namespace BlTest
                             char.TryParse(tempSecondChoise, out secondChoise);
                             try
                             {
-
-
                                 switch (secondChoise)
                                 {
                                     // get order's list
@@ -216,8 +214,6 @@ namespace BlTest
                             char.TryParse(tempSecondChoise, out secondChoise);
                             try
                             {
-
-
                                 switch (secondChoise)
                                 {
                                     // get and print product's list
@@ -298,7 +294,6 @@ namespace BlTest
                             char.TryParse(tempSecondChoise, out secondChoise);
                             try
                             {
-
                                 switch (secondChoise)
                                 {
                                     // add a product to cart
