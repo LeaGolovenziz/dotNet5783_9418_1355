@@ -61,6 +61,7 @@ namespace BlTest
 
             void inputSecondCoice(out char secondChoice)
             {
+                // while the second choice is unvalid - inpirm and input a new one
                 while (!char.TryParse(Console.ReadLine(), out secondChoice))
                 {
                     Console.WriteLine("bad input, enter again");
@@ -84,8 +85,6 @@ namespace BlTest
             // gets product that have an ID, inputs its other details and returns it
             void GetProductDetails(ref Product product)
             {
-                bool flag; // to check the inputs
-
                 product.ID = inputOrderId();
 
                 // input the name of the product
@@ -95,12 +94,11 @@ namespace BlTest
 
                 // input the price of the product
                 Console.WriteLine("Enter product's price:");
-                flag = double.TryParse(Console.ReadLine(), out double price);
+                double price;
                 // while the price is unvalid - inform and input again
-                while (!flag)
+                while (!double.TryParse(Console.ReadLine(), out price))
                 {
                     Console.WriteLine("bad input, enter again");
-                    flag = double.TryParse(Console.ReadLine(), out price);
                 }
                 product.Price = price;
 
@@ -116,12 +114,11 @@ namespace BlTest
 
                 // input the amount in stock of the product
                 Console.WriteLine("Enter product's amount in stock:");
-                flag = int.TryParse(Console.ReadLine(), out int inStock);
+                int inStock;
                 // while the category is unvalid - inform and input again
-                while (!flag)
+                while (!int.TryParse(Console.ReadLine(), out inStock))
                 {
                     Console.WriteLine("bad input, enter again");
-                    flag = int.TryParse(Console.ReadLine(), out inStock);
                 }
                 product.InStock = inStock;
             }
