@@ -125,8 +125,6 @@ namespace BlTest
                             char.TryParse(tempSecondChoise, out secondChoise);
                             try
                             {
-
-
                                 switch (secondChoise)
                                 {
                                     // get order's list
