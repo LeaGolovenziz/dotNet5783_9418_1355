@@ -148,7 +148,7 @@ namespace Bllmplementation
             }
             catch (NotFound e)
             {
-                throw new DoesntExist();
+                throw new DoesntExist(e);
             }
         }
 
@@ -213,14 +213,15 @@ namespace Bllmplementation
 
         Order IOrder.UpdateOrderDetails(int orderID, int productID, int amountToChange)
         {
-            // get the order of dal
-            DO.Order dalOrder = _dal.Order.Get(orderID);
+            try
+            {
+                // get the order of dal
+                DO.Order dalOrder = _dal.Order.Get(orderID);
 
             // if the order has not been sent yet - update the details
             if (dalOrder.ShipDate == null)
             {
-                try
-                {
+               
                     // if the new amount is unvaild - throw an exception
                     if (amountToChange < 0)
                         throw new UnvalidAmount();
@@ -246,14 +247,15 @@ namespace Bllmplementation
 
                     // copy the orders and return the bl's one
                     return copyOrderFromDal(ref dalOrder, orderID);
-                }
-                catch (NotFound ex)
-                {
-                    throw new DoesntExist(ex);
-                }
+             
             }
             else
                 throw new AlreadyShipped();
+            }
+            catch (NotFound ex)
+            {
+                throw new DoesntExist(ex);
+            }
         }
     }
 }

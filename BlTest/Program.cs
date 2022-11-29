@@ -224,7 +224,7 @@ namespace BlTest
                                             Console.WriteLine("bad input, enter again");
                                         }
 
-                                        order = _iBl.Order.UpdateOrderDetails(inputOrderId(), inputProductId(), newAmount);
+                                        order = _iBl.Order.UpdateOrderDetails(orderId, productID, newAmount);
 
                                         Console.WriteLine(order);
 
