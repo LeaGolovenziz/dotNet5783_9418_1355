@@ -31,9 +31,8 @@ namespace BO
         Order tracking ID - {OrderID}:
         Order's status: {OrderStatus} 
         tracking: 
-              {string.Join('\n', Tracking)}
-        
-        end of racking
+{string.Join('\n', Tracking)}
+
 ";
     }
 }

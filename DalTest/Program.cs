@@ -85,14 +85,17 @@ namespace DalTest
                     product.Name = name;
 
                 Console.WriteLine("Enter product's price:");
-                double price = double.Parse(Console.ReadLine());
+                string tempPrice = Console.ReadLine();
+                double price;
+                double.TryParse(tempPrice, out price);
                 if (price != 0)
                     product.Price = price;
 
                 Console.WriteLine("Enter product's category:");
                 string category1 = Console.ReadLine();
-                Enums.Category category = (Enums.Category)Enum.Parse(typeof(Enums.Category), category1);
-                if (category1 != " ")
+                Enums.Category category;
+                Enums.Category.TryParse(category1,out category);
+                if (category1 != "")
                     product.Category = category;
 
                 Console.WriteLine("Enter product's amount in stock:");

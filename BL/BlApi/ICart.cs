@@ -28,7 +28,7 @@ namespace BlApi
         /// <returns>Cart</returns>
         public Cart UpdateProductAmountInCart(Cart cart, int productID, int amount);
         /// <summary>
-        /// gets a cart and custoer details and creates a new order
+        /// gets a cart and creates a new order
         /// </summary>
         /// <param name="cart"></param>
         /// <param name="name"></param>
