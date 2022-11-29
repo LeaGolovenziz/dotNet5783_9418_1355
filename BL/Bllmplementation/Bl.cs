@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bllmplementation
 {
+    // access to the BL main entities
     sealed public class Bl : IBl
     {
         public IProduct Product => new BlProduct();

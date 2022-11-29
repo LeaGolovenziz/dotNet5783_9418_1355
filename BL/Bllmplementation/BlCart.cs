@@ -9,6 +9,7 @@ using Dal;
 using DalApi;
 using System.ComponentModel.DataAnnotations;
 using DO;
+using System.Net.Mail;
 
 namespace Bllmplementation
 {
@@ -69,11 +70,18 @@ namespace Bllmplementation
         void ICart.PlaceOrder(Cart cart)
         {
             // checking validity of customers details:
+
             if (cart.CustomerName.Equals(""))
                 throw new UnvalidName();
-            EmailAddressAttribute emailAddressAttribute = new EmailAddressAttribute();
-            if (emailAddressAttribute.IsValid(cart.CustomerEmail))
+            // checking validity of email address
+            try
+            {
+                MailAddress emailAddressAttribute = new MailAddress(cart.CustomerEmail);
+            }
+            catch
+            { 
                 throw new UnvalidEmail();
+            }
             if (cart.CustomerAddress.Equals(""))
                 throw new UnvalidAddress();
 
@@ -85,7 +93,7 @@ namespace Bllmplementation
                     DO.Product product = _dal.Product.Get(item.ProductID);
                     if (item.ProductAmount <= 0)
                         throw new UnvalidAmount();
-                    if(_dal.Product.Get(product.ID).InStock < item.ProductAmount)
+                    if (_dal.Product.Get(product.ID).InStock < item.ProductAmount)
                         throw new ProductNotInStock();
                 }
             }
@@ -95,7 +103,7 @@ namespace Bllmplementation
             }
 
             // creating a new BO order
-            BO.Order order= new BO.Order();
+            BO.Order order = new BO.Order();
             order.CustumerAdress = cart.CustomerAddress;
             order.CustumerEmail = cart.CustomerEmail;
             order.CustumerName = cart.CustomerName;
@@ -118,7 +126,7 @@ namespace Bllmplementation
             {
                 //creating a DO order item
                 DO.OrderItem tOrderItem = new DO.OrderItem();
-                tOrderItem.OrderID=order.ID;
+                tOrderItem.OrderID = order.ID;
                 tOrderItem.Price = item.ProductPrice;
                 tOrderItem.ProductID = item.ProductID;
                 tOrderItem.Amount = item.ProductAmount;
@@ -151,7 +159,7 @@ namespace Bllmplementation
             }
 
             // if the wanted amount is negative
-            if (amount<0)
+            if (amount < 0)
             {
                 throw new UnvalidAmount();
             }
@@ -169,7 +177,7 @@ namespace Bllmplementation
                 }
                 // updating the amount and the total price of the product
                 cart.OrderItems.ElementAt(index).ProductAmount = amount;
-                double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).ProductPrice * amount- (double)cart.OrderItems.ElementAt(index).TotalPrice;
+                double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).ProductPrice * amount - (double)cart.OrderItems.ElementAt(index).TotalPrice;
                 cart.OrderItems.ElementAt(index).TotalPrice += totalPriceAdded;
                 // updating the total price of the cart
                 cart.price += totalPriceAdded;
@@ -187,11 +195,11 @@ namespace Bllmplementation
             {
                 int oldAmount = (int)cart.OrderItems.ElementAt(index).ProductAmount;
                 cart.OrderItems.ElementAt(index).ProductAmount = amount;
-                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice * (oldAmount-amount);
+                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice * (oldAmount - amount);
                 cart.OrderItems.ElementAt(index).TotalPrice -= totalPriceSub;
                 cart.price -= totalPriceSub;
             }
-             
+
             return cart;
         }
     }
