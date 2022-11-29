@@ -78,6 +78,7 @@ namespace BlTest
                 Console.WriteLine();
                 Console.WriteLine(ex.GetType().Name);
                 Console.WriteLine(ex.Message);
+
                 if (ex.InnerException != null)
                 {
                     Console.WriteLine(ex.InnerException.GetType().Name);
