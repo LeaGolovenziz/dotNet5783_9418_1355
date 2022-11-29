@@ -10,6 +10,7 @@ using System.Runtime.ConstrainedExecution;
 using static DO.Enums;
 using System.Xml.Linq;
 using DalApi;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DalTest
 {
@@ -17,8 +18,69 @@ namespace DalTest
     {
         private static IDal _iDal = new DalList();
 
+
         static void Main()
         {
+            // input a dateTime untill input value is valid
+            DateTime badDateTime()
+            {
+                Console.WriteLine("bad date input, try again");
+                string dateTime1 = Console.ReadLine();
+                DateTime dateTime;
+                if (dateTime1.Equals(""))
+                {
+                    if (DateTime.TryParse(dateTime1, out dateTime))
+                        return dateTime;
+                  return badDateTime();
+                }
+                return DateTime.MinValue;   
+            }
+
+            // input a int untill input value is valid
+            int badInt()
+            {
+                Console.WriteLine("bad int input, try again");
+                string int1 = Console.ReadLine();
+                int i;
+                    if (int.TryParse(int1, out i))
+                        return i;
+                return badInt();
+            }
+
+            // input a double untill input value is valid
+            double badDouble()
+            {
+                Console.WriteLine("bad int input, try again");
+                string double1 = Console.ReadLine();
+                double d;
+                if (double.TryParse(double1, out d))
+                    return d;
+                return badDouble();
+            }
+
+            // input a int untill input value is valid
+            char badChar()
+            {
+                Console.WriteLine("bad char input, try again");
+                string char1 = Console.ReadLine();
+                char c;
+                if (char.TryParse(char1, out c))
+                    return c;
+                return badChar();
+            }
+
+            
+            // input a category untill input value is valid
+            Category badCategory()
+            {
+                Console.WriteLine("bad category input, try again");
+                string category1 = Console.ReadLine();
+                Category c;
+                if (Category.TryParse(category1, out c))
+                    return c;
+                return badCategory();
+            }
+
             // inputs order's details, creates an order and returns it
             Order InputOrderDetails(ref Order order)
             {
@@ -44,24 +106,27 @@ namespace DalTest
                 dateTime1 = Console.ReadLine();
                 if (dateTime1.Equals(""))
                 {
-                    DateTime.TryParse(dateTime1, out dateTime);
-                    order.OrderDate = dateTime;
+                    if (DateTime.TryParse(dateTime1, out dateTime))
+                        order.OrderDate = dateTime;
+                    order.OrderDate=badDateTime();
                 }
 
                 Console.WriteLine("enter order's ship date in a dd.mm.yy format:");
                 dateTime1 = Console.ReadLine();
                 if (dateTime1.Equals(""))
                 {
-                    DateTime.TryParse(dateTime1, out dateTime);
-                    order.ShipDate = dateTime;
+                    if (DateTime.TryParse(dateTime1, out dateTime))
+                        order.ShipDate = dateTime;
+                    order.ShipDate = badDateTime();
                 }
 
                 Console.WriteLine("enter order's delivary date in a dd.mm.yy format:");
                 dateTime1 = Console.ReadLine();
                 if (dateTime1.Equals(""))
                 {
-                    DateTime.TryParse(dateTime1, out dateTime);
-                    order.DeliveryDate = dateTime;
+                    if (DateTime.TryParse(dateTime1, out dateTime))
+                        order.DeliveryDate = dateTime;
+                    order.DeliveryDate = badDateTime();
                 }
 
                 return order;
@@ -70,7 +135,11 @@ namespace DalTest
             {
                 // input id
                 Console.WriteLine("enter order id:");
-                int orderID = int.Parse(Console.ReadLine());
+                string tempOrderID = Console.ReadLine();
+                int orderID;
+                if(!int.TryParse(tempOrderID, out orderID))
+                    orderID = badInt();
+
                 // print the order with "orderID" ID
                 order = _iDal.Order.Get(orderID);
                 Console.WriteLine(order.ToString());
@@ -87,21 +156,26 @@ namespace DalTest
                 Console.WriteLine("Enter product's price:");
                 string tempPrice = Console.ReadLine();
                 double price;
-                double.TryParse(tempPrice, out price);
+                if(!double.TryParse(tempPrice, out price))
+                    price = badDouble();
                 if (price != 0)
                     product.Price = price;
 
                 Console.WriteLine("Enter product's category:");
                 string category1 = Console.ReadLine();
                 Enums.Category category;
-                Enums.Category.TryParse(category1,out category);
                 if (category1 != "")
+                {
+                    if (!Enums.Category.TryParse(category1, out category))
+                        product.Category = badCategory();
                     product.Category = category;
+                }
 
                 Console.WriteLine("Enter product's amount in stock:");
                 string tempInStock= Console.ReadLine();
                 int inStock; 
-                int.TryParse(tempInStock,out inStock) ;
+                if(!int.TryParse(tempInStock,out inStock))
+                    inStock=badInt();
                 if (inStock != 0)
                     product.InStock = inStock;
 
@@ -114,8 +188,9 @@ namespace DalTest
                 Console.WriteLine("Enter product's id:");
                 string tempProductsID = Console.ReadLine();
                 int ProductsID;
-                int.TryParse(tempProductsID, out ProductsID);
-                product.ID = int.Parse(Console.ReadLine());
+                if (!int.TryParse(tempProductsID, out ProductsID))
+                    ProductsID=badInt();
+                product.ID = ProductsID;
                 // get the product with this ID and print it 
                 product = _iDal.Product.Get(product.ID);
                 Console.WriteLine(product.ToString());
@@ -127,29 +202,32 @@ namespace DalTest
                 Console.WriteLine("enter product's ID:");
                 string tempProductsID = Console.ReadLine();
                 int ProductsID;
-                int.TryParse(tempProductsID, out ProductsID);
-                int productID = ProductsID;
-                if (productID != 0)
-                    orderItem.ProductID = productID;
+                if (!int.TryParse(tempProductsID, out ProductsID))
+                    ProductsID = badInt();
+                if (ProductsID != 0)
+                    orderItem.ProductID = ProductsID;
 
                 Console.WriteLine("enter order's ID:");
                 string tempOrderID = Console.ReadLine();
                 int orderID;
-                int.TryParse(tempOrderID, out orderID);
+                if(!int.TryParse(tempOrderID, out orderID))
+                    orderID=badInt();   
                 if (orderID != 0)
                     orderItem.OrderID = orderID;
 
                 Console.WriteLine("enter product's price:");
                 string tempPrice = Console.ReadLine();
                 double price;
-                double.TryParse(tempPrice, out price);
+                if(!double.TryParse(tempPrice, out price))
+                        price=badDouble();
                 if (price != 0)
                     orderItem.Price = price;
 
                 Console.WriteLine("enter product's amount:");
                 string tempAmount = Console.ReadLine();
                 int amount;
-                int.TryParse(tempAmount, out amount);
+                if(!int.TryParse(tempAmount, out amount))
+                    amount=badInt();
                 if (amount != 0)
                     orderItem.Amount = amount;
 
@@ -159,7 +237,10 @@ namespace DalTest
             void InputOrderItemIDAndPrint(ref OrderItem orderItem)
             {
                 Console.WriteLine("enter order's item id:");
-                orderItem.OrderItemID = int.Parse(Console.ReadLine());
+                string tempOrdersID = Console.ReadLine();
+                int ordersID;
+                if (!int.TryParse(tempOrdersID, out ordersID))
+                    ordersID = badInt();
                 orderItem = _iDal.OrderItem.Get(orderItem.OrderItemID);
                 Console.WriteLine(orderItem.ToString());
             }
@@ -174,7 +255,9 @@ namespace DalTest
                 try
                 {
                     Console.WriteLine("1. check order\n2. check product\n3. check order's item \n0. to exit\n");
-                    firstChoice = int.Parse(Console.ReadLine());
+                    string tempFirstChoice = Console.ReadLine();
+                    if (!int.TryParse(tempFirstChoice, out firstChoice))
+                        firstChoice = badInt();
 
                     switch (firstChoice)
                     {
@@ -187,7 +270,9 @@ namespace DalTest
                             Console.WriteLine("a. add order\nb. update product\nc. get order\nd. get all orders\ne. delete orders");
                             string tempSecondChoise = Console.ReadLine();
                             char secondChoise;
-                            char.TryParse(tempSecondChoise, out secondChoise);
+                            string tempSecondChoice = Console.ReadLine();
+                            if (!char.TryParse(tempSecondChoice, out secondChoise))
+                                secondChoise = badChar();
 
                             switch (secondChoise)
                             {
@@ -231,7 +316,8 @@ namespace DalTest
                                     Console.WriteLine("enter order id:");
 
                                     string tempOrderID = Console.ReadLine();
-                                    int.TryParse(tempOrderID, out orderID);
+                                    if(!int.TryParse(tempOrderID, out orderID))
+                                        orderID = badChar();    
 
                                     // deletes an order from the list
                                     _iDal.Order.Delete(orderID);
@@ -243,8 +329,9 @@ namespace DalTest
                         // product operations
                         case 2:
                             Console.WriteLine("a. add product\nb. update product\nc. get product\nd. get all products\ne. delete product");
-                            tempSecondChoise = Console.ReadLine();
-                            char.TryParse(tempSecondChoise, out secondChoise);
+                            tempSecondChoice = Console.ReadLine();
+                            if (!char.TryParse(tempSecondChoice, out secondChoise))
+                                secondChoise = badChar();
 
                             switch (secondChoise)
                             {
@@ -252,7 +339,8 @@ namespace DalTest
                                 case 'a':
                                     Console.WriteLine("Enter product's id:");
                                     string tempProductID = Console.ReadLine();
-                                    int.TryParse(tempProductID, out productID);
+                                    if(!int.TryParse(tempProductID, out productID))
+                                        productID = badChar();
                                     product.ID = productID;
                                     // input the other 
                                     product = GetProductDetails(ref product);
@@ -290,7 +378,8 @@ namespace DalTest
                                     Console.WriteLine("Enter product's id");
                                     string tempID = Console.ReadLine();
                                     int id;
-                                    int.TryParse(tempID, out id);
+                                    if (!int.TryParse(tempID, out id))
+                                        id = badInt();
 
                                     // delete the product from the list
                                     _iDal.Product.Delete(id);
@@ -302,8 +391,9 @@ namespace DalTest
                         // order's items operations
                         case 3:
                             Console.WriteLine("a. add order's item\nb. update order's item\nc. get order's item\nd. get all order's item\ne. delete order's item\nf.get order's item by an order and a item\ng.get all order's item by order");
-                            tempSecondChoise = Console.ReadLine();
-                            char.TryParse(tempSecondChoise, out secondChoise);
+                            tempSecondChoice = Console.ReadLine();
+                            if (!char.TryParse(tempSecondChoice, out secondChoise))
+                                secondChoise = badChar();
 
                             switch (secondChoise)
                             {
@@ -341,7 +431,8 @@ namespace DalTest
                                 case 'e':
                                     Console.WriteLine("enter order's item id:");
                                     string tepOrderItemID = Console.ReadLine();
-                                    int.TryParse(tepOrderItemID, out orderItemID);
+                                    if (!int.TryParse(tepOrderItemID, out orderItemID))
+                                        orderItemID = badInt();
                                     _iDal.OrderItem.Delete(orderItemID);
 
                                     break;
@@ -349,10 +440,12 @@ namespace DalTest
                                 case 'f':
                                     Console.WriteLine("enter product's id:");
                                     string tempProductID = Console.ReadLine();
-                                    int.TryParse(tempProductID, out productID);
+                                    if(!int.TryParse(tempProductID, out productID))
+                                        productID= badInt();
                                     Console.WriteLine("enter order's id:");
                                     string tempOrderID = Console.ReadLine();
-                                    int.TryParse(tempOrderID, out orderID);
+                                    if(!int.TryParse(tempOrderID, out orderID))
+                                        orderID= badInt();
 
                                     // gets the order's item
                                     orderItem = _iDal.OrderItem.Get(productID, orderID);
@@ -366,7 +459,8 @@ namespace DalTest
                                 case 'g':
                                     Console.WriteLine("enter order's id:");
                                     tempOrderID = Console.ReadLine();
-                                    int.TryParse(tempOrderID, out orderID);
+                                    if (!int.TryParse(tempOrderID, out orderID))
+                                        orderID = badInt();
 
                                     // gets ienumerable of the list
                                     IEnumerable<OrderItem> ieItems = _iDal.OrderItem.GeOrderItems(orderID);
