@@ -57,8 +57,10 @@ internal class DalProduct : IProduct
     /// return the list of products
     /// </summary>
     /// <returns>List<Order></returns>
-    public IEnumerable<Product> Get()
+    public IEnumerable<Product?> Get(Func<Product?, bool>? func)
     {
-        return DataSource._lstPruducts;
+        if(func != null)
+            return (IEnumerable<Product?>)DataSource._lstPruducts.Where(x => func(x)).ToList();
+        return (IEnumerable<Product?>)DataSource._lstPruducts;
     }
 }

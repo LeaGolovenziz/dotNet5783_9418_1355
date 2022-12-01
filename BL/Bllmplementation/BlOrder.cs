@@ -52,7 +52,7 @@ namespace Bllmplementation
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Confirmed;
 
             // The orderItems of dal order
-            IEnumerable<DO.OrderItem> tempOrderItems = _dal.OrderItem.GeOrderItems(orderID);
+            IEnumerable<DO.OrderItem?> tempOrderItems = _dal.OrderItem.GeOrderItems(orderID);
             // copy the order items list
             foreach (DO.OrderItem item in tempOrderItems)
             {
@@ -139,10 +139,10 @@ namespace Bllmplementation
                 else
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Confirmed;
                 // the list of tracking
-                orderTracking.Tracking = new List<Tuple<DateTime, BO.Enums.OrderStatus>>();
-                orderTracking.Tracking.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)order.OrderDate, BO.Enums.OrderStatus.Confirmed));
-                orderTracking.Tracking.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)order.ShipDate, BO.Enums.OrderStatus.Sent));
-                orderTracking.Tracking.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)order.DeliveryDate, BO.Enums.OrderStatus.Delivered));
+                orderTracking.Tracking = new List<Tuple<DateTime?, BO.Enums.OrderStatus?>>();
+                orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.OrderDate, BO.Enums.OrderStatus.Confirmed));
+                orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.ShipDate, BO.Enums.OrderStatus.Sent));
+                orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.DeliveryDate, BO.Enums.OrderStatus.Delivered));
 
                 return orderTracking;
             }
@@ -155,8 +155,8 @@ namespace Bllmplementation
         IEnumerable<OrderForList> IOrder.GetOrderList()
         {
             List<OrderForList> orders = new List<OrderForList>();
-            IEnumerable<DO.Order> dalOrders = _dal.Order.Get();
-            IEnumerable<DO.OrderItem> orderItems = _dal.OrderItem.Get();
+            IEnumerable<DO.Order?> dalOrders = _dal.Order.Get();
+            IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.Get();
 
             // copy all the orders from dal to bl
             foreach (DO.Order order in dalOrders)
@@ -175,9 +175,9 @@ namespace Bllmplementation
                 else
                     tempOrderForList.OrderStatus = BO.Enums.OrderStatus.Confirmed;
                 // the amount
-                tempOrderForList.Amount = orderItems.First(x => x.OrderID == order.ID).Amount;
+                tempOrderForList.Amount = orderItems.First(x => x.Value.OrderID == order.ID).Value.Amount;
                 // the price
-                tempOrderForList.Price = orderItems.First(x => x.OrderID == order.ID).Price;
+                tempOrderForList.Price = orderItems.First(x => x.Value.OrderID == order.ID).Value.Price;
 
                 // add the order to the list of the orders
                 orders.Add(tempOrderForList);

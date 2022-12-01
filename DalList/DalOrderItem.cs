@@ -68,9 +68,11 @@ internal class DalOrderItem : IOrderItem
     ///  return the list of order's items
     /// </summary>
     /// <returns>List<Order></Order></returns>
-    public IEnumerable<OrderItem> Get()
+     public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? func)
     {
-        return DataSource._lstOrderItems;
+        if (func != null)
+            return (IEnumerable<OrderItem?>)DataSource._lstOrderItems.Where(x => func(x)).ToList();
+        return (IEnumerable<OrderItem?>)DataSource._lstOrderItems;
     }
 
     /// <summary>
@@ -78,8 +80,10 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="orderID"></param>
     /// <returns>List<OrderItem></returns>
-    public IEnumerable<OrderItem> GeOrderItems(int orderID)
+    IEnumerable<OrderItem?> IOrderItem.GeOrderItems(int orderID)
     {
-       return DataSource._lstOrderItems.Where(x => x.OrderID == orderID).ToList();
+        return (IEnumerable<OrderItem?>)DataSource._lstOrderItems.Where(x => x.OrderID == orderID).ToList();
     }
+
+
 }

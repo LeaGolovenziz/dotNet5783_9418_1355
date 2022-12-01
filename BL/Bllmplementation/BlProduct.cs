@@ -52,7 +52,7 @@ namespace Bllmplementation
         void IProduct.DeleteProduct(int productID)
         {
             // gets the order items list from dal
-            IEnumerable<DO.OrderItem> orderItems = _dal.OrderItem.Get();
+            IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.Get();
             // checks foreach order item if contains the current product
             foreach(DO.OrderItem item in orderItems)
             {
@@ -176,7 +176,7 @@ namespace Bllmplementation
             List<ProductForList> products=new List<ProductForList>();
 
             // get the list of DO products from dal
-            IEnumerable<DO.Product> lstProducts = _dal.Product.Get();
+            IEnumerable<DO.Product?> lstProducts = _dal.Product.Get();
 
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
             foreach (DO.Product product in lstProducts)
