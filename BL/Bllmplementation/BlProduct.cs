@@ -170,7 +170,7 @@ namespace Bllmplementation
             }
         }
 
-        IEnumerable<ProductForList> IProduct.GetProductsList()
+        IEnumerable<ProductForList?> IProduct.GetProductsList()
         {
             // creates list of BO ProductForList
             List<ProductForList> products=new List<ProductForList>();

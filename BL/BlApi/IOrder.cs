@@ -16,7 +16,7 @@ namespace BlApi
         /// returns a list of the orders
         /// </summary>
         /// <returns>IEnumerable<OrderForList></returns>
-        public IEnumerable<OrderForList> GetOrderList();
+        public IEnumerable<OrderForList?> GetOrderList();
         /// <summary>
         /// gets order id and returns the order
         /// </summary>

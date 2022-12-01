@@ -16,7 +16,7 @@ namespace BlApi
         /// return a list of the ProductForList (for manager)
         /// </summary>
         /// <returns>IEnumerable<ProductForList></returns>
-        public IEnumerable<ProductForList> GetProductsList();
+        public IEnumerable<ProductForList?> GetProductsList();
         /// <summary>
         /// gets product's id and returns Product (for manager)
         /// </summary>

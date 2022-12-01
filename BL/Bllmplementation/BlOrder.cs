@@ -152,7 +152,7 @@ namespace Bllmplementation
             }
         }
 
-        IEnumerable<OrderForList> IOrder.GetOrderList()
+        IEnumerable<OrderForList?> IOrder.GetOrderList()
         {
             List<OrderForList> orders = new List<OrderForList>();
             IEnumerable<DO.Order> dalOrders = _dal.Order.Get();
