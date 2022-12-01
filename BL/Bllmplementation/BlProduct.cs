@@ -170,13 +170,13 @@ namespace Bllmplementation
             }
         }
 
-        IEnumerable<ProductForList?> IProduct.GetProductsList()
+        IEnumerable<ProductForList?> IProduct.GetProductsList(Func<DO.Product?, bool>? func = null)
         {
             // creates list of BO ProductForList
-            List<ProductForList> products=new List<ProductForList>();
+            List<ProductForList> products = new List<ProductForList>();
 
             // get the list of DO products from dal
-            IEnumerable<DO.Product?> lstProducts = _dal.Product.Get();
+            IEnumerable<DO.Product?> lstProducts = _dal.Product.Get(func);
 
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
             foreach (DO.Product product in lstProducts)
