@@ -25,9 +25,7 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"></exception>
     public Order Get(int id)
     {
-        if (!DataSource._lstOreders.Exists(x => x.ID == id))
-            throw new NotFound();
-        return DataSource._lstOreders.Find(x => x.ID == id);
+        return GetIf(order => order.Value.ID == id);
     }
 
     /// <summary>
@@ -45,7 +43,7 @@ internal class DalOrder : IOrder
     /// <param name="order"></param>
     public void Update(Order order)
     {
-        int index = DataSource._lstOreders.FindIndex(x => x.ID == order.ID);
+        int index = DataSource._lstOreders.FindIndex(x => x.Value.ID == order.ID);
         if (index == -1)
             throw new NotFound();
         DataSource._lstOreders[index] = order;
@@ -60,5 +58,17 @@ internal class DalOrder : IOrder
         if (func != null)
             return (IEnumerable<Order?>)DataSource._lstOreders.Where(x => func(x)).ToList();
         return (IEnumerable<Order?>)DataSource._lstOreders;
+    }
+    /// <summary>
+    ///  returns Order who meets the condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns>Order</returns>
+    /// <exception cref="NotFound"></exception>
+    public Order GetIf(Func<Order?, bool>? func)
+    {
+        if(DataSource._lstOreders.Exists(x => func(x)))
+        return (Order)DataSource._lstOreders.Find(x => func(x));
+        throw new NotFound();
     }
 }

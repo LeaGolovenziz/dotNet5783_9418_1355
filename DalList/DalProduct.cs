@@ -13,7 +13,7 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public int Add(Product product)
     {
-        if (DataSource._lstPruducts.Exists(x => x.ID == product.ID))
+        if (DataSource._lstPruducts.Exists(x => x.Value.ID == product.ID))
             throw new AlreadyExist();
         DataSource._lstPruducts.Add(product);
         return product.ID;
@@ -27,9 +27,8 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public Product Get(int id)
     {
-        if (!DataSource._lstPruducts.Exists(x => x.ID == id))
-            throw new NotFound();
-        return DataSource._lstPruducts.Find(x => x.ID == id);
+        return GetIf(product => product.Value.ID == id);
+
     }
 
     /// <summary>
@@ -47,7 +46,7 @@ internal class DalProduct : IProduct
     /// <param name="product"></param>
     public void Update(Product product)
     {
-        int index = DataSource._lstPruducts.FindIndex(x => x.ID == product.ID);
+        int index = DataSource._lstPruducts.FindIndex(x => x.Value.ID == product.ID);
         if (index == -1)
             throw new NotFound();
         DataSource._lstPruducts[index] = product;
@@ -60,7 +59,19 @@ internal class DalProduct : IProduct
     public IEnumerable<Product?> Get(Func<Product?, bool>? func)
     {
         if(func != null)
-            return (IEnumerable<Product?>)DataSource._lstPruducts.Where(x => func(x)).ToList();
-        return (IEnumerable<Product?>)DataSource._lstPruducts;
+            return DataSource._lstPruducts.Where(x => func(x)).ToList();
+        return DataSource._lstPruducts;
+    }
+    /// <summary>
+    ///  returns product who meets the condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns>Product</returns>
+    /// <exception cref="NotFound"></exception>
+    public Product GetIf(Func<Product?, bool>? func)
+    {
+        if (DataSource._lstPruducts.Exists(x => func(x)))
+            return (Product)DataSource._lstPruducts.Find(x => func(x));
+        throw new NotFound();
     }
 }

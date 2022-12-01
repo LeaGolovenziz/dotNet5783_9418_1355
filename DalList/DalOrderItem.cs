@@ -24,9 +24,9 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem Get(int id)
     {
-        if (!DataSource._lstOrderItems.Exists(x => x.OrderItemID == id))
+        if (!DataSource._lstOrderItems.Exists(x => x.Value.OrderItemID == id))
             throw new NotFound();
-        return DataSource._lstOrderItems.Find(x => x.OrderItemID == id);
+        return (OrderItem)DataSource._lstOrderItems.Find(x => x.Value.OrderItemID == id);
     }
 
     /// <summary>
@@ -38,9 +38,7 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem Get(int productID, int orderID)
     {
-        if (!DataSource._lstOrderItems.Exists(x => x.ProductID == productID && x.OrderID == orderID))
-            throw new NotFound();
-        return DataSource._lstOrderItems.Find(x => x.ProductID == productID && x.OrderID == orderID);
+        return GetIf(orderItem => orderItem.Value.ProductID == productID && orderItem.Value.OrderID == orderID);
     }
 
     /// <summary>
@@ -58,7 +56,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="orderItem"></param>
     public void Update(OrderItem orderItem)
     {
-        int index = DataSource._lstOrderItems.FindIndex(x => x.OrderID == orderItem.OrderID);
+        int index = DataSource._lstOrderItems.FindIndex(x => x.Value.OrderID == orderItem.OrderID);
         if (index == -1)
             throw new NotFound();
         DataSource._lstOrderItems[index] = orderItem;
@@ -71,8 +69,8 @@ internal class DalOrderItem : IOrderItem
      public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? func)
     {
         if (func != null)
-            return (IEnumerable<OrderItem?>)DataSource._lstOrderItems.Where(x => func(x)).ToList();
-        return (IEnumerable<OrderItem?>)DataSource._lstOrderItems;
+            return DataSource._lstOrderItems.Where(x => func(x)).ToList();
+        return DataSource._lstOrderItems;
     }
 
     /// <summary>
@@ -82,7 +80,19 @@ internal class DalOrderItem : IOrderItem
     /// <returns>List<OrderItem></returns>
     IEnumerable<OrderItem?> IOrderItem.GeOrderItems(int orderID)
     {
-        return (IEnumerable<OrderItem?>)DataSource._lstOrderItems.Where(x => x.OrderID == orderID).ToList();
+        return Get(orderItem => orderItem.Value.OrderID == orderID);
+    }
+    /// <summary>
+    ///  returns OrderItem who meets the condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns>OrderItem</returns>
+    /// <exception cref="NotFound"></exception>
+    public OrderItem GetIf(Func<OrderItem?, bool>? func)
+    {
+        if(DataSource._lstOrderItems.Exists(x => func(x)))
+        return (OrderItem)DataSource._lstOrderItems.Find(x => func(x));
+        throw new NotFound();
     }
 
 

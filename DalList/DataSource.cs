@@ -9,9 +9,9 @@ internal static class DataSource
     /// </summary>
     static readonly Random _rand = new Random();
 
-    internal static List<Order> _lstOreders = new List<Order>();
-    internal static List<OrderItem> _lstOrderItems = new List<OrderItem>();
-    internal static List<Product> _lstPruducts = new List<Product>();
+    internal static List<Order?> _lstOreders = new List<Order?>();
+    internal static List<OrderItem?> _lstOrderItems = new List<OrderItem?>();
+    internal static List<Product?> _lstPruducts = new List<Product?>();
 
     static DataSource()
     {
@@ -40,7 +40,7 @@ internal static class DataSource
             {
                 product.ID = _rand.Next(100000, 999999);
             }
-            while (_lstPruducts.Exists(x => x.ID == product.ID));
+            while (_lstPruducts.Exists(x => x.Value.ID == product.ID));
 
             // select the name of the product from the names array
             product.Name = productsNamesArray[i];
@@ -96,7 +96,7 @@ internal static class DataSource
                 OrderItem orderItem = new OrderItem();
 
                 orderItem.OrderItemID = config.ItemOrderID;
-                Product p = _lstPruducts[_rand.Next(0, 9)];
+                Product p = (Product)_lstPruducts[_rand.Next(0, 9)];
                 orderItem.ProductID = p.ID;
                 orderItem.Price = p.Price;
                 orderItem.OrderID = 100000 + i;
