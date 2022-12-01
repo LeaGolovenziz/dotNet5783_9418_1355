@@ -22,7 +22,7 @@ namespace BO
         /// <summary>
         /// unique list of tracking
         /// </summary>
-        public List<Tuple<DateTime, OrderStatus>>? Tracking { get; set; }
+        public List<Tuple<DateTime?, OrderStatus?>> Tracking { get; set; }
         /// <summary>
         /// returns a string of the order's tracking
         /// </summary>

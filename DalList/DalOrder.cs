@@ -1,6 +1,5 @@
-﻿using DO;
-using System.Security.Cryptography.X509Certificates;
-using DalApi;
+﻿using DalApi;
+using DO;
 
 namespace Dal;
 
@@ -15,7 +14,7 @@ internal class DalOrder : IOrder
     {
         order.ID = DataSource.config.OrderID;
         DataSource._lstOreders.Add(order);
-        return order.ID; 
+        return order.ID;
     }
 
     /// <summary>
@@ -28,7 +27,7 @@ internal class DalOrder : IOrder
     {
         if (!DataSource._lstOreders.Exists(x => x.ID == id))
             throw new NotFound();
-        return DataSource._lstOreders.Find(x=>x.ID==id);
+        return DataSource._lstOreders.Find(x => x.ID == id);
     }
 
     /// <summary>
@@ -47,17 +46,19 @@ internal class DalOrder : IOrder
     public void Update(Order order)
     {
         int index = DataSource._lstOreders.FindIndex(x => x.ID == order.ID);
-        if(index==-1)
+        if (index == -1)
             throw new NotFound();
-        DataSource._lstOreders[index]=order;
+        DataSource._lstOreders[index] = order;
     }
 
     /// <summary>
     ///  return the list of orders
     /// </summary>
     /// <returns>List<Order></returns>
-    public IEnumerable<Order> Get()
+    public IEnumerable<Order?> Get(Func<Order?, bool>? func)
     {
-        return DataSource._lstOreders;
+        if (func != null)
+            return (IEnumerable<Order?>)DataSource._lstOreders.Where(x => func(x)).ToList();
+        return (IEnumerable<Order?>)DataSource._lstOreders;
     }
 }
