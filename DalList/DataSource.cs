@@ -78,14 +78,14 @@ internal static class DataSource
                 // draw a date in the range between the order date and 7 days after
                 order.ShipDate = order.OrderDate.Value.Add(new TimeSpan(_rand.Next(1, 7), 0, 0, 0));
             else
-                order.ShipDate = DateTime.MinValue;
+                order.ShipDate =null;
 
             // about 60% of the shipped orders have a delivery date
             if (i < 10)
                 // draw a date in the range between the ship date and 2 days after
                 order.DeliveryDate = order.ShipDate.Value.Add(new TimeSpan(_rand.Next(1, 2), 0, 0, 0));
             else
-                order.DeliveryDate = DateTime.MinValue;
+                order.DeliveryDate = null;
 
             _lstOreders.Add(order);
         }

@@ -44,9 +44,9 @@ namespace Bllmplementation
             blOrder.DeliveryDate = dalOrder.DeliveryDate;
 
             // the status of order
-            if (dalOrder.DeliveryDate <= DateTime.Now)
+            if (dalOrder.DeliveryDate!=null&&dalOrder.DeliveryDate <= DateTime.Now)
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Delivered;
-            else if (dalOrder.ShipDate <= DateTime.Now)
+            else if (dalOrder.ShipDate != null&&dalOrder.ShipDate <= DateTime.Now)
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Sent;
             else
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Confirmed;
@@ -132,17 +132,19 @@ namespace Bllmplementation
                 // the ID
                 orderTracking.OrderID = orderID;
                 // the status
-                if (order.DeliveryDate <= DateTime.Now)
+                if (order.DeliveryDate != null&&order.DeliveryDate <= DateTime.Now)
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Delivered;
-                else if (order.ShipDate <= DateTime.Now)
+                else if (order.ShipDate != null&&order.ShipDate <= DateTime.Now)
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Sent;
-                else
+                else 
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Confirmed;
                 // the list of tracking
                 orderTracking.Tracking = new List<Tuple<DateTime?, BO.Enums.OrderStatus?>>();
                 orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.OrderDate, BO.Enums.OrderStatus.Confirmed));
-                orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.ShipDate, BO.Enums.OrderStatus.Sent));
-                orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.DeliveryDate, BO.Enums.OrderStatus.Delivered));
+                if (order.ShipDate != null)
+                    orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.ShipDate, BO.Enums.OrderStatus.Sent));
+                if (order.DeliveryDate !=null)
+                    orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.DeliveryDate, BO.Enums.OrderStatus.Delivered));
 
                 return orderTracking;
             }
