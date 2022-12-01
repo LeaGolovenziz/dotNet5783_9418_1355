@@ -104,7 +104,7 @@ namespace DalTest
 
                 Console.WriteLine("enter order's date in a dd.mm.yy format:");
                 dateTime1 = Console.ReadLine();
-                if (dateTime1.Equals(""))
+                if (!dateTime1.Equals(""))
                 {
                     if (DateTime.TryParse(dateTime1, out dateTime))
                         order.OrderDate = dateTime;
@@ -113,7 +113,7 @@ namespace DalTest
 
                 Console.WriteLine("enter order's ship date in a dd.mm.yy format:");
                 dateTime1 = Console.ReadLine();
-                if (dateTime1.Equals(""))
+                if (!dateTime1.Equals(""))
                 {
                     if (DateTime.TryParse(dateTime1, out dateTime))
                         order.ShipDate = dateTime;
@@ -122,7 +122,7 @@ namespace DalTest
 
                 Console.WriteLine("enter order's delivary date in a dd.mm.yy format:");
                 dateTime1 = Console.ReadLine();
-                if (dateTime1.Equals(""))
+                if (!dateTime1.Equals(""))
                 {
                     if (DateTime.TryParse(dateTime1, out dateTime))
                         order.DeliveryDate = dateTime;
