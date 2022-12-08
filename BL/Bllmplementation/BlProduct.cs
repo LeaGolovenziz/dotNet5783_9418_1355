@@ -23,7 +23,7 @@ namespace Bllmplementation
             // checks validity of product's types
             if (product.ID <= 0)
                 throw new UnvalidID();
-            if (product.Name.Equals(""))
+            if (product.Name!.Equals(""))
                 throw new UnvalidName();
             if (product.Price <= 0)
                 throw new UnvalidPrice();
@@ -54,9 +54,9 @@ namespace Bllmplementation
             // gets the order items list from dal
             IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.Get();
             // checks foreach order item if contains the current product
-            foreach(DO.OrderItem item in orderItems)
+            foreach(DO.OrderItem? item in orderItems)
             {
-                if (item.ProductID == productID)
+                if (item?.ProductID == productID)
                     throw new ProductExistInOrder();
             }
 
@@ -77,7 +77,7 @@ namespace Bllmplementation
             // check validity of product's details
             if (product.ID <= 0)
                 throw new UnvalidID();
-            if (product.Name.Equals(""))
+            if (product.Name!.Equals(""))
                 throw new UnvalidName();
             if (product.Price <= 0)
                 throw new UnvalidPrice();
@@ -179,13 +179,13 @@ namespace Bllmplementation
             IEnumerable<DO.Product?> lstProducts = _dal.Product.Get(func);
 
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
-            foreach (DO.Product product in lstProducts)
+            foreach (DO.Product? product in lstProducts)
             {
                 ProductForList tempProduct = new ProductForList();
-                tempProduct.ProductID = product.ID;
-                tempProduct.Name = product.Name;
-                tempProduct.Price = product.Price;
-                tempProduct.Category = (BO.Enums.Category)product.Category;
+                tempProduct.ProductID = (int)product?.ID!;
+                tempProduct.Name = product?.Name;
+                tempProduct.Price = product?.Price;
+                tempProduct.Category = (BO.Enums.Category)product?.Category!;
                 products.Add(tempProduct);
             }
             return products;

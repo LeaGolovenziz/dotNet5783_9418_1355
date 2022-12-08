@@ -146,7 +146,7 @@ namespace DalTest
             Product GetProductDetails(ref Product product)
             {
                 Console.WriteLine("Enter product's name:");
-                string? name = Console.ReadLine();
+                string? name = Console.ReadLine()!;
                 product.Name = name ?? product.Name;
 
                 Console.WriteLine("Enter product's price:");
