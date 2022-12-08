@@ -54,19 +54,19 @@ namespace Bllmplementation
             // The orderItems of dal order
             IEnumerable<DO.OrderItem?> tempOrderItems = _dal.OrderItem.GeOrderItems(orderID);
             // copy the order items list
-            foreach (DO.OrderItem item in tempOrderItems)
+            foreach (DO.OrderItem? item in tempOrderItems)
             {
                 OrderItem tempOrderItem = new OrderItem();
-                tempOrderItem.OrderID = item.OrderID;
-                tempOrderItem.ProductID = item.ProductID;
-                tempOrderItem.ProductName = _dal.Product.Get(item.ProductID).Name;
-                tempOrderItem.ProductPrice = item.Price;
-                tempOrderItem.ProductAmount = item.Amount;
-                tempOrderItem.TotalPrice = item.Price * item.Amount;
+                tempOrderItem.OrderID = (int)item?.OrderID!;
+                tempOrderItem.ProductID = (int)item?.ProductID!;
+                tempOrderItem.ProductName = _dal.Product.Get((int)item?.ProductID!).Name;
+                tempOrderItem.ProductPrice = (double)item?.Price!;
+                tempOrderItem.ProductAmount = (int)item?.Amount!;
+                tempOrderItem.TotalPrice = item?.Price * item?.Amount;
 
                 blOrder.OrderItems.Add(tempOrderItem);
 
-                totalPrice += (double)(item.Price * item.Amount);
+                totalPrice += (double)(item?.Price * item?.Amount)!;
             }
 
             blOrder.Price = totalPrice;
@@ -140,7 +140,7 @@ namespace Bllmplementation
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Confirmed;
                 // the list of tracking
                 orderTracking.Tracking = new List<Tuple<DateTime?, BO.Enums.OrderStatus?>>();
-                orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.OrderDate, BO.Enums.OrderStatus.Confirmed));
+                orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.OrderDate!, BO.Enums.OrderStatus.Confirmed));
                 if (order.ShipDate != null)
                     orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.ShipDate, BO.Enums.OrderStatus.Sent));
                 if (order.DeliveryDate !=null)
@@ -161,25 +161,25 @@ namespace Bllmplementation
             IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.Get();
 
             // copy all the orders from dal to bl
-            foreach (DO.Order order in dalOrders)
+            foreach (DO.Order? order in dalOrders)
             {
                 OrderForList tempOrderForList = new OrderForList();
 
                 // the ID the
-                tempOrderForList.OrderID = order.ID;
+                tempOrderForList.OrderID = (int)order?.ID!;
                 // the customer's name
-                tempOrderForList.CostumerName = order.CustomerName;
+                tempOrderForList.CostumerName = order?.CustomerName!;
                 // the status
-                if (order.DeliveryDate > DateTime.Now)
+                if (order?.DeliveryDate > DateTime.Now)
                     tempOrderForList.OrderStatus = BO.Enums.OrderStatus.Delivered;
-                else if (order.ShipDate > DateTime.Now)
+                else if (order?.ShipDate > DateTime.Now)
                     tempOrderForList.OrderStatus = BO.Enums.OrderStatus.Sent;
                 else
                     tempOrderForList.OrderStatus = BO.Enums.OrderStatus.Confirmed;
                 // the amount
-                tempOrderForList.Amount = orderItems.First(x => x.Value.OrderID == order.ID).Value.Amount;
+                tempOrderForList.Amount = orderItems.FirstOrDefault(x => x?.OrderID == order?.ID)?.Amount;
                 // the price
-                tempOrderForList.Price = orderItems.First(x => x.Value.OrderID == order.ID).Value.Price;
+                tempOrderForList.Price = orderItems.FirstOrDefault(x => x?.OrderID == order?.ID)?.Price;
 
                 // add the order to the list of the orders
                 orders.Add(tempOrderForList);

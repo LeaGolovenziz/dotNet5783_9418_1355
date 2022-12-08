@@ -47,13 +47,19 @@ namespace PL.ProductWindows
             CategorySelector.SelectedItem = null;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e) => new ProductWindow().Show();
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        { 
+            new ProductWindow().ShowDialog();
+            ProductListView.ItemsSource = bl.Product.GetProductsList();
+            CategorySelector.SelectedItem = null;
+        }
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ProductForList product = (ProductForList)ProductListView.SelectedItem;
-            new ProductWindow(product.ProductID).Show();
-
+            new ProductWindow(product.ProductID).ShowDialog();
+            ProductListView.ItemsSource = bl.Product.GetProductsList();
+            CategorySelector.SelectedItem = null;
         }
     }
 }
