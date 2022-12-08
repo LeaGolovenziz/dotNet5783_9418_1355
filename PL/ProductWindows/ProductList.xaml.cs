@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using Bllmplementation;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,13 +38,22 @@ namespace PL.ProductWindows
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(CategorySelector.SelectedItem!=null)
-            ProductListView.ItemsSource = bl.Product.GetProductsList(product => product.Value.Category == (DO.Enums.Category)CategorySelector.SelectedItem);
+            ProductListView.ItemsSource = bl.Product.GetProductsList(product => product?.Category == (DO.Enums.Category)CategorySelector.SelectedItem);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
             ProductListView.ItemsSource = bl.Product.GetProductsList();
             CategorySelector.SelectedItem = null;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) => new ProductWindow().Show();
+
+        private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ProductForList product = (ProductForList)ProductListView.SelectedItem;
+            new ProductWindow(product.ProductID).Show();
+
         }
     }
 }

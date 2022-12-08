@@ -26,7 +26,7 @@ namespace BO
         /// <summary>
         /// unique list of items in cart
         /// </summary>
-        public List<OrderItem?> OrderItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
         /// <summary>
         /// unique price of products in cart
         /// </summary>

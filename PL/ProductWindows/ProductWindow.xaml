@@ -7,6 +7,33 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="1"
+              VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <StackPanel Grid.Column="0" Margin="0,0,30,0" VerticalAlignment="Stretch" >
+                <Label x:Name="idLable"  HorizontalAlignment="Right" Content="ID:"/>
+                <Label x:Name="categoryLable" HorizontalAlignment="Right" Content="Category:"/>
+                <Label x:Name="nameLable"  HorizontalAlignment="Right" Content="Name:"/>
+                <Label x:Name="priceLable"  HorizontalAlignment="Right" Content="Price:"/>
+                <Label x:Name="inStockLable"  HorizontalAlignment="Right" Content="Amount in stock:"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="30,0,0,0" VerticalAlignment="Stretch"  >
+                <TextBox x:Name="idTextBox"  HorizontalAlignment="Left" Width="120" Text=""/>
+                <ComboBox x:Name="categoryComboBox" HorizontalAlignment="Left" Width="120" />
+                <TextBox x:Name="nameTextBox"  HorizontalAlignment="Left" Width="120" Text=""/>
+                <TextBox x:Name="priceTextBox"  HorizontalAlignment="Left" Width="120" Text=""/>
+                <TextBox x:Name="inStockTextBox"  HorizontalAlignment="Left" Width="120" Text="" />
+            </StackPanel>
+        </Grid>
+        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="512,10,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="button_Click"/>
+        <Button x:Name="addButton" Content="add" HorizontalAlignment="Left" Margin="512,56,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addButton_Click"/>
     </Grid>
 </Window>

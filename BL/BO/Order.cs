@@ -44,7 +44,7 @@ namespace BO
         /// <summary>
         /// unique order's list of items
         /// </summary>
-        public List<OrderItem?> OrderItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
         /// <summary>
         /// unique total price of order
         /// </summary>

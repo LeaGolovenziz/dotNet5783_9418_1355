@@ -13,7 +13,7 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public int Add(Product product)
     {
-        if (DataSource._lstPruducts.Exists(x => x.Value.ID == product.ID))
+        if (DataSource._lstPruducts.Exists(x => x?.ID == product.ID))
             throw new AlreadyExist();
         DataSource._lstPruducts.Add(product);
         return product.ID;
@@ -27,7 +27,7 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public Product Get(int id)
     {
-        return GetIf(product => product.Value.ID == id);
+        return GetIf(product => product?.ID == id);
 
     }
 
@@ -46,7 +46,7 @@ internal class DalProduct : IProduct
     /// <param name="product"></param>
     public void Update(Product product)
     {
-        int index = DataSource._lstPruducts.FindIndex(x => x.Value.ID == product.ID);
+        int index = DataSource._lstPruducts.FindIndex(x => x?.ID == product.ID);
         if (index == -1)
             throw new NotFound();
         DataSource._lstPruducts[index] = product;
@@ -70,8 +70,8 @@ internal class DalProduct : IProduct
     /// <exception cref="NotFound"></exception>
     public Product GetIf(Func<Product?, bool>? func)
     {
-        if (DataSource._lstPruducts.Exists(x => func(x)))
-            return (Product)DataSource._lstPruducts.Find(x => func(x));
+        if (DataSource._lstPruducts.Exists(x => func!(x)))
+            return (Product)DataSource._lstPruducts.Find(x => func!(x))!;
         throw new NotFound();
     }
 }

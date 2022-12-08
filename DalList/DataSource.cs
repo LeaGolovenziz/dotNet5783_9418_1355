@@ -76,14 +76,14 @@ internal static class DataSource
             // about 80% of the orders have a ship date
             if (i < 16)
                 // draw a date in the range between the order date and 7 days after
-                order.ShipDate = order.OrderDate.Value.Add(new TimeSpan(_rand.Next(1, 7), 0, 0, 0));
+                order.ShipDate = order.OrderDate?.Add(new TimeSpan(_rand.Next(1, 7), 0, 0, 0));
             else
                 order.ShipDate =null;
 
             // about 60% of the shipped orders have a delivery date
             if (i < 10)
                 // draw a date in the range between the ship date and 2 days after
-                order.DeliveryDate = order.ShipDate.Value.Add(new TimeSpan(_rand.Next(1, 2), 0, 0, 0));
+                order.DeliveryDate = order.ShipDate?.Add(new TimeSpan(_rand.Next(1, 2), 0, 0, 0));
             else
                 order.DeliveryDate = null;
 
@@ -96,7 +96,7 @@ internal static class DataSource
                 OrderItem orderItem = new OrderItem();
 
                 orderItem.OrderItemID = config.ItemOrderID;
-                Product p = (Product)_lstPruducts[_rand.Next(0, 9)];
+                Product p = (Product)_lstPruducts[_rand.Next(0, 9)]!;
                 orderItem.ProductID = p.ID;
                 orderItem.Price = p.Price;
                 orderItem.OrderID = 100000 + i;
