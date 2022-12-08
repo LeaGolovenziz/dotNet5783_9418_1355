@@ -71,18 +71,18 @@ namespace Bllmplementation
         {
             // checking validity of customers details:
 
-            if (cart.CustomerName.Equals(""))
+            if (cart.CustomerName!.Equals(""))
                 throw new UnvalidName();
             // checking validity of email address
             try
             {
-                MailAddress emailAddressAttribute = new MailAddress(cart.CustomerEmail);
+                MailAddress emailAddressAttribute = new MailAddress(cart.CustomerEmail!);
             }
             catch
             { 
                 throw new UnvalidEmail();
             }
-            if (cart.CustomerAddress.Equals(""))
+            if (cart.CustomerAddress!.Equals(""))
                 throw new UnvalidAddress();
 
             //checking validity of order items
@@ -177,7 +177,7 @@ namespace Bllmplementation
                 }
                 // updating the amount and the total price of the product
                 cart.OrderItems.ElementAt(index).ProductAmount = amount;
-                double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).ProductPrice * amount - (double)cart.OrderItems.ElementAt(index).TotalPrice;
+                double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).ProductPrice! * amount - (double)cart.OrderItems.ElementAt(index).TotalPrice!;
                 cart.OrderItems.ElementAt(index).TotalPrice += totalPriceAdded;
                 // updating the total price of the cart
                 cart.price += totalPriceAdded;
@@ -185,7 +185,7 @@ namespace Bllmplementation
             // if the wanted amount equals 0
             else if (amount == 0)
             {
-                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).TotalPrice;
+                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).TotalPrice!;
                 cart.OrderItems.RemoveAt(index);
                 cart.price -= totalPriceSub;
 
@@ -193,9 +193,9 @@ namespace Bllmplementation
             // if the wanted amount is smaller than the current amount
             else if (amount < cart.OrderItems.ElementAt(index).ProductAmount)
             {
-                int oldAmount = (int)cart.OrderItems.ElementAt(index).ProductAmount;
+                int oldAmount = (int)cart.OrderItems.ElementAt(index).ProductAmount!;
                 cart.OrderItems.ElementAt(index).ProductAmount = amount;
-                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice * (oldAmount - amount);
+                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice! * (oldAmount - amount);
                 cart.OrderItems.ElementAt(index).TotalPrice -= totalPriceSub;
                 cart.price -= totalPriceSub;
             }

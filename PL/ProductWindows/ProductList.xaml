@@ -29,6 +29,6 @@ VerticalAlignment="Stretch" Width="auto">
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="Button_Click_1"/>
+        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="691,5,0,0" Padding="5" Click="Button_Click_1" Height="28" VerticalAlignment="Top"/>
     </Grid>
 </Window>
