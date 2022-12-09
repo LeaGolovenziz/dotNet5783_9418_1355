@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -16,6 +17,46 @@ using OrderItem = BO.OrderItem;
 
 namespace Bllmplementation
 {
+    //static class Copy
+    //{
+    //    public static Target CopyPropTo<Source, Target>(this Source source, Target target)
+    //    {
+    //        Dictionary<string, PropertyInfo> propertyInfoTarget = target.GetType().GetProperties()
+    //            .ToDictionary(key => key.Name, value => value);
+
+    //        IEnumerable<PropertyInfo> propertyInfoSource = source.GetType().GetProperties();
+
+    //        foreach (var item in propertyInfoSource)
+    //        {
+    //            if (propertyInfoTarget.ContainsKey(item.Name) && (item.PropertyType == typeof(string) || !item.PropertyType.IsClass))
+    //            {
+    //                Type typeSource = Nullable.GetUnderlyingType(item.PropertyType);
+    //                Type typeTarget = Nullable.GetUnderlyingType(propertyInfoTarget[item.Name].PropertyType);
+
+    //                object value = item.GetValue(source);
+
+    //                if (typeSource is not null && typeTarget is not null)
+    //                    value = Enum.ToObject(typeTarget, value);
+
+    //                else if (propertyInfoTarget[item.Name].PropertyType is item.PropertyType)
+    //                    propertyInfoTarget[item.Name].SetValue(target, value);
+    //            }
+    //        }
+
+    //        return target;
+    //    }
+
+    //    public static Target CopyPropToStruct<Source, Target>(this Source source, Target target) where Target : struct
+    //                  =>source.CopyPropTo(target as object) as Target;
+
+    //    public static IEnumerable<Target> CopyListTo<Source, Target>(this IEnumerable<Source> sources) where Target : new()
+    //    => from source in sources
+    //       select source.CopyPropTo(new Target());
+
+    //    public static IEnumerable<Target> CopyListToStruct<Source, Target>(this IEnumerable<Source> sources) where Target : struct
+    //        => from source in sources
+    //           select source.CopyPropTo(new Target());
+    //}
     internal class BlOrder : IOrder
     {
         /// <summary>
@@ -28,23 +69,6 @@ namespace Bllmplementation
         /// <param name="dalOrder"></param>
         /// <param name="orderID"></param>
         /// <returns>Order</returns>
-        
-        //private static void copyEntities<T1,T2>(T1 t1,T2 t2)
-        //{
-        //    var map = from p1 in typeof(T1).GetProperties()
-        //              join p2 in typeof(T2).GetProperties()
-        //        on p1.Name equals p2.Name
-        //        select new {From = p1,To = p2};
-
-        //    foreach (var copyItem in map)
-        //    {
-        //        if (copyItem.To.CanWrite)
-        //        {
-        //            copyItem.To.SetValue(t2, copyItem.From.GetValue(t1));
-        //        }
-        //    }
-
-        //}
 
         private Order copyOrderFromDal(ref DO.Order dalOrder, int orderID)
         {

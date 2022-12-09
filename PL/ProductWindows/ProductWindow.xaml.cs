@@ -4,7 +4,9 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -58,6 +60,7 @@ namespace PL.ProductWindows
             {
                 inStockExceptionLable.Visibility = Visibility.Visible;
             }
+
 
         }
         public ProductWindow()
@@ -119,6 +122,46 @@ namespace PL.ProductWindows
 
         }
 
-        
+        // make sure the user can enter only numbers as ID
+        private void IDPrev(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        // make sure the user can enter only letters as name
+        private void NamePrev(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("^[a-zA-Z]+");
+            e.Handled = !regex.IsMatch(e.Text);
+        }
+
+        // make sure the user can enter only numbers as price
+        private void PricePrev(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        // make sure the user can enter only numbers as amount in stock
+        private void InStockPrev(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        // make sure the user entered 9 numbers for ID
+        private void idTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (((TextBox)sender).Text.Length < 6)
+            {
+                idExceptionLable.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                idExceptionLable.Visibility = Visibility.Hidden;
+
+            }
+        }
     }
 }

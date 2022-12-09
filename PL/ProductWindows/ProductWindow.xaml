@@ -35,11 +35,11 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="idTextBox" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120"/>
+                <TextBox x:Name="idTextBox" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" PreviewTextInput="IDPrev" MaxLength="6" LostFocus="idTextBox_LostFocus"/>
                 <ComboBox x:Name="categoryComboBox" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" />
-                <TextBox x:Name="nameTextBox" Grid.Row="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text=""/>
-                <TextBox x:Name="priceTextBox" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text=""/>
-                <TextBox x:Name="inStockTextBox" Grid.Row="4" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text=""/>
+                <TextBox x:Name="nameTextBox" Grid.Row="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text="" PreviewTextInput="NamePrev" MaxLength="20"/>
+                <TextBox x:Name="priceTextBox" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text="" PreviewTextInput="PricePrev" MaxLength="4"/>
+                <TextBox x:Name="inStockTextBox" Grid.Row="4" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text="" PreviewTextInput="InStockPrev" MaxLength="4"/>
             </Grid>
             <StackPanel Grid.Column="3" Margin="0,0,30,0" VerticalAlignment="Stretch"  >
                 <Label x:Name="idExceptionLable"  HorizontalAlignment="Left" Content="The ID you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
