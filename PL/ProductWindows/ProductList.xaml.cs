@@ -56,10 +56,14 @@ namespace PL.ProductWindows
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ProductForList product = (ProductForList)ProductListView.SelectedItem;
-            new ProductWindow(product.ProductID).ShowDialog();
-            ProductListView.ItemsSource = bl.Product.GetProductsList();
-            CategorySelector.SelectedItem = null;
+
+                ProductForList product = (ProductForList)ProductListView.SelectedItem;
+            if (product != null)
+            {
+                new ProductWindow(product.ProductID).ShowDialog();
+                ProductListView.ItemsSource = bl.Product.GetProductsList();
+                CategorySelector.SelectedItem = null;
+            }
         }
     }
 }

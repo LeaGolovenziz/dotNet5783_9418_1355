@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.ProductWindows"
         mc:Ignorable="d"
         Title="ProductList" Height="640" Width="800">
-    <Grid Name ="MainGrid">
+    <Grid Name ="MainGrid" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
@@ -29,6 +29,6 @@ VerticalAlignment="Stretch" Width="auto">
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="691,5,0,0" Padding="5" Click="Button_Click_1" Height="28" VerticalAlignment="Top"/>
+        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="664,5,0,0" Padding="5" Click="Button_Click_1" Height="28" VerticalAlignment="Top" Width="116"/>
     </Grid>
 </Window>
