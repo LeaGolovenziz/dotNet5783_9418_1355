@@ -23,6 +23,8 @@ namespace PL.ProductWindows
     public partial class ProductWindow : Window
     {
         private IBl bl = new Bl();
+
+        // get a product and initialize it's details from the textboxs
         void insertProductDetails(ref Product product)
         {
             product.ID = int.Parse(idTextBox.Text);
@@ -32,6 +34,7 @@ namespace PL.ProductWindows
             product.InStock=int.Parse(inStockTextBox.Text); 
         }
 
+        // make all the exception hidden
         void blankexceptionLables()
         {
             idExceptionLable.Visibility = Visibility.Hidden;
@@ -40,6 +43,7 @@ namespace PL.ProductWindows
             inStockExceptionLable.Visibility = Visibility.Hidden;
         }
 
+        // gets an exception and shoes the matching error text
         void catchException(Exception ex)
         {
             if(ex is UnvalidID)
@@ -60,6 +64,8 @@ namespace PL.ProductWindows
             }
 
         }
+
+        // constructor for add product window
         public ProductWindow()
         {
             InitializeComponent();
@@ -67,6 +73,8 @@ namespace PL.ProductWindows
 
             categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
+
+        // constructor for update product window
         public ProductWindow(int id)
         {
             InitializeComponent();
@@ -85,6 +93,7 @@ namespace PL.ProductWindows
 
         }
 
+        // updates the product with the new details in the textboxs
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             blankexceptionLables();
@@ -94,6 +103,7 @@ namespace PL.ProductWindows
             {
                 bl.Product.UpdateProduct(product);
                 MessageBox.Show("product updated!");
+                Close();
             }
             catch (Exception ex)
             {
@@ -102,6 +112,7 @@ namespace PL.ProductWindows
 
         }
 
+        // adds a product with the details in the textboxs
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             blankexceptionLables();
@@ -111,6 +122,7 @@ namespace PL.ProductWindows
             {
                 bl.Product.AddProduct(product);
                 MessageBox.Show("product added!");
+                Close();
             }
             catch (Exception ex)
             {
