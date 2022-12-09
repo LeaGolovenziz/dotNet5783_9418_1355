@@ -1,4 +1,6 @@
 ﻿using DO;
+using System.IO;
+using System;
 
 namespace Dal;
 
@@ -20,7 +22,16 @@ internal static class DataSource
     private static void s_Initialize()
     {
         // array of product's possible names
-        string[] productsNamesArray = { "product1", "product2", "product3", "product4", "product5", "product6", "product7", "product8", "product9", "product10" };
+        string[] productsNamesArray = { "Cypress tree", "Rose", "Black coral snake plant", "Watering can", "Fast acting iron",
+                                        "Apple tree", "Tulip", "Whale fin snake plant", "Soil soker hose", "Fast a thing gypsum", 
+                                        "Peach tree", "Orchid", "Calathea ornata", "Pruner", "Fast acting lime",
+                                        "Cherry tree", "Iris", "Moonshine snake plant", "Bypass loppers", "Compost starter",
+                                        "Berry bushes", "Lily", "Calathea makoyana", "Grip trowel", "Bone mael", 
+                                        "Beech tree", "Anemone", "Calathea orbifolia", "Saw", "Organic potting mix", 
+                                        "Maple tree", "Daisy", "Majesty palm", "Hedge shear", "Organic cactus mix", 
+                                        "Redbud tree", "Aster", "Parlor palm", "Garden gloves", "Potting soil", 
+                                        "Cotton tree", "Sunflower", "Bamboo palm", "Tree staking kit", "Moss max",
+                                        "Treaty tree", "Lavender", "Peach lily", "Pump and spray applicator", "Iron tone" };
 
         string[] firstNames = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi" };
 
@@ -49,7 +60,7 @@ internal static class DataSource
             // the stock is 0 the  first time
             product.InStock = i;
             //draw the category of the froduct
-            product.Category = (Enums.Category)_rand.Next(0, 4);
+            product.Category = (Enums.Category)(i%5);
 
             // add the product to the list
             _lstPruducts.Add(product);

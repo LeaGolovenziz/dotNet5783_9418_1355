@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using BlApi;
 using BO;
 using Dal;
@@ -27,6 +28,24 @@ namespace Bllmplementation
         /// <param name="dalOrder"></param>
         /// <param name="orderID"></param>
         /// <returns>Order</returns>
+        
+        //private static void copyEntities<T1,T2>(T1 t1,T2 t2)
+        //{
+        //    var map = from p1 in typeof(T1).GetProperties()
+        //              join p2 in typeof(T2).GetProperties()
+        //        on p1.Name equals p2.Name
+        //        select new {From = p1,To = p2};
+
+        //    foreach (var copyItem in map)
+        //    {
+        //        if (copyItem.To.CanWrite)
+        //        {
+        //            copyItem.To.SetValue(t2, copyItem.From.GetValue(t1));
+        //        }
+        //    }
+
+        //}
+
         private Order copyOrderFromDal(ref DO.Order dalOrder, int orderID)
         {
             // total price for order

@@ -5,5 +5,5 @@
 /// </summary>
 public struct Enums
 {
-    public enum Category { category1, category2, category3, category4, category5};
+    public enum Category { Trees, Flowers, Pots, Tools, Soils };
 }

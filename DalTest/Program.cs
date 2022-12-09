@@ -18,6 +18,11 @@ namespace DalTest
     {
         private static IDal _iDal = new DalList();
 
+        void printEntity(Type t)
+        {
+            Type type = t.GetType();
+            
+        }
 
         static void Main()
         {
