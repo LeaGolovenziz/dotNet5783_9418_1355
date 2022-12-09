@@ -31,6 +31,35 @@ namespace PL.ProductWindows
             product.Price = double.Parse(priceTextBox.Text);
             product.InStock=int.Parse(inStockTextBox.Text); 
         }
+
+        void blankexceptionLables()
+        {
+            idExceptionLable.Visibility = Visibility.Hidden;
+            nameExceptionLable.Visibility = Visibility.Hidden;
+            priceExceptionLable.Visibility = Visibility.Hidden;
+            inStockExceptionLable.Visibility = Visibility.Hidden;
+        }
+
+        void catchException(Exception ex)
+        {
+            if(ex is UnvalidID)
+            {
+                idExceptionLable.Visibility = Visibility.Visible;
+            }
+            if (ex is UnvalidName)
+            {
+                nameExceptionLable.Visibility = Visibility.Visible;
+            }
+            if (ex is UnvalidPrice)
+            {
+                priceExceptionLable.Visibility = Visibility.Visible;
+            }
+            if (ex is UnvalidAmount)
+            {
+                inStockExceptionLable.Visibility = Visibility.Visible;
+            }
+
+        }
         public ProductWindow()
         {
             InitializeComponent();
@@ -56,9 +85,9 @@ namespace PL.ProductWindows
 
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void updateButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            blankexceptionLables();
             Product product=new Product();
             insertProductDetails(ref product);
             try
@@ -66,15 +95,16 @@ namespace PL.ProductWindows
                 bl.Product.UpdateProduct(product);
                 MessageBox.Show("product updated!");
             }
-            catch (Exception )
+            catch (Exception ex)
             {
-                MessageBox.Show("");
+                catchException(ex);
             }
 
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            blankexceptionLables();
             Product product = new Product();
             insertProductDetails(ref product);
             try
@@ -82,10 +112,11 @@ namespace PL.ProductWindows
                 bl.Product.AddProduct(product);
                 MessageBox.Show("product added!");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("");
+                catchException(ex); 
             }
+
         }
     }
 }
