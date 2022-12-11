@@ -97,9 +97,9 @@ namespace Bllmplementation
 
             // creating a new BO order
             BO.Order order = new BO.Order();
-            order.CustumerAdress = cart.CustomerAddress;
-            order.CustumerEmail = cart.CustomerEmail;
-            order.CustumerName = cart.CustomerName;
+            order.CustomerAdress = cart.CustomerAddress;
+            order.CustomerEmail = cart.CustomerEmail;
+            order.CustomerName = cart.CustomerName;
             order.OrderStatus = BO.Enums.OrderStatus.Confirmed;
             order.OrderDate = DateTime.Now;
             order.Price = 0;
@@ -120,9 +120,9 @@ namespace Bllmplementation
                 //creating a DO order item
                 DO.OrderItem tOrderItem = new DO.OrderItem();
                 tOrderItem.OrderID = order.ID;
-                tOrderItem.Price = item.ProductPrice;
+                tOrderItem.ProductPrice = item.ProductPrice;
                 tOrderItem.ProductID = item.ProductID;
-                tOrderItem.Amount = item.ProductAmount;
+                tOrderItem.ProductAmount = item.ProductAmount;
                 _dal.OrderItem.Add(tOrderItem);
 
                 // ading the BO order item to the order

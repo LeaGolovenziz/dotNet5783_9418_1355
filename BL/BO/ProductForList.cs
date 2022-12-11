@@ -7,7 +7,7 @@ namespace BO
         /// <summary>
         /// unique ID of pruduct's list
         /// </summary>
-        public int ProductID { get; set; }
+        public int ID { get; set; }
         /// <summary>
         /// unique product's name
         /// </summary>
@@ -25,7 +25,7 @@ namespace BO
         /// </summary>
         /// <returns></returns>
         public override string ToString() => $@"
-        Product ID - {ProductID}:
+        Product ID - {ID}:
         Product's name: {Name} 
                   price: {Price}
                   category: {Category}

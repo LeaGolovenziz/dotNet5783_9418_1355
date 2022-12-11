@@ -31,7 +31,7 @@ namespace BO
 
         private string isInStock()
         {
-            return (bool)IsInStock ? "true" : "false";
+            return (bool)IsInStock! ? "true" : "false";
         }
 
         /// <summary>

@@ -20,11 +20,11 @@ public struct OrderItem
     /// <summary>
     /// Unique Price of the Ordered Item
     /// </summary>
-    public double? Price { get; set; }
+    public double? ProductPrice { get; set; }
     /// <summary>
     /// Unique Amount of the Ordered Item
     /// </summary>
-    public int? Amount { get; set; }
+    public int? ProductAmount { get; set; }
 
     /// <summary>
     /// returns a string of the ordered item's details
@@ -34,7 +34,7 @@ public struct OrderItem
        OrderItemID -{OrderItemID}
        Order's ID - {OrderID}
        Product's ID - {ProductID}
-       price - {Price}
-       amount - {Amount}
+       price - {ProductPrice}
+       amount - {ProductAmount}
 ";
 }

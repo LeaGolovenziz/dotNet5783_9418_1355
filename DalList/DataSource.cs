@@ -107,9 +107,9 @@ internal static class DataSource
                 orderItem.OrderItemID = config.ItemOrderID;
                 Product p = (Product)_lstPruducts[_rand.Next(0, 9)]!;
                 orderItem.ProductID = p.ID;
-                orderItem.Price = p.Price;
+                orderItem.ProductPrice = p.Price;
                 orderItem.OrderID = 100000 + i;
-                orderItem.Amount = _rand.Next(1, 10);
+                orderItem.ProductAmount = _rand.Next(1, 10);
 
                 _lstOrderItems.Add(orderItem);
             }

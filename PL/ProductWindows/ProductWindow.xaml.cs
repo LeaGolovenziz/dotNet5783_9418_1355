@@ -37,6 +37,18 @@ namespace PL.ProductWindows
             inStockExceptionLable.Visibility = Visibility.Hidden;
         }
 
+        // clear all texboxs' content
+        void clearTextBoxs()
+        {
+            idTextBox.Text = string.Empty;  
+            nameTextBox.Text = string.Empty;
+            priceTextBox.Text = string.Empty;
+            inStockTextBox.Text = string.Empty; 
+            categoryComboBox.Text = string.Empty;
+        }
+
+        // gets an exception and shoes the matching error text
+        void catchException(Exception ex)
         // checks if ther'e are details in the textBoxes
         bool checkTextBoxes()
         {
@@ -131,7 +143,6 @@ namespace PL.ProductWindows
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             // reset visability of error lables
-            blankexceptionLables();
 
             if (checkTextBoxes())
             {
@@ -141,13 +152,14 @@ namespace PL.ProductWindows
                 {
                     bl.Product.AddProduct(product);
                     MessageBox.Show("product added!");
-                    Close();
+                    clearTextBoxs();
                 }
                 catch (Exception ex)
                 {
                     catchException(ex);
                 }
             }
+
         }
 
         // make sure the user can enter only numbers as ID
@@ -189,11 +201,16 @@ namespace PL.ProductWindows
             {
                 idExceptionLable.Visibility = Visibility.Hidden;
 
-            }
+        }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
         private void idTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            }
         }
     }
 }

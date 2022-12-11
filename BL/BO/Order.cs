@@ -12,15 +12,15 @@ namespace BO
         /// <summary>
         /// Unique custumer's name 
         /// </summary>
-        public string? CustumerName { get; set; }
+        public string? CustomerName { get; set; }
         /// <summary>
         /// Unique austumer's email
         /// </summary>
-        public string? CustumerEmail { get; set; }
+        public string? CustomerEmail { get; set; }
         /// <summary>
         /// Unique custumer's adress
         /// </summary>
-        public string? CustumerAdress { get; set; }
+        public string? CustomerAdress { get; set; }
         /// <summary>
         /// unique status of order
         /// </summary>

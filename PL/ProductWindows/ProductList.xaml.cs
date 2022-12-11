@@ -51,7 +51,7 @@ namespace PL.ProductWindows
             ProductForList product = (ProductForList)ProductListView.SelectedItem;
             if (product != null)
             {
-                new ProductWindow(product.ProductID).ShowDialog();
+                new ProductWindow(product.ID).ShowDialog();
                 ProductListView.ItemsSource = bl.Product.GetProductsList();
                 CategorySelector.SelectedItem = null;
             }

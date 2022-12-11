@@ -50,6 +50,7 @@
 
         <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="293,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="updateButton_Click" Height="37" Width="134" Grid.RowSpan="2"/>
         <Button x:Name="addButton" Content="add" HorizontalAlignment="Left" Margin="293,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addButton_Click" Height="37" Width="76" Grid.RowSpan="2"/>
+        <Button x:Name="closeButton" Content="close" HorizontalAlignment="Left" Margin="689,132,0,38" Grid.Row="2" RenderTransformOrigin="0.719,-2.324" Click="closeButton_Click" Width="63" />
 
     </Grid>
 
