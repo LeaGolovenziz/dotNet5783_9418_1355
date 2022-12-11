@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO
+﻿namespace BO
 {
-    public class blExceptions: Exception
+    public class blExceptions : Exception
     {
         public blExceptions(string messege) : base(messege) { }
-        public blExceptions(string messege,Exception ex) : base(messege,ex) { }
+        public blExceptions(string messege, Exception ex) : base(messege, ex) { }
     }
     public class UnvalidID : blExceptions
     {
@@ -23,7 +17,7 @@ namespace BO
     {
         public UnvalidAddress() : base("The address you entered isn't valid") { }
     }
-    public class UnvalidEmail: blExceptions
+    public class UnvalidEmail : blExceptions
     {
         public UnvalidEmail() : base("The email you entered isn't valid") { }
     }
@@ -43,7 +37,7 @@ namespace BO
     public class IdAlreadyExist : blExceptions
     {
         public IdAlreadyExist() : base("This ID already exist") { }
-        public IdAlreadyExist(Exception ex) : base("This ID already exist",ex) { }
+        public IdAlreadyExist(Exception ex) : base("This ID already exist", ex) { }
     }
     public class ProductExistInOrder : blExceptions
     {

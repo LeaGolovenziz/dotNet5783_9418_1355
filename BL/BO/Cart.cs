@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static DO.Enums;
-using System.Xml.Linq;
-
-namespace BO
+﻿namespace BO
 {
     public class Cart
     {

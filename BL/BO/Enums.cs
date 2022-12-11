@@ -8,7 +8,7 @@ public struct Enums
     /// <summary>
     /// unique categories of products
     /// </summary>
-    public enum Category { Trees, Flowers, Pots, Tools, Soils};
+    public enum Category { Trees, Flowers, Pots, Tools, Soils };
     /// <summary>
     /// unique statuses of order
     /// </summary>

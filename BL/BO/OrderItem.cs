@@ -1,9 +1,4 @@
-﻿using DO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bllmplementation;
 
 namespace BO
 {
@@ -38,13 +33,19 @@ namespace BO
         /// returns a string of the ordered item's details
         /// </summary>
         /// <returns>string</returns>
-        public override string ToString() => $@"
-        Order ID - {OrderID}:
-        Product's ID: {ProductID}
-                  name: {ProductName}   
-                  price: {ProductPrice}
-                  amount: {ProductAmount}
-        Total price: {TotalPrice}
-";
+        public override string ToString() => this.ToStringProperty();
+
+        //        /// <summary>
+        //        /// returns a string of the ordered item's details
+        //        /// </summary>
+        //        /// <returns>string</returns>
+        //        public override string ToString() => $@"
+        //        Order ID - {OrderID}:
+        //        Product's ID: {ProductID}
+        //                  name: {ProductName}   
+        //                  price: {ProductPrice}
+        //                  amount: {ProductAmount}
+        //        Total price: {TotalPrice}
+        //";
     }
 }

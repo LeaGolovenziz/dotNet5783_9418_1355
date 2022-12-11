@@ -1,16 +1,7 @@
 ﻿using Dal;
-using DO;
-using System;
-using System.ComponentModel;
-using System.Data.Common;
-using System.Linq.Expressions;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Runtime.ConstrainedExecution;
-using static DO.Enums;
-using System.Xml.Linq;
 using DalApi;
-using System.Security.Cryptography.X509Certificates;
+using DO;
+using static DO.Enums;
 
 namespace DalTest
 {
@@ -21,7 +12,7 @@ namespace DalTest
         void printEntity(Type t)
         {
             Type type = t.GetType();
-            
+
         }
 
         static void Main()

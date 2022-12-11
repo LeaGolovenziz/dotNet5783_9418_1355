@@ -2,18 +2,9 @@
 using Bllmplementation;
 using BO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.ProductWindows
 {
@@ -37,8 +28,8 @@ namespace PL.ProductWindows
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(CategorySelector.SelectedItem!=null)
-            ProductListView.ItemsSource = bl.Product.GetProductsList(product => product?.Category == (DO.Enums.Category)CategorySelector.SelectedItem);
+            if (CategorySelector.SelectedItem != null)
+                ProductListView.ItemsSource = bl.Product.GetProductsList(product => product?.Category == (DO.Enums.Category)CategorySelector.SelectedItem);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -48,7 +39,7 @@ namespace PL.ProductWindows
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
-        { 
+        {
             new ProductWindow().ShowDialog();
             ProductListView.ItemsSource = bl.Product.GetProductsList();
             CategorySelector.SelectedItem = null;
@@ -57,7 +48,7 @@ namespace PL.ProductWindows
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-                ProductForList product = (ProductForList)ProductListView.SelectedItem;
+            ProductForList product = (ProductForList)ProductListView.SelectedItem;
             if (product != null)
             {
                 new ProductWindow(product.ProductID).ShowDialog();

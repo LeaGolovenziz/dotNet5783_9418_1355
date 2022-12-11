@@ -16,7 +16,7 @@ public struct Order
     /// <summary>
     /// Unique austumer's email of order
     /// </summary>
-    public string? CustomerEmail{ get; set; }
+    public string? CustomerEmail { get; set; }
     /// <summary>
     /// Unique custumer's adress of order
     /// </summary>

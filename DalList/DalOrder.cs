@@ -67,8 +67,8 @@ internal class DalOrder : IOrder
     /// <exception cref="NotFound"></exception>
     public Order GetIf(Func<Order?, bool>? func)
     {
-        if(DataSource._lstOreders.Exists(x => func!(x)))
-        return (Order)DataSource._lstOreders.Find(x => func!(x))!;
+        if (DataSource._lstOreders.Exists(x => func!(x)))
+            return (Order)DataSource._lstOreders.Find(x => func!(x))!;
         throw new NotFound();
     }
 }

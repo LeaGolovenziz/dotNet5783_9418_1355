@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bllmplementation;
 using static BO.Enums;
 
 namespace BO
@@ -48,27 +44,29 @@ namespace BO
         /// <summary>
         /// unique total price of order
         /// </summary>
-        public double? Price { get; set; } 
-        /// <summary>
-        /// returns a string of the order's details
-        /// </summary>
-        /// <returns>string</returns>
-        public override string ToString() => $@"
-        Order's ID - {ID}: 
+        public double? Price { get; set; }
 
-        Custumer's name: {CustumerName}
-                   Email: {CustumerEmail}
-                   adress: {CustumerAdress}
+        public override string ToString() => this.ToStringProperty();
+        //        /// <summary>
+        //        /// returns a string of the order's details
+        //        /// </summary>
+        //        /// <returns>string</returns>
+        //        public override string ToString() => $@"
+        //        Order's ID - {ID}: 
 
-        Order's status: {OrderStatus}
-               order date - {OrderDate}
-               ship date - {ShipDate}
-               delivery date - {DeliveryDate}
+        //        Custumer's name: {CustumerName}
+        //                   Email: {CustumerEmail}
+        //                   adress: {CustumerAdress}
 
-        List of items: 
-                 {string.Join('\n', OrderItems)}
+        //        Order's status: {OrderStatus}
+        //               order date - {OrderDate}
+        //               ship date - {ShipDate}
+        //               delivery date - {DeliveryDate}
 
-        Total price: {Price}
-";
+        //        List of items: 
+        //                 {string.Join('\n', OrderItems)}
+
+        //        Total price: {Price}
+        //";
     }
 }

@@ -1,6 +1,5 @@
-﻿using DO;
-using System.Security.Cryptography.X509Certificates;
-using DalApi;
+﻿using DalApi;
+using DO;
 namespace Dal;
 
 internal class DalProduct : IProduct
@@ -17,7 +16,7 @@ internal class DalProduct : IProduct
             throw new AlreadyExist();
         DataSource._lstPruducts.Add(product);
         return product.ID;
-       
+
     }
     /// <summary>
     /// gets an id and return the product with this id
@@ -58,7 +57,7 @@ internal class DalProduct : IProduct
     /// <returns>List<Order></returns>
     public IEnumerable<Product?> Get(Func<Product?, bool>? func)
     {
-        if(func != null)
+        if (func != null)
             return DataSource._lstPruducts.Where(x => func(x)).ToList();
         return DataSource._lstPruducts;
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using static BO.Enums;
+﻿using static BO.Enums;
 
 namespace BO
 {
@@ -26,6 +20,7 @@ namespace BO
         /// Unique catgory of product
         /// </summary>
         public Category Category { get; set; }
+       
         /// <summary>
         /// Unique inStock of product
         /// </summary>

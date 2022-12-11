@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlApi;
+﻿using BlApi;
 using BO;
 using Dal;
 using DalApi;
-using System.ComponentModel.DataAnnotations;
-using DO;
 using System.Net.Mail;
 
 namespace Bllmplementation
@@ -79,7 +72,7 @@ namespace Bllmplementation
                 MailAddress emailAddressAttribute = new MailAddress(cart.CustomerEmail!);
             }
             catch
-            { 
+            {
                 throw new UnvalidEmail();
             }
             if (cart.CustomerAddress!.Equals(""))

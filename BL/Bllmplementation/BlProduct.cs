@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlApi;
-using BO;
+﻿using BO;
 using Dal;
 using DalApi;
 using IProduct = BlApi.IProduct;
@@ -43,7 +37,7 @@ namespace Bllmplementation
             {
                 _dal.Product.Add(temp);
             }
-            catch(AlreadyExist ex)
+            catch (AlreadyExist ex)
             {
                 throw new IdAlreadyExist(ex);
             }
@@ -54,7 +48,7 @@ namespace Bllmplementation
             // gets the order items list from dal
             IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.Get();
             // checks foreach order item if contains the current product
-            foreach(DO.OrderItem? item in orderItems)
+            foreach (DO.OrderItem? item in orderItems)
             {
                 if (item?.ProductID == productID)
                     throw new ProductExistInOrder();
@@ -66,7 +60,7 @@ namespace Bllmplementation
                 _dal.Product.Delete(productID);
 
             }
-            catch(NotFound ex)
+            catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
             }
@@ -127,7 +121,7 @@ namespace Bllmplementation
                 else
                     throw new UnvalidID();
             }
-            catch(NotFound ex)
+            catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
             }
@@ -151,13 +145,13 @@ namespace Bllmplementation
                     product.ProductPrice = temp.Price;
                     product.ProductCategory = (BO.Enums.Category)temp.Category;
 
-                    if (temp.InStock==0)
+                    if (temp.InStock == 0)
                         product.IsInStock = false;
                     else
                         product.IsInStock = true;
 
                     // count the amount of the product in the cart
-                    product.AmountInCart = cart.OrderItems.Where(x=>x.ProductID == productID).Count();
+                    product.AmountInCart = cart.OrderItems.Where(x => x.ProductID == productID).Count();
 
                     return product;
                 }

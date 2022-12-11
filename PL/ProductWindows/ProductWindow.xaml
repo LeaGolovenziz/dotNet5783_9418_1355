@@ -8,48 +8,51 @@
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="1"
-              VerticalAlignment="Stretch" Width="auto">
+
+        <Grid Width="540" Height="250" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="4*"/>
-            </Grid.ColumnDefinitions >
-            <StackPanel Grid.Column="1" Margin="0,0,30,0" VerticalAlignment="Stretch"  >
-                <Label x:Name="idLable"  HorizontalAlignment="Left" Content="ID:"/>
-                <Label x:Name="categoryLable" HorizontalAlignment="Left" Content="Category:"/>
-                <Label x:Name="nameLable"  HorizontalAlignment="Left" Content="Name:"/>
-                <Label x:Name="priceLable"  HorizontalAlignment="Left" Content="Price:"/>
-                <Label x:Name="inStockLable"  HorizontalAlignment="Left" Content="Amount in stock:"/>
-            </StackPanel>
-            <Grid Grid.Column="2" Margin="30,0,0,0" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBox x:Name="idTextBox" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" PreviewTextInput="IDPrev" MaxLength="6" LostFocus="idTextBox_LostFocus"/>
-                <ComboBox x:Name="categoryComboBox" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" />
-                <TextBox x:Name="nameTextBox" Grid.Row="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text="" PreviewTextInput="NamePrev" MaxLength="20"/>
-                <TextBox x:Name="priceTextBox" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text="" PreviewTextInput="PricePrev" MaxLength="4"/>
-                <TextBox x:Name="inStockTextBox" Grid.Row="4" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" Text="" PreviewTextInput="InStockPrev" MaxLength="4"/>
-            </Grid>
-            <StackPanel Grid.Column="3" Margin="0,0,30,0" VerticalAlignment="Stretch"  >
-                <Label x:Name="idExceptionLable"  HorizontalAlignment="Left" Content="The ID you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
-                <Label x:Name="blankLable" HorizontalAlignment="Left" Content="blank" Foreground="White" />
-                <Label x:Name="nameExceptionLable"  HorizontalAlignment="Left" Content="The name you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
-                <Label x:Name="priceExceptionLable"  HorizontalAlignment="Left" Content="The price you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
-                <Label x:Name="inStockExceptionLable"  HorizontalAlignment="Left" Content="The amount you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
-            </StackPanel>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="IdLable" Content="ID of product:" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0" />
+            <TextBox x:Name="idTextBox" Grid.Column="1" VerticalAlignment="Center" Height="30" PreviewTextInput="IDPrev" MaxLength="6" LostFocus="idTextBox_LostFocus"/>
+            <Label x:Name="idExceptionLable" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The ID you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
+
+            <Label x:Name="categoryLable" Content="Category of product:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <ComboBox x:Name="categoryComboBox" Grid.Column="1" VerticalAlignment="Center" Height="30" Grid.Row="1"/>
+            <Label x:Name="isCategoryLable" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose category!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
+
+            <Label x:Name="nameLable" Content="Name of product:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <TextBox x:Name="nameTextBox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="30"/>
+            <Label x:Name="nameExceptionLable" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The name you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
+
+            <Label x:Name="priceLable" Content="Price of product:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <TextBox x:Name="priceTextBox" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Height="30"/>
+            <Label x:Name="priceExceptionLable" Grid.Column="3" Grid.Row="3" VerticalContentAlignment="Center" HorizontalAlignment="Center" Content="The price you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
+
+            <Label x:Name="InStockLable" Content="Amount in stock:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <TextBox x:Name="inStockTextBox" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Height="30"/>
+            <Label x:Name="inStockExceptionLable" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The amount you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
         </Grid>
-        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="400,10,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="updateButton_Click"/>
-        <Button x:Name="addButton" Content="add" HorizontalAlignment="Left" Margin="400,10,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addButton_Click"/>
+
+        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="293,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="updateButton_Click" Height="37" Width="134" Grid.RowSpan="2"/>
+        <Button x:Name="addButton" Content="add" HorizontalAlignment="Left" Margin="293,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addButton_Click" Height="37" Width="76" Grid.RowSpan="2"/>
+
     </Grid>
+
+
+
 </Window>

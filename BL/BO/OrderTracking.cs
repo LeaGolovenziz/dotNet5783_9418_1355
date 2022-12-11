@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using Bllmplementation;
 using static BO.Enums;
 
 namespace BO
@@ -23,16 +17,18 @@ namespace BO
         /// unique list of tracking
         /// </summary>
         public List<Tuple<DateTime?, OrderStatus?>> Tracking { get; set; }
-        /// <summary>
-        /// returns a string of the order's tracking
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString() => $@"
-        Order tracking ID - {OrderID}:
-        Order's status: {OrderStatus} 
-        tracking: 
-{string.Join('\n', Tracking)}
 
-";
+        public override string ToString() => this.ToStringProperty();
+        //        /// <summary>
+        //        /// returns a string of the order's tracking
+        //        /// </summary>
+        //        /// <returns></returns>
+        //        public override string ToString() => $@"
+        //        Order tracking ID - {OrderID}:
+        //        Order's status: {OrderStatus} 
+        //        tracking: 
+        //{string.Join('\n', Tracking)}
+
+        //";
     }
 }

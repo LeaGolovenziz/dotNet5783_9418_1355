@@ -66,7 +66,7 @@ internal class DalOrderItem : IOrderItem
     ///  return the list of order's items
     /// </summary>
     /// <returns>List<Order></Order></returns>
-     public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? func)
+    public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? func)
     {
         if (func != null)
             return DataSource._lstOrderItems.Where(x => func(x)).ToList();
@@ -90,8 +90,8 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="NotFound"></exception>
     public OrderItem GetIf(Func<OrderItem?, bool>? func)
     {
-        if(DataSource._lstOrderItems.Exists(x => func!(x)))
-        return (OrderItem)DataSource._lstOrderItems.Find(x => func!(x))!;
+        if (DataSource._lstOrderItems.Exists(x => func!(x)))
+            return (OrderItem)DataSource._lstOrderItems.Find(x => func!(x))!;
         throw new NotFound();
     }
 

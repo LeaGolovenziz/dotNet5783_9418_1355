@@ -2,20 +2,11 @@
 using Bllmplementation;
 using BO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PL.ProductWindows
 {
@@ -33,46 +24,58 @@ namespace PL.ProductWindows
             product.Name = idTextBox.Text;
             product.Category = (Enums.Category)categoryComboBox.SelectedItem;
             product.Price = double.Parse(priceTextBox.Text);
-            product.InStock=int.Parse(inStockTextBox.Text); 
+            product.InStock = int.Parse(inStockTextBox.Text);
         }
 
         // make all the exception hidden
         void blankexceptionLables()
         {
             idExceptionLable.Visibility = Visibility.Hidden;
+            isCategoryLable.Visibility = Visibility.Hidden;
             nameExceptionLable.Visibility = Visibility.Hidden;
             priceExceptionLable.Visibility = Visibility.Hidden;
             inStockExceptionLable.Visibility = Visibility.Hidden;
         }
 
-        // gets an exception and shoes the matching error text
-        void catchException(Exception ex)
+        // checks if ther'e are details in the textBoxes
+        bool checkTextBoxes()
         {
-            if(ex is UnvalidID)
+            if (idTextBox.Text.Length != 6)
             {
                 idExceptionLable.Visibility = Visibility.Visible;
+                return false;
             }
-            if (ex is UnvalidName)
+            if (categoryComboBox.SelectedValue == null)
+            {
+                isCategoryLable.Visibility = Visibility.Visible;
+                return false;
+            }
+            if(nameTextBox.Text.Length == 0)
             {
                 nameExceptionLable.Visibility = Visibility.Visible;
+                return false;
             }
-            if (ex is UnvalidPrice)
+            if(priceTextBox.Text.Length==0)
             {
                 priceExceptionLable.Visibility = Visibility.Visible;
+                return false;
             }
-            if (ex is UnvalidAmount)
+            if(inStockTextBox.Text.Length==0)
             {
-                inStockExceptionLable.Visibility = Visibility.Visible;
+                inStockExceptionLable.Visibility= Visibility.Visible;
+                return false;
             }
-
-
+            return true;
         }
 
         // constructor for add product window
         public ProductWindow()
         {
             InitializeComponent();
-            updateButton.Visibility=Visibility.Hidden;
+
+            blankexceptionLables();
+
+            updateButton.Visibility = Visibility.Hidden;
 
             categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
@@ -82,56 +85,69 @@ namespace PL.ProductWindows
         {
             InitializeComponent();
 
+            blankexceptionLables();
+
             addButton.Visibility = Visibility.Hidden;
 
-            categoryComboBox.ItemsSource= Enum.GetValues(typeof(BO.Enums.Category));
+            categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
             idTextBox.IsEnabled = false;
 
-            Product product =bl.Product.GetProductDetails(id);
+            Product product = bl.Product.GetProductDetails(id);
             idTextBox.Text = id.ToString();
             categoryComboBox.SelectedItem = product.Category;
-            nameTextBox.Text= product.Name; 
-            priceTextBox.Text=product.Price.ToString(); 
-            inStockTextBox.Text=product.InStock.ToString();
+            nameTextBox.Text = product.Name;
+            priceTextBox.Text = product.Price.ToString();
+            inStockTextBox.Text = product.InStock.ToString();
 
         }
 
         // updates the product with the new details in the textboxs
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
+            // reset visability of error lables
             blankexceptionLables();
-            Product product=new Product();
-            insertProductDetails(ref product);
-            try
-            {
-                bl.Product.UpdateProduct(product);
-                MessageBox.Show("product updated!");
-                Close();
-            }
-            catch (Exception ex)
-            {
-                catchException(ex);
-            }
 
+            if (checkTextBoxes())
+            {
+                Product product = new Product();
+                insertProductDetails(ref product);
+                try
+                {
+                    bl.Product.UpdateProduct(product);
+                    MessageBox.Show("product updated!");
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    if (ex is UnvalidID)
+                    {
+                        idExceptionLable.Visibility = Visibility.Visible;
+                    }
+                }
+            }
         }
 
         // adds a product with the details in the textboxs
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            // reset visability of error lables
             blankexceptionLables();
-            Product product = new Product();
-            insertProductDetails(ref product);
-            try
-            {
-                bl.Product.AddProduct(product);
-                MessageBox.Show("product added!");
-                Close();
-            }
-            catch (Exception ex)
-            {
-                catchException(ex); 
-            }
 
+            if (checkTextBoxes())
+            {
+                Product product = new Product();
+                insertProductDetails(ref product);
+                try
+                {
+                    bl.Product.AddProduct(product);
+                    MessageBox.Show("product added!");
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    catchException(ex);
+                }
+            }
         }
 
         // make sure the user can enter only numbers as ID
@@ -162,7 +178,7 @@ namespace PL.ProductWindows
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        // make sure the user entered 9 numbers for ID
+        // make sure the user entered 6 numbers for ID
         private void idTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (((TextBox)sender).Text.Length < 6)
@@ -174,6 +190,10 @@ namespace PL.ProductWindows
                 idExceptionLable.Visibility = Visibility.Hidden;
 
             }
+        }
+
+        private void idTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
         }
     }
 }

@@ -1,68 +1,90 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using BlApi;
-using BO;
+﻿using BO;
 using Dal;
 using DalApi;
-using DO;
+using System.Collections;
+using System.Reflection;
 using IOrder = BlApi.IOrder;
 using Order = BO.Order;
 using OrderItem = BO.OrderItem;
 
 namespace Bllmplementation
 {
-    //static class Copy
-    //{
-    //    public static Target CopyPropTo<Source, Target>(this Source source, Target target)
-    //    {
-    //        Dictionary<string, PropertyInfo> propertyInfoTarget = target.GetType().GetProperties()
-    //            .ToDictionary(key => key.Name, value => value);
+    static class Copy
+    {
 
-    //        IEnumerable<PropertyInfo> propertyInfoSource = source.GetType().GetProperties();
+        public static string ToStringProperty<Item>(this Item _item, string result = "")
+        {
+            IEnumerable<PropertyInfo> propertyInfos = _item!.GetType().GetProperties();
 
-    //        foreach (var item in propertyInfoSource)
-    //        {
-    //            if (propertyInfoTarget.ContainsKey(item.Name) && (item.PropertyType == typeof(string) || !item.PropertyType.IsClass))
-    //            {
-    //                Type typeSource = Nullable.GetUnderlyingType(item.PropertyType);
-    //                Type typeTarget = Nullable.GetUnderlyingType(propertyInfoTarget[item.Name].PropertyType);
+            foreach (var propertyInfo in propertyInfos)
+            {
+                var value = propertyInfo.GetValue(_item, null);
+                if (value is IEnumerable && value is not string)
+                {
+                    IEnumerable items = (IEnumerable)value;
 
-    //                object value = item.GetValue(source);
+                    foreach (var item in items)
+                        item.ToStringProperty(result);
+                }
+                else
+                    result += $"{propertyInfo.Name}: {value}\n";
 
-    //                if (typeSource is not null && typeTarget is not null)
-    //                    value = Enum.ToObject(typeTarget, value);
+            }
+            return result;
+        }
 
-    //                else if (propertyInfoTarget[item.Name].PropertyType is item.PropertyType)
-    //                    propertyInfoTarget[item.Name].SetValue(target, value);
-    //            }
-    //        }
+        public static Target CopyPropTo<Source, Target>(this Source source, Target target)
+        {
+            Dictionary<string, PropertyInfo> propertyInfoTarget = target.GetType().GetProperties()
+                .ToDictionary(key => key.Name, value => value);
 
-    //        return target;
-    //    }
+            IEnumerable<PropertyInfo> propertyInfoSource = source.GetType().GetProperties();
 
-    //    public static Target CopyPropToStruct<Source, Target>(this Source source, Target target) where Target : struct
-    //                  =>source.CopyPropTo(target as object) as Target;
+            foreach (var item in propertyInfoSource)
+            {
+                if (propertyInfoTarget.ContainsKey(item.Name) && (item.PropertyType == typeof(string) || !item.PropertyType.IsClass))
+                {
+                    Type typeSource = Nullable.GetUnderlyingType(item.PropertyType)!;
+                    Type typeTarget = Nullable.GetUnderlyingType(propertyInfoTarget[item.Name].PropertyType)!;
 
-    //    public static IEnumerable<Target> CopyListTo<Source, Target>(this IEnumerable<Source> sources) where Target : new()
-    //    => from source in sources
-    //       select source.CopyPropTo(new Target());
+                    object value = item.GetValue(source)!;
 
-    //    public static IEnumerable<Target> CopyListToStruct<Source, Target>(this IEnumerable<Source> sources) where Target : struct
-    //        => from source in sources
-    //           select source.CopyPropTo(new Target());
-    //}
+                    if (value is not null)
+                    {
+                        if (typeSource is not null && typeSource.IsEnum)
+                            propertyInfoTarget[item.Name].SetValue(target, Enum.ToObject(typeTarget, value));
+
+                        else if (propertyInfoTarget[item.Name].PropertyType == item.PropertyType)
+                            propertyInfoTarget[item.Name].SetValue(target, value);
+                    }
+                }
+            }
+
+            return target;
+        }
+
+        public static Target CopyPropToStruct<Source, Target>(this Source source, Target target) where Target : struct
+        {
+            object obj = target;
+            source.CopyPropTo(obj);
+            return (Target)obj;
+        }
+
+        public static IEnumerable<Target> CopyListTo<Source, Target>(this IEnumerable<Source> sources) where Target : new()
+        => from source in sources
+           select source.CopyPropTo(new Target());
+
+        public static IEnumerable<Target> CopyListToStruct<Source, Target>(this IEnumerable<Source> sources) where Target : struct
+            => from source in sources
+               select source.CopyPropTo(new Target());
+    }
     internal class BlOrder : IOrder
     {
         /// <summary>
         /// access to the dal entities
         /// </summary>
         private IDal _dal = new DalList();
+
         /// <summary>
         /// gets dal order and ID of order and copies it to a new bl order and returns it
         /// </summary>
@@ -75,21 +97,21 @@ namespace Bllmplementation
             // total price for order
             double totalPrice = 0;
 
-            Order blOrder = new Order();
+            Order blOrder = dalOrder.CopyPropTo(new Order());
             blOrder.OrderItems = new List<OrderItem>();
 
-            blOrder.ID = dalOrder.ID;
-            blOrder.CustumerName = dalOrder.CustomerName;
-            blOrder.CustumerEmail = dalOrder.CustomerEmail;
-            blOrder.CustumerAdress = dalOrder.CustomerAdress;
-            blOrder.OrderDate = dalOrder.OrderDate;
-            blOrder.ShipDate = dalOrder.ShipDate;
-            blOrder.DeliveryDate = dalOrder.DeliveryDate;
+            //blOrder.ID = dalOrder.ID;
+            //blOrder.CustumerName = dalOrder.CustomerName;
+            //blOrder.CustumerEmail = dalOrder.CustomerEmail;
+            //blOrder.CustumerAdress = dalOrder.CustomerAdress;
+            //blOrder.OrderDate = dalOrder.OrderDate;
+            //blOrder.ShipDate = dalOrder.ShipDate;
+            //blOrder.DeliveryDate = dalOrder.DeliveryDate;
 
             // the status of order
-            if (dalOrder.DeliveryDate!=null&&dalOrder.DeliveryDate <= DateTime.Now)
+            if (dalOrder.DeliveryDate != null && dalOrder.DeliveryDate <= DateTime.Now)
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Delivered;
-            else if (dalOrder.ShipDate != null&&dalOrder.ShipDate <= DateTime.Now)
+            else if (dalOrder.ShipDate != null && dalOrder.ShipDate <= DateTime.Now)
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Sent;
             else
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Confirmed;
@@ -175,18 +197,18 @@ namespace Bllmplementation
                 // the ID
                 orderTracking.OrderID = orderID;
                 // the status
-                if (order.DeliveryDate != null&&order.DeliveryDate <= DateTime.Now)
+                if (order.DeliveryDate != null && order.DeliveryDate <= DateTime.Now)
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Delivered;
-                else if (order.ShipDate != null&&order.ShipDate <= DateTime.Now)
+                else if (order.ShipDate != null && order.ShipDate <= DateTime.Now)
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Sent;
-                else 
+                else
                     orderTracking.OrderStatus = BO.Enums.OrderStatus.Confirmed;
                 // the list of tracking
                 orderTracking.Tracking = new List<Tuple<DateTime?, BO.Enums.OrderStatus?>>();
                 orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.OrderDate!, BO.Enums.OrderStatus.Confirmed));
                 if (order.ShipDate != null)
                     orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.ShipDate, BO.Enums.OrderStatus.Sent));
-                if (order.DeliveryDate !=null)
+                if (order.DeliveryDate != null)
                     orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.DeliveryDate, BO.Enums.OrderStatus.Delivered));
 
                 return orderTracking;
@@ -236,11 +258,11 @@ namespace Bllmplementation
             {
                 // get the order from dal
                 DO.Order dalOrder = _dal.Order.Get(orderID);
-                
+
                 // if the order was shipped alredy - throw an exception
                 if (dalOrder.ShipDate != null)
                     throw new AlreadyShipped();
-                
+
                 // update the ship date to now ( - ship the order)
                 dalOrder.ShipDate = DateTime.Now;
 
@@ -263,10 +285,10 @@ namespace Bllmplementation
                 // get the order of dal
                 DO.Order dalOrder = _dal.Order.Get(orderID);
 
-            // if the order has not been sent yet - update the details
-            if (dalOrder.ShipDate == null)
-            {
-               
+                // if the order has not been sent yet - update the details
+                if (dalOrder.ShipDate == null)
+                {
+
                     // if the new amount is unvaild - throw an exception
                     if (amountToChange < 0)
                         throw new UnvalidAmount();
@@ -292,10 +314,10 @@ namespace Bllmplementation
 
                     // copy the orders and return the bl's one
                     return copyOrderFromDal(ref dalOrder, orderID);
-             
-            }
-            else
-                throw new AlreadyShipped();
+
+                }
+                else
+                    throw new AlreadyShipped();
             }
             catch (NotFound ex)
             {

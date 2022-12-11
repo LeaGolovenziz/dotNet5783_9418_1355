@@ -1,24 +1,9 @@
-﻿using BL;
-using BO;
-using System;
-using System.ComponentModel;
-using System.Data.Common;
-using System.Linq.Expressions;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Runtime.ConstrainedExecution;
-using static BO.Enums;
-using System.Xml.Linq;
-using BlApi;
+﻿using BlApi;
 using Bllmplementation;
-using System.Collections.Generic;
-using Microsoft.VisualBasic;
-using System.Collections.Specialized;
-using DO;
+using BO;
 using Order = BO.Order;
 using OrderItem = BO.OrderItem;
 using Product = BO.Product;
-using static DO.Enums;
 
 namespace BlTest
 {
@@ -47,7 +32,7 @@ namespace BlTest
             // inputs an ID of order
             int inputOrderId()
             {
-                int id; 
+                int id;
 
                 // input the ID of the order
                 Console.WriteLine("Enter order's ID:");
@@ -71,7 +56,7 @@ namespace BlTest
             // inputs an ID of order
             int inputProductId()
             {
-                int id; 
+                int id;
                 // input the ID of the product
                 Console.WriteLine("Enter product's ID:");
                 // while the ID is unvalid - inform and input again
@@ -254,7 +239,7 @@ namespace BlTest
                                     // get and print product's list
                                     case 'g':
                                         IEnumerable<ProductForList> products = _iBl.Product.GetProductsList();
-                                        
+
                                         foreach (ProductForList productForList in products)
                                         {
                                             Console.WriteLine(productForList);
@@ -274,7 +259,7 @@ namespace BlTest
                                     // get ant print catalog's product's details
                                     case 'c':
                                         productItem = _iBl.Product.GetProductFromCatalog(inputProductId(), cart);
-                                        
+
                                         Console.WriteLine(productItem);
 
                                         break;
@@ -345,13 +330,13 @@ namespace BlTest
 
                                         int amount;
                                         Console.WriteLine("Enter product's new amount");
-                                        while(!int.TryParse(Console.ReadLine(),out amount))
+                                        while (!int.TryParse(Console.ReadLine(), out amount))
                                         {
                                             Console.WriteLine("baf input, enter again");
                                         }
 
                                         _iBl.Cart.UpdateProductAmountInCart(cart, productId, amount);
-                                        
+
                                         break;
 
                                     // make an order from the cart

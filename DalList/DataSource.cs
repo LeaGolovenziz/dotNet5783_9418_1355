@@ -1,6 +1,4 @@
 ﻿using DO;
-using System.IO;
-using System;
 
 namespace Dal;
 
@@ -23,13 +21,13 @@ internal static class DataSource
     {
         // array of product's possible names
         string[] productsNamesArray = { "Cypress tree", "Rose", "Black coral snake plant", "Watering can", "Fast acting iron",
-                                        "Apple tree", "Tulip", "Whale fin snake plant", "Soil soker hose", "Fast a thing gypsum", 
+                                        "Apple tree", "Tulip", "Whale fin snake plant", "Soil soker hose", "Fast a thing gypsum",
                                         "Peach tree", "Orchid", "Calathea ornata", "Pruner", "Fast acting lime",
                                         "Cherry tree", "Iris", "Moonshine snake plant", "Bypass loppers", "Compost starter",
-                                        "Berry bushes", "Lily", "Calathea makoyana", "Grip trowel", "Bone mael", 
-                                        "Beech tree", "Anemone", "Calathea orbifolia", "Saw", "Organic potting mix", 
-                                        "Maple tree", "Daisy", "Majesty palm", "Hedge shear", "Organic cactus mix", 
-                                        "Redbud tree", "Aster", "Parlor palm", "Garden gloves", "Potting soil", 
+                                        "Berry bushes", "Lily", "Calathea makoyana", "Grip trowel", "Bone mael",
+                                        "Beech tree", "Anemone", "Calathea orbifolia", "Saw", "Organic potting mix",
+                                        "Maple tree", "Daisy", "Majesty palm", "Hedge shear", "Organic cactus mix",
+                                        "Redbud tree", "Aster", "Parlor palm", "Garden gloves", "Potting soil",
                                         "Cotton tree", "Sunflower", "Bamboo palm", "Tree staking kit", "Moss max",
                                         "Treaty tree", "Lavender", "Peach lily", "Pump and spray applicator", "Iron tone" };
 
@@ -60,7 +58,7 @@ internal static class DataSource
             // the stock is 0 the  first time
             product.InStock = i;
             //draw the category of the froduct
-            product.Category = (Enums.Category)(i%5);
+            product.Category = (Enums.Category)(i % 5);
 
             // add the product to the list
             _lstPruducts.Add(product);
@@ -89,7 +87,7 @@ internal static class DataSource
                 // draw a date in the range between the order date and 7 days after
                 order.ShipDate = order.OrderDate?.Add(new TimeSpan(_rand.Next(1, 7), 0, 0, 0));
             else
-                order.ShipDate =null;
+                order.ShipDate = null;
 
             // about 60% of the shipped orders have a delivery date
             if (i < 10)
@@ -137,7 +135,7 @@ internal static class DataSource
         private static int _itemOrderID = 100000;
         private static int _orderID = 100000;
 
-        public static int  ItemOrderID
+        public static int ItemOrderID
         {
             get { return _itemOrderID++; }
         }
