@@ -19,7 +19,7 @@ namespace BO
         /// <summary>
         /// Unique catgory of product
         /// </summary>
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
        
         /// <summary>
         /// Unique inStock of product
@@ -30,12 +30,6 @@ namespace BO
         /// returns a string of the product's details
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $@"
-        Product's ID - {ID}: 
-                  name: {Name}
-                  category - {Category}
-    	          price: {Price}
-    	          amount in stock: {InStock}
-";
+        public override string ToString() => this.ToStringProperty();
     }
 }

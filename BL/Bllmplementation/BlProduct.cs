@@ -25,12 +25,7 @@ namespace Bllmplementation
                 throw new UnvalidAmount();
 
             // creates new DO product and copy into it the BO product's details
-            DO.Product temp = new DO.Product();
-            temp.ID = product.ID;
-            temp.Name = product.Name;
-            temp.Price = product.Price;
-            temp.InStock = product.InStock;
-            temp.Category = (DO.Enums.Category)product.Category;
+            DO.Product temp = product.CopyPropToStruct(new DO.Product());
 
             // add the DO product to dal's products list
             try
@@ -79,12 +74,7 @@ namespace Bllmplementation
                 throw new UnvalidAmount();
 
             // creates new DO product and copy into it the BO product's details
-            DO.Product temp = new DO.Product();
-            temp.ID = product.ID;
-            temp.Name = product.Name;
-            temp.Price = product.Price;
-            temp.InStock = product.InStock;
-            temp.Category = (DO.Enums.Category)product.Category;
+            DO.Product temp =product.CopyPropToStruct( new DO.Product());
 
             // update the DO product in dal's products list
             try
@@ -109,12 +99,7 @@ namespace Bllmplementation
                     DO.Product temp = _dal.Product.Get(productID);
 
                     // creates new BO product and copy into it the DO product's details
-                    BO.Product product = new BO.Product();
-                    product.ID = temp.ID;
-                    product.Name = temp.Name;
-                    product.Price = temp.Price;
-                    product.Category = (BO.Enums.Category)temp.Category;
-                    product.InStock = temp.InStock;
+                    BO.Product product =  temp.CopyPropTo(new BO.Product());
 
                     return product;
                 }
@@ -139,19 +124,15 @@ namespace Bllmplementation
                     DO.Product temp = _dal.Product.Get(productID);
 
                     // creates new BO product item and copy into it the DO product's details
-                    ProductItem product = new ProductItem();
-                    product.ProductID = temp.ID;
-                    product.ProductName = temp.Name;
-                    product.ProductPrice = temp.Price;
-                    product.ProductCategory = (BO.Enums.Category)temp.Category;
+                    ProductItem product = temp.CopyPropTo(new ProductItem());
 
                     if (temp.InStock == 0)
-                        product.IsInStock = false;
+                        product.InStock = false;
                     else
-                        product.IsInStock = true;
+                        product.InStock = true;
 
                     // count the amount of the product in the cart
-                    product.AmountInCart = cart.OrderItems.Where(x => x.ProductID == productID).Count();
+                    product.AmountInCart = cart.OrderItems.Where(x => x.ID == productID).Count();
 
                     return product;
                 }
@@ -175,11 +156,8 @@ namespace Bllmplementation
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
             foreach (DO.Product? product in lstProducts)
             {
-                ProductForList tempProduct = new ProductForList();
-                tempProduct.ID = (int)product?.ID!;
-                tempProduct.Name = product?.Name;
-                tempProduct.Price = product?.Price;
-                tempProduct.Category = (BO.Enums.Category)product?.Category!;
+                ProductForList tempProduct =product.CopyPropTo(new ProductForList());
+
                 products.Add(tempProduct);
             }
             return products;

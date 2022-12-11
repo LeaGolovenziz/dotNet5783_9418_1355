@@ -26,15 +26,7 @@
         /// returns a string of the cart's details
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $@"
-        Custumer's name: {CustomerName} 
-                   Email: {CustomerEmail} 
-                   Address: {CustomerAddress}
-        list of items: 
-                 {string.Join('\n', OrderItems)}
-
-    	Total price: {price}
-";
+        public override string ToString() => this.ToStringProperty();
 
     }
 }

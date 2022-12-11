@@ -30,11 +30,5 @@ public struct OrderItem
     /// returns a string of the ordered item's details
     /// </summary>
     /// <returns>string</returns>
-    public override string ToString() => $@"
-       OrderItemID -{OrderItemID}
-       Order's ID - {OrderID}
-       Product's ID - {ProductID}
-       price - {ProductPrice}
-       amount - {ProductAmount}
-";
+    public override string ToString() => this.ToStringProperty();
 }

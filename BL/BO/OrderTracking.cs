@@ -19,16 +19,6 @@ namespace BO
         public List<Tuple<DateTime?, OrderStatus?>> Tracking { get; set; }
 
         public override string ToString() => this.ToStringProperty();
-        //        /// <summary>
-        //        /// returns a string of the order's tracking
-        //        /// </summary>
-        //        /// <returns></returns>
-        //        public override string ToString() => $@"
-        //        Order tracking ID - {OrderID}:
-        //        Order's status: {OrderStatus} 
-        //        tracking: 
-        //{string.Join('\n', Tracking)}
 
-        //";
     }
 }

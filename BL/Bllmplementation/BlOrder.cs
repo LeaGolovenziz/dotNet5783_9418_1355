@@ -8,76 +8,8 @@ using Order = BO.Order;
 using OrderItem = BO.OrderItem;
 
 namespace Bllmplementation
-{
-    static class Copy
-    {
-
-        public static string ToStringProperty<Item>(this Item _item, string result = "")
-        {
-            IEnumerable<PropertyInfo> propertyInfos = _item!.GetType().GetProperties();
-
-            foreach (var propertyInfo in propertyInfos)
-            {
-                var value = propertyInfo.GetValue(_item, null);
-                if (value is IEnumerable && value is not string)
-                {
-                    IEnumerable items = (IEnumerable)value;
-
-                    foreach (var item in items)
-                        item.ToStringProperty(result);
-                }
-                else
-                    result += $"{propertyInfo.Name}: {value}\n";
-
-            }
-            return result;
-        }
-
-        public static Target CopyPropTo<Source, Target>(this Source source, Target target)
-        {
-            Dictionary<string, PropertyInfo> propertyInfoTarget = target.GetType().GetProperties()
-                .ToDictionary(key => key.Name, value => value);
-
-            IEnumerable<PropertyInfo> propertyInfoSource = source.GetType().GetProperties();
-
-            foreach (var item in propertyInfoSource)
-            {
-                if (propertyInfoTarget.ContainsKey(item.Name) && (item.PropertyType == typeof(string) || !item.PropertyType.IsClass))
-                {
-                    Type typeSource = Nullable.GetUnderlyingType(item.PropertyType)!;
-                    Type typeTarget = Nullable.GetUnderlyingType(propertyInfoTarget[item.Name].PropertyType)!;
-
-                    object value = item.GetValue(source)!;
-
-                    if (value is not null)
-                    {
-                        if (typeSource is not null && typeSource.IsEnum)
-                            propertyInfoTarget[item.Name].SetValue(target, Enum.ToObject(typeTarget, value));
-
-                        else if (propertyInfoTarget[item.Name].PropertyType == item.PropertyType)
-                            propertyInfoTarget[item.Name].SetValue(target, value);
-                    }
-                }
-            }
-
-            return target;
-        }
-
-        public static Target CopyPropToStruct<Source, Target>(this Source source, Target target) where Target : struct
-        {
-            object obj = target;
-            source.CopyPropTo(obj);
-            return (Target)obj;
-        }
-
-        public static IEnumerable<Target> CopyListTo<Source, Target>(this IEnumerable<Source> sources) where Target : new()
-        => from source in sources
-           select source.CopyPropTo(new Target());
-
-        public static IEnumerable<Target> CopyListToStruct<Source, Target>(this IEnumerable<Source> sources) where Target : struct
-            => from source in sources
-               select source.CopyPropTo(new Target());
-    }
+{  
+    
     internal class BlOrder : IOrder
     {
         /// <summary>
@@ -100,14 +32,6 @@ namespace Bllmplementation
             Order blOrder = dalOrder.CopyPropTo(new Order());
             blOrder.OrderItems = new List<OrderItem>();
 
-            blOrder.ID = dalOrder.ID;
-            blOrder.CustomerName = dalOrder.CustomerName;
-            blOrder.CustomerEmail = dalOrder.CustomerEmail;
-            blOrder.CustomerAdress = dalOrder.CustomerAdress;
-            blOrder.OrderDate = dalOrder.OrderDate;
-            blOrder.ShipDate = dalOrder.ShipDate;
-            blOrder.DeliveryDate = dalOrder.DeliveryDate;
-
             // the status of order
             if (dalOrder.DeliveryDate != null && dalOrder.DeliveryDate <= DateTime.Now)
                 blOrder.OrderStatus = BO.Enums.OrderStatus.Delivered;
@@ -121,12 +45,7 @@ namespace Bllmplementation
             // copy the order items list
             foreach (DO.OrderItem? item in tempOrderItems)
             {
-                OrderItem tempOrderItem = new OrderItem();
-                tempOrderItem.OrderID = (int)item?.OrderID!;
-                tempOrderItem.ProductID = (int)item?.ProductID!;
-                tempOrderItem.ProductName = _dal.Product.Get((int)item?.ProductID!).Name;
-                tempOrderItem.ProductPrice = (double)item?.ProductPrice!;
-                tempOrderItem.ProductAmount = (int)item?.ProductAmount!;
+                OrderItem tempOrderItem = item.CopyPropTo(new OrderItem());
                 tempOrderItem.TotalPrice = item?.ProductPrice * item?.ProductAmount;
 
                 blOrder.OrderItems.Add(tempOrderItem);
