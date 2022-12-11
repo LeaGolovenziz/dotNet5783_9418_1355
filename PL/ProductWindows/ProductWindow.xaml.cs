@@ -47,8 +47,6 @@ namespace PL.ProductWindows
             categoryComboBox.Text = string.Empty;
         }
 
-        // gets an exception and shoes the matching error text
-        void catchException(Exception ex)
         // checks if ther'e are details in the textBoxes
         bool checkTextBoxes()
         {
@@ -156,7 +154,10 @@ namespace PL.ProductWindows
                 }
                 catch (Exception ex)
                 {
-                    catchException(ex);
+                    if (ex is UnvalidID)
+                    {
+                        idExceptionLable.Visibility = Visibility.Visible;
+                    }
                 }
             }
 
@@ -200,6 +201,7 @@ namespace PL.ProductWindows
             else
             {
                 idExceptionLable.Visibility = Visibility.Hidden;
+            }
 
         }
 
@@ -210,7 +212,7 @@ namespace PL.ProductWindows
 
         private void idTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            }
+            
         }
     }
 }

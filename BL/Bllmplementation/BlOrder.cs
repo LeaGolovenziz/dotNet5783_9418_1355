@@ -101,9 +101,9 @@ namespace Bllmplementation
             blOrder.OrderItems = new List<OrderItem>();
 
             blOrder.ID = dalOrder.ID;
-            blOrder.CustumerName = dalOrder.CustomerName;
-            blOrder.CustumerEmail = dalOrder.CustomerEmail;
-            blOrder.CustumerAdress = dalOrder.CustomerAdress;
+            blOrder.CustomerName = dalOrder.CustomerName;
+            blOrder.CustomerEmail = dalOrder.CustomerEmail;
+            blOrder.CustomerAdress = dalOrder.CustomerAdress;
             blOrder.OrderDate = dalOrder.OrderDate;
             blOrder.ShipDate = dalOrder.ShipDate;
             blOrder.DeliveryDate = dalOrder.DeliveryDate;
@@ -125,13 +125,13 @@ namespace Bllmplementation
                 tempOrderItem.OrderID = (int)item?.OrderID!;
                 tempOrderItem.ProductID = (int)item?.ProductID!;
                 tempOrderItem.ProductName = _dal.Product.Get((int)item?.ProductID!).Name;
-                tempOrderItem.ProductPrice = (double)item?.ProductPrice!;
-                tempOrderItem.ProductAmount = (int)item?.ProductAmount!;
-                tempOrderItem.TotalPrice = item?.ProductPrice * item?.ProductAmount;
+                tempOrderItem.ProductPrice = (double)item?.Price!;
+                tempOrderItem.ProductAmount = (int)item?.Amount!;
+                tempOrderItem.TotalPrice = item?.Price * item?.Amount;
 
                 blOrder.OrderItems.Add(tempOrderItem);
 
-                totalPrice += (double)(item?.ProductPrice * item?.ProductAmount)!;
+                totalPrice += (double)(item?.Price * item?.Amount)!;
             }
 
             blOrder.Price = totalPrice;
@@ -242,9 +242,9 @@ namespace Bllmplementation
                 else
                     tempOrderForList.OrderStatus = BO.Enums.OrderStatus.Confirmed;
                 // the amount
-                tempOrderForList.Amount = orderItems.FirstOrDefault(x => x?.OrderID == order?.ID)?.ProductAmount;
+                tempOrderForList.Amount = orderItems.FirstOrDefault(x => x?.OrderID == order?.ID)?.Amount;
                 // the price
-                tempOrderForList.Price = orderItems.FirstOrDefault(x => x?.OrderID == order?.ID)?.ProductPrice;
+                tempOrderForList.Price = orderItems.FirstOrDefault(x => x?.OrderID == order?.ID)?.Price;
 
                 // add the order to the list of the orders
                 orders.Add(tempOrderForList);
@@ -298,17 +298,17 @@ namespace Bllmplementation
                     DO.OrderItem dalOrderItem = _dal.OrderItem.Get(productID, orderID);
 
                     // if there is not anough in stock - throw an exception
-                    if ((dalProduct.InStock + dalOrderItem.ProductAmount - amountToChange) < 0)
+                    if ((dalProduct.InStock + dalOrderItem.Amount - amountToChange) < 0)
                         throw new ProductNotInStock();
 
                     // update the amount and price of the order item
-                    dalOrderItem.ProductPrice = amountToChange * dalProduct.Price;
-                    dalOrderItem.ProductAmount = amountToChange;
+                    dalOrderItem.Price = amountToChange * dalProduct.Price;
+                    dalOrderItem.Amount = amountToChange;
                     // update the order item in dal
                     _dal.OrderItem.Update(dalOrderItem);
 
                     // update the amount in stock of the product
-                    dalProduct.InStock += (dalOrderItem.ProductAmount - amountToChange);
+                    dalProduct.InStock += (dalOrderItem.Amount - amountToChange);
                     // update the product in dal
                     _dal.Product.Update(dalProduct);
 
