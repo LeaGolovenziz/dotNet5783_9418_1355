@@ -182,7 +182,7 @@ namespace Bllmplementation
             foreach (DO.Product? product in lstProducts)
             {
                 ProductForList tempProduct = new ProductForList();
-                tempProduct.ProductID = (int)product?.ID!;
+                tempProduct.ID = (int)product?.ID!;
                 tempProduct.Name = product?.Name;
                 tempProduct.Price = product?.Price;
                 tempProduct.Category = (BO.Enums.Category)product?.Category!;

@@ -45,6 +45,16 @@ namespace PL.ProductWindows
             inStockExceptionLable.Visibility = Visibility.Hidden;
         }
 
+        // clear all texboxs' content
+        void clearTextBoxs()
+        {
+            idTextBox.Text = string.Empty;  
+            nameTextBox.Text = string.Empty;
+            priceTextBox.Text = string.Empty;
+            inStockTextBox.Text = string.Empty; 
+            categoryComboBox.Text = string.Empty;
+        }
+
         // gets an exception and shoes the matching error text
         void catchException(Exception ex)
         {
@@ -125,7 +135,7 @@ namespace PL.ProductWindows
             {
                 bl.Product.AddProduct(product);
                 MessageBox.Show("product added!");
-                Close();
+                clearTextBoxs();
             }
             catch (Exception ex)
             {
@@ -174,6 +184,11 @@ namespace PL.ProductWindows
                 idExceptionLable.Visibility = Visibility.Hidden;
 
             }
+        }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

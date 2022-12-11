@@ -51,5 +51,6 @@
         </Grid>
         <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="400,10,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="updateButton_Click"/>
         <Button x:Name="addButton" Content="add" HorizontalAlignment="Left" Margin="400,10,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addButton_Click"/>
+        <Button x:Name="closeButton" Content="close" HorizontalAlignment="Left" Margin="689,132,0,38" Grid.Row="2" RenderTransformOrigin="0.719,-2.324" Click="closeButton_Click" Width="63" />
     </Grid>
 </Window>
