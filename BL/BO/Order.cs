@@ -16,15 +16,15 @@ namespace BO
         /// <summary>
         /// Unique custumer's name 
         /// </summary>
-        public string? CustumerName { get; set; }
+        public string? CustomerName { get; set; }
         /// <summary>
         /// Unique austumer's email
         /// </summary>
-        public string? CustumerEmail { get; set; }
+        public string? CustomerEmail { get; set; }
         /// <summary>
         /// Unique custumer's adress
         /// </summary>
-        public string? CustumerAdress { get; set; }
+        public string? CustomerAdress { get; set; }
         /// <summary>
         /// unique status of order
         /// </summary>
@@ -56,9 +56,9 @@ namespace BO
         public override string ToString() => $@"
         Order's ID - {ID}: 
 
-        Custumer's name: {CustumerName}
-                   Email: {CustumerEmail}
-                   adress: {CustumerAdress}
+        Custumer's name: {CustomerName}
+                   Email: {CustomerEmail}
+                   adress: {CustomerAdress}
 
         Order's status: {OrderStatus}
                order date - {OrderDate}

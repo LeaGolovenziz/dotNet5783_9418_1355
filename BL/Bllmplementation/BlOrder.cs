@@ -79,9 +79,9 @@ namespace Bllmplementation
             blOrder.OrderItems = new List<OrderItem>();
 
             blOrder.ID = dalOrder.ID;
-            blOrder.CustumerName = dalOrder.CustomerName;
-            blOrder.CustumerEmail = dalOrder.CustomerEmail;
-            blOrder.CustumerAdress = dalOrder.CustomerAdress;
+            blOrder.CustomerName = dalOrder.CustomerName;
+            blOrder.CustomerEmail = dalOrder.CustomerEmail;
+            blOrder.CustomerAdress = dalOrder.CustomerAdress;
             blOrder.OrderDate = dalOrder.OrderDate;
             blOrder.ShipDate = dalOrder.ShipDate;
             blOrder.DeliveryDate = dalOrder.DeliveryDate;

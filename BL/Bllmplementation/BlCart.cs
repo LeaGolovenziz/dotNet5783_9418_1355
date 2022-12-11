@@ -104,9 +104,9 @@ namespace Bllmplementation
 
             // creating a new BO order
             BO.Order order = new BO.Order();
-            order.CustumerAdress = cart.CustomerAddress;
-            order.CustumerEmail = cart.CustomerEmail;
-            order.CustumerName = cart.CustomerName;
+            order.CustomerAdress = cart.CustomerAddress;
+            order.CustomerEmail = cart.CustomerEmail;
+            order.CustomerName = cart.CustomerName;
             order.OrderStatus = BO.Enums.OrderStatus.Confirmed;
             order.OrderDate = DateTime.Now;
             order.Price = 0;
