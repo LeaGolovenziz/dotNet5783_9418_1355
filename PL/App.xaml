@@ -4,6 +4,20 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <LinearGradientBrush x:Key="MyButtonBackground">
+            <GradientStop Color="FloralWhite"
+                          Offset="0"/>
+            <GradientStop Color="#FF97F297"
+                          Offset="0.5"/>
+            <GradientStop Color="FloralWhite"
+                          Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="ButtonsStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource MyButtonBackground}"/>
+        </Style>
+        <Style x:Key="ControlStyle" TargetType="Control">
+            <Setter Property="Background" Value="#FFF1F8EF"/>
+        </Style>
     </Application.Resources>
 </Application>

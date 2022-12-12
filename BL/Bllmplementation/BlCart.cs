@@ -29,16 +29,16 @@ namespace Bllmplementation
             }
 
             // if product's already in the order
-            if (cart.OrderItems.Exists(x => x.ProductID == productID))
+            if (cart.OrderItems.Exists(x => x.ID == productID))
             {
                 // find the index of the product 
-                int index = cart.OrderItems.FindIndex(x => x.ProductID == productID);
+                int index = cart.OrderItems.FindIndex(x => x.ID == productID);
                 // adding 1 to the amount of the product
                 cart.OrderItems.ElementAt(index).ProductAmount++;
                 // updating the total price
-                cart.OrderItems.ElementAt(index).TotalPrice += cart.OrderItems.ElementAt(index).ProductPrice;
+                cart.OrderItems.ElementAt(index).TotalPrice += cart.OrderItems.ElementAt(index).Price;
                 // updating the cart price
-                cart.price += cart.OrderItems.ElementAt(index).ProductPrice;
+                cart.price += cart.OrderItems.ElementAt(index).Price;
             }
             else
             {
@@ -46,8 +46,8 @@ namespace Bllmplementation
                 DO.Product product = _dal.Product.Get(productID);
                 // creating a new order item for the cart and updating it's details
                 BO.OrderItem orderItem = new BO.OrderItem();
-                orderItem.ProductID = productID;
-                orderItem.ProductPrice = product.Price;
+                orderItem.ID = productID;
+                orderItem.Price = product.Price;
                 orderItem.ProductAmount = 1;
                 orderItem.TotalPrice = product.Price;
                 // adding the order item to the cart
@@ -83,7 +83,7 @@ namespace Bllmplementation
             {
                 foreach (BO.OrderItem item in cart.OrderItems)
                 {
-                    DO.Product product = _dal.Product.Get(item.ProductID);
+                    DO.Product product = _dal.Product.Get(item.ID);
                     if (item.ProductAmount <= 0)
                         throw new UnvalidAmount();
                     if (_dal.Product.Get(product.ID).InStock < item.ProductAmount)
@@ -120,8 +120,8 @@ namespace Bllmplementation
                 //creating a DO order item
                 DO.OrderItem tOrderItem = new DO.OrderItem();
                 tOrderItem.OrderID = order.ID;
-                tOrderItem.ProductPrice = item.ProductPrice;
-                tOrderItem.ProductID = item.ProductID;
+                tOrderItem.Price = item.Price;
+                tOrderItem.ID = item.ID;
                 tOrderItem.ProductAmount = item.ProductAmount;
                 _dal.OrderItem.Add(tOrderItem);
 
@@ -131,7 +131,7 @@ namespace Bllmplementation
                 // updating the amount of the product in dal
                 try
                 {
-                    DO.Product product = _dal.Product.Get(item.ProductID);
+                    DO.Product product = _dal.Product.Get(item.ID);
                     product.InStock -= item.ProductAmount;
                     _dal.Product.Update(product);
                 }
@@ -146,7 +146,7 @@ namespace Bllmplementation
         Cart ICart.UpdateProductAmountInCart(Cart cart, int productID, int amount)
         {
             // if product doesn't exists in the cart throw exception
-            if (!cart.OrderItems.Exists(x => x.ProductID == productID))
+            if (!cart.OrderItems.Exists(x => x.ID == productID))
             {
                 throw new DoesntExist();
             }
@@ -158,7 +158,7 @@ namespace Bllmplementation
             }
 
             // find the index of the order item in the cart
-            int index = cart.OrderItems.FindIndex(x => x.ProductID == productID);
+            int index = cart.OrderItems.FindIndex(x => x.ID == productID);
 
             // if the wanted amount is bigger than the current amount 
             if (amount > cart.OrderItems.ElementAt(index).ProductAmount)
@@ -170,7 +170,7 @@ namespace Bllmplementation
                 }
                 // updating the amount and the total price of the product
                 cart.OrderItems.ElementAt(index).ProductAmount = amount;
-                double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).ProductPrice! * amount - (double)cart.OrderItems.ElementAt(index).TotalPrice!;
+                double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).Price! * amount - (double)cart.OrderItems.ElementAt(index).TotalPrice!;
                 cart.OrderItems.ElementAt(index).TotalPrice += totalPriceAdded;
                 // updating the total price of the cart
                 cart.price += totalPriceAdded;
@@ -188,7 +188,7 @@ namespace Bllmplementation
             {
                 int oldAmount = (int)cart.OrderItems.ElementAt(index).ProductAmount!;
                 cart.OrderItems.ElementAt(index).ProductAmount = amount;
-                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).ProductPrice! * (oldAmount - amount);
+                double totalPriceSub = (double)cart.OrderItems.ElementAt(index).Price! * (oldAmount - amount);
                 cart.OrderItems.ElementAt(index).TotalPrice -= totalPriceSub;
                 cart.price -= totalPriceSub;
             }

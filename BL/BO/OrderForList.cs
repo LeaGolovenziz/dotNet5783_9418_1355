@@ -28,12 +28,6 @@ namespace BO
         /// returns a string of the order's details
         /// </summary>
         /// <returns>string</returns>
-        public override string ToString() => $@"
-        Order ID - {OrderID}:
-        Custumer's name: {CostumerName}
-        Order's status: {OrderStatus}
-        Amount of items: {Amount}
-        Total price: {Price}
-";
+        public override string ToString() => this.ToStringProperty();
     }
 }

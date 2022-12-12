@@ -9,4 +9,8 @@
     {
         public AlreadyExist() : base("The object already exists") { }
     }
+    public class nullvalue : Exception
+    {
+        public nullvalue() : base("NULL value") { }
+    }
 }

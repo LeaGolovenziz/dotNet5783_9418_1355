@@ -2,7 +2,7 @@
 namespace Dal;
 using DalApi;
 
-internal class DalOrderItem : IOrderItem
+public class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// adds the orderItem to the orderItems list and return it's id
@@ -24,9 +24,9 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem Get(int id)
     {
-        if (!DataSource._lstOrderItems.Exists(x => x?.OrderItemID == id))
+        if (!DataSource._lstOrderItems.Exists(x => (x ?? throw new nullvalue()).OrderItemID == id))
             throw new NotFound();
-        return (OrderItem)DataSource._lstOrderItems.Find(x => x?.OrderItemID == id)!;
+        return (OrderItem)DataSource._lstOrderItems.Find(x => (x ?? throw new nullvalue()).OrderItemID == id)!;
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem Get(int productID, int orderID)
     {
-        return GetIf(orderItem => orderItem?.ProductID == productID && orderItem?.OrderID == orderID);
+        return GetIf(orderItem => (orderItem ?? throw new nullvalue()).ID == productID && (orderItem ?? throw new nullvalue()).OrderID == orderID);
     }
 
     /// <summary>
@@ -56,7 +56,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="orderItem"></param>
     public void Update(OrderItem orderItem)
     {
-        int index = DataSource._lstOrderItems.FindIndex(x => x?.OrderID == orderItem.OrderID);
+        int index = DataSource._lstOrderItems.FindIndex(x => (x ?? throw new nullvalue()).OrderID == orderItem.OrderID);
         if (index == -1)
             throw new NotFound();
         DataSource._lstOrderItems[index] = orderItem;
@@ -80,7 +80,7 @@ internal class DalOrderItem : IOrderItem
     /// <returns>List<OrderItem></returns>
     IEnumerable<OrderItem?> IOrderItem.GeOrderItems(int orderID)
     {
-        return Get(orderItem => orderItem?.OrderID == orderID);
+        return Get(orderItem => (orderItem ?? throw new nullvalue()).OrderID == orderID);
     }
     /// <summary>
     ///  returns OrderItem who meets the condition
