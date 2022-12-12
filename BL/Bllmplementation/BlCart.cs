@@ -45,19 +45,20 @@ namespace Bllmplementation
                 // getting the product's details
                 DO.Product product = _dal.Product.Get(productID);
                 // creating a new order item for the cart and updating it's details
-                BO.OrderItem orderItem = new BO.OrderItem();
-                orderItem.ID = productID;
-                orderItem.Price = product.Price;
-                orderItem.ProductAmount = 1;
-                orderItem.TotalPrice = product.Price;
+                BO.OrderItem orderItem = new BO.OrderItem
+                {
+                    ID = productID,
+                    Price = product.Price,
+                    ProductAmount = 1,
+                    TotalPrice = product.Price
+                };
+
                 // adding the order item to the cart
                 cart.OrderItems.Add(orderItem);
                 //updating the cart total price
                 cart.price += product.Price;
             }
-
             return cart;
-
         }
 
         void ICart.PlaceOrder(Cart cart)
@@ -96,21 +97,25 @@ namespace Bllmplementation
             }
 
             // creating a new BO order
-            BO.Order order = new BO.Order();
-            order.CustomerAdress = cart.CustomerAddress;
-            order.CustomerEmail = cart.CustomerEmail;
-            order.CustomerName = cart.CustomerName;
-            order.OrderStatus = BO.Enums.OrderStatus.Confirmed;
-            order.OrderDate = DateTime.Now;
-            order.Price = 0;
-            order.OrderItems = new List<BO.OrderItem>();
+            BO.Order order = new BO.Order()
+            {
+                CustomerAdress = cart.CustomerAddress,
+                CustomerEmail = cart.CustomerEmail,
+                CustomerName = cart.CustomerName,
+                OrderStatus = BO.Enums.OrderStatus.Confirmed,
+                OrderDate = DateTime.Now,
+                Price = 0,
+                OrderItems = new List<BO.OrderItem>(),
+            };
 
             // creating a new DO order
-            DO.Order tOrder = new DO.Order();
-            tOrder.OrderDate = DateTime.Now;
-            tOrder.CustomerAdress = cart.CustomerAddress;
-            tOrder.CustomerEmail = cart.CustomerEmail;
-            tOrder.CustomerName = cart.CustomerName;
+            DO.Order tOrder = new DO.Order()
+            {
+                OrderDate = DateTime.Now,
+                CustomerAdress = cart.CustomerAddress,
+                CustomerEmail = cart.CustomerEmail,
+                CustomerName = cart.CustomerName,
+            };
 
             order.ID = _dal.Order.Add(tOrder);
 
@@ -118,11 +123,13 @@ namespace Bllmplementation
             foreach (BO.OrderItem item in cart.OrderItems)
             {
                 //creating a DO order item
-                DO.OrderItem tOrderItem = new DO.OrderItem();
-                tOrderItem.OrderID = order.ID;
-                tOrderItem.Price = item.Price;
-                tOrderItem.ID = item.ID;
-                tOrderItem.ProductAmount = item.ProductAmount;
+                DO.OrderItem tOrderItem = new DO.OrderItem()
+                {
+                    OrderID = order.ID,
+                    Price = item.Price,
+                    ID = item.ID,
+                    ProductAmount = item.ProductAmount,
+                };
                 _dal.OrderItem.Add(tOrderItem);
 
                 // ading the BO order item to the order
