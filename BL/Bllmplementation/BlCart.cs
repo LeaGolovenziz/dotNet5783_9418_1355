@@ -120,8 +120,8 @@ namespace Bllmplementation
                 //creating a DO order item
                 DO.OrderItem tOrderItem = new DO.OrderItem();
                 tOrderItem.OrderID = order.ID;
-                tOrderItem.ProductPrice = item.Price;
-                tOrderItem.ProductID = item.ID;
+                tOrderItem.Price = item.Price;
+                tOrderItem.ID = item.ID;
                 tOrderItem.ProductAmount = item.ProductAmount;
                 _dal.OrderItem.Add(tOrderItem);
 

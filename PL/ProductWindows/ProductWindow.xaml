@@ -6,13 +6,19 @@
         xmlns:local="clr-namespace:PL.ProductWindows"
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource ButtonsStyle}"/>
+        <Style TargetType="Window"
+               BasedOn="{StaticResource ControlStyle}"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="6*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Width="540" Height="250" VerticalAlignment="Center">
+        <Grid Width="640" Height="300" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -20,6 +26,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -46,11 +53,15 @@
             <Label x:Name="InStockLable" Content="Amount in stock:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
             <TextBox x:Name="inStockTextBox" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Height="30"/>
             <Label x:Name="inStockExceptionLable" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The amount you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
+
+            <Label x:Name="ImageLable" Content="Image:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <Image x:Name="ProductImage" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" Stretch="Uniform" />
+            <Button x:Name="AddImageButton" Content="add image" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0" Click="AddImageButton_Click"/> 
         </Grid>
 
-        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="293,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="updateButton_Click" Height="37" Width="134" Grid.RowSpan="2"/>
-        <Button x:Name="addButton" Content="add" HorizontalAlignment="Left" Margin="293,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addButton_Click" Height="37" Width="76" Grid.RowSpan="2"/>
-        <Button x:Name="closeButton" Content="close" HorizontalAlignment="Left" Margin="689,132,0,38" Grid.Row="2" RenderTransformOrigin="0.719,-2.324" Click="closeButton_Click" Width="63" />
+        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="updateButton_Click" Height="37" Width="134" Grid.Row="1"/>
+        <Button x:Name="addButton" Content="add" HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addButton_Click" Height="37" Width="76" Grid.Row="1"/>
+        <Button x:Name="closeButton" Content="close" HorizontalAlignment="Left" Margin="680,10,0,15" RenderTransformOrigin="0.719,-2.324" Click="closeButton_Click" Width="81" Grid.Row="1" />
 
     </Grid>
 

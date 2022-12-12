@@ -201,7 +201,7 @@ namespace DalTest
                 if (!int.TryParse(tempProductsID, out ProductsID))
                     ProductsID = badInt();
                 if (ProductsID != 0)
-                    orderItem.ProductID = ProductsID;
+                    orderItem.ID = ProductsID;
 
                 Console.WriteLine("enter order's ID:");
                 string tempOrderID = Console.ReadLine()!;
@@ -225,7 +225,7 @@ namespace DalTest
                 if (!int.TryParse(tempAmount, out amount))
                     amount = badInt();
                 if (amount != 0)
-                    orderItem.Amount = amount;
+                    orderItem.ProductAmount = amount;
 
                 return orderItem;
             }

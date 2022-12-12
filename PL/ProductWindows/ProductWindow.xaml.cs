@@ -1,12 +1,14 @@
 ﻿using BlApi;
 using Bllmplementation;
 using BO;
+using Microsoft.Win32;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace PL.ProductWindows
 {
@@ -21,10 +23,11 @@ namespace PL.ProductWindows
         void insertProductDetails(ref Product product)
         {
             product.ID = int.Parse(idTextBox.Text);
-            product.Name = idTextBox.Text;
+            product.Name = nameTextBox.Text;
             product.Category = (Enums.Category)categoryComboBox.SelectedItem;
             product.Price = double.Parse(priceTextBox.Text);
             product.InStock = int.Parse(inStockTextBox.Text);
+            product.Image = ProductImage.Source.ToString().Substring(8);
         }
 
         // make all the exception hidden
@@ -40,10 +43,10 @@ namespace PL.ProductWindows
         // clear all texboxs' content
         void clearTextBoxs()
         {
-            idTextBox.Text = string.Empty;  
+            idTextBox.Text = string.Empty;
             nameTextBox.Text = string.Empty;
             priceTextBox.Text = string.Empty;
-            inStockTextBox.Text = string.Empty; 
+            inStockTextBox.Text = string.Empty;
             categoryComboBox.Text = string.Empty;
         }
 
@@ -60,19 +63,19 @@ namespace PL.ProductWindows
                 isCategoryLable.Visibility = Visibility.Visible;
                 return false;
             }
-            if(nameTextBox.Text.Length == 0)
+            if (nameTextBox.Text.Length == 0)
             {
                 nameExceptionLable.Visibility = Visibility.Visible;
                 return false;
             }
-            if(priceTextBox.Text.Length==0)
+            if (priceTextBox.Text.Length == 0)
             {
                 priceExceptionLable.Visibility = Visibility.Visible;
                 return false;
             }
-            if(inStockTextBox.Text.Length==0)
+            if (inStockTextBox.Text.Length == 0)
             {
-                inStockExceptionLable.Visibility= Visibility.Visible;
+                inStockExceptionLable.Visibility = Visibility.Visible;
                 return false;
             }
             return true;
@@ -108,6 +111,12 @@ namespace PL.ProductWindows
             nameTextBox.Text = product.Name;
             priceTextBox.Text = product.Price.ToString();
             inStockTextBox.Text = product.InStock.ToString();
+            try
+            {
+                Uri resourceUri = new Uri(product.Image, UriKind.Absolute);
+                ProductImage.Source = new BitmapImage(resourceUri);
+            }
+            catch (Exception ex) { }
 
         }
 
@@ -127,12 +136,9 @@ namespace PL.ProductWindows
                     MessageBox.Show("product updated!");
                     Close();
                 }
-                catch (Exception ex)
+                catch (UnvalidID ex)
                 {
-                    if (ex is UnvalidID)
-                    {
-                        idExceptionLable.Visibility = Visibility.Visible;
-                    }
+                    idExceptionLable.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -152,12 +158,9 @@ namespace PL.ProductWindows
                     MessageBox.Show("product added!");
                     clearTextBoxs();
                 }
-                catch (Exception ex)
+                catch (UnvalidID ex)
                 {
-                    if (ex is UnvalidID)
-                    {
-                        idExceptionLable.Visibility = Visibility.Visible;
-                    }
+                    idExceptionLable.Visibility = Visibility.Visible;
                 }
             }
 
@@ -212,7 +215,33 @@ namespace PL.ProductWindows
 
         private void idTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+
         }
+
+        private void AddImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Image files (*.jpg)|*.jpg|All Files (*.*)|*.*";
+            dlg.RestoreDirectory = true;
+
+            if (dlg.ShowDialog() == true)
+            {
+                string selectedFileName = dlg.FileName;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(selectedFileName);
+                bitmap.EndInit();
+                ProductImage.Source = bitmap;
+            }
+        }
+        //OpenFileDialog openFileDialog = new OpenFileDialog();
+        //    if (openFileDialog.ShowDialog() == true)
+        //    {
+        //        Uri fileUri = new Uri(openFileDialog.FileName);
+        //        ProductImage.Source = new BitmapImage(fileUri);
+        //    }
     }
 }
+
+
+

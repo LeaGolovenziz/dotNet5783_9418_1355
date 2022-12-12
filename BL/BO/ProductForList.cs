@@ -21,6 +21,10 @@ namespace BO
         /// </summary>
         public Category? Category { get; set; }
         /// <summary>
+        /// Unique image of product
+        /// </summary>
+        public string Image { get; set; }
+        /// <summary>
         /// returns a string of the product's list details
         /// </summary>
         /// <returns></returns>

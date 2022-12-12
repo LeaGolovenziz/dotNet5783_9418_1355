@@ -1,8 +1,9 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 
 namespace Dal;
 
-internal static class DataSource
+public static class DataSource
 {
     /// <summary>
     /// unique random varient to draw numbers
@@ -59,6 +60,8 @@ internal static class DataSource
             product.InStock = i;
             //draw the category of the froduct
             product.Category = (Enums.Category)(i % 5);
+            //
+            product.Image = product.Name + ".jpg";
 
             // add the product to the list
             _lstPruducts.Add(product);
@@ -85,14 +88,14 @@ internal static class DataSource
             // about 80% of the orders have a ship date
             if (i < 16)
                 // draw a date in the range between the order date and 7 days after
-                order.ShipDate = order.OrderDate?.Add(new TimeSpan(_rand.Next(1, 7), 0, 0, 0));
+                order.ShipDate = (order.OrderDate ?? throw new nullvalue()).Add(new TimeSpan(_rand.Next(1, 7), 0, 0, 0));
             else
                 order.ShipDate = null;
 
             // about 60% of the shipped orders have a delivery date
             if (i < 10)
                 // draw a date in the range between the ship date and 2 days after
-                order.DeliveryDate = order.ShipDate?.Add(new TimeSpan(_rand.Next(1, 2), 0, 0, 0));
+                order.DeliveryDate = (order.ShipDate ?? throw new nullvalue()).Add(new TimeSpan(_rand.Next(1, 2), 0, 0, 0));
             else
                 order.DeliveryDate = null;
 
@@ -106,8 +109,8 @@ internal static class DataSource
 
                 orderItem.OrderItemID = config.ItemOrderID;
                 Product p = (Product)_lstPruducts[_rand.Next(0, 9)]!;
-                orderItem.ProductID = p.ID;
-                orderItem.ProductPrice = p.Price;
+                orderItem.ID = p.ID;
+                orderItem.Price = p.Price;
                 orderItem.OrderID = 100000 + i;
                 orderItem.ProductAmount = _rand.Next(1, 10);
 
@@ -132,8 +135,8 @@ internal static class DataSource
 
     internal static class config
     {
-        private static int _itemOrderID = 100000;
-        private static int _orderID = 100000;
+        internal static int _itemOrderID = 100000;
+        internal static int _orderID = 100000;
 
         public static int ItemOrderID
         {

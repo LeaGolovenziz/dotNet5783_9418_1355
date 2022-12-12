@@ -2,6 +2,7 @@
 using Dal;
 using DalApi;
 using IProduct = BlApi.IProduct;
+using nullvalue = BO.nullvalue;
 
 namespace Bllmplementation
 {
@@ -43,11 +44,8 @@ namespace Bllmplementation
             // gets the order items list from dal
             IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.Get();
             // checks foreach order item if contains the current product
-            foreach (DO.OrderItem? item in orderItems)
-            {
-                if (item?.ProductID == productID)
-                    throw new ProductExistInOrder();
-            }
+            if (orderItems.FirstOrDefault(OrderItem => (OrderItem ?? throw new nullvalue()).ID == productID) == null)
+                throw new ProductExistInOrder();
 
             // if the product doesn't exists in any order deletes the product from dal
             try
@@ -148,18 +146,14 @@ namespace Bllmplementation
         IEnumerable<ProductForList?> IProduct.GetProductsList(Func<DO.Product?, bool>? func = null)
         {
             // creates list of BO ProductForList
-            List<ProductForList> products = new List<ProductForList>();
+            IEnumerable<ProductForList> products; 
 
             // get the list of DO products from dal
             IEnumerable<DO.Product?> lstProducts = _dal.Product.Get(func);
 
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
-            foreach (DO.Product? product in lstProducts)
-            {
-                ProductForList tempProduct =product.CopyPropTo(new ProductForList());
+            products = lstProducts.Select(product => product.CopyPropTo(new ProductForList()));
 
-                products.Add(tempProduct);
-            }
             return products;
         }
     }

@@ -25,6 +25,10 @@ namespace BO
         /// </summary>
         public bool? InStock { get; set; }
         /// <summary>
+        /// Unique image of product
+        /// </summary>
+        public string Image { get; set; }
+        /// <summary>
         /// unique amount of product in cart
         /// </summary>
         public int? AmountInCart { get; set; }

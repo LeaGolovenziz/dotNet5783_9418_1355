@@ -62,4 +62,8 @@
     {
         public wasntShipped() : base("The order wasn't shipped") { }
     }
+    public class nullvalue : blExceptions
+    {
+        public nullvalue() : base("NULL value") { }
+    }
 }

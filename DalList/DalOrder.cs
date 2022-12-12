@@ -3,7 +3,7 @@ using DO;
 
 namespace Dal;
 
-internal class DalOrder : IOrder
+public class DalOrder : IOrder
 {
     /// <summary>
     /// adds the order to the orders list and return it's id
@@ -25,7 +25,7 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"></exception>
     public Order Get(int id)
     {
-        return GetIf(order => order?.ID == id);
+        return GetIf(order => (order ?? throw new nullvalue()).ID == id);
     }
 
     /// <summary>
@@ -43,7 +43,7 @@ internal class DalOrder : IOrder
     /// <param name="order"></param>
     public void Update(Order order)
     {
-        int index = DataSource._lstOreders.FindIndex(x => x?.ID == order.ID);
+        int index = DataSource._lstOreders.FindIndex(x => (x ?? throw new nullvalue()).ID == order.ID);
         if (index == -1)
             throw new NotFound();
         DataSource._lstOreders[index] = order;

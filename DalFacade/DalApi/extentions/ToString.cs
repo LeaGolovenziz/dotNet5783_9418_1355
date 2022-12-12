@@ -8,15 +8,29 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Class of ToString functions extentions
+    /// </summary>
     internal static class ToString
     {
-        public static string ToStringProperty<Item>(this Item _item, string result = "")
+        /// <summary>
+        /// Generic extention function that returns string of the object's details
+        /// </summary>
+        /// <typeparam name="Item"></typeparam>
+        /// <param name="_item"></param>
+        /// <param name="result"></param>
+        /// <returns>string</returns>
+        public static string ToStringProperty<Obj>(this Obj obj, string result = "")
         {
-            IEnumerable<PropertyInfo> propertyInfos = _item!.GetType().GetProperties();
+            // creats ienumerable of the object properties
+            IEnumerable<PropertyInfo> propertyInfos = obj!.GetType().GetProperties();
 
+            // go over all the properties
             foreach (var propertyInfo in propertyInfos)
             {
-                var value = propertyInfo.GetValue(_item, null);
+                // get the proprty's value
+                var value = propertyInfo.GetValue(obj, null);
+                // if the value is a collection print every item in recursion
                 if (value is IEnumerable && value is not string)
                 {
                     IEnumerable items = (IEnumerable)value;
@@ -24,6 +38,7 @@ namespace DO
                     foreach (var item in items)
                         item.ToStringProperty(result);
                 }
+                // else peint the property's name and value
                 else
                     result += $"{propertyInfo.Name}: {value}\n";
 

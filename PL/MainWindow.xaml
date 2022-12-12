@@ -6,5 +6,26 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
-    <Button x:Name="toProductsList" Content="Products list" HorizontalAlignment="Left" Margin="172,382,0,0" VerticalAlignment="Top" Width="135" Height="34" FontSize="18" Click="toProductsList_Click"/>
+    <Window.Resources>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource ButtonsStyle}"/>
+        <Style TargetType="Window"
+                      BasedOn="{StaticResource ControlStyle}"/>
+        <Style TargetType="Menu"
+                      BasedOn="{StaticResource ControlStyle}"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions >
+        <Menu>
+            <MenuItem Header="Product" Height="39" Width="87" FontSize="18" Grid.Column="0">
+                <MenuItem Header="Add" Click="MenuItem_Click_Add"/>
+                <MenuItem Header="Products' list" Click="MenuItem_Click_ShowList"/>
+            </MenuItem>
+        </Menu>
+        <MediaElement HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50" Grid.Row="1" Source="C:\Users\lea golovenziz\source\repos\NaomiReitzer\dotNet5738_9418_1355\bin\Debug\images\openningVideo.mp4" Volume="0.05" Position="00:00:00" />
+    </Grid>
+
 </Window>

@@ -14,19 +14,21 @@ namespace BlTest
         static void Main()
         {
             // gets customer details for cart
-            void getCartDetails(ref Cart cart)
+            Cart getCartDetails(Cart cart)
             {
                 Console.WriteLine("Enter customer's name:");
-                string name = Console.ReadLine();
+                string name = Console.ReadLine()!;
                 cart.CustomerName = name;
 
                 Console.WriteLine("Enter customer's email:");
-                string email = Console.ReadLine();
+                string email = Console.ReadLine()!;
                 cart.CustomerEmail = email;
 
                 Console.WriteLine("Enter customer's address:");
-                string address = Console.ReadLine();
+                string address = Console.ReadLine()!;
                 cart.CustomerAddress = address;
+
+                return cart;    
             }
 
             // inputs an ID of order
@@ -68,13 +70,13 @@ namespace BlTest
             }
 
             // gets product that have an ID, inputs its other details and returns it
-            void GetProductDetails(ref Product product)
+            Product GetProductDetails( Product product)
             {
                 product.ID = inputOrderId();
 
                 // input the name of the product
                 Console.WriteLine("Enter product's name:");
-                string name = Console.ReadLine();
+                string name = Console.ReadLine()!;
                 product.Name = name;
 
                 // input the price of the product
@@ -106,6 +108,8 @@ namespace BlTest
                     Console.WriteLine("bad input, enter again");
                 }
                 product.InStock = inStock;
+
+                return product; 
             }
 
             // gets an exception and prints its messeges
@@ -238,7 +242,7 @@ namespace BlTest
                                 {
                                     // get and print product's list
                                     case 'g':
-                                        IEnumerable<ProductForList> products = _iBl.Product.GetProductsList();
+                                        IEnumerable<ProductForList> products = _iBl.Product.GetProductsList()!;
 
                                         foreach (ProductForList productForList in products)
                                         {
@@ -266,7 +270,7 @@ namespace BlTest
 
                                     // add a product
                                     case 'a':
-                                        GetProductDetails(ref product);
+                                        product=GetProductDetails(product);
 
                                         _iBl.Product.AddProduct(product);
 
@@ -280,7 +284,7 @@ namespace BlTest
 
                                     // update product's details
                                     case 'u':
-                                        GetProductDetails(ref product);
+                                        product=GetProductDetails(product);
 
                                         _iBl.Product.UpdateProduct(product);
 
@@ -341,7 +345,7 @@ namespace BlTest
 
                                     // make an order from the cart
                                     case 'p':
-                                        getCartDetails(ref cart);
+                                        cart= getCartDetails(cart);
 
                                         _iBl.Cart.PlaceOrder(cart);
 
