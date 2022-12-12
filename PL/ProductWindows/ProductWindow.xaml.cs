@@ -81,6 +81,7 @@ namespace PL.ProductWindows
         // constructor for add product window
         public ProductWindow()
         {
+            
             InitializeComponent();
 
             blankexceptionLables();

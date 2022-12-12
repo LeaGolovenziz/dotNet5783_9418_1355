@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.ProductWindows"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="450" Width="800">
-    <Grid>
+        Title="ProductWindow"  Height="450" Width="800">
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Width="540" Height="250" VerticalAlignment="Center">
+        <Grid x:Name="DetailsGrid" Width="540" Height="250" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -26,7 +26,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
+            
             <Label x:Name="IdLable" Content="ID of product:" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0" />
             <TextBox x:Name="idTextBox" Grid.Column="1" VerticalAlignment="Center" Height="30" PreviewTextInput="IDPrev" MaxLength="6" LostFocus="idTextBox_LostFocus"/>
             <Label x:Name="idExceptionLable" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The ID you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
@@ -50,7 +50,7 @@
 
         <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="293,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="updateButton_Click" Height="37" Width="134" Grid.RowSpan="2"/>
         <Button x:Name="addButton" Content="add" HorizontalAlignment="Left" Margin="293,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addButton_Click" Height="37" Width="76" Grid.RowSpan="2"/>
-        <Button x:Name="closeButton" Content="close" HorizontalAlignment="Left" Margin="689,132,0,38" Grid.Row="2" RenderTransformOrigin="0.719,-2.324" Click="closeButton_Click" Width="63" />
+        <Button x:Name="closeButton" Content="close" HorizontalAlignment="Left" Margin="643,24,0,24" RenderTransformOrigin="0.719,-2.324" Click="closeButton_Click" Width="63" Grid.Row="1" />
 
     </Grid>
 

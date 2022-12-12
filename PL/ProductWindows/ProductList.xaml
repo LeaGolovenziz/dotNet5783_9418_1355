@@ -25,7 +25,7 @@ VerticalAlignment="Stretch" Width="auto">
         <ListView x:Name="ProductListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" SelectionChanged="ProductListView_SelectionChanged" MouseDoubleClick="ProductListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ProductID}" Width="150"/>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="150"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
                     <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="100"/>
                     <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}" Width="150"/>
