@@ -12,9 +12,9 @@ public class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public int Add(Product product)
     {
-        if (DataSource._lstPruducts.Exists(x => (x?? throw new nullvalue()).ID == product.ID))
+        if (DataSource.lstPruducts.Exists(x => (x?? throw new nullvalue()).ID == product.ID))
             throw new AlreadyExist();
-        DataSource._lstPruducts.Add(product);
+        DataSource.lstPruducts.Add(product);
         return product.ID;
 
     }
@@ -35,7 +35,7 @@ public class DalProduct : IProduct
     /// <param name="id"></param>
     public void Delete(int id)
     {
-        DataSource._lstPruducts.Remove(Get(id));
+        DataSource.lstPruducts.Remove(Get(id));
     }
 
     /// <summary>
@@ -44,10 +44,10 @@ public class DalProduct : IProduct
     /// <param name="product"></param>
     public void Update(Product product)
     {
-        int index = DataSource._lstPruducts.FindIndex(x => (x ?? throw new nullvalue()).ID == product.ID);
+        int index = DataSource.lstPruducts.FindIndex(x => (x ?? throw new nullvalue()).ID == product.ID);
         if (index == -1)
             throw new NotFound();
-        DataSource._lstPruducts[index] = product;
+        DataSource.lstPruducts[index] = product;
     }
 
     /// <summary>
@@ -57,8 +57,8 @@ public class DalProduct : IProduct
     public IEnumerable<Product?> Get(Func<Product?, bool>? func)
     {
         if (func != null)
-            return DataSource._lstPruducts.Where(x => func(x)).ToList();
-        return DataSource._lstPruducts;
+            return DataSource.lstPruducts.Where(x => func(x)).ToList();
+        return DataSource.lstPruducts;
     }
     /// <summary>
     ///  returns product who meets the condition
@@ -68,8 +68,8 @@ public class DalProduct : IProduct
     /// <exception cref="NotFound"></exception>
     public Product GetIf(Func<Product?, bool>? func)
     {
-        if (DataSource._lstPruducts.Exists(x => func!(x)))
-            return (Product)DataSource._lstPruducts.Find(x => func!(x))!;
+        if (DataSource.lstPruducts.Exists(x => func!(x)))
+            return (Product)DataSource.lstPruducts.Find(x => func!(x))!;
         throw new NotFound();
     }
 }

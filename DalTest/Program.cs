@@ -7,7 +7,7 @@ namespace DalTest
 {
     public class Program
     {
-        private static IDal _iDal = new DalList();
+        private static IDal? iDal = Factory.Get();
 
         void printEntity(Type t)
         {
@@ -136,7 +136,7 @@ namespace DalTest
                     orderID = badInt();
 
                 // print the order with "orderID" ID
-                order = _iDal.Order.Get(orderID);
+                order = iDal.Order.Get(orderID);
                 Console.WriteLine(order.ToString());
             }
 
@@ -187,7 +187,7 @@ namespace DalTest
                     ProductsID = badInt();
                 product.ID = ProductsID;
                 // get the product with this ID and print it 
-                product = _iDal.Product.Get(product.ID);
+                product = iDal.Product.Get(product.ID);
                 Console.WriteLine(product.ToString());
             }
 
@@ -236,7 +236,7 @@ namespace DalTest
                 int ordersID;
                 if (!int.TryParse(tempOrdersID, out ordersID))
                     ordersID = badInt();
-                orderItem = _iDal.OrderItem.Get(orderItem.OrderItemID);
+                orderItem = iDal.OrderItem.Get(orderItem.OrderItemID);
                 Console.WriteLine(orderItem.ToString());
             }
 
@@ -274,7 +274,7 @@ namespace DalTest
                                 case 'a':
                                     InputOrderDetails(ref order);
 
-                                    Console.WriteLine(_iDal.Order.Add(order));
+                                    Console.WriteLine(iDal.Order.Add(order));
 
                                     break;
                                 // update order
@@ -285,7 +285,7 @@ namespace DalTest
                                     InputOrderDetails(ref order);
 
                                     // update the order in the list
-                                    _iDal.Order.Update(order);
+                                    iDal.Order.Update(order);
 
                                     break;
 
@@ -296,7 +296,7 @@ namespace DalTest
 
                                 case 'd':
                                     // gets ienumerable of the list 
-                                    IEnumerator<Order?> ieOrders = _iDal.Order.Get().GetEnumerator();
+                                    IEnumerator<Order?> ieOrders = iDal.Order.Get().GetEnumerator();
                                     // prints the list
                                     while (ieOrders.MoveNext())
                                     {
@@ -314,7 +314,7 @@ namespace DalTest
                                         orderID = badChar();
 
                                     // deletes an order from the list
-                                    _iDal.Order.Delete(orderID);
+                                    iDal.Order.Delete(orderID);
 
                                     break;
                             }
@@ -339,7 +339,7 @@ namespace DalTest
                                     // input the other 
                                     product = GetProductDetails(ref product);
                                     // add product to the list
-                                    Console.WriteLine(_iDal.Product.Add(product));
+                                    Console.WriteLine(iDal.Product.Add(product));
                                     break;
                                 // update product's details 
                                 case 'b':
@@ -349,7 +349,7 @@ namespace DalTest
                                     GetProductDetails(ref product);
 
                                     // update the product in the list
-                                    _iDal.Product.Update(product);
+                                    iDal.Product.Update(product);
 
                                     break;
 
@@ -359,7 +359,7 @@ namespace DalTest
 
                                 case 'd':
                                     // gets ienumerable of the list
-                                    IEnumerator<Product?> ieProduct = _iDal.Product.Get().GetEnumerator();
+                                    IEnumerator<Product?> ieProduct = iDal.Product.Get().GetEnumerator();
                                     //print the lis
                                     while (ieProduct.MoveNext())
                                     {
@@ -376,7 +376,7 @@ namespace DalTest
                                         id = badInt();
 
                                     // delete the product from the list
-                                    _iDal.Product.Delete(id);
+                                    iDal.Product.Delete(id);
 
                                     break;
                             }
@@ -395,7 +395,7 @@ namespace DalTest
                                 case 'a':
                                     GetOrderItemDetails(ref orderItem);
 
-                                    Console.WriteLine(_iDal.OrderItem.Add(orderItem));
+                                    Console.WriteLine(iDal.OrderItem.Add(orderItem));
 
                                     break;
                                 // update order item
@@ -404,7 +404,7 @@ namespace DalTest
 
                                     GetOrderItemDetails(ref orderItem);
 
-                                    _iDal.OrderItem.Update(orderItem);
+                                    iDal.OrderItem.Update(orderItem);
 
                                     break;
                                 // print certain order item - by id
@@ -414,7 +414,7 @@ namespace DalTest
                                     break;
                                 // print all order items
                                 case 'd':
-                                    IEnumerable<OrderItem?> ieOrderItems = _iDal.OrderItem.Get();
+                                    IEnumerable<OrderItem?> ieOrderItems = iDal.OrderItem.Get();
                                     foreach (OrderItem? oi in ieOrderItems)
                                     {
                                         Console.WriteLine(oi.ToString());
@@ -427,7 +427,7 @@ namespace DalTest
                                     string tepOrderItemID = Console.ReadLine()!;
                                     if (!int.TryParse(tepOrderItemID, out orderItemID))
                                         orderItemID = badInt();
-                                    _iDal.OrderItem.Delete(orderItemID);
+                                   iDal.OrderItem.Delete(orderItemID);
 
                                     break;
                                 // print certain order item - by product and order
@@ -442,7 +442,7 @@ namespace DalTest
                                         orderID = badInt();
 
                                     // gets the order's item
-                                    orderItem = _iDal.OrderItem.Get(productID, orderID);
+                                    orderItem = iDal.OrderItem.Get(productID, orderID);
 
                                     // prints the order's item
                                     Console.WriteLine(orderItem.ToString());
@@ -457,7 +457,7 @@ namespace DalTest
                                         orderID = badInt();
 
                                     // gets ienumerable of the list
-                                    IEnumerable<OrderItem?> ieItems = _iDal.OrderItem.GeOrderItems(orderID);
+                                    IEnumerable<OrderItem?> ieItems = iDal.OrderItem.GeOrderItems(orderID);
 
                                     // prints the list
                                     foreach (OrderItem? oi in ieItems)

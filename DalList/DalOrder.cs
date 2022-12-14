@@ -13,7 +13,7 @@ public class DalOrder : IOrder
     public int Add(Order order)
     {
         order.ID = DataSource.config.OrderID;
-        DataSource._lstOreders.Add(order);
+        DataSource.lstOreders.Add(order);
         return order.ID;
     }
 
@@ -34,7 +34,7 @@ public class DalOrder : IOrder
     /// <param name="id"></param>
     public void Delete(int id)
     {
-        DataSource._lstOreders.Remove(Get(id));
+        DataSource.lstOreders.Remove(Get(id));
     }
 
     /// <summary>
@@ -43,10 +43,10 @@ public class DalOrder : IOrder
     /// <param name="order"></param>
     public void Update(Order order)
     {
-        int index = DataSource._lstOreders.FindIndex(x => (x ?? throw new nullvalue()).ID == order.ID);
+        int index = DataSource.lstOreders.FindIndex(x => (x ?? throw new nullvalue()).ID == order.ID);
         if (index == -1)
             throw new NotFound();
-        DataSource._lstOreders[index] = order;
+        DataSource.lstOreders[index] = order;
     }
 
     /// <summary>
@@ -56,8 +56,8 @@ public class DalOrder : IOrder
     public IEnumerable<Order?> Get(Func<Order?, bool>? func)
     {
         if (func != null)
-            return (IEnumerable<Order?>)DataSource._lstOreders.Where(x => func(x)).ToList();
-        return (IEnumerable<Order?>)DataSource._lstOreders;
+            return (IEnumerable<Order?>)DataSource.lstOreders.Where(x => func(x)).ToList();
+        return (IEnumerable<Order?>)DataSource.lstOreders;
     }
     /// <summary>
     ///  returns Order who meets the condition
@@ -67,8 +67,8 @@ public class DalOrder : IOrder
     /// <exception cref="NotFound"></exception>
     public Order GetIf(Func<Order?, bool>? func)
     {
-        if (DataSource._lstOreders.Exists(x => func!(x)))
-            return (Order)DataSource._lstOreders.Find(x => func!(x))!;
+        if (DataSource.lstOreders.Exists(x => func!(x)))
+            return (Order)DataSource.lstOreders.Find(x => func!(x))!;
         throw new NotFound();
     }
 }

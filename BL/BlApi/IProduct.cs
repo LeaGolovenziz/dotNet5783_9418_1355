@@ -38,5 +38,6 @@ namespace BlApi
         /// </summary>
         /// <returns>Product</returns>
         public void UpdateProduct(Product product);
+  
     }
 }

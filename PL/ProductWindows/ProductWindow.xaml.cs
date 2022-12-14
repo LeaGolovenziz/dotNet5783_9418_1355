@@ -1,6 +1,4 @@
-﻿using BlApi;
-using Bllmplementation;
-using BO;
+﻿using BO;
 using Microsoft.Win32;
 using System;
 using System.Text.RegularExpressions;
@@ -17,7 +15,7 @@ namespace PL.ProductWindows
     /// </summary>
     public partial class ProductWindow : Window
     {
-        private IBl bl = new Bl();
+        private BlApi.IBl bl = BlApi.Factory.Get();
 
         // get a product and initialize it's details from the textboxs
         void insertProductDetails(ref Product product)

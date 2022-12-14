@@ -1,7 +1,7 @@
 ﻿using BlApi;
 using BO;
-using Dal;
 using DalApi;
+using DO;
 using System.Net.Mail;
 
 namespace Bllmplementation
@@ -11,14 +11,14 @@ namespace Bllmplementation
         /// <summary>
         /// access to the dal entities
         /// </summary>
-        private IDal _dal = new DalList();
+        private IDal? dal = DalApi.Factory.Get();
 
         Cart ICart.AddProductToCart(Cart cart, int productID)
         {
             // checks if product exists and in stock
             try
             {
-                if (_dal.Product.Get(productID).InStock == 0)
+                if (dal.Product.Get(productID).InStock == 0)
                 {
                     throw new ProductNotInStock();
                 }
@@ -43,7 +43,7 @@ namespace Bllmplementation
             else
             {
                 // getting the product's details
-                DO.Product product = _dal.Product.Get(productID);
+                DO.Product product = dal.Product.Get(productID);
                 // creating a new order item for the cart and updating it's details
                 BO.OrderItem orderItem = new BO.OrderItem
                 {
@@ -84,10 +84,10 @@ namespace Bllmplementation
             {
                 foreach (BO.OrderItem item in cart.OrderItems)
                 {
-                    DO.Product product = _dal.Product.Get(item.ID);
+                    DO.Product product = dal.Product.Get(item.ID);
                     if (item.ProductAmount <= 0)
                         throw new UnvalidAmount();
-                    if (_dal.Product.Get(product.ID).InStock < item.ProductAmount)
+                    if (dal.Product.Get(product.ID).InStock < item.ProductAmount)
                         throw new ProductNotInStock();
                 }
             }
@@ -117,7 +117,7 @@ namespace Bllmplementation
                 CustomerName = cart.CustomerName,
             };
 
-            order.ID = _dal.Order.Add(tOrder);
+            order.ID = dal.Order.Add(tOrder);
 
             // adding order items from the cart to the order
             foreach (BO.OrderItem item in cart.OrderItems)
@@ -130,7 +130,7 @@ namespace Bllmplementation
                     ID = item.ID,
                     ProductAmount = item.ProductAmount,
                 };
-                _dal.OrderItem.Add(tOrderItem);
+                dal.OrderItem.Add(tOrderItem);
 
                 // ading the BO order item to the order
                 order.OrderItems.Add(item);
@@ -138,9 +138,9 @@ namespace Bllmplementation
                 // updating the amount of the product in dal
                 try
                 {
-                    DO.Product product = _dal.Product.Get(item.ID);
+                    DO.Product product = dal.Product.Get(item.ID);
                     product.InStock -= item.ProductAmount;
-                    _dal.Product.Update(product);
+                    dal.Product.Update(product);
                 }
                 catch (NotFound e)
                 {
@@ -171,7 +171,7 @@ namespace Bllmplementation
             if (amount > cart.OrderItems.ElementAt(index).ProductAmount)
             {
                 // checking if there is enough in stock
-                if (_dal.Product.Get(productID).InStock < amount)
+                if (dal.Product.Get(productID).InStock < amount)
                 {
                     throw new ProductNotInStock();
                 }

@@ -3,12 +3,20 @@
 namespace Bllmplementation
 {
     // access to the BL main entities
-    sealed public class Bl : IBl
+    sealed internal class Bl : IBl
     {
-        public IProduct Product => new BlProduct();
+        public IProduct Product { get; }
 
-        public IOrder Order => new BlOrder();
+        public IOrder Order { get; }
 
-        public ICart Cart => new BlCart();
+        public ICart Cart { get; }
+
+        public Bl()
+        {
+            Product = new BlProduct();
+            Order = new BlOrder();
+            Cart = new BlCart();
+        }
+
     }
 }

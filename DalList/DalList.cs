@@ -1,13 +1,22 @@
 ﻿using DalApi;
+using DO;
 
 namespace Dal
 {
-    sealed public class DalList : IDal
+    internal sealed class DalList : IDal
     {
-        public IOrder Order => new DalOrder();
+        public static IDal Instance { get; } = new DalList(); public IOrder Order { get; }
 
-        public IProduct Product => new DalProduct();
+        public IProduct Product { get; }
 
-        public IOrderItem OrderItem => new DalOrderItem();
+        public IOrderItem OrderItem { get; }
+
+        private DalList()
+        {
+            Order = new DalOrder();
+            Product = new DalProduct();
+            OrderItem = new DalOrderItem();
+        }
+
     }
 }

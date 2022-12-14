@@ -9,8 +9,7 @@ namespace BlTest
 {
     internal class Program
     {
-        private static IBl _iBl = new Bl();
-
+        private static IBl iBl = Factory.Get();
         static void Main()
         {
             // gets customer details for cart
@@ -163,7 +162,7 @@ namespace BlTest
                                 {
                                     // get order's list
                                     case 'g':
-                                        IEnumerable<OrderForList> lst = _iBl.Order.GetOrderList();
+                                        IEnumerable<OrderForList> lst = iBl.Order.GetOrderList();
                                         foreach (OrderForList orderInList in lst)
                                         {
                                             Console.WriteLine(orderInList);
@@ -172,14 +171,14 @@ namespace BlTest
 
                                     // get order details
                                     case 'o':
-                                        order = _iBl.Order.GetOrderDetails(inputOrderId());
+                                        order = iBl.Order.GetOrderDetails(inputOrderId());
 
                                         Console.WriteLine(order);
                                         break;
 
                                     // update order's delivery
                                     case 'd':
-                                        order = _iBl.Order.DeliverOrder(inputOrderId());
+                                        order = iBl.Order.DeliverOrder(inputOrderId());
 
                                         Console.WriteLine(order);
 
@@ -187,7 +186,7 @@ namespace BlTest
 
                                     // update order's shipping
                                     case 's':
-                                        order = _iBl.Order.ShipOrder(inputOrderId());
+                                        order = iBl.Order.ShipOrder(inputOrderId());
 
                                         Console.WriteLine(order);
 
@@ -195,7 +194,7 @@ namespace BlTest
 
                                     // track order
                                     case 't':
-                                        OrderTracking orderT = _iBl.Order.TrackOrder(inputOrderId());
+                                        OrderTracking orderT = iBl.Order.TrackOrder(inputOrderId());
 
                                         Console.WriteLine(orderT);
 
@@ -213,7 +212,7 @@ namespace BlTest
                                             Console.WriteLine("bad input, enter again");
                                         }
 
-                                        order = _iBl.Order.UpdateOrderDetails(orderId, productID, newAmount);
+                                        order = iBl.Order.UpdateOrderDetails(orderId, productID, newAmount);
 
                                         Console.WriteLine(order);
 
@@ -242,7 +241,7 @@ namespace BlTest
                                 {
                                     // get and print product's list
                                     case 'g':
-                                        IEnumerable<ProductForList> products = _iBl.Product.GetProductsList()!;
+                                        IEnumerable<ProductForList> products = iBl.Product.GetProductsList()!;
 
                                         foreach (ProductForList productForList in products)
                                         {
@@ -254,7 +253,7 @@ namespace BlTest
                                     // get and print product's details
                                     case 'p':
 
-                                        product = _iBl.Product.GetProductDetails(inputProductId());
+                                        product = iBl.Product.GetProductDetails(inputProductId());
 
                                         Console.WriteLine(product);
 
@@ -262,7 +261,7 @@ namespace BlTest
 
                                     // get ant print catalog's product's details
                                     case 'c':
-                                        productItem = _iBl.Product.GetProductFromCatalog(inputProductId(), cart);
+                                        productItem = iBl.Product.GetProductFromCatalog(inputProductId(), cart);
 
                                         Console.WriteLine(productItem);
 
@@ -272,13 +271,13 @@ namespace BlTest
                                     case 'a':
                                         product=GetProductDetails(product);
 
-                                        _iBl.Product.AddProduct(product);
+                                        iBl.Product.AddProduct(product);
 
                                         break;
 
                                     // delete a product
                                     case 'd':
-                                        _iBl.Product.DeleteProduct(inputProductId());
+                                        iBl.Product.DeleteProduct(inputProductId());
 
                                         break;
 
@@ -286,7 +285,7 @@ namespace BlTest
                                     case 'u':
                                         product=GetProductDetails(product);
 
-                                        _iBl.Product.UpdateProduct(product);
+                                        iBl.Product.UpdateProduct(product);
 
                                         break;
 
@@ -321,16 +320,16 @@ namespace BlTest
                                     // add a product to cart
                                     case 'a':
                                         int productID = inputProductId();
-                                        product = _iBl.Product.GetProductDetails(productID);
+                                        product = iBl.Product.GetProductDetails(productID);
 
-                                        _iBl.Cart.AddProductToCart(cart, productID);
+                                        iBl.Cart.AddProductToCart(cart, productID);
 
                                         break;
 
                                     // update product in cart
                                     case 'u':
                                         int productId = inputProductId();
-                                        product = _iBl.Product.GetProductDetails(inputProductId());
+                                        product = iBl.Product.GetProductDetails(inputProductId());
 
                                         int amount;
                                         Console.WriteLine("Enter product's new amount");
@@ -339,7 +338,7 @@ namespace BlTest
                                             Console.WriteLine("baf input, enter again");
                                         }
 
-                                        _iBl.Cart.UpdateProductAmountInCart(cart, productId, amount);
+                                        iBl.Cart.UpdateProductAmountInCart(cart, productId, amount);
 
                                         break;
 
@@ -347,7 +346,7 @@ namespace BlTest
                                     case 'p':
                                         cart= getCartDetails(cart);
 
-                                        _iBl.Cart.PlaceOrder(cart);
+                                        iBl.Cart.PlaceOrder(cart);
 
                                         break;
 

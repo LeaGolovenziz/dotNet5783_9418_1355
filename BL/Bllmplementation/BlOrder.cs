@@ -1,5 +1,4 @@
 ﻿using BO;
-using Dal;
 using DalApi;
 using DO;
 using System.Collections;
@@ -10,14 +9,14 @@ using Order = BO.Order;
 using OrderItem = BO.OrderItem;
 
 namespace Bllmplementation
-{  
-    
+{
+
     internal class BlOrder : IOrder
     {
         /// <summary>
         /// access to the dal entities
         /// </summary>
-        private IDal _dal = new DalList();
+        private IDal? dal = DalApi.Factory.Get();
 
         /// <summary>
         /// gets dal order and ID of order and copies it to a new bl order and returns it
@@ -38,7 +37,7 @@ namespace Bllmplementation
             blOrder.OrderStatus = (BO.Enums.OrderStatus)getOrderStatus(dalOrder)!;
 
             // The orderItems of dal order
-            IEnumerable<DO.OrderItem?> tempOrderItems = _dal.OrderItem.GeOrderItems(orderID);
+            IEnumerable<DO.OrderItem?> tempOrderItems = dal.OrderItem.GeOrderItems(orderID);
             // copy the order items list
             foreach (DO.OrderItem? item in tempOrderItems)
             {
@@ -80,7 +79,7 @@ namespace Bllmplementation
         {
             try
             {
-                DO.Order dalOrder = _dal.Order.Get(orderID);
+                DO.Order dalOrder = dal.Order.Get(orderID);
 
                 // if the the order wasn't shipped yet or already delivered - throe an exception
                 if (dalOrder.ShipDate == null)
@@ -92,7 +91,7 @@ namespace Bllmplementation
                 dalOrder.DeliveryDate = DateTime.Now;
 
                 // update the order in dal
-                _dal.Order.Update(dalOrder);
+                dal.Order.Update(dalOrder);
 
                 // copy the dal order to bl order
                 return copyOrderFromDal( dalOrder, orderID);
@@ -111,7 +110,7 @@ namespace Bllmplementation
             try
             {
                 // get the order from dal
-                DO.Order dalOrder = _dal.Order.Get(orderID);
+                DO.Order dalOrder = dal.Order.Get(orderID);
                 // copy the dal order to bl order and return it
                 return copyOrderFromDal( dalOrder, orderID);
             }
@@ -126,7 +125,7 @@ namespace Bllmplementation
             try
             {
                 // get the order from dal
-                DO.Order order = _dal.Order.Get(orderID);
+                DO.Order order = dal.Order.Get(orderID);
 
                 OrderTracking orderTracking = new OrderTracking();
 
@@ -154,8 +153,8 @@ namespace Bllmplementation
         IEnumerable<OrderForList?> IOrder.GetOrderList()
         {
             IEnumerable<OrderForList> orders;
-            IEnumerable<DO.Order?> dalOrders = _dal.Order.Get();
-            IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.Get();
+            IEnumerable<DO.Order?> dalOrders = dal.Order.Get();
+            IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.Get();
 
             // copy all the orders from dal to bl
             orders = dalOrders.Select(order => new OrderForList
@@ -179,7 +178,7 @@ namespace Bllmplementation
             try
             {
                 // get the order from dal
-                DO.Order dalOrder = _dal.Order.Get(orderID);
+                DO.Order dalOrder = dal.Order.Get(orderID);
 
                 // if the order was shipped alredy - throw an exception
                 if (dalOrder.ShipDate != null)
@@ -189,7 +188,7 @@ namespace Bllmplementation
                 dalOrder.ShipDate = DateTime.Now;
 
                 // update the order (the ship date) of dal
-                _dal.Order.Update(dalOrder);
+                dal.Order.Update(dalOrder);
 
                 // copy the order of dal to order of bl
                 return copyOrderFromDal( dalOrder, orderID);
@@ -205,7 +204,7 @@ namespace Bllmplementation
             try
             {
                 // get the order of dal
-                DO.Order dalOrder = _dal.Order.Get(orderID);
+                DO.Order dalOrder = dal.Order.Get(orderID);
 
                 // if the order has not been sent yet - update the details
                 if (dalOrder.ShipDate == null)
@@ -216,8 +215,8 @@ namespace Bllmplementation
                         throw new UnvalidAmount();
 
                     // get the product and the order item from dal
-                    DO.Product dalProduct = _dal.Product.Get(productID);
-                    DO.OrderItem dalOrderItem = _dal.OrderItem.Get(productID, orderID);
+                    DO.Product dalProduct = dal.Product.Get(productID);
+                    DO.OrderItem dalOrderItem = dal.OrderItem.Get(productID, orderID);
 
                     // if there is not anough in stock - throw an exception
                     if ((dalProduct.InStock + dalOrderItem.ProductAmount - amountToChange) < 0)
@@ -227,12 +226,12 @@ namespace Bllmplementation
                     dalOrderItem.Price = amountToChange * dalProduct.Price;
                     dalOrderItem.ProductAmount = amountToChange;
                     // update the order item in dal
-                    _dal.OrderItem.Update(dalOrderItem);
+                    dal.OrderItem.Update(dalOrderItem);
 
                     // update the amount in stock of the product
                     dalProduct.InStock += (dalOrderItem.ProductAmount - amountToChange);
                     // update the product in dal
-                    _dal.Product.Update(dalProduct);
+                    dal.Product.Update(dalProduct);
 
                     // copy the orders and return the bl's one
                     return copyOrderFromDal(dalOrder, orderID);

@@ -1,6 +1,6 @@
 ﻿using BO;
-using Dal;
 using DalApi;
+using DO;
 using IProduct = BlApi.IProduct;
 using nullvalue = BO.nullvalue;
 
@@ -11,9 +11,9 @@ namespace Bllmplementation
         /// <summary>
         /// access to the dal entities
         /// </summary>
-        private IDal _dal = new DalList();
+        private IDal? dal = DalApi.Factory.Get();
 
-        void IProduct.AddProduct(Product product)
+        void IProduct.AddProduct(BO.Product product)
         {
             // checks validity of product's types
             if (product.ID <= 0)
@@ -31,7 +31,7 @@ namespace Bllmplementation
             // add the DO product to dal's products list
             try
             {
-                _dal.Product.Add(temp);
+                dal.Product.Add(temp);
             }
             catch (AlreadyExist ex)
             {
@@ -42,7 +42,7 @@ namespace Bllmplementation
         void IProduct.DeleteProduct(int productID)
         {
             // gets the order items list from dal
-            IEnumerable<DO.OrderItem?> orderItems = _dal.OrderItem.Get();
+            IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.Get();
             // checks foreach order item if contains the current product
             if (orderItems.FirstOrDefault(OrderItem => (OrderItem ?? throw new nullvalue()).ID == productID) == null)
                 throw new ProductExistInOrder();
@@ -50,7 +50,7 @@ namespace Bllmplementation
             // if the product doesn't exists in any order deletes the product from dal
             try
             {
-                _dal.Product.Delete(productID);
+                dal.Product.Delete(productID);
 
             }
             catch (NotFound ex)
@@ -59,7 +59,7 @@ namespace Bllmplementation
             }
         }
 
-        void IProduct.UpdateProduct(Product product)
+        void IProduct.UpdateProduct(BO.Product product)
         {
             // check validity of product's details
             if (product.ID <= 0)
@@ -77,7 +77,7 @@ namespace Bllmplementation
             // update the DO product in dal's products list
             try
             {
-                _dal.Product.Update(temp);
+                dal.Product.Update(temp);
             }
             catch (NotFound ex)
             {
@@ -85,7 +85,7 @@ namespace Bllmplementation
             }
         }
 
-        Product IProduct.GetProductDetails(int productID)
+        BO.Product IProduct.GetProductDetails(int productID)
         {
             // if product doesn't exists in dal get function will throw an exception
             try
@@ -94,7 +94,7 @@ namespace Bllmplementation
                 if (productID > 0)
                 {
                     // get the DO product from dal
-                    DO.Product temp = _dal.Product.Get(productID);
+                    DO.Product temp = dal.Product.Get(productID);
 
                     // creates new BO product and copy into it the DO product's details
                     BO.Product product =  temp.CopyPropTo(new BO.Product());
@@ -119,7 +119,7 @@ namespace Bllmplementation
                 if (productID > 0)
                 {
                     // get the DO product from dal
-                    DO.Product temp = _dal.Product.Get(productID);
+                    DO.Product temp = dal.Product.Get(productID);
 
                     // creates new BO product item and copy into it the DO product's details
                     ProductItem product = temp.CopyPropTo(new ProductItem());
@@ -149,7 +149,7 @@ namespace Bllmplementation
             IEnumerable<ProductForList> products; 
 
             // get the list of DO products from dal
-            IEnumerable<DO.Product?> lstProducts = _dal.Product.Get(func);
+            IEnumerable<DO.Product?> lstProducts = dal.Product.Get(func);
 
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
             products = lstProducts.Select(product => product.CopyPropTo(new ProductForList()));
