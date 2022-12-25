@@ -1,4 +1,5 @@
 ﻿
+using PL;
 using PL.ProductWindows;
 using System.Windows;
 
@@ -15,11 +16,9 @@ namespace PL
             InitializeComponent();
         }
 
-        private void toProductsList_Click(object sender, RoutedEventArgs e) { }
 
-        private void MenuItem_Click_Add(object sender, RoutedEventArgs e)=> new ProductWindow().Show();
+        private void Button_Click(object sender, RoutedEventArgs e) => new ManagerWindow().Show();
 
-        private void MenuItem_Click_ShowList(object sender, RoutedEventArgs e) => new ProductList().Show();
-
+        private void Button_Click_1(object sender, RoutedEventArgs e) => new BuyerWindow().Show();
     }
 }
