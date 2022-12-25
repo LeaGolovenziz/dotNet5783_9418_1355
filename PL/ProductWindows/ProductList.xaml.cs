@@ -22,7 +22,7 @@ namespace PL.ProductWindows
             products= new ObservableCollection<ProductForList?>(from item in bl.Product.GetProductsList()
                                                                 orderby item?.Name
                                                                 select item);
-            ProductListView.DataContext = products;
+            this.DataContext = products;
 
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
