@@ -69,7 +69,10 @@ public class DalOrderItem : IOrderItem
     public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? func)
     {
         if (func != null)
-            return DataSource.lstOrderItems.Where(x => func(x)).ToList();
+            if (func != null)
+                return (from item in DataSource.lstOrderItems
+                        where func(item)
+                        select item).ToList();
         return DataSource.lstOrderItems;
     }
 

@@ -56,8 +56,10 @@ public class DalOrder : IOrder
     public IEnumerable<Order?> Get(Func<Order?, bool>? func)
     {
         if (func != null)
-            return (IEnumerable<Order?>)DataSource.lstOreders.Where(x => func(x)).ToList();
-        return (IEnumerable<Order?>)DataSource.lstOreders;
+            return (from item in DataSource.lstOreders
+                    where func(item)
+                    select item).ToList();
+        return DataSource.lstOreders;
     }
     /// <summary>
     ///  returns Order who meets the condition

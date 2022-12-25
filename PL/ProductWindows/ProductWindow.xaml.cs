@@ -25,7 +25,8 @@ namespace PL.ProductWindows
             product.Category = (Enums.Category)categoryComboBox.SelectedItem;
             product.Price = double.Parse(priceTextBox.Text);
             product.InStock = int.Parse(inStockTextBox.Text);
-            product.Image = ProductImage.Source.ToString().Substring(8);
+            if (ProductImage.Source!=null)
+                product.Image = ProductImage.Source.ToString().Substring(8);
         }
 
         // make all the exception hidden
@@ -53,6 +54,7 @@ namespace PL.ProductWindows
         {
             if (idTextBox.Text.Length != 6)
             {
+                idExceptionLable.Content = "Enter 6 digits!";
                 idExceptionLable.Visibility = Visibility.Visible;
                 return false;
             }
@@ -135,8 +137,9 @@ namespace PL.ProductWindows
                     MessageBox.Show("product updated!");
                     Close();
                 }
-                catch (UnvalidID ex)
+                catch (IdAlreadyExist ex)
                 {
+                    idExceptionLable.Content = " The ID you entered already exists!";
                     idExceptionLable.Visibility = Visibility.Visible;
                 }
             }
@@ -155,10 +158,11 @@ namespace PL.ProductWindows
                 {
                     bl.Product.AddProduct(product);
                     MessageBox.Show("product added!");
-                    clearTextBoxs();
+                    this.Close();
                 }
-                catch (UnvalidID ex)
+                catch (IdAlreadyExist ex)
                 {
+                    idExceptionLable.Content = " The ID you entered already exists!";
                     idExceptionLable.Visibility = Visibility.Visible;
                 }
             }
@@ -198,6 +202,7 @@ namespace PL.ProductWindows
         {
             if (((TextBox)sender).Text.Length < 6)
             {
+                idExceptionLable.Content = "Enter 6 digits!";
                 idExceptionLable.Visibility = Visibility.Visible;
             }
             else

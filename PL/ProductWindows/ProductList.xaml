@@ -30,7 +30,7 @@ VerticalAlignment="Stretch" Width="auto">
             <Label x:Name="categoryLabel" Grid.Column="1" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="36" Width="87" FontSize="18" Margin="37,0,0,0"/>
             <Button x:Name="button" Content="Clear selection" HorizontalAlignment="Left" Margin="330,10,0,9"  Width="82" Click="button_Click" Grid.ColumnSpan="2" FontSize="9"/>
         </Grid>
-        <ListView x:Name="ProductListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" SelectionChanged="ProductListView_SelectionChanged" MouseDoubleClick="ProductListView_MouseDoubleClick">
+        <ListView x:Name="ProductListView" ItemsSource="{Binding}" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" SelectionChanged="ProductListView_SelectionChanged" MouseDoubleClick="ProductListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="150"/>

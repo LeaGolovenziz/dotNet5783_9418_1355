@@ -36,7 +36,7 @@
             
             <Label x:Name="IdLable" Content="ID of product:" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0" />
             <TextBox x:Name="idTextBox" Grid.Column="1" VerticalAlignment="Center" Height="30" PreviewTextInput="IDPrev" MaxLength="6" LostFocus="idTextBox_LostFocus"/>
-            <Label x:Name="idExceptionLable" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The ID you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
+            <Label x:Name="idExceptionLable" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Visible"/>
 
             <Label x:Name="categoryLable" Content="Category of product:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
             <ComboBox x:Name="categoryComboBox" Grid.Column="1" VerticalAlignment="Center" Height="30" Grid.Row="1"/>

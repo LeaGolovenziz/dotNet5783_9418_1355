@@ -57,7 +57,10 @@ public class DalProduct : IProduct
     public IEnumerable<Product?> Get(Func<Product?, bool>? func)
     {
         if (func != null)
-            return DataSource.lstPruducts.Where(x => func(x)).ToList();
+            if (func != null)
+                return (from item in DataSource.lstPruducts
+                        where func(item)
+                        select item).ToList();
         return DataSource.lstPruducts;
     }
     /// <summary>

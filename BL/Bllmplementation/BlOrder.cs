@@ -46,12 +46,10 @@ namespace Bllmplementation
                 tempOrderItem.TotalPrice =( (item ?? throw new nullvalue()).Price?? throw new nullvalue()) * ((item ?? throw new nullvalue()).ProductAmount?? throw new nullvalue());
 
                 blOrder.OrderItems.Add(tempOrderItem);
-
-                // adding total price of the order item to the total price of the order
-                totalPrice += (double)(((item ?? throw new nullvalue()).Price ?? throw new nullvalue()) * ((item ?? throw new nullvalue()).ProductAmount?? throw new nullvalue()))!;
             }
 
-            blOrder.Price = totalPrice;
+            // adding total price of the order item to the total price of the order
+            blOrder.Price = tempOrderItems.Sum(item => (double)(((item ?? throw new nullvalue()).Price ?? throw new nullvalue()) * ((item ?? throw new nullvalue()).ProductAmount ?? throw new nullvalue()))!);
 
             return blOrder;
         }
