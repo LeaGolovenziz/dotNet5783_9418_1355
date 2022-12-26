@@ -15,7 +15,6 @@ namespace PL
         }
         private void MenuItem_Click_ShowProductList(object sender, RoutedEventArgs e) => new ProductList().Show();
 
-        //private void MenuItem_Click_Add(object sender, RoutedEventArgs e) => new ProductWindow().Show();
 
         private void MenuItem_Click_ShowOrderList(object sender, RoutedEventArgs e) => new OrderWindow().Show();
     }

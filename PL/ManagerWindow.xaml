@@ -21,7 +21,6 @@
         </Grid.RowDefinitions >
         <Menu>
             <MenuItem Header="Product" Height="39" Width="87" FontSize="18" Grid.Column="0">
-                <MenuItem Header="Add" Click="MenuItem_Click_Add"/>
                 <MenuItem Header="Products' list" Click="MenuItem_Click_ShowProductList"/>
             </MenuItem>
             <MenuItem Header="Order" Height="39" Width="87" FontSize="18" Grid.Column="0">

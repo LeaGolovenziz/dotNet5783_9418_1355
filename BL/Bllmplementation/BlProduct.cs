@@ -145,13 +145,12 @@ namespace Bllmplementation
         }
 
         IEnumerable<ProductForList?> IProduct.GetProductsListByCondition(Func<BO.ProductForList?, bool>? func, IEnumerable<ProductForList?> productsForList)
-           => productsForList.Where(func);
+           => productsForList.Where(func!);
 
         IEnumerable<ProductForList?> IProduct.GetProductsList()
         {
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
             return dal.Product.Get().Select(product => product.CopyPropTo(new ProductForList()));
-
         }
 
         public ProductForList GetProductForList(int productID)

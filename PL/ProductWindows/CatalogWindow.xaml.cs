@@ -28,8 +28,8 @@ namespace PL.ProductWindows
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategorySelector.SelectedItem != null)
-                CategorySelector.ItemsSource = bl.Product.GetProductsList(product => product?.Category == (DO.Enums.Category)CategorySelector.SelectedItem);
+            if (CategorySelector.SelectedItem != null) { }
+                //CategorySelector.ItemsSource = bl.Product.GetProductsListByCondition(product => product?.Category == (BO.Enums.Category)CategorySelector.SelectedItem);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -45,7 +45,7 @@ namespace PL.ProductWindows
             ProductItem product = (ProductItem)ProductListView.SelectedItem;
             if (product != null)
             {
-                new ProductWindow(product.ID).ShowDialog();
+                //new ProductWindow(updateP,product.ID).ShowDialog();
                 CategorySelector.SelectedItem = null;
             }
         }

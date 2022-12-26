@@ -83,30 +83,27 @@ namespace PL.ProductWindows
         }
 
         // constructor for add product window
-        public ProductWindow(Action<ProductForList> action)
+        public ProductWindow()
         {
-
             InitializeComponent();
-
-            this.action = action;
-
             blankexceptionLables();
+            categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+        }
+        public ProductWindow(Action<ProductForList> action):this()
+        {
+            this.action = action;
 
             updateButton.Visibility = Visibility.Hidden;
 
-            categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
 
         // constructor for update product window
-        public ProductWindow(int id) 
+        public ProductWindow(Action<ProductForList> action,int id):this()
         {
-            InitializeComponent();
-
-            blankexceptionLables();
+            this.action = action;
 
             addButton.Visibility = Visibility.Hidden;
 
-            categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
             idTextBox.IsEnabled = false;
 
             Product product = bl.Product.GetProductDetails(id);
@@ -120,13 +117,11 @@ namespace PL.ProductWindows
                 Uri resourceUri = new Uri(product.Image, UriKind.Absolute);
                 ProductImage.Source = new BitmapImage(resourceUri);
             }
+            // incase there is no image
             catch (Exception ex) { }
 
         }
 
-        public ProductWindow()
-        {
-        }
 
         // updates the product with the new details in the textboxs
         private void updateButton_Click(object sender, RoutedEventArgs e)
@@ -141,6 +136,7 @@ namespace PL.ProductWindows
                 try
                 {
                     bl.Product.UpdateProduct(product);
+                    action(bl.Product.GetProductForList(product.ID));
                     MessageBox.Show("product updated!");
                     Close();
                 }

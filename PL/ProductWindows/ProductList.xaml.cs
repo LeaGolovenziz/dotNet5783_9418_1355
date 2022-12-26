@@ -40,12 +40,18 @@ namespace PL.ProductWindows
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            ProductListView.ItemsSource = bl.Product.GetProductsList();
+            ProductListView.ItemsSource = Products;
             CategorySelector.SelectedItem = null;
         }
 
         private void addProduct(ProductForList productForList)
         => Products.Add(productForList);
+        private void updateProduct(ProductForList productForList)
+        {
+            var item = Products.FirstOrDefault(item => item?.ID == productForList.ID);
+            int index= Products.IndexOf(item);
+            Products[index]=productForList; 
+        }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -58,7 +64,7 @@ namespace PL.ProductWindows
             ProductForList product = (ProductForList)ProductListView.SelectedItem;
             if (product != null)
             {
-                new ProductWindow(product.ID).ShowDialog();
+                new ProductWindow(updateProduct, product.ID).ShowDialog();
                 CategorySelector.SelectedItem = null;
             }
         }
