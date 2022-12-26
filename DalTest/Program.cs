@@ -1,5 +1,4 @@
-﻿using Dal;
-using DalApi;
+﻿using DalApi;
 using DO;
 using static DO.Enums;
 
@@ -427,7 +426,7 @@ namespace DalTest
                                     string tepOrderItemID = Console.ReadLine()!;
                                     if (!int.TryParse(tepOrderItemID, out orderItemID))
                                         orderItemID = badInt();
-                                   iDal.OrderItem.Delete(orderItemID);
+                                    iDal.OrderItem.Delete(orderItemID);
 
                                     break;
                                 // print certain order item - by product and order

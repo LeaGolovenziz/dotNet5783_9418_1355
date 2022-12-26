@@ -1,6 +1,7 @@
 ﻿using BO;
 using DalApi;
 using DO;
+using System.Reflection.Metadata.Ecma335;
 using IProduct = BlApi.IProduct;
 using nullvalue = BO.nullvalue;
 
@@ -72,7 +73,7 @@ namespace Bllmplementation
                 throw new UnvalidAmount();
 
             // creates new DO product and copy into it the BO product's details
-            DO.Product temp =product.CopyPropToStruct( new DO.Product());
+            DO.Product temp = product.CopyPropToStruct(new DO.Product());
 
             // update the DO product in dal's products list
             try
@@ -97,7 +98,7 @@ namespace Bllmplementation
                     DO.Product temp = dal.Product.Get(productID);
 
                     // creates new BO product and copy into it the DO product's details
-                    BO.Product product =  temp.CopyPropTo(new BO.Product());
+                    BO.Product product = temp.CopyPropTo(new BO.Product());
 
                     return product;
                 }
@@ -143,18 +144,19 @@ namespace Bllmplementation
             }
         }
 
-        IEnumerable<ProductForList?> IProduct.GetProductsList(Func<DO.Product?, bool>? func = null)
+        IEnumerable<ProductForList?> IProduct.GetProductsListByCondition(Func<BO.ProductForList?, bool>? func, IEnumerable<ProductForList?> productsForList)
+           => productsForList.Where(func);
+
+        IEnumerable<ProductForList?> IProduct.GetProductsList()
         {
-            // creates list of BO ProductForList
-            IEnumerable<ProductForList> products; 
-
-            // get the list of DO products from dal
-            IEnumerable<DO.Product?> lstProducts = dal.Product.Get(func);
-
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
-            products = lstProducts.Select(product => product.CopyPropTo(new ProductForList()));
+            return dal.Product.Get().Select(product => product.CopyPropTo(new ProductForList()));
 
-            return products;
         }
+
+        public ProductForList GetProductForList(int productID)
+                =>
+                 productID > 0 ? dal.Product.Get(productID).CopyPropTo(new ProductForList()) :
+                    throw new UnvalidID();
     }
 }

@@ -1,6 +1,4 @@
-﻿using Bllmplementation;
-
-namespace BO
+﻿namespace BO
 {
     public class OrderItem
     {

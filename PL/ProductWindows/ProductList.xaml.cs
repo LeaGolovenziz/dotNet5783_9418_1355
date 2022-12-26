@@ -14,15 +14,15 @@ namespace PL.ProductWindows
     public partial class ProductList : Window
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
-        public ObservableCollection<ProductForList?> products { get; set; } 
+        public ObservableCollection<ProductForList?> Products { get; set; }
         public ProductList()
         {
             InitializeComponent();
 
-            products= new ObservableCollection<ProductForList?>(from item in bl.Product.GetProductsList()
-                                                                orderby item?.Name
-                                                                select item);
-            this.DataContext = products;
+            Products = new ObservableCollection<ProductForList?>(from item in bl.Product.GetProductsList()
+                                                                 orderby item?.Name
+                                                                 select item);
+            this.DataContext = Products;
 
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
@@ -35,7 +35,7 @@ namespace PL.ProductWindows
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CategorySelector.SelectedItem != null)
-                products = new ObservableCollection<ProductForList?>(bl.Product.GetProductsList(product => product?.Category == (DO.Enums.Category)CategorySelector.SelectedItem));
+                Products = new ObservableCollection<ProductForList?>(bl.Product.GetProductsListByCondition(product => product?.Category == (BO.Enums.Category)CategorySelector.SelectedItem, Products));
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -44,10 +44,12 @@ namespace PL.ProductWindows
             CategorySelector.SelectedItem = null;
         }
 
+        private void addProduct(ProductForList productForList)
+        => Products.Add(productForList);
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new ProductWindow().ShowDialog();           
-            CategorySelector.SelectedItem = null;
+            new ProductWindow(addProduct).ShowDialog();
         }
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

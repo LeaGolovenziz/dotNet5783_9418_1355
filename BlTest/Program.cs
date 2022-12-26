@@ -1,5 +1,4 @@
 ﻿using BlApi;
-using Bllmplementation;
 using BO;
 using Order = BO.Order;
 using OrderItem = BO.OrderItem;
@@ -27,7 +26,7 @@ namespace BlTest
                 string address = Console.ReadLine()!;
                 cart.CustomerAddress = address;
 
-                return cart;    
+                return cart;
             }
 
             // inputs an ID of order
@@ -69,7 +68,7 @@ namespace BlTest
             }
 
             // gets product that have an ID, inputs its other details and returns it
-            Product GetProductDetails( Product product)
+            Product GetProductDetails(Product product)
             {
                 product.ID = inputOrderId();
 
@@ -108,7 +107,7 @@ namespace BlTest
                 }
                 product.InStock = inStock;
 
-                return product; 
+                return product;
             }
 
             // gets an exception and prints its messeges
@@ -269,7 +268,7 @@ namespace BlTest
 
                                     // add a product
                                     case 'a':
-                                        product=GetProductDetails(product);
+                                        product = GetProductDetails(product);
 
                                         iBl.Product.AddProduct(product);
 
@@ -283,7 +282,7 @@ namespace BlTest
 
                                     // update product's details
                                     case 'u':
-                                        product=GetProductDetails(product);
+                                        product = GetProductDetails(product);
 
                                         iBl.Product.UpdateProduct(product);
 
@@ -344,7 +343,7 @@ namespace BlTest
 
                                     // make an order from the cart
                                     case 'p':
-                                        cart= getCartDetails(cart);
+                                        cart = getCartDetails(cart);
 
                                         iBl.Cart.PlaceOrder(cart);
 

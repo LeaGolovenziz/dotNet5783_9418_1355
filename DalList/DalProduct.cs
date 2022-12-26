@@ -12,7 +12,7 @@ public class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public int Add(Product product)
     {
-        if (DataSource.lstPruducts.Exists(x => (x?? throw new nullvalue()).ID == product.ID))
+        if (DataSource.lstPruducts.Exists(x => (x ?? throw new nullvalue()).ID == product.ID))
             throw new AlreadyExist();
         DataSource.lstPruducts.Add(product);
         return product.ID;

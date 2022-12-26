@@ -20,7 +20,7 @@ namespace BO
         /// Unique catgory of product
         /// </summary>
         public Category? Category { get; set; }
-       
+
         /// <summary>
         /// Unique inStock of product
         /// </summary>

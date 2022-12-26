@@ -1,8 +1,6 @@
 ﻿using BO;
 using DalApi;
 using DO;
-using System.Collections;
-using System.Reflection;
 using IOrder = BlApi.IOrder;
 using nullvalue = BO.nullvalue;
 using Order = BO.Order;
@@ -43,7 +41,7 @@ namespace Bllmplementation
             {
                 OrderItem tempOrderItem = item.CopyPropTo(new OrderItem());
                 // calculate total price of the order item as product price * product ampount
-                tempOrderItem.TotalPrice =( (item ?? throw new nullvalue()).Price?? throw new nullvalue()) * ((item ?? throw new nullvalue()).ProductAmount?? throw new nullvalue());
+                tempOrderItem.TotalPrice = ((item ?? throw new nullvalue()).Price ?? throw new nullvalue()) * ((item ?? throw new nullvalue()).ProductAmount ?? throw new nullvalue());
 
                 blOrder.OrderItems.Add(tempOrderItem);
             }
@@ -70,7 +68,7 @@ namespace Bllmplementation
                 orderStatus = BO.Enums.OrderStatus.Sent;
             else
                 orderStatus = BO.Enums.OrderStatus.Confirmed;
-            return orderStatus; 
+            return orderStatus;
         }
 
         public Order DeliverOrder(int orderID)
@@ -92,7 +90,7 @@ namespace Bllmplementation
                 dal.Order.Update(dalOrder);
 
                 // copy the dal order to bl order
-                return copyOrderFromDal( dalOrder, orderID);
+                return copyOrderFromDal(dalOrder, orderID);
             }
             catch (NotFound ex)
             {
@@ -110,7 +108,7 @@ namespace Bllmplementation
                 // get the order from dal
                 DO.Order dalOrder = dal.Order.Get(orderID);
                 // copy the dal order to bl order and return it
-                return copyOrderFromDal( dalOrder, orderID);
+                return copyOrderFromDal(dalOrder, orderID);
             }
             catch (NotFound ex)
             {
@@ -131,7 +129,7 @@ namespace Bllmplementation
                 // the ID
                 orderTracking.OrderID = orderID;
                 // the status
-                    orderTracking.OrderStatus = (BO.Enums.OrderStatus)getOrderStatus(order)!;
+                orderTracking.OrderStatus = (BO.Enums.OrderStatus)getOrderStatus(order)!;
                 // the list of tracking
                 orderTracking.Tracking = new List<Tuple<DateTime?, BO.Enums.OrderStatus?>>();
                 orderTracking.Tracking.Add(new Tuple<DateTime?, BO.Enums.OrderStatus?>((DateTime)order.OrderDate!, BO.Enums.OrderStatus.Confirmed));
@@ -189,7 +187,7 @@ namespace Bllmplementation
                 dal.Order.Update(dalOrder);
 
                 // copy the order of dal to order of bl
-                return copyOrderFromDal( dalOrder, orderID);
+                return copyOrderFromDal(dalOrder, orderID);
             }
             catch (NotFound ex)
             {

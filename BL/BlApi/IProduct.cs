@@ -11,7 +11,23 @@ namespace BlApi
         /// return a list of the ProductForList (for manager)
         /// </summary>
         /// <returns>IEnumerable<ProductForList></returns>
-        public IEnumerable<ProductForList?> GetProductsList(Func<DO.Product?, bool>? func = null);
+        IEnumerable<ProductForList?> GetProductsList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="productsForList"></param>
+        /// <returns></returns>
+        IEnumerable<ProductForList?> GetProductsListByCondition(Func<BO.ProductForList?, bool>? func, IEnumerable<ProductForList?> productsForList);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public ProductForList GetProductForList(int productID);
+
         /// <summary>
         /// gets product's id and returns Product (for manager)
         /// </summary>
@@ -38,6 +54,6 @@ namespace BlApi
         /// </summary>
         /// <returns>Product</returns>
         public void UpdateProduct(Product product);
-  
+
     }
 }

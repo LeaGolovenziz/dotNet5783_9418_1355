@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace PL.ProductWindows
@@ -17,6 +16,8 @@ namespace PL.ProductWindows
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
 
+        private Action<ProductForList> action;
+
         // get a product and initialize it's details from the textboxs
         void insertProductDetails(ref Product product)
         {
@@ -25,7 +26,7 @@ namespace PL.ProductWindows
             product.Category = (Enums.Category)categoryComboBox.SelectedItem;
             product.Price = double.Parse(priceTextBox.Text);
             product.InStock = int.Parse(inStockTextBox.Text);
-            if (ProductImage.Source!=null)
+            if (ProductImage.Source != null)
                 product.Image = ProductImage.Source.ToString().Substring(8);
         }
 
@@ -82,10 +83,12 @@ namespace PL.ProductWindows
         }
 
         // constructor for add product window
-        public ProductWindow()
+        public ProductWindow(Action<ProductForList> action)
         {
-            
+
             InitializeComponent();
+
+            this.action = action;
 
             blankexceptionLables();
 
@@ -95,7 +98,7 @@ namespace PL.ProductWindows
         }
 
         // constructor for update product window
-        public ProductWindow(int id)
+        public ProductWindow(int id) 
         {
             InitializeComponent();
 
@@ -119,6 +122,10 @@ namespace PL.ProductWindows
             }
             catch (Exception ex) { }
 
+        }
+
+        public ProductWindow()
+        {
         }
 
         // updates the product with the new details in the textboxs
@@ -157,6 +164,7 @@ namespace PL.ProductWindows
                 try
                 {
                     bl.Product.AddProduct(product);
+                    action(bl.Product.GetProductForList(product.ID));
                     MessageBox.Show("product added!");
                     this.Close();
                 }
