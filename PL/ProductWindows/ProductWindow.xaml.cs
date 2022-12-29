@@ -89,6 +89,25 @@ namespace PL.ProductWindows
             blankexceptionLables();
             categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
+        public ProductWindow(int id)
+        {
+            InitializeComponent();
+            blankexceptionLables();
+            updateButton.Visibility = Visibility.Hidden;
+            addButton.Visibility = Visibility.Hidden;
+            AddImageButton.Visibility = Visibility.Hidden;
+
+            // binding? או פונקציה
+            Product product = bl.Product.GetProductDetails(id);
+            idTextBox.Text = id.ToString();
+            categoryComboBox.SelectedItem = product.Category;
+            nameTextBox.Text = product.Name;
+            priceTextBox.Text = product.Price.ToString();
+            inStockTextBox.Text = product.InStock.ToString();
+
+            mainGrid.IsEnabled = false;
+
+        }
         public ProductWindow(Action<ProductForList> action):this()
         {
             this.action = action;
