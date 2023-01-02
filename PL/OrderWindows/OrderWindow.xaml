@@ -19,6 +19,8 @@
                BasedOn="{StaticResource ControlStyle}"/>
         <Style TargetType="Label"
                BasedOn="{StaticResource labkesStyle}"/>
+        <Style TargetType="ListView"
+               BasedOn="{StaticResource ControlStyle}"/>
 
     </Window.Resources>
 
@@ -109,35 +111,36 @@
                         <ColumnDefinition Width="321*"/>
                         <ColumnDefinition Width="115*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="OrderItemsDataGrid" Background="#FF97F297" SelectionMode="Single" Grid.Column="0" IsReadOnly="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" RenderTransformOrigin="0.717,0.61" Margin="20,20,20,81">
+                    <ListView x:Name="OrderItemsDataGrid" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single" Grid.Column="0"  RenderTransformOrigin="0.717,0.61" Margin="20,20,20,81">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding ID}" Header="Product ID" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Price}" Header="Price" />
+                                <GridViewColumn DisplayMemberBinding="{Binding ProductAmount}" Header="Amount"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding TotalPrice}" Header="Total price"/>
 
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding ID}" Header="Product ID"  Width="SizeToHeader"/>
-                            <DataGridTextColumn Binding="{Binding Name}" Header="Name"  Width="SizeToHeader"/>
-                            <DataGridTextColumn Binding="{Binding Price}" Header="Price"  Width="SizeToHeader"/>
-                            <DataGridTextColumn Binding="{Binding ProductAmount}" Header="Amount" Width="SizeToHeader"/>
-                            <DataGridTextColumn Binding="{Binding TotalPrice}" Header="Total price" Width="SizeToHeader"/>
-
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button x:Name="UpdateAmountbutton" 
+                                <GridViewColumn Header="Update Amount">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="UpdateAmountbutton" 
                                                 Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsChecked, Converter={StaticResource booleanFalseToVisibilityConverter}}"
                                                 Content="Update amount" Click="UpdateAmountbutton_Click"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button x:Name="DeleteOrderItembutton"
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Delete">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="DeleteOrderItembutton"
                                                 Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsChecked, Converter={StaticResource booleanFalseToVisibilityConverter}}"
                                                 Content="Delete" Click="DeleteOrderItembutton_Click"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                     <TextBox x:Name="newAmountTextBox"
                          Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsChecked, Converter={StaticResource booleanFalseToVisibilityConverter}}" 
                          HorizontalAlignment="Left" Margin="2,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" Height="18" Grid.Column="1"/>
