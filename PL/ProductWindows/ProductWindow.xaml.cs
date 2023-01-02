@@ -57,18 +57,6 @@ namespace PL.ProductWindows
             InitializeComponent();
             categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
-
-        public ProductWindow(int id)
-        {
-            InitializeComponent();
-            newProduct = bl.Product.GetProductDetails(id);
-            mainGrid.DataContext = newProduct;
-            updateButton.Visibility = Visibility.Hidden;
-            addButton.Visibility = Visibility.Hidden;
-            AddImageButton.Visibility = Visibility.Hidden;
-
-            mainGrid.IsEnabled = false;
-        }
         public ProductWindow(Action<ProductForList> action):this()
         {
             this.action = action;

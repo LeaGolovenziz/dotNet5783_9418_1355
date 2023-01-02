@@ -41,6 +41,8 @@ namespace PL.ProductWindows
             this.action = action;
             AddNewProduct.Visibility = Visibility.Hidden; // Biding
             order = bl.Order.GetOrderDetails(id);
+
+            AddOrderItem.Visibility = Visibility.Visible;    
         }
 
         private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
