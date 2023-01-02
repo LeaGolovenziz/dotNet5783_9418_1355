@@ -1,8 +1,9 @@
-﻿using static BO.Enums;
+﻿using System.Runtime.CompilerServices;
+using static BO.Enums;
 
 namespace BO
 {
-    public class Product
+    public class Product 
     {
         /// <summary>
         /// Unique ID of product

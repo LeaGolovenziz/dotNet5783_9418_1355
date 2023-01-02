@@ -15,40 +15,19 @@ namespace PL.ProductWindows
     public partial class ProductWindow : Window
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
+        public BO.Product newProduct = new BO.Product();
 
         private Action<ProductForList> action;
 
-        // get a product and initialize it's details from the textboxs
-        void insertProductDetails(ref Product product)
-        {
-            product.ID = int.Parse(idTextBox.Text);
-            product.Name = nameTextBox.Text;
-            product.Category = (Enums.Category)categoryComboBox.SelectedItem;
-            product.Price = double.Parse(priceTextBox.Text);
-            product.InStock = int.Parse(inStockTextBox.Text);
-            if (ProductImage.Source != null)
-                product.Image = ProductImage.Source.ToString().Substring(8);
-        }
-
-        // make all the exception hidden
-        void blankexceptionLables()
-        {
-            idExceptionLable.Visibility = Visibility.Hidden;
-            isCategoryLable.Visibility = Visibility.Hidden;
-            nameExceptionLable.Visibility = Visibility.Hidden;
-            priceExceptionLable.Visibility = Visibility.Hidden;
-            inStockExceptionLable.Visibility = Visibility.Hidden;
-        }
-
-        // clear all texboxs' content
-        void clearTextBoxs()
-        {
-            idTextBox.Text = string.Empty;
-            nameTextBox.Text = string.Empty;
-            priceTextBox.Text = string.Empty;
-            inStockTextBox.Text = string.Empty;
-            categoryComboBox.Text = string.Empty;
-        }
+        //// clear all texboxs' content
+        //void clearTextBoxs()
+        //{
+        //    idTextBox.Text = string.Empty;
+        //    nameTextBox.Text = string.Empty;
+        //    priceTextBox.Text = string.Empty;
+        //    inStockTextBox.Text = string.Empty;
+        //    categoryComboBox.Text = string.Empty;
+        //}
 
         // checks if ther'e are details in the textBoxes
         bool checkTextBoxes()
@@ -86,82 +65,58 @@ namespace PL.ProductWindows
         public ProductWindow()
         {
             InitializeComponent();
-            blankexceptionLables();
             categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
+
         public ProductWindow(int id)
         {
             InitializeComponent();
-            blankexceptionLables();
+            newProduct = bl.Product.GetProductDetails(id);
+            mainGrid.DataContext = newProduct;
             updateButton.Visibility = Visibility.Hidden;
             addButton.Visibility = Visibility.Hidden;
             AddImageButton.Visibility = Visibility.Hidden;
 
-            // binding? או פונקציה
-            Product product = bl.Product.GetProductDetails(id);
-            idTextBox.Text = id.ToString();
-            categoryComboBox.SelectedItem = product.Category;
-            nameTextBox.Text = product.Name;
-            priceTextBox.Text = product.Price.ToString();
-            inStockTextBox.Text = product.InStock.ToString();
-
             mainGrid.IsEnabled = false;
-
         }
         public ProductWindow(Action<ProductForList> action):this()
         {
             this.action = action;
 
-            updateButton.Visibility = Visibility.Hidden;
+            mainGrid.DataContext = newProduct;
 
+            updateButton.Visibility = Visibility.Hidden;
         }
 
         // constructor for update product window
         public ProductWindow(Action<ProductForList> action,int id):this()
         {
+            newProduct = bl.Product.GetProductDetails(id);
+            mainGrid.DataContext = newProduct;
+
             this.action = action;
 
             addButton.Visibility = Visibility.Hidden;
 
             idTextBox.IsEnabled = false;
-
-            Product product = bl.Product.GetProductDetails(id);
-            idTextBox.Text = id.ToString();
-            categoryComboBox.SelectedItem = product.Category;
-            nameTextBox.Text = product.Name;
-            priceTextBox.Text = product.Price.ToString();
-            inStockTextBox.Text = product.InStock.ToString();
-            try
-            {
-                Uri resourceUri = new Uri(product.Image, UriKind.Absolute);
-                ProductImage.Source = new BitmapImage(resourceUri);
-            }
-            // incase there is no image
-            catch (Exception ex) { }
-
         }
 
 
         // updates the product with the new details in the textboxs
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
-            // reset visability of error lables
-            blankexceptionLables();
-
             if (checkTextBoxes())
             {
-                Product product = new Product();
-                insertProductDetails(ref product);
                 try
                 {
-                    bl.Product.UpdateProduct(product);
-                    action(bl.Product.GetProductForList(product.ID));
+                    bl.Product.UpdateProduct(newProduct);
+                    action(bl.Product.GetProductForList(newProduct.ID));
                     MessageBox.Show("product updated!");
                     Close();
                 }
                 catch (IdAlreadyExist ex)
                 {
-                    idExceptionLable.Content = " The ID you entered already exists!";
+                    idExceptionLable.Content = " This ID already exist!";
                     idExceptionLable.Visibility = Visibility.Visible;
                 }
             }
@@ -170,16 +125,13 @@ namespace PL.ProductWindows
         // adds a product with the details in the textboxs
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            // reset visability of error lables
-
             if (checkTextBoxes())
             {
-                Product product = new Product();
-                insertProductDetails(ref product);
+                //insertProductDetails(ref product);
                 try
                 {
-                    bl.Product.AddProduct(product);
-                    action(bl.Product.GetProductForList(product.ID));
+                    bl.Product.AddProduct(newProduct);
+                    action(bl.Product.GetProductForList(newProduct.ID));
                     MessageBox.Show("product added!");
                     this.Close();
                 }
@@ -202,8 +154,8 @@ namespace PL.ProductWindows
         // make sure the user can enter only letters as name
         private void NamePrev(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("^[a-zA-Z]+");
-            e.Handled = !regex.IsMatch(e.Text);
+            Regex regex = new Regex("[^a-zA-Z]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         // make sure the user can enter only numbers as price
@@ -260,6 +212,11 @@ namespace PL.ProductWindows
                 bitmap.EndInit();
                 ProductImage.Source = bitmap;
             }
+        }
+
+        private void idTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
         }
         //OpenFileDialog openFileDialog = new OpenFileDialog();
         //    if (openFileDialog.ShowDialog() == true)

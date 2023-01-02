@@ -14,17 +14,33 @@ namespace PL.ProductWindows
     public partial class ProductList : Window
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
-        public ObservableCollection<ProductForList?> Products { get; set; }
-        public ProductList()
-        {
-            InitializeComponent();
+        public ObservableCollection<ProductForList?> Products;
 
+        private Action<Order> action;
+        public Order order = new Order();
+
+        void resetProducts()
+        {
             Products = new ObservableCollection<ProductForList?>(from item in bl.Product.GetProductsList()
                                                                  orderby item?.Name
                                                                  select item);
             this.DataContext = Products;
+        }
+
+        public ProductList()
+        {
+            InitializeComponent();
+
+            resetProducts();
 
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
+        }
+
+        public ProductList(Action<Order> action, int id): this()
+        {
+            this.action = action;
+            AddNewProduct.Visibility = Visibility.Hidden; // Biding
+            order = bl.Order.GetOrderDetails(id);
         }
 
         private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -35,12 +51,16 @@ namespace PL.ProductWindows
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CategorySelector.SelectedItem != null)
-                Products = new ObservableCollection<ProductForList?>(bl.Product.GetProductsListByCondition(product => product?.Category == (BO.Enums.Category)CategorySelector.SelectedItem, Products));
+            {
+                resetProducts();
+                Products = new ObservableCollection<ProductForList?>(Products.Where(product => product?.Category == (BO.Enums.Category)CategorySelector.SelectedItem));
+            }
+                this.DataContext = Products;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            ProductListView.ItemsSource = Products;
+            resetProducts();
             CategorySelector.SelectedItem = null;
         }
 
@@ -49,8 +69,8 @@ namespace PL.ProductWindows
         private void updateProduct(ProductForList productForList)
         {
             var item = Products.FirstOrDefault(item => item?.ID == productForList.ID);
-            int index= Products.IndexOf(item);
-            Products[index]=productForList; 
+            if (item!=null)
+                Products[Products.IndexOf(item)] = productForList;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -66,6 +86,29 @@ namespace PL.ProductWindows
             {
                 new ProductWindow(updateProduct, product.ID).ShowDialog();
                 CategorySelector.SelectedItem = null;
+            }
+        }
+
+        private void AddOrderItem_Click(object sender, RoutedEventArgs e)
+        {
+            if(ProductListView.SelectedItems.Count ==1)
+            {
+                try
+                {
+                    bl.Order.UpdateOrderDetails(order.ID, ((ProductForList)ProductListView.SelectedItem).ID, 1);
+                    action(order);
+                    MessageBox.Show("product added to the order!");
+                    Close();
+                }
+                catch (UnvalidAmount ex)
+                {
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Select one product to add", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

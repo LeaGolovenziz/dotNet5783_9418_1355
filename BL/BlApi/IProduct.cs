@@ -14,15 +14,7 @@ namespace BlApi
         IEnumerable<ProductForList?> GetProductsList();
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="func"></param>
-        /// <param name="productsForList"></param>
-        /// <returns></returns>
-        IEnumerable<ProductForList?> GetProductsListByCondition(Func<BO.ProductForList?, bool>? func, IEnumerable<ProductForList?> productsForList);
-
-        /// <summary>
-        /// 
+        /// gets ID and returns productForList with this ID
         /// </summary>
         /// <param name="productID"></param>
         /// <returns></returns>

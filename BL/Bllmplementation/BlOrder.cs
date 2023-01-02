@@ -1,4 +1,5 @@
 ﻿using BO;
+using Dal;
 using DalApi;
 using DO;
 using IOrder = BlApi.IOrder;
@@ -42,6 +43,7 @@ namespace Bllmplementation
                 OrderItem tempOrderItem = item.CopyPropTo(new OrderItem());
                 // calculate total price of the order item as product price * product ampount
                 tempOrderItem.TotalPrice = ((item ?? throw new nullvalue()).Price ?? throw new nullvalue()) * ((item ?? throw new nullvalue()).ProductAmount ?? throw new nullvalue());
+                tempOrderItem.Name = dal.Product.Get((int)item?.ID).Name;
 
                 blOrder.OrderItems.Add(tempOrderItem);
             }
@@ -158,7 +160,7 @@ namespace Bllmplementation
                 // the ID the
                 OrderID = (order ?? throw new nullvalue()).ID!,
                 // the customer's name
-                CostumerName = (order ?? throw new nullvalue()).CustomerName!,
+                CustomerName = (order ?? throw new nullvalue()).CustomerName!,
                 OrderStatus = getOrderStatus(order),
                 // the amount
                 Amount = (orderItems.FirstOrDefault(x => (x ?? throw new nullvalue()).OrderID == (order ?? throw new nullvalue()).ID) ?? throw new nullvalue()).ProductAmount,
@@ -231,10 +233,31 @@ namespace Bllmplementation
 
                     // copy the orders and return the bl's one
                     return copyOrderFromDal(dalOrder, orderID);
-
                 }
                 else
                     throw new AlreadyShipped();
+            }
+            catch (NotFound ex)
+            {
+                throw new DoesntExist(ex);
+            }
+        }
+
+        public OrderForList GetOrderForList(int orderID)
+        {
+            if (orderID <= 0)
+                throw new UnvalidID();
+            try
+            {
+                // get the order from dal and copy the properties with the same name
+                DO.Order dalOrder = dal.Order.Get(orderID);
+                OrderForList orderForList = dalOrder.CopyPropTo(new OrderForList());
+                // copy the rest of the properties
+                orderForList.OrderID = dalOrder.ID;
+                orderForList.OrderStatus = (BO.Enums.OrderStatus)getOrderStatus(dalOrder)!;
+                orderForList.Amount = dal.OrderItem.GeOrderItems(orderID).Sum(orderItem => (orderItem ?? throw new nullvalue()).ProductAmount);
+                orderForList.Price = dal.OrderItem.GeOrderItems(orderID).Sum(orderItem => (orderItem ?? throw new nullvalue()).Price);
+                return orderForList;
             }
             catch (NotFound ex)
             {

@@ -20,11 +20,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions >
         <Menu>
-            <MenuItem Header="Product" Height="39" Width="87" FontSize="18" Grid.Column="0">
-                <MenuItem Header="Products' list" Click="MenuItem_Click_ShowProductList"/>
-            </MenuItem>
-            <MenuItem Header="Order" Height="39" Width="87" FontSize="18" Grid.Column="0">
-                <MenuItem Header="Orders' list" Click="MenuItem_Click_ShowOrderList"/>
+            <MenuItem Header="Products" Height="39" Width="87" FontSize="18" Grid.Column="0" Click="MenuItem_Click_ShowProductList"/>
+            <MenuItem Header="Orders" Height="39" Width="87" FontSize="18" Grid.Column="0" Click="MenuItem_Click_ShowOrderList">
             </MenuItem>
         </Menu>
         <MediaElement HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50" Grid.Row="1" Source="C:\Users\lea golovenziz\source\repos\NaomiReitzer\dotNet5738_9418_1355\bin\Debug\images\openningVideo.mp4" Volume="0.05" Position="00:00:00" IsMuted="True" />

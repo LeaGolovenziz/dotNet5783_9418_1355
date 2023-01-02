@@ -11,13 +11,13 @@ namespace BO
         /// <summary>
         /// unique name of costumer
         /// </summary>
-        public string? CostumerName { get; set; }
+        public string? CustomerName { get; set; }
         /// <summary>
         /// unique name of costumer
         /// </summary>
         public OrderStatus? OrderStatus { get; set; }
         /// <summary>
-        /// unique amount of products in orer
+        /// unique amount of products in order
         /// </summary>
         public int? Amount { get; set; }
         /// <summary>
