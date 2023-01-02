@@ -13,6 +13,13 @@ namespace Bllmplementation
         /// </summary>
         private IDal? dal = DalApi.Factory.Get();
 
+        public int AmountOf(Cart cart, int productID)
+        {
+            if (cart.OrderItems==null)
+              return 0;
+            return (int)(cart.OrderItems.FirstOrDefault(x => x.ID == productID)?.ProductAmount??0);
+        }
+
         Cart ICart.AddProductToCart(Cart cart, int productID)
         {
             // checks if product exists and in stock
@@ -27,9 +34,11 @@ namespace Bllmplementation
             {
                 throw new DoesntExist(ex);
             }
+            if (cart.OrderItems == null)
+                cart.OrderItems = new List<BO.OrderItem>();
 
             // if product's already in the order
-            if (cart.OrderItems.Exists(x => x.ID == productID))
+            if ( cart.OrderItems.Exists(x => x.ID == productID))
             {
                 // find the index of the product 
                 int index = cart.OrderItems.FindIndex(x => x.ID == productID);
@@ -48,6 +57,7 @@ namespace Bllmplementation
                 BO.OrderItem orderItem = new BO.OrderItem
                 {
                     ID = productID,
+                    Name = product.Name,
                     Price = product.Price,
                     ProductAmount = 1,
                     TotalPrice = product.Price

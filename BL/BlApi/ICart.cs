@@ -30,5 +30,11 @@ namespace BlApi
         /// <param name="email"></param>
         /// <param name="address"></param>
         public void PlaceOrder(Cart cart);
+        /// <summary>
+        /// gets a cart and products id and returns the amount un cart of the product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns>int</returns>
+        public int AmountOf(Cart cart, int productID);
     }
 }

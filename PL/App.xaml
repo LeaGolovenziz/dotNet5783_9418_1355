@@ -16,6 +16,9 @@
         <Style x:Key="ButtonsStyle" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource MyButtonBackground}"/>
         </Style>
+        <Style x:Key="GridStyle" TargetType="Grid">
+            <Setter Property="Background" Value="#FFF1F8EF"/>
+        </Style>
         <Style x:Key="ControlStyle" TargetType="Control">
             <Setter Property="Background" Value="#FFF1F8EF"/>
         </Style>

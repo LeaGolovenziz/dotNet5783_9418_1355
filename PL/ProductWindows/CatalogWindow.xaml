@@ -13,45 +13,80 @@
        BasedOn="{StaticResource ControlStyle}"/>
         <Style TargetType="ListView"
                       BasedOn="{StaticResource ControlStyle}"/>
+        <Style TargetType="Grid"
+                      BasedOn="{StaticResource GridStyle}"/>
     </Window.Resources>
     <Grid Name ="MainGrid" Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="150*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="0,0,0,373" Grid.RowSpan="2">
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="0,0,0,10" RenderTransformOrigin="0.487,0.952">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox x:Name="CategorySelector" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" Margin="129,10,128,10"/>
-            <Label x:Name="categoryLabel" Grid.Column="1" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="41" Width="87" FontSize="18" Margin="37,0,0,0"/>
-            <Button x:Name="button" Content="Clear selection" HorizontalAlignment="Left" Margin="330,10,0,10"  Width="92" Click="button_Click" Grid.ColumnSpan="2" FontSize="9"/>
+            <Label x:Name="categoryLabel" Grid.Column="1" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="47" Width="87" FontSize="18" Margin="37,0,0,0"/>
+            <Button x:Name="ClearButton" Content="Clear selection" HorizontalAlignment="Left" Margin="330,10,0,10"  Width="92" Click="ClearButton_Click" Grid.ColumnSpan="2" FontSize="9"/>
+            <Button x:Name="GroupButton" Content="sort bt category" HorizontalAlignment="Left" Margin="60,25,0,10"  Width="166" Click="GroupCatalog" FontSize="9"/>
         </Grid>
-        <ListView x:Name="ProductListView" ItemsSource="{Binding}" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" SelectionChanged="ProductListView_SelectionChanged" MouseDoubleClick="ProductListView_MouseDoubleClick" Margin="0,10,0,0">
+        <ListView x:Name="ProductListView" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18"  MouseDoubleClick="ProductListView_MouseDoubleClick" Margin="0,77,0,0" Grid.RowSpan="2" SelectionMode="Single">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
                     <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="100"/>
                     <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}" Width="150"/>
-                    <GridViewColumn x:Name="addToCartChekBox" Header="Add to cart" >
+                    <GridViewColumn Header="Amount in cart" DisplayMemberBinding="{Binding AmountInCart}" Width="150" />
+                    <GridViewColumn Header="picture"  Width="70">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox x:Name="addToCartChekBox" IsChecked="False"/>
+                                <Image Source="{Binding Image}" Width="45" Height="45" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="amount" >
+                    <GridViewColumn  Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox x:Name="amountTextBox" />
+                                <Button  Width="130" Content="Add to cart" Height="45" Click="addToCart" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template" >
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True" >
+                                            <Expander.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFCDF8CD" Offset="0.15"/>
+                                                    <GradientStop Color="FloralWhite" Offset="1"/>
+                                                    <GradientStop Color="White" Offset="0.342"/>
+                                                </LinearGradientBrush>
+                                            </Expander.Background>
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal"  >
+                                                    <TextBlock Text="{Binding Name}" FontWeight="DemiBold" Foreground="DarkSlateGray" FontSize="20" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" record(s)" FontSize="16" Foreground="Gray" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
         </ListView>
-        <Button Content="Go to cart" Grid.Row="2" Height="40" Click="Button_Click_1" />
+        <Button Content="Go to cart" Grid.Row="2" Height="40" Click="goToCart" />
     </Grid>
 </Window>

@@ -13,6 +13,8 @@
                       BasedOn="{StaticResource ControlStyle}"/>
         <Style TargetType="Menu"
                       BasedOn="{StaticResource ControlStyle}"/>
+        <Style TargetType="Grid"
+                      BasedOn="{StaticResource GridStyle}"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

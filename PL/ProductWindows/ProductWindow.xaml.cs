@@ -19,17 +19,6 @@ namespace PL.ProductWindows
 
         private Action<ProductForList> action;
 
-        //// clear all texboxs' content
-        //void clearTextBoxs()
-        //{
-        //    idTextBox.Text = string.Empty;
-        //    nameTextBox.Text = string.Empty;
-        //    priceTextBox.Text = string.Empty;
-        //    inStockTextBox.Text = string.Empty;
-        //    categoryComboBox.Text = string.Empty;
-        //}
-
-        // checks if ther'e are details in the textBoxes
         bool checkTextBoxes()
         {
             if (idTextBox.Text.Length != 6)
@@ -60,6 +49,7 @@ namespace PL.ProductWindows
             }
             return true;
         }
+
 
         // constructor for add product window
         public ProductWindow()
@@ -218,12 +208,7 @@ namespace PL.ProductWindows
         {
 
         }
-        //OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    if (openFileDialog.ShowDialog() == true)
-        //    {
-        //        Uri fileUri = new Uri(openFileDialog.FileName);
-        //        ProductImage.Source = new BitmapImage(fileUri);
-        //    }
+
     }
 }
 
