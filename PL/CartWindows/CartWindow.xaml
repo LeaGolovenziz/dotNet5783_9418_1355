@@ -76,7 +76,7 @@
 
             </Grid>
             <Label Content="Total Cart Price:" FontSize="15" HorizontalAlignment="Left" Margin="37,241,0,0" VerticalAlignment="Top" Height="37" Width="129"/>
-            <Label x:Name="totalPriceLable" Content="{Binding Price, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Height="37" Width="50"/>
+            <Label x:Name="totalPriceLable" Content="{Binding Price}" FontSize="15" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Height="37" Width="50"/>
         </Grid>
         <Button Content="Place order" Grid.Row="2" Height="40" Click="PlaceOrder"  />
     </Grid>

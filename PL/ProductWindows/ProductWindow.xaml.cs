@@ -16,7 +16,6 @@ namespace PL.ProductWindows
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
         public BO.Product newProduct = new BO.Product();
-
         private Action<ProductForList> action;
 
         bool checkTextBoxes()
@@ -58,17 +57,6 @@ namespace PL.ProductWindows
             categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
 
-        public ProductWindow(int id)
-        {
-            InitializeComponent();
-            newProduct = bl.Product.GetProductDetails(id);
-            mainGrid.DataContext = newProduct;
-            updateButton.Visibility = Visibility.Hidden;
-            addButton.Visibility = Visibility.Hidden;
-            AddImageButton.Visibility = Visibility.Hidden;
-
-            mainGrid.IsEnabled = false;
-        }
         public ProductWindow(Action<ProductForList> action):this()
         {
             this.action = action;
@@ -81,7 +69,9 @@ namespace PL.ProductWindows
         // constructor for update product window
         public ProductWindow(Action<ProductForList> action,int id):this()
         {
+
             newProduct = bl.Product.GetProductDetails(id);
+
             mainGrid.DataContext = newProduct;
 
             this.action = action;
