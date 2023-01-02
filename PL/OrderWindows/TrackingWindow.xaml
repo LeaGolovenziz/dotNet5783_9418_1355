@@ -6,7 +6,35 @@
         xmlns:local="clr-namespace:PL.OrderWindows"
         mc:Ignorable="d"
         Title="TrackingWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource ButtonsStyle}"/>
+        <Style TargetType="Window"
+       BasedOn="{StaticResource ControlStyle}"/>
+        <Style TargetType="ListView"
+                      BasedOn="{StaticResource ControlStyle}"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="68*"/>
+            <RowDefinition Height="93*"/>
+            <RowDefinition Height="273*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="OrderIDTextBox" PreviewTextInput="IDprev" HorizontalAlignment="Left" Margin="363,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Height="24"/>
+        <Label x:Name="OrderIDLable" Content="Order ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Margin="294,0,0,0" Height="26"/>
+        <Button x:Name="trackOrderButton" Content="Track order" HorizontalAlignment="Left" Margin="544,0,0,0" VerticalAlignment="Center" Height="26" Width="103" Click="trackOrderButton_Click"/>
+
+        <Label x:Name="statusLabel" Grid.Row="1" Content="Order status:" HorizontalAlignment="Left" Margin="256,33,0,0" VerticalAlignment="Top" Width="132" Height="34"/>
+        <TextBlock x:Name="statysTextBlock" HorizontalAlignment="Left" Margin="393,31,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=OrderStatus}" VerticalAlignment="Top" Width="169" Height="34"/>
+        <ListView x:Name="listView" Grid.Row="2" Margin="50" ItemsSource="{Binding}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Item1}" Width="100"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=Item2}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
     </Grid>
 </Window>

@@ -56,7 +56,6 @@ namespace PL.ProductWindows
             InitializeComponent();
             categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
-
         public ProductWindow(Action<ProductForList> action):this()
         {
             this.action = action;

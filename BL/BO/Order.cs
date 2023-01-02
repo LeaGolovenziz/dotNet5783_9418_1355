@@ -1,9 +1,12 @@
-﻿using static BO.Enums;
+﻿using System.ComponentModel;
+using static BO.Enums;
 
 namespace BO
 {
-    public class Order
+    public class Order : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         /// <summary>
         /// Unique ID of order
         /// </summary>

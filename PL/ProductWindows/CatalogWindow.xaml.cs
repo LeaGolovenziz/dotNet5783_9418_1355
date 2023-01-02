@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace PL.ProductWindows
 {
