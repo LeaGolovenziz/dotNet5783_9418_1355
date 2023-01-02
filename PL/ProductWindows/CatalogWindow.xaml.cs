@@ -7,7 +7,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace PL.ProductWindows
 {
@@ -17,46 +19,76 @@ namespace PL.ProductWindows
     public partial class CatalogWindow : Window
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
+        private Cart cart = new Cart();
+        private CollectionView? view;
         public ObservableCollection<ProductItem?> Products { get; set; }
+        public ObservableCollection<ProductItem?> GetAllCatalog()
+        {
+            return new ObservableCollection<ProductItem?>((IEnumerable<ProductItem?>)(from item in bl.Product.GetProductsList()
+                                                                                      let amount = bl.Cart.AmountOf(cart, item.ID)
+                                                                                      let isInStock = bl.Product.GetProductDetails(item.ID).InStock > 0 ? true : false
+                                                                                      select new ProductItem
+                                                                                      {
+                                                                                          ID = item.ID,
+                                                                                          Name = item.Name,
+                                                                                          Price = item.Price,
+                                                                                          Category = item.Category,
+                                                                                          InStock = isInStock,
+                                                                                          Image = item.Image,
+                                                                                          AmountInCart = amount
+                                                                                      })); 
+        }
+
 
         public CatalogWindow()
         {
             InitializeComponent();
 
-            Products = new ObservableCollection<ProductItem?>((IEnumerable<ProductItem?>)(from item in bl.Product.GetProductsList()
-                                                                                          where bl.Product.GetProductDetails(item.ID).InStock > 0
-                                                                                          select new ProductItem
-                                                                                          {
-                                                                                              ID = item.ID,
-                                                                                              Name = item.Name,
-                                                                                              Price = item.Price,
-                                                                                              Category = item.Category,
-                                                                                              InStock = true,
-                                                                                              Image = item.Image,
-                                                                                              AmountInCart = 0
-                                                                                          }
-                                                                 )
-                                                                 );
+            Products = GetAllCatalog();
+
             this.DataContext = Products;
 
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
 
+
+
+
         }
 
-        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        { }
+
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CategorySelector.SelectedItem != null)
-                Products = new ObservableCollection<ProductItem?>(from item in Products
-                                                                  where item?.Category == (BO.Enums.Category)CategorySelector.SelectedItem
-                                                                  select item);
+            {
+                Products = new ObservableCollection<ProductItem?>((IEnumerable<ProductItem?>)(from item in bl.Product.GetProductsList()
+                                                                                              where item.Category == (BO.Enums.Category)CategorySelector.SelectedItem
+                                                                                              let amount = bl.Cart.AmountOf(cart, item.ID)
+                                                                                              let isInStock = bl.Product.GetProductDetails(item.ID).InStock > 0 ? true : false
+                                                                                              select new ProductItem
+                                                                                              {
+                                                                                                  ID = item.ID,
+                                                                                                  Name = item.Name,
+                                                                                                  Price = item.Price,
+                                                                                                  Category = item.Category,
+                                                                                                  InStock = isInStock,
+                                                                                                  Image = item.Image,
+                                                                                                  AmountInCart = amount
+                                                                                              }
+                                                                                              ));
+                this.DataContext = Products;
+            }
+
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            ProductListView.ItemsSource = Products;
+            view = null;
+
+            Products = GetAllCatalog();
+
+            this.DataContext = Products;
+
             CategorySelector.SelectedItem = null;
         }
 
@@ -67,13 +99,55 @@ namespace PL.ProductWindows
             ProductItem product = (ProductItem)ProductListView.SelectedItem;
             if (product != null)
             {
-                new ProductWindow(product.ID).ShowDialog();
+                new ProductItemWindow(product.ID, cart,addToCartAction).ShowDialog();
                 CategorySelector.SelectedItem = null;
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e) => new CartWindow().Show();
+        private void goToCart(object sender, RoutedEventArgs e)
+        {
+            if (cart.OrderItems == null)
+            {
+                MessageBox.Show("your cart is empty!");
+            }
+            else
+                new CartWindow(cart, Close).ShowDialog();
+        }
 
 
+        private void addToCartAction(ProductItem? product = null)
+        {
+            if (product == null)
+                product = (ProductItem)ProductListView.SelectedItem;
+
+            if (product != null)
+                if (product?.InStock != false && bl.Product.GetProductDetails(product.ID).InStock - product.AmountInCart > 0)
+                {
+                    bl.Cart.AddProductToCart(cart, product.ID);
+
+                    int index = Products.IndexOf(product);
+                    product.AmountInCart += 1;
+                    Products.RemoveAt(index);
+                    Products.Insert(index,product);
+                    this.DataContext = Products;
+                }
+                else
+                    MessageBox.Show("product is not in stock");
+        }
+        private void addToCart(object sender, RoutedEventArgs e)
+        {
+            ProductItem productItem = (sender as Button).DataContext as ProductItem;
+            addToCartAction(productItem);
+        }
+
+        private void GroupCatalog(object sender, RoutedEventArgs e)
+        {
+            if (view == null)
+            {
+                view = (CollectionView)CollectionViewSource.GetDefaultView(Products);
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("Category");
+                view.GroupDescriptions.Add(groupDescription);
+            }
+        }
     }
 }
