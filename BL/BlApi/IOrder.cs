@@ -51,5 +51,13 @@ namespace BlApi
         /// <param name="orderID"></param>
         /// <returns></returns>
         public Order UpdateOrderDetails(int orderID, int productID, int amountToChange);
+
+        /// <summary>
+        /// gets ID of order and product and adds the product to the order
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="productID"></param>
+        /// <returns>Order</returns>
+        public Order AddNewOrderItem(int orderID, int productID);
     }
 }

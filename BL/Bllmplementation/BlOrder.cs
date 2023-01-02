@@ -24,10 +24,8 @@ namespace Bllmplementation
         /// <param name="orderID"></param>
         /// <returns>Order</returns>
 
-        private Order copyOrderFromDal(DO.Order? dalOrder, int orderID)
+        private Order copyOrderFromDal(DO.Order? dalOrder)
         {
-            // total price for order
-            double totalPrice = 0;
 
             Order blOrder = dalOrder.CopyPropTo(new Order());
             blOrder.OrderItems = new List<OrderItem>();
@@ -36,7 +34,7 @@ namespace Bllmplementation
             blOrder.OrderStatus = (BO.Enums.OrderStatus)getOrderStatus(dalOrder)!;
 
             // The orderItems of dal order
-            IEnumerable<DO.OrderItem?> tempOrderItems = dal.OrderItem.GeOrderItems(orderID);
+            IEnumerable<DO.OrderItem?> tempOrderItems = dal.OrderItem.GeOrderItems((int)dalOrder?.ID);
             // copy the order items list
             foreach (DO.OrderItem? item in tempOrderItems)
             {
@@ -92,7 +90,7 @@ namespace Bllmplementation
                 dal.Order.Update(dalOrder);
 
                 // copy the dal order to bl order
-                return copyOrderFromDal(dalOrder, orderID);
+                return copyOrderFromDal(dalOrder);
             }
             catch (NotFound ex)
             {
@@ -110,7 +108,7 @@ namespace Bllmplementation
                 // get the order from dal
                 DO.Order dalOrder = dal.Order.Get(orderID);
                 // copy the dal order to bl order and return it
-                return copyOrderFromDal(dalOrder, orderID);
+                return copyOrderFromDal(dalOrder);
             }
             catch (NotFound ex)
             {
@@ -189,7 +187,7 @@ namespace Bllmplementation
                 dal.Order.Update(dalOrder);
 
                 // copy the order of dal to order of bl
-                return copyOrderFromDal(dalOrder, orderID);
+                return copyOrderFromDal(dalOrder);
             }
             catch (NotFound ex)
             {
@@ -220,8 +218,7 @@ namespace Bllmplementation
                     if ((dalProduct.InStock + dalOrderItem.ProductAmount - amountToChange) < 0)
                         throw new ProductNotInStock();
 
-                    // update the amount and price of the order item
-                    dalOrderItem.Price = amountToChange * dalProduct.Price;
+                    // update the amount of the order item
                     dalOrderItem.ProductAmount = amountToChange;
                     // update the order item in dal
                     dal.OrderItem.Update(dalOrderItem);
@@ -232,7 +229,7 @@ namespace Bllmplementation
                     dal.Product.Update(dalProduct);
 
                     // copy the orders and return the bl's one
-                    return copyOrderFromDal(dalOrder, orderID);
+                    return copyOrderFromDal(dalOrder);
                 }
                 else
                     throw new AlreadyShipped();
@@ -264,5 +261,33 @@ namespace Bllmplementation
                 throw new DoesntExist(ex);
             }
         }
+
+        public Order AddNewOrderItem(int orderID, int productID)
+        {
+            try
+            {
+                DO.Product product = dal.Product.Get(productID);
+                if(product.InStock==0)
+                    throw new ProductNotInStock();
+
+                DO.OrderItem dalOrderItem = new DO.OrderItem
+                {
+                    ID = productID,
+                    OrderID = orderID,
+                    Price = product.Price,
+                    ProductAmount = 1
+                };
+
+                dal.OrderItem.Add(dalOrderItem);
+
+                return GetOrderDetails(orderID);
+            }
+            catch(NotFound ex)
+            {
+                throw new DoesntExist(ex);
+            }
+
+        }
+
     }
 }

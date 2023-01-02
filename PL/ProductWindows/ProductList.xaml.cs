@@ -16,7 +16,7 @@ namespace PL.ProductWindows
         private BlApi.IBl bl = BlApi.Factory.Get();
         public ObservableCollection<ProductForList?> Products;
 
-        private Action<Order> action;
+        private Action<Order, int> action;
         public Order order = new Order();
 
         void resetProducts()
@@ -36,7 +36,7 @@ namespace PL.ProductWindows
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
 
-        public ProductList(Action<Order> action, int id): this()
+        public ProductList(Action<Order, int> action, int id) : this()
         {
             this.action = action;
             AddNewProduct.Visibility = Visibility.Hidden; // Biding
@@ -55,7 +55,7 @@ namespace PL.ProductWindows
                 resetProducts();
                 Products = new ObservableCollection<ProductForList?>(Products.Where(product => product?.Category == (BO.Enums.Category)CategorySelector.SelectedItem));
             }
-                this.DataContext = Products;
+            this.DataContext = Products;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -69,7 +69,7 @@ namespace PL.ProductWindows
         private void updateProduct(ProductForList productForList)
         {
             var item = Products.FirstOrDefault(item => item?.ID == productForList.ID);
-            if (item!=null)
+            if (item != null)
                 Products[Products.IndexOf(item)] = productForList;
         }
 
@@ -91,24 +91,17 @@ namespace PL.ProductWindows
 
         private void AddOrderItem_Click(object sender, RoutedEventArgs e)
         {
-            if(ProductListView.SelectedItems.Count ==1)
+            try
             {
-                try
-                {
-                    bl.Order.UpdateOrderDetails(order.ID, ((ProductForList)ProductListView.SelectedItem).ID, 1);
-                    action(order);
-                    MessageBox.Show("product added to the order!");
-                    Close();
-                }
-                catch (UnvalidAmount ex)
-                {
-
-                }
-
+                int productID = ((ProductForList)ProductListView.SelectedItem).ID;
+                order = bl.Order.AddNewOrderItem(order.ID, productID);
+                action(order, productID);
+                MessageBox.Show("product added to the order!");
+                Close();
             }
-            else
+            catch (UnvalidAmount ex)
             {
-                MessageBox.Show("Select one product to add", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
     }

@@ -19,5 +19,9 @@
         <Style x:Key="ControlStyle" TargetType="Control">
             <Setter Property="Background" Value="#FFF1F8EF"/>
         </Style>
+        <Style x:Key="labkesStyle" TargetType="Label">
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="Foreground" Value="Green"/>
+        </Style>
     </Application.Resources>
 </Application>

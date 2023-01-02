@@ -4,6 +4,7 @@ using PL.ProductWindows;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,39 +55,43 @@ namespace PL.OrderWindows
             this.action = action;
         }
 
+        void updateOrderItem(OrderItem orderItem, int newAmount)
+        {
+            try
+            {
+                order = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount);
+                orderDetailsGrid.DataContext = order;
+
+                int index = orderItems.IndexOf(orderItem);
+                orderItems.RemoveAt(index);
+                orderItem.ProductAmount = newAmount;
+                orderItem.TotalPrice = newAmount * orderItem.Price;
+
+                orderItems.Insert(index, orderItem);
+
+                OrderItemsDataGrid.ItemsSource = orderItems;
+
+                newAmountTextBox.Clear();
+            }
+            catch (ProductNotInStock ex)
+            {
+                MessageBox.Show("There is no such amount in stock", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (UnvalidAmount ex)
+            {
+                MessageBox.Show("The amount you entered is unvalid, enter again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
         private void UpdateAmountbutton_Click(object sender, RoutedEventArgs e)
         {
 
             if (newAmountTextBox.Text != "")
             {
-                var orderItem = (sender as Button).DataContext as BO.OrderItem;
+                OrderItem orderItem = (sender as Button).DataContext as BO.OrderItem;
 
-                if (int.Parse(newAmountTextBox.Text) == 0)
-                {
-
-                }
-                else
-                {
-                    try
-                    {
-                        order = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, int.Parse(newAmountTextBox.Text));
-                        orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
-
-                        OrderItemsDataGrid.ItemsSource = orderItems;
-                        orderDetailsGrid.DataContext = order;
-
-                        newAmountTextBox.Clear();
-                    }
-                    catch (ProductNotInStock ex)
-                    {
-                        MessageBox.Show("There is no such amount in stock", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    catch (UnvalidAmount ex)
-                    {
-                        MessageBox.Show("The amount you entered is unvalid, enter again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                
+                updateOrderItem(orderItem, int.Parse(newAmountTextBox.Text));
             }
         }
 
@@ -114,11 +119,15 @@ namespace PL.OrderWindows
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void addOrderItem(Order newOrder)
-            => order = newOrder;
+        private void addOrderItem(Order newOrder, int productID)
+        {
+            order = newOrder;
+            orderItems.Add(order.OrderItems.FirstOrDefault(item => item.ID == productID));
+        }
         private void addProductButton_Click(object sender, RoutedEventArgs e)
         {
             new ProductList(addOrderItem, order.ID).ShowDialog();
+            OrderItemsDataGrid.DataContext = orderItems;
         }
 
         private void SaveButtun_Click(object sender, RoutedEventArgs e)
@@ -147,6 +156,18 @@ namespace PL.OrderWindows
             action(bl.Order.GetOrderForList(order.ID));
             MessageBox.Show("order saved!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
+        }
+
+
+        private void subProductButton_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteOrderItembutton_Click(object sender, RoutedEventArgs e)
+        {
+            OrderItem orderItem = (sender as Button).DataContext as BO.OrderItem;
+            updateOrderItem(orderItem, 0);
         }
     }
 }

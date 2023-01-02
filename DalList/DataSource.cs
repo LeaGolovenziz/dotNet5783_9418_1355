@@ -39,7 +39,7 @@ public static class DataSource
 
         string[] streets = { "Ben Guryon", "Habrosh", "Hazait", "Vaitzman", "Begin" };
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 30; i++)
         {
             // create new product
             Product product = new Product();
@@ -107,7 +107,7 @@ public static class DataSource
                 OrderItem orderItem = new OrderItem();
 
                 orderItem.OrderItemID = config.ItemOrderID;
-                Product p = (Product)lstPruducts[rand.Next(0, 9)]!;
+                Product p = (Product)lstPruducts[i+j]!;
                 orderItem.ID = p.ID;
                 orderItem.Price = p.Price;
                 orderItem.OrderID = 100000 + i;

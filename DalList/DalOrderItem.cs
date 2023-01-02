@@ -56,7 +56,7 @@ public class DalOrderItem : IOrderItem
     /// <param name="orderItem"></param>
     public void Update(OrderItem orderItem)
     {
-        int index = DataSource.lstOrderItems.FindIndex(x => (x ?? throw new nullvalue()).OrderID == orderItem.OrderID);
+        int index = DataSource.lstOrderItems.FindIndex(x => (x ?? throw new nullvalue()).OrderID == orderItem.OrderID && (x ?? throw new nullvalue()).ID == orderItem.ID);
         if (index == -1)
             throw new NotFound();
         DataSource.lstOrderItems[index] = orderItem;
