@@ -26,7 +26,6 @@ namespace BO
         /// </summary>
         public double? Price { get; set; }
         
-        private int? productAmount;
         /// <summary>
         /// unique amount of products
         /// </summary>

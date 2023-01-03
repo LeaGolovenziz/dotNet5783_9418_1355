@@ -32,6 +32,7 @@ namespace Bllmplementation
 
             // the status of order
             blOrder.OrderStatus = (BO.Enums.OrderStatus)getOrderStatus(dalOrder)!;
+            int orderPrice = 0;
 
             // The orderItems of dal order
             IEnumerable<DO.OrderItem?> tempOrderItems = dal.OrderItem.GeOrderItems((int)dalOrder?.ID);
@@ -44,10 +45,12 @@ namespace Bllmplementation
                 tempOrderItem.Name = dal.Product.Get((int)item?.ID).Name;
 
                 blOrder.OrderItems.Add(tempOrderItem);
+
+                orderPrice += (int)tempOrderItem.TotalPrice;
             }
 
             // adding total price of the order item to the total price of the order
-            blOrder.Price = tempOrderItems.Sum(item => (double)(((item ?? throw new nullvalue()).Price ?? throw new nullvalue()) * ((item ?? throw new nullvalue()).ProductAmount ?? throw new nullvalue()))!);
+            blOrder.Price = orderPrice;
 
             return blOrder;
         }
@@ -161,10 +164,10 @@ namespace Bllmplementation
                 CustomerName = (order ?? throw new nullvalue()).CustomerName!,
                 OrderStatus = getOrderStatus(order),
                 // the amount
-                Amount = (orderItems.FirstOrDefault(x => (x ?? throw new nullvalue()).OrderID == (order ?? throw new nullvalue()).ID) ?? throw new nullvalue()).ProductAmount,
+                Amount = orderItems.Where(x => (x ?? throw new nullvalue()).OrderID == (order ?? throw new nullvalue()).ID).Sum(x => (x ?? throw new nullvalue()).ProductAmount),
                 // the price
-                Price = (orderItems.FirstOrDefault(x => (x ?? throw new nullvalue()).OrderID == (order ?? throw new nullvalue()).ID) ?? throw new nullvalue()).Price
-            });
+                Price = orderItems.Where(x => (x ?? throw new nullvalue()).OrderID == (order ?? throw new nullvalue()).ID).Sum(x => (x ?? throw new nullvalue()).Price * (x ?? throw new nullvalue()).ProductAmount)
+            }); ;
 
             return orders;
         }
@@ -253,7 +256,7 @@ namespace Bllmplementation
                 orderForList.OrderID = dalOrder.ID;
                 orderForList.OrderStatus = (BO.Enums.OrderStatus)getOrderStatus(dalOrder)!;
                 orderForList.Amount = dal.OrderItem.GeOrderItems(orderID).Sum(orderItem => (orderItem ?? throw new nullvalue()).ProductAmount);
-                orderForList.Price = dal.OrderItem.GeOrderItems(orderID).Sum(orderItem => (orderItem ?? throw new nullvalue()).Price);
+                orderForList.Price = dal.OrderItem.GeOrderItems(orderID).Where(orderItem => (orderItem ?? throw new nullvalue()).OrderID == orderID).Sum(orderItem => (orderItem ?? throw new nullvalue()).Price * (orderItem ?? throw new nullvalue()).ProductAmount);
                 return orderForList;
             }
             catch (NotFound ex)

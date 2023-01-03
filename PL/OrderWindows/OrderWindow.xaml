@@ -71,22 +71,21 @@
 
                 <Label Content="Status:" HorizontalAlignment="Center" Grid.Row="6" Height="26" Width="155"/>
                 <CheckBox x:Name="orderConfirmedcheckBox" Grid.Column="1" Grid.Row="6" Content="Order has been confirmed"  HorizontalAlignment="Center" VerticalAlignment="Top" Height="20" Width="203" FontSize="15" Margin="0,6,0,0" />
-                <CheckBox x:Name="orderShippedcheckBox" Grid.Row="7" Content="Order has been shipped" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="203" Grid.Column="1" Margin="0,6,0,0" FontSize="15" Checked="orderShippedcheckBox_Checked_1"/>
+                <CheckBox x:Name="orderShippedcheckBox"  Grid.Row="7" Content="Order has been shipped" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="203" Grid.Column="1" Margin="0,6,0,0" FontSize="15" Checked="orderShippedcheckBox_Checked_1" Visibility="Visible"/>
                 <CheckBox x:Name="orderDeliveredcheckBox" 
-                          Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsEnabled, Converter={StaticResource booleanFalseToVisibilityConverter}}" 
+                          Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsChecked, Converter={StaticResource booleanTrueToVisibilityConverter}}" 
                           Grid.Row="8" Content="Order has been Delivered" HorizontalAlignment="Center" VerticalAlignment="Top" Height="20" Width="203" Grid.Column="1" Margin="0,6,0,0" FontSize="15" Checked="orderDeliveredcheckBox_Checked_1"/>
 
                 <Label Content="Order date:" HorizontalAlignment="Center" Grid.Row="10" Height="26" Width="155"/>
                 <TextBlock x:Name="orderDateTextBlock" Grid.Column="1"  Text="{Binding OrderDate, Mode=TwoWay}" HorizontalAlignment="Left"  Margin="3,0,0,0" Grid.Row="10" Width="164" Height="20"/>
 
                 <Label Content="Ship date:"                    
-                       Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsEnabled, Converter={StaticResource booleanFalseToVisibilityConverter}}" 
+                       Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsChecked, Converter={StaticResource booleanTrueToVisibilityConverter}}" 
                        HorizontalAlignment="Center" Grid.Row="11" Height="26" Width="155"/>
-
                 <TextBlock x:Name="shipDateTextBlock" Grid.Column="1" HorizontalAlignment="Left"  Margin="3,0,0,0" Grid.Row="11" Text="{Binding ShipDate, Mode=TwoWay}" Width="164" Height="20" />
 
                 <Label Content="Delivery date:"
-                       Visibility="{Binding ElementName=orderDeliveredcheckBox, Path=IsEnabled, Converter={StaticResource booleanFalseToVisibilityConverter}}" 
+                       Visibility="{Binding ElementName=orderDeliveredcheckBox, Path=IsChecked, Converter={StaticResource booleanTrueToVisibilityConverter}}" 
                        HorizontalAlignment="Center" Grid.Row="12" Height="26"  Width="155"  />
                 <TextBlock x:Name="deliveryDateTextBlock" Grid.Column="1" Text="{Binding DeliveryDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="3,0,0,0" Grid.Row="12" Width="164" Height="20"/>
 

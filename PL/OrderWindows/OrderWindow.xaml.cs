@@ -17,7 +17,7 @@ namespace PL.OrderWindows
     public partial class OrderWindow : Window
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
-        public BO.Order order = new Order();
+        private BO.Order order = new Order();
 
         public ObservableCollection<OrderItem> orderItems;
 
@@ -37,6 +37,8 @@ namespace PL.OrderWindows
             }
             orderDetailsGrid.DataContext = order;
 
+            //priceTextBlock.DataContext = order;
+
             // The orderItems of the window
             orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
             OrderItemsDataGrid.ItemsSource = orderItems;
@@ -49,15 +51,11 @@ namespace PL.OrderWindows
             if (order.OrderStatus.ToString() == "Sent")
             {
                 orderShippedcheckBox.IsChecked = true;
-                orderShippedcheckBox.IsEnabled = false;
             }
             else if (order.OrderStatus.ToString() == "Delivered")
             {
-                orderShippedcheckBox.IsChecked = true;
                 orderDeliveredcheckBox.IsChecked = true;
-
-                orderShippedcheckBox.IsEnabled = false;
-                orderDeliveredcheckBox.IsEnabled = false;
+                orderShippedcheckBox.IsChecked = true;
             }
 
             this.action = action;
@@ -68,9 +66,8 @@ namespace PL.OrderWindows
             // Update the amount of the orderItem
             try
             {
-                Order temporder = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount);
-
-                order.Price = temporder.Price;
+                order = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount);
+                orderDetailsGrid.DataContext=order;
 
                 int index = orderItems.IndexOf(orderItem);
                 orderItems.RemoveAt(index);
@@ -91,7 +88,7 @@ namespace PL.OrderWindows
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-                newAmountTextBox.Clear();
+            newAmountTextBox.Clear();
 
         }
 
@@ -133,6 +130,7 @@ namespace PL.OrderWindows
         private void addOrderItem(Order newOrder, int productID)
         {
             order = newOrder;
+            orderDetailsGrid.DataContext = order;
             orderItems.Add(order.OrderItems.FirstOrDefault(item => item.ID == productID));
         }
         private void addProductButton_Click(object sender, RoutedEventArgs e)
@@ -143,31 +141,6 @@ namespace PL.OrderWindows
 
         private void SaveButtun_Click(object sender, RoutedEventArgs e)
         {
-            if (orderShippedcheckBox.IsEnabled == true && orderShippedcheckBox.IsChecked == true && orderDeliveredcheckBox.IsEnabled == false)
-                try
-                {
-                    order = bl.Order.ShipOrder(order.ID);
-                }
-                catch (AlreadyShipped ex)
-                {
-                    MessageBox.Show("The order has been alredy shipped", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-                }
-            else if (orderDeliveredcheckBox.IsEnabled == true && orderDeliveredcheckBox.IsChecked == true)
-                try
-                {
-                    order = bl.Order.DeliverOrder(order.ID);
-                }
-                catch (AlreadyDelivered ex)
-                {
-                    MessageBox.Show("The order has been alredy delivered", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Close();
-                }
-                catch (DoesntExist ex)
-                {
-                    MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
             try
             {
                 action(bl.Order.GetOrderForList(order.ID));
@@ -207,12 +180,43 @@ namespace PL.OrderWindows
 
         private void orderShippedcheckBox_Checked_1(object sender, RoutedEventArgs e)
         {
-            shipDateTextBlock.Text = DateTime.Now.ToString();
+            orderShippedcheckBox.IsEnabled = false;
+            if (order.ShipDate == null)
+            {
+                try
+                {
+                    order = bl.Order.ShipOrder(order.ID);
+                    orderDetailsGrid.DataContext = order;
+                }
+                catch (AlreadyShipped ex)
+                {
+                    MessageBox.Show("The order has been alredy shipped", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Close();
+                }
+            }
         }
 
         private void orderDeliveredcheckBox_Checked_1(object sender, RoutedEventArgs e)
         {
-            deliveryDateTextBlock.Text = DateTime.Now.ToString();
+            orderDeliveredcheckBox.IsEnabled = false;
+
+            if (order.DeliveryDate == null)
+            {
+                try
+                {
+                    order = bl.Order.DeliverOrder(order.ID);
+                    orderDetailsGrid.DataContext = order;
+                }
+                catch (AlreadyDelivered ex)
+                {
+                    MessageBox.Show("The order has been alredy delivered", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                catch (DoesntExist ex)
+                {
+                    MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }
