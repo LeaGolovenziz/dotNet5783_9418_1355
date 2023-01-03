@@ -1,5 +1,4 @@
 ﻿using BO;
-using DO;
 using PL.CartWindows;
 using System;
 using System.Collections.Generic;
@@ -35,7 +34,7 @@ namespace PL.ProductWindows
                                                                                           InStock = isInStock,
                                                                                           Image = item.Image,
                                                                                           AmountInCart = amount
-                                                                                      })); 
+                                                                                      }));
         }
 
 
@@ -98,7 +97,7 @@ namespace PL.ProductWindows
             ProductItem product = (ProductItem)ProductListView.SelectedItem;
             if (product != null)
             {
-                new ProductItemWindow(product.ID, cart,addToCartAction).ShowDialog();
+                new ProductItemWindow(product.ID, cart, addToCartAction).ShowDialog();
                 CategorySelector.SelectedItem = null;
             }
         }
@@ -110,43 +109,60 @@ namespace PL.ProductWindows
                 MessageBox.Show("your cart is empty!");
             }
             else
-                new CartWindow(cart, Close).ShowDialog();
+                new CartWindow(cart, updateFromCartAction, Close).ShowDialog();
         }
 
 
-        private void addToCartAction(ProductItem? product = null)
+        private void addToCartAction(ProductItem? product)
         {
-            if (product == null)
-                product = (ProductItem)ProductListView.SelectedItem;
 
-            if (product != null)
                 if (product?.InStock != false && bl.Product.GetProductDetails(product.ID).InStock - product.AmountInCart > 0)
                 {
-                    bl.Cart.AddProductToCart(cart, product.ID);
+                    cart=bl.Cart.AddProductToCart(cart, product.ID);
 
-                    int index = Products.IndexOf(product);
+                    int index = Products.IndexOf(Products.FirstOrDefault(x=>x.ID==product.ID));
                     product.AmountInCart += 1;
                     Products.RemoveAt(index);
-                    Products.Insert(index,product);
+                    Products.Insert(index, product);
                     this.DataContext = Products;
                 }
                 else
                     MessageBox.Show("product is not in stock");
         }
-        private void addToCart(object sender, RoutedEventArgs e)
+        private void updateFromCartAction(OrderItem orderItem)
         {
-            ProductItem productItem = (sender as Button).DataContext as ProductItem;
-            addToCartAction(productItem);
+            ProductItem productItem = Products.FirstOrDefault(x => x.ID == orderItem.ID)!;
+            productItem!.AmountInCart = orderItem.ProductAmount??0;
+
+            int index = Products.IndexOf(productItem);
+            Products.RemoveAt(index);
+            Products.Insert(index, productItem);
+            this.DataContext = Products;
+        }
+    private void addToCart(object sender, RoutedEventArgs e)
+    {
+        ProductItem productItem = (sender as Button).DataContext as ProductItem;
+        addToCartAction(productItem);
+    }
+
+    private void GroupCatalog(object sender, RoutedEventArgs e)
+    {
+        if (view == null)
+        {
+            view = (CollectionView)CollectionViewSource.GetDefaultView(Products);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Category");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+    }
+
+        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
-        private void GroupCatalog(object sender, RoutedEventArgs e)
+        private void ProductListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            if (view == null)
-            {
-                view = (CollectionView)CollectionViewSource.GetDefaultView(Products);
-                PropertyGroupDescription groupDescription = new PropertyGroupDescription("Category");
-                view.GroupDescriptions.Add(groupDescription);
-            }
+
         }
     }
 }

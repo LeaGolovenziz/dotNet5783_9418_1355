@@ -12,18 +12,6 @@
             x:Key="booleanFalseToVisibilityConverter"/>
         <convertor:BooleanTrueToVisibilityConverter
             x:Key="booleanTrueToVisibilityConverter"/>
-
-        <Style TargetType="Button"
-               BasedOn="{StaticResource ButtonsStyle}"/>
-        <Style TargetType="Window"
-               BasedOn="{StaticResource ControlStyle}"/>
-        <Style TargetType="Label"
-               BasedOn="{StaticResource labkesStyle}"/>
-        <Style TargetType="ListView"
-               BasedOn="{StaticResource ControlStyle}"/>
-        <Style TargetType="TextBlock"
-               BasedOn="{StaticResource textBlocktStyle}"/>
-
     </Window.Resources>
 
     <Grid x:Name="mainGrid" Height="500" VerticalAlignment="Top">
@@ -33,7 +21,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" MinHeight="433"/>
-            <RowDefinition Height="auto" MinHeight="30"/>
+            <RowDefinition Height="46" />
         </Grid.RowDefinitions>
 
         <Grid x:Name="saveGrid" Grid.Row="1" Grid.ColumnSpan="2">

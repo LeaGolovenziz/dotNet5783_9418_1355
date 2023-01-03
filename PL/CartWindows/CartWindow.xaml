@@ -5,16 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.CartWindows"
         mc:Ignorable="d"
-        Title="CartWindow" Height="450" Width="800">
+        Title="CartWindow"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="Button"
-               BasedOn="{StaticResource ButtonsStyle}"/>
-        <Style TargetType="Window"
-       BasedOn="{StaticResource ControlStyle}"/>
-        <Style TargetType="ListView"
-                      BasedOn="{StaticResource ControlStyle}"/>
-        <Style TargetType="Grid"
-                      BasedOn="{StaticResource GridStyle}"/>
+
     </Window.Resources>
     <Grid Name ="MainGrid" Margin="10">
         <Grid.RowDefinitions>
@@ -24,6 +17,7 @@
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" RenderTransformOrigin="0.487,0.952">
             <Label x:Name="cartLable"  Content="cart" HorizontalAlignment="Center" VerticalAlignment="Center" Height="87" Width="88" FontSize="35"/>
+            <Button Content="empty cart" Margin="0,50,650,0" Click="Button_Click"/>
         </Grid>
         <Grid Name="middleGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -56,27 +50,27 @@
                 </Grid.RowDefinitions>
 
                 <Label x:Name="nameLable" Content="Name of product:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"  IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" Grid.ColumnSpan="2" Margin="0,0,160,0" />
-                <TextBox x:Name="nameTextBox" Text="" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
+                <TextBox x:Name="nameTextBox" Text="{Binding Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
 
                 <Label x:Name="priceLable" Content="Price of product:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
-                <TextBox x:Name="priceTextBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
+                <TextBox x:Name="priceTextBox" Text="{Binding Price}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
 
                 <Label x:Name="AmountInCartLable" Content="Amount in cart:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
-                <TextBox x:Name="inCartTextBox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="30" IsEnabled="False" />
+                <TextBox x:Name="inCartTextBox" Text="{Binding ProductAmount}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="30" IsEnabled="False" />
 
                 <Label x:Name="TotalPrice" Content="TotalPrice:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Margin="0,0,160,0" Grid.ColumnSpan="2" Visibility="Visible"/>
-                <TextBox x:Name="TotalPriceTextBox" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
+                <TextBox x:Name="TotalPriceTextBox" Text="{Binding TotalPrice,Mode=TwoWay}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
 
                 <Label x:Name="ImageLable" Content="Image:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Margin="0,0,160,0"  Visibility="Visible"/>
                 <Image x:Name="ProductImage" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" Width="165" Stretch="Uniform" />
 
-                <Button Content="Add" Grid.Column="0" Grid.Row="4" Margin="0,68,48,0" Grid.RowSpan="2" Click="ADD"/>
-                <Button Content="Sub" Grid.Row="4" Grid.ColumnSpan="2" Margin="77,68,80,0" Grid.RowSpan="2" Click="SUB"/>
-                <Button Content="Delete" Grid.Column="1" Grid.Row="4" Margin="45,68,0,0" Grid.RowSpan="2" Click="DELETE"/>
+                <Button Content="Add" Grid.Column="0" Grid.Row="4" Margin="0,68,48,0" Grid.RowSpan="2" Click="AddButton"/>
+                <Button Content="Sub" Grid.Row="4" Grid.ColumnSpan="2" Margin="77,68,80,0" Grid.RowSpan="2" Click="SubButton"/>
+                <Button Content="Delete" Grid.Column="1" Grid.Row="4" Margin="45,68,0,0" Grid.RowSpan="2" Click="DeleteButton"/>
 
             </Grid>
             <Label Content="Total Cart Price:" FontSize="15" HorizontalAlignment="Left" Margin="37,241,0,0" VerticalAlignment="Top" Height="37" Width="129"/>
-            <Label x:Name="totalPriceLable" Content="{Binding Price}" FontSize="15" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Height="37" Width="50"/>
+            <Label x:Name="totalPriceLable" Content="{Binding Price, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Height="37" Width="50"/>
         </Grid>
         <Button Content="Place order" Grid.Row="2" Height="40" Click="PlaceOrder"  />
     </Grid>

@@ -36,7 +36,7 @@ namespace PL.CartWindows
 
             this.action = action;
 
-            priceTextBox.Text =  cart.OrderItems.Sum(x => x.TotalPrice).ToString();
+            this.DataContext = this.cart;
 
         }
 
@@ -87,12 +87,8 @@ namespace PL.CartWindows
             }
             else try
                 {
-                    cart.CustomerName = customerNameTextBox.Text;
-                    cart.CustomerAddress = CustomerAddressTextBox.Text;
-                    cart.CustomerEmail = CustomerEmailTextBox.Text;
-
-                    bl.Cart.PlaceOrder(cart);
-                    MessageBox.Show("Your order has been confirmed! \nyour tracking number is");
+                    int orderID = bl.Cart.PlaceOrder(cart);
+                    MessageBox.Show("Your order has been confirmed! \nyour tracking number is "+ orderID);
                     action();
                     this.Close();
 

@@ -5,18 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.OrderWindows"
         mc:Ignorable="d"
-        Title="OrderList" Height="640" Width="800" WindowStartupLocation="CenterScreen">
+        Title="OrderList" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="Button"
-               BasedOn="{StaticResource ButtonsStyle}"/>
-        <Style TargetType="Window"
-       BasedOn="{StaticResource ControlStyle}"/>
-        <Style TargetType="ListView"
-                      BasedOn="{StaticResource ControlStyle}"/>
+
     </Window.Resources>
     <Grid Name ="MainGrid" Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="60*"/>
             <RowDefinition Height="500*"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
@@ -26,8 +21,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox x:Name="OrderStatusSelector" Grid.Column="1" Margin="132,11,125,0" SelectionChanged="OrderStatusSelector_SelectionChanged" Height="26" VerticalAlignment="Top"/>
-            <Label x:Name="OrderStatusLabel" Grid.Column="1" Content="Order's Status:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="36" Width="124" FontSize="18"/>
-            <Button x:Name="button" Content="Clear selection" HorizontalAlignment="Left" Margin="286,10,0,9"  Width="82" FontSize="9" Click="button_Click"/>
+            <Label x:Name="OrderStatusLabel" Grid.Column="1" Content="Order's Status:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="36"  FontSize="18"/>
+            <Button x:Name="button" Content="Clear selection" HorizontalAlignment="Left" Margin="286,10,0,9"   FontSize="9" Click="button_Click"/>
         </Grid>
         <ListView x:Name="OrderListView" ItemsSource="{Binding}" Grid.Row="1" FontSize="18" MouseDoubleClick="OrderListView_MouseDoubleClick" SelectionChanged="OrderListView_SelectionChanged">
             <ListView.View>

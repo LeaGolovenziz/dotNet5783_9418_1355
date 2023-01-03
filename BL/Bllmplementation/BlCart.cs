@@ -35,7 +35,9 @@ namespace Bllmplementation
                 throw new DoesntExist(ex);
             }
             if (cart.OrderItems == null)
-                cart.OrderItems = new List<BO.OrderItem>();
+            { cart.OrderItems = new List<BO.OrderItem>();
+                cart.Price = 0;
+            }
 
             // if product's already in the order
             if ( cart.OrderItems.Exists(x => x.ID == productID))
@@ -47,7 +49,7 @@ namespace Bllmplementation
                 // updating the total price
                 cart.OrderItems.ElementAt(index).TotalPrice += cart.OrderItems.ElementAt(index).Price;
                 // updating the cart price
-                cart.price += cart.OrderItems.ElementAt(index).Price;
+                cart.Price += cart.OrderItems.ElementAt(index).Price;
             }
             else
             {
@@ -66,12 +68,12 @@ namespace Bllmplementation
                 // adding the order item to the cart
                 cart.OrderItems.Add(orderItem);
                 //updating the cart total price
-                cart.price += product.Price;
+                cart.Price += product.Price;
             }
             return cart;
         }
 
-        void ICart.PlaceOrder(Cart cart)
+        int ICart.PlaceOrder(Cart cart)
         {
             // checking validity of customers details:
 
@@ -157,6 +159,7 @@ namespace Bllmplementation
                     throw new DoesntExist(e);
                 }
             }
+            return order.ID;
 
         }
 
@@ -190,14 +193,14 @@ namespace Bllmplementation
                 double totalPriceAdded = (double)cart.OrderItems.ElementAt(index).Price! * amount - (double)cart.OrderItems.ElementAt(index).TotalPrice!;
                 cart.OrderItems.ElementAt(index).TotalPrice += totalPriceAdded;
                 // updating the total price of the cart
-                cart.price += totalPriceAdded;
+                cart.Price += totalPriceAdded;
             }
             // if the wanted amount equals 0
             else if (amount == 0)
             {
                 double totalPriceSub = (double)cart.OrderItems.ElementAt(index).TotalPrice!;
                 cart.OrderItems.RemoveAt(index);
-                cart.price -= totalPriceSub;
+                cart.Price -= totalPriceSub;
 
             }
             // if the wanted amount is smaller than the current amount
@@ -207,7 +210,7 @@ namespace Bllmplementation
                 cart.OrderItems.ElementAt(index).ProductAmount = amount;
                 double totalPriceSub = (double)cart.OrderItems.ElementAt(index).Price! * (oldAmount - amount);
                 cart.OrderItems.ElementAt(index).TotalPrice -= totalPriceSub;
-                cart.price -= totalPriceSub;
+                cart.Price -= totalPriceSub;
             }
 
             return cart;

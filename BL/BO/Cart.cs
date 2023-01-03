@@ -1,7 +1,13 @@
-﻿namespace BO
+﻿using System.ComponentModel;
+
+namespace BO
 {
-    public class Cart
+    public class Cart:INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private double? price;
+
         /// <summary>
         /// unique customer name 
         /// </summary>
@@ -21,7 +27,7 @@
         /// <summary>
         /// unique price of products in cart
         /// </summary>
-        public double? price { get; set; }
+        public double? Price { get => price; set { price = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Price")); } }
         /// <summary>
         /// returns a string of the cart's details
         /// </summary>

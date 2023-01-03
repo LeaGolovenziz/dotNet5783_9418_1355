@@ -28,6 +28,7 @@ namespace PL.ProductWindows
         private Action<ProductItem?> addToCartAction;
 
         private ProductItem ProductItem;
+        Cart Cart;
 
         public ProductItemWindow()
         {
@@ -43,9 +44,14 @@ namespace PL.ProductWindows
             }
             catch(DoesntExist ex) { }
 
+            Cart = cart;
+
+            ProductItem.AmountInCart = bl.Cart.AmountOf(Cart, id);
+
             this.DataContext = ProductItem;
 
             this.addToCartAction = action;
+
 
             try
             {
@@ -62,28 +68,10 @@ namespace PL.ProductWindows
             this.Close();
         }
 
-        private void AddImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Image files (*.jpg)|*.jpg|All Files (*.*)|*.*";
-            dlg.RestoreDirectory = true;
-
-            if (dlg.ShowDialog() == true)
-            {
-                string selectedFileName = dlg.FileName;
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(selectedFileName);
-                bitmap.EndInit();
-                ProductImage.Source = bitmap;
-            }
-        }
 
         private void addToCartButton_Click(object sender, RoutedEventArgs e)
         {
-            addToCartAction(null);
-            ProductItem.AmountInCart++;
-            amountInCartTextBox.Text = ProductItem.AmountInCart.ToString();
+                addToCartAction(ProductItem);
         }
 
     }

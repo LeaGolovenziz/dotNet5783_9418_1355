@@ -5,16 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="BuyerWindow" Height="450" Width="800"  WindowStartupLocation="CenterScreen">
+        Title="BuyerWindow"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="Button"
-               BasedOn="{StaticResource ButtonsStyle}"/>
-        <Style TargetType="Window"
-                      BasedOn="{StaticResource ControlStyle}"/>
-        <Style TargetType="Menu"
-                      BasedOn="{StaticResource ControlStyle}"/>
-        <Style TargetType="Grid"
-                      BasedOn="{StaticResource GridStyle}"/>
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

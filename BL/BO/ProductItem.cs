@@ -1,9 +1,13 @@
-﻿using static BO.Enums;
+﻿using System.ComponentModel;
+using static BO.Enums;
 
 namespace BO
 {
-    public class ProductItem
+    public class ProductItem : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private int? amountInCart;
         /// <summary>
         /// unique ID of productItem
         /// </summary>
@@ -31,7 +35,7 @@ namespace BO
         /// <summary>
         /// unique amount of product in cart
         /// </summary>
-        public int? AmountInCart { get; set; }
+        public int? AmountInCart { get => amountInCart; set { amountInCart = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("AmountInCart")); } }
 
         private string isInStock()
         {
