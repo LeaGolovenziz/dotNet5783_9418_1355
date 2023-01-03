@@ -48,11 +48,7 @@ namespace PL.CartWindows
 
         private void ItemListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (ItemListView.SelectedItem == null)
-            {
-                SelectedItemGrid.Visibility = Visibility.Hidden;
-            }
-            else
+            if (ItemListView.SelectedItem != null)
             {
                 SelectedItemGrid.Visibility = Visibility.Visible;
 
@@ -72,7 +68,7 @@ namespace PL.CartWindows
 
         private void AddButton(object sender, RoutedEventArgs e)
         {
-            OrderItem orderItem = (OrderItem)ItemListView.SelectedItem;
+           // OrderItem orderItem = (OrderItem)ItemListView.SelectedItem;
             SelectedItemGrid.DataContext = orderItem;
 
 
@@ -96,7 +92,7 @@ namespace PL.CartWindows
 
         private void SubButton(object sender, RoutedEventArgs e)
         {
-            orderItem = (OrderItem)ItemListView.SelectedItem;
+            //orderItem = (OrderItem)ItemListView.SelectedItem;
 
             if (orderItem != null)
             {
@@ -113,16 +109,23 @@ namespace PL.CartWindows
                     Items.Insert(index, orderItem);
                 }
                 else
+                {
                     Items.RemoveAt(index);
+                    SelectedItemGrid.Visibility = Visibility.Hidden;
+                }
                 this.DataContext = Items;
             }
         }
 
         private void DeleteButton(object sender, RoutedEventArgs e)
         {
-            OrderItem orderItem = (OrderItem)ItemListView.SelectedItem;
+            // OrderItem orderItem = (OrderItem)ItemListView.SelectedItem;
             if (orderItem != null)
+            {
                 Delete(orderItem);
+                SelectedItemGrid.Visibility = Visibility.Hidden;
+            }
+ 
         }
         private void Delete(OrderItem orderItem)
         {
