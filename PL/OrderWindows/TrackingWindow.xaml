@@ -24,20 +24,20 @@
             <RowDefinition Height="93*"/>
             <RowDefinition Height="273*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="OrderIDTextBox" PreviewTextInput="IDprev" HorizontalAlignment="Left" Margin="363,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Height="24"/>
+        <TextBox x:Name="OrderIDTextBox" PreviewTextInput="IDprev" MaxLength="6" HorizontalAlignment="Left" Margin="363,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Height="24"/>
         <Label x:Name="OrderIDLable" Content="Order ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Margin="294,20,0,0" Height="26"/>
         <Button x:Name="trackOrderButton" Content="Track order" HorizontalAlignment="Left" Margin="536,0,0,0" VerticalAlignment="Center" Height="26" Width="144" Click="trackOrderButton_Click"/>
 
         <Grid x:Name="StatusGridView" Grid.Row="1" Visibility="Hidden">
             <Label x:Name="statusLabel" Grid.Row="0" Content="Order status:" HorizontalAlignment="Left" Margin="256,32,0,0" VerticalAlignment="Top" Width="132" Height="34"/>
-            <TextBlock x:Name="statysTextBlock" HorizontalAlignment="Left" Margin="393,33,0,0" Grid.Row="0" TextWrapping="Wrap" Text="{Binding Path=OrderStatus, Mode=TwoWay}" VerticalAlignment="Top" Width="169" Height="34"/>
+            <TextBlock x:Name="statysTextBlock" HorizontalAlignment="Left" Margin="393,33,0,0" Grid.Row="0" TextWrapping="Wrap" Text="{Binding Path=OrderStatus}" VerticalAlignment="Top" Width="169" Height="34"/>
         </Grid>
 
         <ListView x:Name="trackingListView" Visibility="Hidden" Grid.Row="2" Margin="167,50,168,50" ItemsSource="{Binding}" FontSize="20" FontFamily="Arial" FontWeight="Bold" FontStyle="Italic">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=Item1, Mode=TwoWay }" Width="230"/>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Item2, Mode=TwoWay }" Width="230"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=Item1}" Width="230"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Item2}" Width="230"/>
                 </GridView>
             </ListView.View>
         </ListView>

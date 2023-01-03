@@ -18,34 +18,33 @@ namespace PL.OrderWindows
         private BlApi.IBl bl = BlApi.Factory.Get();
 
         public OrderTracking orderTracking;
-        public ObservableCollection<Tuple<DateTime?, OrderStatus?>> Tracking;
+        public List<Tuple<DateTime?, OrderStatus?>> Tracking;
 
         public TrackingWindow()
         {
             InitializeComponent();
-
-            StatusGridView.DataContext = orderTracking;
-            trackingListView.DataContext = Tracking;
         }
 
         private void trackOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            int orderID = int.Parse(OrderIDTextBox.Text);
-
             // If the order ID is too short
-            if (orderID.ToString().Length != 6)
+            if (OrderIDTextBox.Text.Length!=6)
+            {
                 MessageBox.Show("The ID is unvalid, enter 6 digits", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            
+            }
+
             else
             {
                 try
                 {
-                    orderTracking = bl.Order.TrackOrder(orderID);
-                    Tracking = new ObservableCollection<Tuple<DateTime?, OrderStatus?>>(orderTracking.Tracking);
+                    orderTracking = bl.Order.TrackOrder(int.Parse(OrderIDTextBox.Text));
+                    Tracking = orderTracking.Tracking;
                     
                     StatusGridView.Visibility = Visibility.Visible;
                     trackingListView.Visibility = Visibility.Visible;
 
+                    StatusGridView.DataContext = orderTracking;
+                    trackingListView.DataContext = Tracking;
                 }
                 catch (DoesntExist ex)
                 {

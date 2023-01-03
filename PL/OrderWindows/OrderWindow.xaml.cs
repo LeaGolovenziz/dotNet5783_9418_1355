@@ -17,7 +17,7 @@ namespace PL.OrderWindows
     public partial class OrderWindow : Window
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
-        public Order order;
+        public BO.Order order = new Order();
 
         public ObservableCollection<OrderItem> orderItems;
 
@@ -26,6 +26,7 @@ namespace PL.OrderWindows
         {
             InitializeComponent();
 
+            // The order of the window
             try
             {
                 order = bl.Order.GetOrderDetails(OrderID);
@@ -35,6 +36,10 @@ namespace PL.OrderWindows
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             orderDetailsGrid.DataContext = order;
+
+            // The orderItems of the window
+            orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
+            OrderItemsDataGrid.ItemsSource = orderItems;
 
             // The check box that says "the order confirmed" always checked and not enabled
             orderConfirmedcheckBox.IsChecked = true;
@@ -55,19 +60,17 @@ namespace PL.OrderWindows
                 orderDeliveredcheckBox.IsEnabled = false;
             }
 
-
-            orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
-            OrderItemsDataGrid.ItemsSource = orderItems;
-
             this.action = action;
         }
 
         void updateOrderItem(OrderItem orderItem, int newAmount)
         {
+            // Update the amount of the orderItem
             try
             {
-                order = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount);
-                orderDetailsGrid.DataContext = order;
+                Order temporder = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount);
+
+                order.Price = temporder.Price;
 
                 int index = orderItems.IndexOf(orderItem);
                 orderItems.RemoveAt(index);
@@ -75,10 +78,6 @@ namespace PL.OrderWindows
                 orderItem.TotalPrice = newAmount * orderItem.Price;
 
                 orderItems.Insert(index, orderItem);
-
-                OrderItemsDataGrid.ItemsSource = orderItems;
-
-                newAmountTextBox.Clear();
             }
             catch (ProductNotInStock ex)
             {
@@ -92,6 +91,8 @@ namespace PL.OrderWindows
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+                newAmountTextBox.Clear();
+
         }
 
         private void UpdateAmountbutton_Click(object sender, RoutedEventArgs e)
@@ -197,6 +198,21 @@ namespace PL.OrderWindows
             // Allow only numbers
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void OrderItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void orderShippedcheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            shipDateTextBlock.Text = DateTime.Now.ToString();
+        }
+
+        private void orderDeliveredcheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            deliveryDateTextBlock.Text = DateTime.Now.ToString();
         }
     }
 }

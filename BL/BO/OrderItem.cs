@@ -1,7 +1,12 @@
-﻿namespace BO
+﻿using System.ComponentModel;
+
+namespace BO
 {
-    public class OrderItem
+    public class OrderItem : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+
         /// <summary>
         /// Unique ID of the Ordered Item
         /// </summary>
@@ -18,14 +23,36 @@
         /// Unique Price of the product
         /// </summary>
         public double? Price { get; set; }
+        
+        private int? productAmount;
         /// <summary>
         /// unique amount of products
         /// </summary>
-        public int? ProductAmount { get; set; }
+        public int? ProductAmount
+        {
+            get => productAmount;
+            set
+            {
+                productAmount = value;
+                if (PropertyChanged != null && !productAmount.Equals(value))
+                    PropertyChanged(this, new PropertyChangedEventArgs("ProductAmount"));
+            }
+        }
+
+        private double? totalPrice;
         /// <summary>
         /// Unique Total price of the Ordered Item
         /// </summary>
-        public double? TotalPrice { get; set; }
+        public double? TotalPrice
+        {
+            get => totalPrice;
+            set
+            {
+                totalPrice = value;
+                if (PropertyChanged != null && !totalPrice.Equals(value))
+                    PropertyChanged(this, new PropertyChangedEventArgs("TotalPrice"));
+            }
+        }
 
         /// <summary>
         /// returns a string of the ordered item's details
