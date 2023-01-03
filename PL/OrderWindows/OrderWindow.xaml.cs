@@ -26,7 +26,14 @@ namespace PL.OrderWindows
         {
             InitializeComponent();
 
-            order = bl.Order.GetOrderDetails(OrderID);
+            try
+            {
+                order = bl.Order.GetOrderDetails(OrderID);
+            }
+            catch(DoesntExist ex)
+            {
+                MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             orderDetailsGrid.DataContext = order;
 
             // The check box that says "the order confirmed" always checked and not enabled
@@ -75,13 +82,16 @@ namespace PL.OrderWindows
             }
             catch (ProductNotInStock ex)
             {
-                MessageBox.Show("There is no such amount in stock", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There is no such amount in stock of this product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (UnvalidAmount ex)
             {
                 MessageBox.Show("The amount you entered is unvalid, enter again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
+            catch (DoesntExist ex)
+            {
+                MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void UpdateAmountbutton_Click(object sender, RoutedEventArgs e)
@@ -152,8 +162,20 @@ namespace PL.OrderWindows
                     MessageBox.Show("The order has been alredy delivered", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
                 }
+                catch (DoesntExist ex)
+                {
+                    MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
-            action(bl.Order.GetOrderForList(order.ID));
+            try
+            {
+                action(bl.Order.GetOrderForList(order.ID));
+            }
+            catch (DoesntExist ex)
+            {
+                MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             MessageBox.Show("order saved!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
         }
@@ -168,6 +190,13 @@ namespace PL.OrderWindows
         {
             OrderItem orderItem = (sender as Button).DataContext as BO.OrderItem;
             updateOrderItem(orderItem, 0);
+        }
+
+        private void Amountprev(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            // Allow only numbers
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
