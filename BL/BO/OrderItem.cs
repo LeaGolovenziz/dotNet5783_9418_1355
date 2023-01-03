@@ -25,6 +25,7 @@ namespace BO
         /// Unique Price of the product
         /// </summary>
         public double? Price { get; set; }
+        
         /// <summary>
         /// unique amount of products
         /// </summary>

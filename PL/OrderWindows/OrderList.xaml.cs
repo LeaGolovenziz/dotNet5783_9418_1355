@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PL.OrderWindows
 {
@@ -25,6 +26,7 @@ namespace PL.OrderWindows
             this.DataContext = Orders;
         }
 
+        // Constructor
         public OrderList()
         {
             InitializeComponent();
@@ -34,22 +36,24 @@ namespace PL.OrderWindows
             OrderStatusSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.OrderStatus));
         }
 
+        // Filtering the orders by a certain status of order
         private void OrderStatusSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (OrderStatusSelector.SelectedItem != null)
             {
-                resetOrders();
-                Orders = new ObservableCollection<OrderForList?>(Orders.Where(order => order?.OrderStatus == (BO.Enums.OrderStatus)OrderStatusSelector.SelectedItem));
+                Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList().Where(order => order?.OrderStatus == (BO.Enums.OrderStatus)OrderStatusSelector.SelectedItem));
             }
             this.DataContext = Orders;
         }
 
+        // Canceling the filter by status
         private void button_Click(object sender, RoutedEventArgs e)
         {
             resetOrders();
             OrderStatusSelector.SelectedItem = null;
         }
 
+        // Delegate of updating an order
         private void UpdateOrder(OrderForList orderForList)
         {
             var item = Orders.FirstOrDefault(order => order.OrderID == orderForList.OrderID);
@@ -57,10 +61,12 @@ namespace PL.OrderWindows
                 Orders[Orders.IndexOf(item)] = orderForList;
         }
 
+        // Update an order 
         private void OrderListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             // get the Order selected from the list
             OrderForList orderForList = (OrderForList)OrderListView.SelectedItem;
+
             if(orderForList!=null)
             {
                 new OrderWindow(orderForList.OrderID, UpdateOrder).ShowDialog();
@@ -69,7 +75,7 @@ namespace PL.OrderWindows
 
         private void OrderListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-
+            // To prevent failure
         }
     }
 }

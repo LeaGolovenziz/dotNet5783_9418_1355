@@ -28,6 +28,7 @@ namespace PL.ProductWindows
             this.DataContext = Products;
         }
 
+        // Constructor of editing the products by the manager
         public ProductList()
         {
             InitializeComponent();
@@ -39,39 +40,53 @@ namespace PL.ProductWindows
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
 
+        // Constructor of chosing a product to add to an order
         public ProductList(Action<Order, int> action, int id) : this()
         {
             this.action = action;
-            AddNewProduct.Visibility = Visibility.Hidden; // Biding
+
+            AddNewProduct.Visibility = Visibility.Hidden;
             AddOrderItem.Visibility = Visibility.Visible;
-            order = bl.Order.GetOrderDetails(id);
 
-            AddOrderItem.Visibility = Visibility.Visible;    
+            try
+            {
+                order = bl.Order.GetOrderDetails(id);
+            }
+            catch(DoesntExist ex)
+            {
+                MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+        // Sorts the products by the chosen category
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CategorySelector.SelectedItem != null)
             {
-                resetProducts();
-                Products = new ObservableCollection<ProductForList?>(Products.Where(product => product?.Category == (BO.Enums.Category)CategorySelector.SelectedItem));
+                Products = new ObservableCollection<ProductForList?>(bl.Product.GetProductsList().Where(product => product?.Category == (BO.Enums.Category)CategorySelector.SelectedItem));
             }
             this.DataContext = Products;
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        // Sows all the products with no filtering
+        private void clearCategoryButton_Click(object sender, RoutedEventArgs e)
         {
             resetProducts();
             CategorySelector.SelectedItem = null;
         }
 
+        // Delegate that adds product to the product's list
         private void addProduct(ProductForList productForList)
         => Products.Add(productForList);
+
+        // Adding a product
+        private void AddNewProduct_Click(object sender, RoutedEventArgs e)
+        {
+            // Sending a delegate to the window that adding a product
+            new ProductWindow(addProduct).ShowDialog();
+        }
+
+        // Delegate that updates product to the list
         private void updateProduct(ProductForList productForList)
         {
             var item = Products.FirstOrDefault(item => item?.ID == productForList.ID);
@@ -79,11 +94,7 @@ namespace PL.ProductWindows
                 Products[Products.IndexOf(item)] = productForList;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new ProductWindow(addProduct).ShowDialog();
-        }
-
+        // Updating a product
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Only if the window opened for editing and not just adding order item to an order - allow updating 
@@ -98,6 +109,7 @@ namespace PL.ProductWindows
             }
         }
 
+        // Adding product to an order
         private void AddOrderItem_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -119,6 +131,11 @@ namespace PL.ProductWindows
                 MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             Close();
+        }
+
+        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // To prevent failure
         }
     }
 }

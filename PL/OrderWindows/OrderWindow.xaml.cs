@@ -17,15 +17,18 @@ namespace PL.OrderWindows
     public partial class OrderWindow : Window
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
-        public Order order;
+        public BO.Order order = new Order();
 
         public ObservableCollection<OrderItem> orderItems;
 
         private Action<OrderForList> action;
+
+        // Constructor
         public OrderWindow(int OrderID, Action<OrderForList> action)
         {
             InitializeComponent();
 
+            // Get the order of the window
             try
             {
                 order = bl.Order.GetOrderDetails(OrderID);
@@ -36,38 +39,33 @@ namespace PL.OrderWindows
             }
             orderDetailsGrid.DataContext = order;
 
+            // The orderItems of the window
+            orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
+            OrderItemsDataGrid.ItemsSource = orderItems;
+
             // The check box that says "the order confirmed" always checked and not enabled
             orderConfirmedcheckBox.IsChecked = true;
             orderConfirmedcheckBox.IsEnabled = false;
 
             // The checkBoxes of the status of the order
             if (order.OrderStatus.ToString() == "Sent")
-            {
                 orderShippedcheckBox.IsChecked = true;
-                orderShippedcheckBox.IsEnabled = false;
-            }
             else if (order.OrderStatus.ToString() == "Delivered")
             {
-                orderShippedcheckBox.IsChecked = true;
                 orderDeliveredcheckBox.IsChecked = true;
-
-                orderShippedcheckBox.IsEnabled = false;
-                orderDeliveredcheckBox.IsEnabled = false;
+                orderShippedcheckBox.IsChecked = true;
             }
-
-
-            orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
-            OrderItemsDataGrid.ItemsSource = orderItems;
 
             this.action = action;
         }
 
+        // Updates the amount of the orderItem
         void updateOrderItem(OrderItem orderItem, int newAmount)
         {
             try
             {
                 order = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount);
-                orderDetailsGrid.DataContext = order;
+                orderDetailsGrid.DataContext=order;
 
                 int index = orderItems.IndexOf(orderItem);
                 orderItems.RemoveAt(index);
@@ -75,10 +73,6 @@ namespace PL.OrderWindows
                 orderItem.TotalPrice = newAmount * orderItem.Price;
 
                 orderItems.Insert(index, orderItem);
-
-                OrderItemsDataGrid.ItemsSource = orderItems;
-
-                newAmountTextBox.Clear();
             }
             catch (ProductNotInStock ex)
             {
@@ -92,11 +86,12 @@ namespace PL.OrderWindows
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            newAmountTextBox.Clear();
         }
 
         private void UpdateAmountbutton_Click(object sender, RoutedEventArgs e)
         {
-
+            // If the user entered new amount - update the orderItem
             if (newAmountTextBox.Text != "")
             {
                 OrderItem orderItem = (sender as Button).DataContext as BO.OrderItem;
@@ -105,57 +100,70 @@ namespace PL.OrderWindows
             }
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void orderShippedcheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-        }
-
+        // If the order Delivered - prevent deliverimg it
         private void orderDeliveredcheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            orderShippedcheckBox.IsEnabled = false;
-        }
+            => orderShippedcheckBox.IsEnabled = false;
 
-        private void newAmountTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
+        // delegate og adding new orderItem to the order
         private void addOrderItem(Order newOrder, int productID)
         {
             order = newOrder;
+            orderDetailsGrid.DataContext = order;
             orderItems.Add(order.OrderItems.FirstOrDefault(item => item.ID == productID));
         }
+
+        // Adds an orderItem to the order
         private void addProductButton_Click(object sender, RoutedEventArgs e)
         {
             new ProductList(addOrderItem, order.ID).ShowDialog();
             OrderItemsDataGrid.DataContext = orderItems;
         }
 
-        private void SaveButtun_Click(object sender, RoutedEventArgs e)
+
+        private void DeleteOrderItembutton_Click(object sender, RoutedEventArgs e)
         {
-            if (orderShippedcheckBox.IsEnabled == true && orderShippedcheckBox.IsChecked == true && orderDeliveredcheckBox.IsEnabled == false)
+            OrderItem orderItem = (sender as Button).DataContext as BO.OrderItem;
+            updateOrderItem(orderItem, 0);
+        }
+
+        // Allow to enter only numbers as a new amount
+        private void Amountprev(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        // Ship the order
+        private void orderShippedcheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            orderShippedcheckBox.IsEnabled = false;
+
+            if (order.ShipDate == null)
+            {
                 try
                 {
                     order = bl.Order.ShipOrder(order.ID);
+                    orderDetailsGrid.DataContext = order;
                 }
                 catch (AlreadyShipped ex)
                 {
                     MessageBox.Show("The order has been alredy shipped", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     Close();
                 }
-            else if (orderDeliveredcheckBox.IsEnabled == true && orderDeliveredcheckBox.IsChecked == true)
+            }
+        }
+
+        // Deliver the order
+        private void orderDeliveredcheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            orderDeliveredcheckBox.IsEnabled = false;
+
+            if (order.DeliveryDate == null)
+            {
                 try
                 {
                     order = bl.Order.DeliverOrder(order.ID);
+                    orderDetailsGrid.DataContext = order;
                 }
                 catch (AlreadyDelivered ex)
                 {
@@ -166,7 +174,12 @@ namespace PL.OrderWindows
                 {
                     MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
 
+        // Close the window, if there is changes - save them
+        private void SaveButtun_Click(object sender, RoutedEventArgs e)
+        {
             try
             {
                 action(bl.Order.GetOrderForList(order.ID));
@@ -180,23 +193,14 @@ namespace PL.OrderWindows
             Close();
         }
 
-
-        private void subProductButton_Copy_Click(object sender, RoutedEventArgs e)
+        private void closeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
 
-        private void DeleteOrderItembutton_Click(object sender, RoutedEventArgs e)
+        private void OrderItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            OrderItem orderItem = (sender as Button).DataContext as BO.OrderItem;
-            updateOrderItem(orderItem, 0);
-        }
 
-        private void Amountprev(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            // Allow only numbers
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

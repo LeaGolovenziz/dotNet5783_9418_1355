@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using Xceed.Wpf.Toolkit.Primitives;
 
 namespace PL.CartWindows
 {
