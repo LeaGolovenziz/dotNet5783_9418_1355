@@ -18,6 +18,6 @@
             <MenuItem Header="New order" Height="39" Width="100" FontSize="18" Grid.Column="0" Click="MenuItem_OpenCatalog"/>
             <MenuItem Header="Track order" Height="39" Width="100" FontSize="18" Grid.Column="0" Click="MenuItem_TrackOrder"/>
         </Menu>
-        <MediaElement HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50" Grid.Row="1" Source="C:\Users\lea golovenziz\source\repos\NaomiReitzer\dotNet5738_9418_1355\bin\Debug\images\openningVideo.mp4" Volume="0.05" Position="00:00:00" IsMuted="True" />
+        <MediaElement HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="1" Source="C:\Users\lea golovenziz\source\repos\NaomiReitzer\dotNet5738_9418_1355\PL\images\openningVideo.mp4" Volume="0.05" Position="00:00:00" IsMuted="True" />
     </Grid>
 </Window>

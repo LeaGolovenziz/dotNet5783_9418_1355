@@ -21,13 +21,12 @@
                 <ColumnDefinition  Width="*"/>
                 <ColumnDefinition  Width="*"/>
             </Grid.ColumnDefinitions>
-            
-            <Button Content="manager"  Grid.Column="0" HorizontalAlignment="Left" Padding="5" Margin="234,0,0,0" Width="116" Click="Button_Click"/>
-            <Button Content="buyer" Grid.Column="1" HorizontalAlignment="Left" Padding="5" Margin="50,0,0,0"  Height="50" VerticalAlignment="Top" Width="116" Click="Button_Click_1"/>
+            <Button Content="manager"  Grid.Column="0" HorizontalAlignment="Center" Margin="200,0,0,0" Width="120" Height="70" Click="Button_Click"/>
+            <Button Content="buyer" Grid.Column="1" HorizontalAlignment="Center"  Margin="0,0,200,0" Height="70" VerticalAlignment="Top" Width="120" Click="Button_Click_1"/>
 
         </Grid>
 
-        <!--<MediaElement HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50" Grid.Row="2" Source="C:\Users\lea golovenziz\source\repos\NaomiReitzer\dotNet5738_9418_1355\PL\images\openningVideo.mp4" Volume="0.05" Position="00:00:00" />-->
+        <MediaElement HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="2" Source="C:\Users\lea golovenziz\source\repos\NaomiReitzer\dotNet5738_9418_1355\PL\images\openningVideo.mp4" Volume="0.05" Position="00:00:00" />
     </Grid>
 
 </Window>
