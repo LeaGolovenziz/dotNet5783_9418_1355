@@ -16,7 +16,6 @@ namespace PL.ProductWindows
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
         public BO.Product newProduct = new BO.Product();
-
         private Action<ProductForList> action;
 
         bool checkTextBoxes()
@@ -69,7 +68,9 @@ namespace PL.ProductWindows
         // constructor for update product window
         public ProductWindow(Action<ProductForList> action,int id):this()
         {
+
             newProduct = bl.Product.GetProductDetails(id);
+
             mainGrid.DataContext = newProduct;
 
             this.action = action;

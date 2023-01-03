@@ -23,15 +23,6 @@ namespace PL.CartWindows
 
         private Action action;
 
-        //struct NewType 
-        //{
-        //    public string? Name;
-        //    public double? Price;
-        //    public int? ProductAmount;
-        //    public double? TotalPrice;
-        //    public string? Image;
-        //    public BO.Enums.Category? Category;
-        //}
 
         public CartWindow(Cart cart, Action action)
         {
@@ -39,16 +30,13 @@ namespace PL.CartWindows
             
                 Items = new ObservableCollection<OrderItem>(cart.OrderItems);
                 ItemListView.DataContext = Items;
-                totalPriceLable.DataContext = cart;
 
                 this.cart = cart;
 
-                this.action = action;
+            totalPriceLable.DataContext = this.cart;
 
-                totalPriceLable.Content = cart.OrderItems.Sum(x => x.TotalPrice);
-            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(items);
-            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Category");
-            //view.GroupDescriptions.Add(groupDescription);
+            this.action = action;
+
 
         }
 
@@ -65,7 +53,6 @@ namespace PL.CartWindows
                 nameTextBox.Text = selectedItem.Name;
                 priceTextBox.Text = selectedItem.Price.ToString();
                 inCartTextBox.Text = selectedItem.ProductAmount.ToString();
-                TotalPriceTextBox.Text = selectedItem.TotalPrice.ToString();
                 try
                 {
                     Uri resourceUri = new Uri(bl.Product.GetProductDetails(selectedItem.ID).Image, UriKind.Absolute);

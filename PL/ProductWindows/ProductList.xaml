@@ -41,6 +41,6 @@ VerticalAlignment="Stretch" Width="auto">
             </ListView.View>
         </ListView>
         <Button x:Name="AddNewProduct" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Center" Margin="0,5,0,0" Padding="5" Click="Button_Click_1" Width="780"/>
-        <Button x:Name="AddOrderItem" Content="Add product" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="2" Click="AddOrderItem_Click" Width="780"/>
+        <Button x:Name="AddOrderItem" Content="Add product" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="2" Click="AddOrderItem_Click" Width="780" Visibility="Hidden"/>
     </Grid>
 </Window>

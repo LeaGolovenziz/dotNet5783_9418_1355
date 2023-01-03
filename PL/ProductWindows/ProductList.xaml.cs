@@ -43,6 +43,7 @@ namespace PL.ProductWindows
         {
             this.action = action;
             AddNewProduct.Visibility = Visibility.Hidden; // Biding
+            AddOrderItem.Visibility = Visibility.Visible;
             order = bl.Order.GetOrderDetails(id);
 
             AddOrderItem.Visibility = Visibility.Visible;    

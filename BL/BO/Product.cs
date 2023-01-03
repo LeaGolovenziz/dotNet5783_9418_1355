@@ -1,14 +1,18 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using static BO.Enums;
 
 namespace BO
 {
-    public class Product 
+    public class Product : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private int iD;
         /// <summary>
         /// Unique ID of product
         /// </summary>
-        public int ID { get; set; }
+        public int ID { get => iD; set { iD = value; if(PropertyChanged!=null) PropertyChanged(this, new PropertyChangedEventArgs("ID")); } }
         /// <summary>
         /// Unique name of product
         /// </summary>
