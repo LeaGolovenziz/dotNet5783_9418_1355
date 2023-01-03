@@ -198,6 +198,13 @@ namespace PL.ProductWindows
 
         }
 
+        private void categoryComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (categoryComboBox.SelectedItem != null)
+                isCategoryLable.Visibility = Visibility.Hidden;
+            else
+                isCategoryLable.Visibility = Visibility.Visible;
+        }
     }
 }
 

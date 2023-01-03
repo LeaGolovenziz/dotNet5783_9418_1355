@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.OrderWindows"
         mc:Ignorable="d"
-        Title="OrderList" Height="640" Width="800">
+        Title="OrderList" Height="640" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button"
                BasedOn="{StaticResource ButtonsStyle}"/>

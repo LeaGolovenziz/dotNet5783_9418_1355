@@ -1,4 +1,5 @@
 ﻿using BO;
+using Dal;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace PL.ProductWindows
             InitializeComponent();
 
             resetProducts();
+
+            AddOrderItem.Visibility = Visibility.Hidden;
 
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
@@ -83,12 +86,15 @@ namespace PL.ProductWindows
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
-            ProductForList product = (ProductForList)ProductListView.SelectedItem;
-            if (product != null)
+            // Only if the window opened for editing and not just adding order item to an order - allow updating 
+            if (AddNewProduct.Visibility == Visibility.Visible)
             {
-                new ProductWindow(updateProduct, product.ID).ShowDialog();
-                CategorySelector.SelectedItem = null;
+                ProductForList product = (ProductForList)ProductListView.SelectedItem;
+                if (product != null)
+                {
+                    new ProductWindow(updateProduct, product.ID).ShowDialog();
+                    CategorySelector.SelectedItem = null;
+                }
             }
         }
 
@@ -97,15 +103,22 @@ namespace PL.ProductWindows
             try
             {
                 int productID = ((ProductForList)ProductListView.SelectedItem).ID;
-                order = bl.Order.AddNewOrderItem(order.ID, productID);
-                action(order, productID);
-                MessageBox.Show("product added to the order!");
-                Close();
-            }
-            catch (UnvalidAmount ex)
-            {
 
+                order = bl.Order.AddNewOrderItem(order.ID, productID);
+
+                action(order, productID);
+
+                MessageBox.Show("product added to the order!");
             }
+            catch (ProductNotInStock ex)
+            {
+                MessageBox.Show("The product is out of stock :(", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch(DoesntExist ex)
+            {
+                MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            Close();
         }
     }
 }

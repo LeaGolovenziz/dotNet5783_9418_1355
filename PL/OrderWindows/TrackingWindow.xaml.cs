@@ -4,6 +4,9 @@ using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using static BO.Enums;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Collections.Specialized;
 
 namespace PL.OrderWindows
 {
@@ -15,11 +18,14 @@ namespace PL.OrderWindows
         private BlApi.IBl bl = BlApi.Factory.Get();
 
         public OrderTracking orderTracking;
-        public List<Tuple<DateTime?, OrderStatus?>> Tracking;
+        public ObservableCollection<Tuple<DateTime?, OrderStatus?>> Tracking;
 
         public TrackingWindow()
         {
             InitializeComponent();
+
+            StatusGridView.DataContext = orderTracking;
+            trackingListView.DataContext = Tracking;
         }
 
         private void trackOrderButton_Click(object sender, RoutedEventArgs e)
@@ -35,9 +41,11 @@ namespace PL.OrderWindows
                 try
                 {
                     orderTracking = bl.Order.TrackOrder(orderID);
-                    Tracking = orderTracking.Tracking;
-                    this.DataContext = orderTracking;
-                    this.DataContext = Tracking;
+                    Tracking = new ObservableCollection<Tuple<DateTime?, OrderStatus?>>(orderTracking.Tracking);
+                    
+                    StatusGridView.Visibility = Visibility.Visible;
+                    trackingListView.Visibility = Visibility.Visible;
+
                 }
                 catch (DoesntExist ex)
                 {
@@ -45,8 +53,6 @@ namespace PL.OrderWindows
                 }
             }
             OrderIDTextBox.Clear();
-
-
         }
 
         private void IDprev(object sender, System.Windows.Input.TextCompositionEventArgs e)

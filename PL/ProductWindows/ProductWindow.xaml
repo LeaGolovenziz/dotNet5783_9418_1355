@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.ProductWindows"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="450" Width="800">
+        Title="ProductWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button"
                BasedOn="{StaticResource ButtonsStyle}"/>
@@ -39,7 +39,7 @@
             <Label x:Name="idExceptionLable" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
             <Label x:Name="categoryLable" Content="Category:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
-            <ComboBox x:Name="categoryComboBox" Grid.Column="1" VerticalAlignment="Center" Height="30" Grid.Row="1" Text="{Binding Path=Category, Mode=TwoWay}"/>
+            <ComboBox x:Name="categoryComboBox" Grid.Column="1" VerticalAlignment="Center" Height="30" Grid.Row="1" Text="{Binding Path=Category, Mode=TwoWay}" LostFocus="categoryComboBox_LostFocus"/>
             <Label x:Name="isCategoryLable" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose category!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
             <Label x:Name="nameLable" Content="Name:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
