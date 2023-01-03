@@ -28,7 +28,6 @@ namespace PL.CartWindows
         private Action closePrevWindow;
         private Action<OrderItem> updateCartAction;
 
-
         public CartWindow(Cart cart, Action<OrderItem> updateCartAction, Action closePrevWindow)
         {
             InitializeComponent();
