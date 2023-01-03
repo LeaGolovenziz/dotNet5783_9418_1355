@@ -3,6 +3,7 @@ using PL.CartWindows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,9 +39,10 @@ namespace PL.ProductWindows
                                                                                                   Price = item.Price,
                                                                                                   Category = item.Category,
                                                                                                   InStock = isInStock,
-                                                                                                  Image = item.Image,
+                                                                                                  Image = new Uri(Directory.GetCurrentDirectory().Replace("bin", item.Image), UriKind.Absolute).ToString(),
                                                                                                   AmountInCart = amount
                                                                                               }));
+
             this.DataContext = Products;
             return Products;
         }
@@ -96,13 +98,13 @@ namespace PL.ProductWindows
             }
         }
 
-         // go to cart
+        // go to cart
         private void goToCart(object sender, RoutedEventArgs e)
         {
             // if the cart is empty
             if (cart.OrderItems == null)
             {
-                MessageBox.Show("your cart is empty!","Attention",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show("your cart is empty!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             // open a window with cart deatails
             else
@@ -113,31 +115,27 @@ namespace PL.ProductWindows
         // add a product to cart
         private void addToCartAction(ProductItem? product)
         {
-            // if there is inough amount in stock add the product
-            if (bl.Product.GetProductDetails(product.ID).InStock - product.AmountInCart > 0)
-            {
-                // try to add the product to cart
-                try
-                {
-                    cart = bl.Cart.AddProductToCart(cart, product.ID);
-                }
-                catch(ProductNotInStock ex)
-                {
-                    MessageBox.Show("product is not in stock!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                catch (DoesntExist ex)
-                {
-                    MessageBox.Show("can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
 
+            // try to add the product to cart
+            try
+            {
+                cart = bl.Cart.AddProductToCart(cart, product.ID);
                 // update the products collection
                 int index = Products.IndexOf(Products.FirstOrDefault(x => x.ID == product.ID));
                 product.AmountInCart += 1;
                 Products.RemoveAt(index);
                 Products.Insert(index, product);
             }
-            else
-                MessageBox.Show("product is not in stock!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+            catch (ProductNotInStock ex)
+            {
+                MessageBox.Show("product is not in stock!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (DoesntExist ex)
+            {
+                MessageBox.Show("can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
         }
 
         // update the amount of the product to the amount od the product accepted from cart window

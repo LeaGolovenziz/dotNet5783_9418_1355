@@ -44,6 +44,11 @@ namespace Bllmplementation
             {
                 // find the index of the product 
                 int index = cart.OrderItems.FindIndex(x => x.ID == productID);
+                // chek if there is enough in stock
+                if(dal.Product.Get(productID).InStock - cart.OrderItems.ElementAt(index).ProductAmount <= 0)
+                {
+                    throw new ProductNotInStock();
+                }
                 // adding 1 to the amount of the product
                 cart.OrderItems.ElementAt(index).ProductAmount++;
                 // updating the total price

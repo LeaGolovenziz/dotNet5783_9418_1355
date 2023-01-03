@@ -10,11 +10,11 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="450*"/>
+            <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="PlaceOrderlABLE"  Content="Place order" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" FontSize="35"/>
+        <Label x:Name="PlaceOrderlABLE"  Content="Place order" HorizontalAlignment="Left" Margin="700,0,0,0" FontSize="35" Height="64" Width="124"/>
         <Grid x:Name="mainGrid" Width="640" Height="300" VerticalAlignment="Center" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

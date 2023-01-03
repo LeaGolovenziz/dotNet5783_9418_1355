@@ -1,5 +1,7 @@
 ﻿using PL.OrderWindows;
 using PL.ProductWindows;
+using System.IO;
+using System;
 using System.Windows;
 
 namespace PL
@@ -12,6 +14,15 @@ namespace PL
         public ManagerWindow()
         {
             InitializeComponent();
+
+            // try to upload the openning video if exists
+            try
+            {
+                Uri resourceUri = new Uri(Directory.GetCurrentDirectory().Replace("bin", "PL\\images\\openningVideo.mp4"), UriKind.Absolute); 
+                video.Source = resourceUri;
+            }
+            // incase there is no image
+            catch (Exception ex) { }
         }
         private void MenuItem_Click_ShowProductList(object sender, RoutedEventArgs e) => new ProductList().ShowDialog();
 

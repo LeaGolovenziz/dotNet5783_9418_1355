@@ -60,7 +60,7 @@ public static class DataSource
             //draw the category of the froduct
             product.Category = (Enums.Category)(i % 5);
             //
-            product.Image = "C:\\Users\\lea golovenziz\\source\\repos\\NaomiReitzer\\dotNet5738_9418_1355\\PL\\images\\" + product.Name + ".jpg";
+            product.Image = "PL\\images\\" + product.Name + ".jpg";
 
             // add the product to the list
             lstPruducts.Add(product);

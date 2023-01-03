@@ -3,6 +3,7 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -20,7 +21,7 @@ namespace PL.CartWindows
         private BlApi.IBl bl = BlApi.Factory.Get();
         public ObservableCollection<OrderItem> Items { get; set; }
 
-        public Cart cart=new Cart();
+        public Cart cart = new Cart();
 
         public OrderItem orderItem = new OrderItem();
 
@@ -41,7 +42,7 @@ namespace PL.CartWindows
             totalPriceLable.DataContext = this.cart;
 
             this.updateCartAction = updateCartAction;
-            this.closePrevWindow = closePrevWindow; 
+            this.closePrevWindow = closePrevWindow;
         }
 
         // show one products details and give option to update its amount
@@ -53,12 +54,12 @@ namespace PL.CartWindows
                 SelectedItemGrid.Visibility = Visibility.Visible;
 
                 orderItem = (OrderItem)ItemListView.SelectedItem;
-                SelectedItemGrid.DataContext= orderItem;
+                SelectedItemGrid.DataContext = orderItem;
 
                 // try to upload the product image if exists
                 try
                 {
-                    Uri resourceUri = new Uri(bl.Product.GetProductDetails(orderItem.ID).Image, UriKind.Absolute);
+                    Uri resourceUri = new Uri(Directory.GetCurrentDirectory().Replace("bin", bl.Product.GetProductDetails(orderItem.ID).Image), UriKind.Absolute);
                     ProductImage.Source = new BitmapImage(resourceUri);
                 }
                 // incase there is no image
@@ -73,26 +74,20 @@ namespace PL.CartWindows
             if (orderItem != null)
                 try
                 {
-                    // if there is inough in stock
-                    if (bl.Product.GetProductDetails(orderItem.ID).InStock - orderItem.ProductAmount > 0)
-                    {
-                        // add product to cart
-                        bl.Cart.AddProductToCart(cart, orderItem.ID);
+                    // add product to cart
+                    bl.Cart.AddProductToCart(cart, orderItem.ID);
 
-                        // find order item index
-                        int index = Items.IndexOf(orderItem);
+                    // find order item index
+                    int index = Items.IndexOf(orderItem);
 
-                        // update amount in catalog window
-                        orderItem.ProductAmount = cart.OrderItems.Find(x => x.ID == orderItem.ID)?.ProductAmount;
-                        updateCartAction(orderItem);
+                    // update amount in catalog window
+                    orderItem.ProductAmount = cart.OrderItems.Find(x => x.ID == orderItem.ID)?.ProductAmount;
+                    updateCartAction(orderItem);
 
-                        // update order items collection
-                        orderItem.TotalPrice = orderItem.ProductAmount * orderItem.Price;
-                        Items.RemoveAt(index);
-                        Items.Insert(index, orderItem);
-                    }
-                    else
-                        MessageBox.Show("product is not in stock!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // update order items collection
+                    orderItem.TotalPrice = orderItem.ProductAmount * orderItem.Price;
+                    Items.RemoveAt(index);
+                    Items.Insert(index, orderItem);
                 }
                 catch (ProductNotInStock ex)
                 {
@@ -156,7 +151,7 @@ namespace PL.CartWindows
                 Delete(orderItem);
                 SelectedItemGrid.Visibility = Visibility.Hidden;
             }
- 
+
         }
 
         // deleting product from cart
@@ -199,7 +194,7 @@ namespace PL.CartWindows
         // open place order window
         private void PlaceOrder(object sender, RoutedEventArgs e) => new PlaceOrderWindow(cart, CloseAction).ShowDialog();
 
-        
+
         // clear cart
         private void button_clearCart(object sender, RoutedEventArgs e)
         {
