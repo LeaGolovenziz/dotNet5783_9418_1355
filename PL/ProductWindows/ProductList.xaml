@@ -5,30 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.ProductWindows"
         mc:Ignorable="d"
-        Title="ProductList" Height="640" Width="800"  WindowStartupLocation="CenterScreen">
+        Title="ProductList"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="Button"
-               BasedOn="{StaticResource ButtonsStyle}"/>
-        <Style TargetType="Window"
-       BasedOn="{StaticResource ControlStyle}"/>
-        <Style TargetType="ListView"
-                      BasedOn="{StaticResource ControlStyle}"/>
+
     </Window.Resources>
     <Grid Name ="MainGrid" Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="70*"/>
             <RowDefinition Height="500*"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-VerticalAlignment="Stretch" Width="auto">
+VerticalAlignment="Stretch" Width="auto" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox x:Name="CategorySelector" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" Margin="132,11,125,8"/>
-            <Label x:Name="categoryLabel" Grid.Column="1" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="36" Width="87" FontSize="18" Margin="37,0,0,0"/>
-            <Button x:Name="button" Content="Clear selection" HorizontalAlignment="Left" Margin="330,10,0,9"  Width="82" Click="button_Click" Grid.ColumnSpan="2" FontSize="9"/>
+            <ComboBox x:Name="CategorySelector" Grid.Column="2" SelectionChanged="CategorySelector_SelectionChanged" Margin="10,5"/>
+            <Label x:Name="categoryLabel" Grid.Column="1" Content="Category:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
+            <Button x:Name="button" Content="Clear selection" Grid.Column="0" HorizontalAlignment="Right" Margin="0" Click="button_Click" />
         </Grid>
         <ListView x:Name="ProductListView" SelectionMode="Single" ItemsSource="{Binding}" Grid.Row="1" FontSize="18" SelectionChanged="ProductListView_SelectionChanged" MouseDoubleClick="ProductListView_MouseDoubleClick">
             <ListView.View>
@@ -40,7 +36,7 @@ VerticalAlignment="Stretch" Width="auto">
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="AddNewProduct" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Center" Margin="0,5,0,0" Padding="5" Click="Button_Click_1" Width="780"/>
-        <Button x:Name="AddOrderItem" Content="Add product" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="2" Click="AddOrderItem_Click" Width="780" Visibility="Hidden"/>
+        <Button x:Name="AddNewProduct" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,5,0,0"  Click="Button_Click_1" />
+        <Button x:Name="AddOrderItem" Content="Add product" HorizontalAlignment="Stretch" Margin="0,5,0,0" Grid.Row="2" Click="AddOrderItem_Click"  Visibility="Hidden"/>
     </Grid>
 </Window>
