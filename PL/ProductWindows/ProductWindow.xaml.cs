@@ -18,44 +18,14 @@ namespace PL.ProductWindows
         public BO.Product newProduct = new BO.Product();
         private Action<ProductForList> action;
 
-        bool checkTextBoxes()
-        {
-            if (idTextBox.Text.Length != 6)
-            {
-                idExceptionLable.Content = "Enter 6 digits!";
-                idExceptionLable.Visibility = Visibility.Visible;
-                return false;
-            }
-            if (categoryComboBox.SelectedValue == null)
-            {
-                isCategoryLable.Visibility = Visibility.Visible;
-                return false;
-            }
-            if (nameTextBox.Text.Length == 0)
-            {
-                nameExceptionLable.Visibility = Visibility.Visible;
-                return false;
-            }
-            if (priceTextBox.Text.Length == 0)
-            {
-                priceExceptionLable.Visibility = Visibility.Visible;
-                return false;
-            }
-            if (inStockTextBox.Text.Length == 0)
-            {
-                inStockExceptionLable.Visibility = Visibility.Visible;
-                return false;
-            }
-            return true;
-        }
-
-
-        // constructor for add product window
+        // constructor
         public ProductWindow()
         {
             InitializeComponent();
             categoryComboBox.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
+
+        // constructor for add product window
         public ProductWindow(Action<ProductForList> action):this()
         {
             this.action = action;
@@ -68,7 +38,6 @@ namespace PL.ProductWindows
         // constructor for update product window
         public ProductWindow(Action<ProductForList> action,int id):this()
         {
-
             newProduct = bl.Product.GetProductDetails(id);
 
             mainGrid.DataContext = newProduct;
@@ -80,8 +49,54 @@ namespace PL.ProductWindows
             idTextBox.IsEnabled = false;
         }
 
+        // checks the textBoxes of the product's details
+        bool checkTextBoxes()
+        {
+            bool flag = true;
+            if (idTextBox.Text.Length != 6)
+            {
+                idExceptionLable.Visibility = Visibility.Visible;
+                flag = false;
+            }
+            else
+                idExceptionLable.Visibility = Visibility.Hidden;
 
-        // updates the product with the new details in the textboxs
+            if (categoryComboBox.SelectedValue == null)
+            {
+                isCategoryLable.Visibility = Visibility.Visible;
+                flag = false;
+            }
+            else
+                isCategoryLable.Visibility = Visibility.Hidden;
+
+            if (nameTextBox.Text.Length == 0)
+            {
+                nameExceptionLable.Visibility = Visibility.Visible;
+                flag = false;
+            }
+            else
+                nameExceptionLable.Visibility = Visibility.Hidden;
+
+            if (priceTextBox.Text.Length == 0)
+            {
+                priceExceptionLable.Visibility = Visibility.Visible;
+                flag = false;
+            }
+            else
+                priceExceptionLable.Visibility = Visibility.Hidden;
+
+            if (inStockTextBox.Text.Length == 0)
+            {
+                inStockExceptionLable.Visibility = Visibility.Visible;
+                flag = false;
+            }
+            else
+                inStockExceptionLable.Visibility = Visibility.Hidden;
+
+            return flag;
+        }
+
+        // Updates the product with the new details that in the textBoxs
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             if (checkTextBoxes())
@@ -89,91 +104,53 @@ namespace PL.ProductWindows
                 try
                 {
                     bl.Product.UpdateProduct(newProduct);
+
                     action(bl.Product.GetProductForList(newProduct.ID));
+
                     MessageBox.Show("product updated!");
                     Close();
                 }
-                catch (IdAlreadyExist ex)
+                catch (DoesntExist ex)
                 {
-                    idExceptionLable.Content = " This ID already exist!";
-                    idExceptionLable.Visibility = Visibility.Visible;
+                    MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
-        // adds a product with the details in the textboxs
+        // Adds a product with the details that in the textBoxs
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             if (checkTextBoxes())
             {
-                //insertProductDetails(ref product);
                 try
                 {
                     bl.Product.AddProduct(newProduct);
+
                     action(bl.Product.GetProductForList(newProduct.ID));
+
                     MessageBox.Show("product added!");
                     this.Close();
                 }
                 catch (IdAlreadyExist ex)
                 {
-                    idExceptionLable.Content = " The ID you entered already exists!";
-                    idExceptionLable.Visibility = Visibility.Visible;
+                    MessageBox.Show("There is already a product with this ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
         }
 
-        // make sure the user can enter only numbers as ID
-        private void IDPrev(object sender, TextCompositionEventArgs e)
+        // makes sure the user can enter only numbers
+        private void allowOnlyNumbers(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
         // make sure the user can enter only letters as name
-        private void NamePrev(object sender, TextCompositionEventArgs e)
+        private void allowOnlyLetters(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^a-zA-Z]+");
             e.Handled = regex.IsMatch(e.Text);
-        }
-
-        // make sure the user can enter only numbers as price
-        private void PricePrev(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
-        // make sure the user can enter only numbers as amount in stock
-        private void InStockPrev(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
-        // make sure the user entered 6 numbers for ID
-        private void idTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (((TextBox)sender).Text.Length < 6)
-            {
-                idExceptionLable.Content = "Enter 6 digits!";
-                idExceptionLable.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                idExceptionLable.Visibility = Visibility.Hidden;
-            }
-
-        }
-
-        private void closeButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void idTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void AddImageButton_Click(object sender, RoutedEventArgs e)
@@ -193,17 +170,9 @@ namespace PL.ProductWindows
             }
         }
 
-        private void idTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        private void closeButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void categoryComboBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (categoryComboBox.SelectedItem != null)
-                isCategoryLable.Visibility = Visibility.Hidden;
-            else
-                isCategoryLable.Visibility = Visibility.Visible;
+            this.Close();
         }
     }
 }

@@ -17,16 +17,18 @@ namespace PL.OrderWindows
     public partial class OrderWindow : Window
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
-        private BO.Order order = new Order();
+        public BO.Order order = new Order();
 
         public ObservableCollection<OrderItem> orderItems;
 
         private Action<OrderForList> action;
+
+        // Constructor
         public OrderWindow(int OrderID, Action<OrderForList> action)
         {
             InitializeComponent();
 
-            // The order of the window
+            // Get the order of the window
             try
             {
                 order = bl.Order.GetOrderDetails(OrderID);
@@ -36,8 +38,6 @@ namespace PL.OrderWindows
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             orderDetailsGrid.DataContext = order;
-
-            //priceTextBlock.DataContext = order;
 
             // The orderItems of the window
             orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
@@ -49,9 +49,7 @@ namespace PL.OrderWindows
 
             // The checkBoxes of the status of the order
             if (order.OrderStatus.ToString() == "Sent")
-            {
                 orderShippedcheckBox.IsChecked = true;
-            }
             else if (order.OrderStatus.ToString() == "Delivered")
             {
                 orderDeliveredcheckBox.IsChecked = true;
@@ -61,9 +59,9 @@ namespace PL.OrderWindows
             this.action = action;
         }
 
+        // Updates the amount of the orderItem
         void updateOrderItem(OrderItem orderItem, int newAmount)
         {
-            // Update the amount of the orderItem
             try
             {
                 order = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount);
@@ -89,12 +87,11 @@ namespace PL.OrderWindows
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             newAmountTextBox.Clear();
-
         }
 
         private void UpdateAmountbutton_Click(object sender, RoutedEventArgs e)
         {
-
+            // If the user entered new amount - update the orderItem
             if (newAmountTextBox.Text != "")
             {
                 OrderItem orderItem = (sender as Button).DataContext as BO.OrderItem;
@@ -103,62 +100,25 @@ namespace PL.OrderWindows
             }
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void orderShippedcheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-        }
-
+        // If the order Delivered - prevent deliverimg it
         private void orderDeliveredcheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            orderShippedcheckBox.IsEnabled = false;
-        }
+            => orderShippedcheckBox.IsEnabled = false;
 
-        private void newAmountTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
+        // delegate og adding new orderItem to the order
         private void addOrderItem(Order newOrder, int productID)
         {
             order = newOrder;
             orderDetailsGrid.DataContext = order;
             orderItems.Add(order.OrderItems.FirstOrDefault(item => item.ID == productID));
         }
+
+        // Adds an orderItem to the order
         private void addProductButton_Click(object sender, RoutedEventArgs e)
         {
             new ProductList(addOrderItem, order.ID).ShowDialog();
             OrderItemsDataGrid.DataContext = orderItems;
         }
 
-        private void SaveButtun_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                action(bl.Order.GetOrderForList(order.ID));
-            }
-            catch (DoesntExist ex)
-            {
-                MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            MessageBox.Show("order saved!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
-            Close();
-        }
-
-
-        private void subProductButton_Copy_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void DeleteOrderItembutton_Click(object sender, RoutedEventArgs e)
         {
@@ -166,21 +126,18 @@ namespace PL.OrderWindows
             updateOrderItem(orderItem, 0);
         }
 
+        // Allow to enter only numbers as a new amount
         private void Amountprev(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            // Allow only numbers
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void OrderItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void orderShippedcheckBox_Checked_1(object sender, RoutedEventArgs e)
+        // Ship the order
+        private void orderShippedcheckBox_Checked(object sender, RoutedEventArgs e)
         {
             orderShippedcheckBox.IsEnabled = false;
+
             if (order.ShipDate == null)
             {
                 try
@@ -196,6 +153,7 @@ namespace PL.OrderWindows
             }
         }
 
+        // Deliver the order
         private void orderDeliveredcheckBox_Checked_1(object sender, RoutedEventArgs e)
         {
             orderDeliveredcheckBox.IsEnabled = false;
@@ -217,6 +175,32 @@ namespace PL.OrderWindows
                     MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        // Close the window, if there is changes - save them
+        private void SaveButtun_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                action(bl.Order.GetOrderForList(order.ID));
+            }
+            catch (DoesntExist ex)
+            {
+                MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            MessageBox.Show("order saved!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+            Close();
+        }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void OrderItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
