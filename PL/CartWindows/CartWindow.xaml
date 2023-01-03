@@ -14,26 +14,41 @@
             <RowDefinition Height="150*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" RenderTransformOrigin="0.487,0.952">
-            <Label x:Name="cartLable"  Content="cart" HorizontalAlignment="Center" VerticalAlignment="Center" Height="87" Width="88" FontSize="35"/>
-            <Button Content="empty cart" Margin="0,50,650,0" Click="Button_Click"/>
+            <Label x:Name="cartLable"  Content="cart" HorizontalAlignment="Center" Height="40" Width="52" FontSize="40"/>
+            <Button Content="empty cart" Margin="0,50,650,10" Click="Button_Click"/>
         </Grid>
         <Grid Name="middleGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="17*"/>
                 <ColumnDefinition Width="9*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="ItemListView" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" Margin="0,10,10,47"  Grid.Column="0" SelectionChanged="ItemListView_SelectionChanged">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
-                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="100"/>
-                        <GridViewColumn Header="Amount in cart" DisplayMemberBinding="{Binding ProductAmount}" Width="125" />
-                        <GridViewColumn Header="TotalPrice" DisplayMemberBinding="{Binding TotalPrice}" Width="120" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <Grid x:Name="cartGrid" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ListView x:Name="ItemListView" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0"  Grid.Row="0" SelectionChanged="ItemListView_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
+                            <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="100"/>
+                            <GridViewColumn Header="Amount in cart" DisplayMemberBinding="{Binding ProductAmount}" Width="125" />
+                            <GridViewColumn Header="TotalPrice" DisplayMemberBinding="{Binding TotalPrice}" Width="120" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Total Cart Price:" FontSize="15" Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Height="37" Width="129"/>
+                    <Label x:Name="totalPriceLable" Grid.Column="1" Content="{Binding Price, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Height="37" Width="50"/>
+                </Grid>
+            </Grid>
             <Grid x:Name="SelectedItemGrid" HorizontalAlignment="Center" Visibility="Hidden" VerticalAlignment="Center" Grid.Column="1"   Height="237" Width="250">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -49,16 +64,16 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label x:Name="nameLable" Content="Name of product:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"  IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" Grid.ColumnSpan="2" Margin="0,0,160,0" />
+                <Label x:Name="nameLable" Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"  IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" />
                 <TextBox x:Name="nameTextBox" Text="{Binding Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
 
-                <Label x:Name="priceLable" Content="Price of product:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+                <Label x:Name="priceLable" Content="Price:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" />
                 <TextBox x:Name="priceTextBox" Text="{Binding Price}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
 
-                <Label x:Name="AmountInCartLable" Content="Amount in cart:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+                <Label x:Name="AmountInCartLable" Content="Amount in cart:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Visibility="Visible" />
                 <TextBox x:Name="inCartTextBox" Text="{Binding ProductAmount}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="30" IsEnabled="False" />
 
-                <Label x:Name="TotalPrice" Content="TotalPrice:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Margin="0,0,160,0" Grid.ColumnSpan="2" Visibility="Visible"/>
+                <Label x:Name="TotalPrice" Content="Total Price:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Visibility="Visible"/>
                 <TextBox x:Name="TotalPriceTextBox" Text="{Binding TotalPrice,Mode=TwoWay}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Height="30" />
 
                 <Label x:Name="ImageLable" Content="Image:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" IsEnabled="False" VerticalAlignment="Center" Margin="0,0,160,0"  Visibility="Visible"/>
@@ -69,9 +84,7 @@
                 <Button Content="Delete" Grid.Column="1" Grid.Row="4" Margin="45,68,0,0" Grid.RowSpan="2" Click="DeleteButton"/>
 
             </Grid>
-            <Label Content="Total Cart Price:" FontSize="15" HorizontalAlignment="Left" Margin="37,241,0,0" VerticalAlignment="Top" Height="37" Width="129"/>
-            <Label x:Name="totalPriceLable" Content="{Binding Price, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Left" Margin="166,241,0,0" VerticalAlignment="Top" Height="37" Width="50"/>
         </Grid>
-        <Button Content="Place order" Grid.Row="2" Height="40" Click="PlaceOrder"  />
+        <Button Content="Place order" Grid.Row="3" Height="40" Click="PlaceOrder"  />
     </Grid>
 </Window>
