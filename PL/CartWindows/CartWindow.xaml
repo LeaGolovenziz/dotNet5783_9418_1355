@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" RenderTransformOrigin="0.487,0.952">
             <Label x:Name="cartLable"  Content="cart" HorizontalAlignment="Center" Height="40" Width="52" FontSize="40"/>
-            <Button Content="empty cart" Margin="0,50,650,10" Click="Button_Click"/>
+            <Button Content="empty cart" Margin="0,50,650,10" Click="button_clearCart"/>
         </Grid>
         <Grid Name="middleGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>

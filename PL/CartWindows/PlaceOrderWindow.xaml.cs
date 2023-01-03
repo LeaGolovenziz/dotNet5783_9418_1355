@@ -24,7 +24,7 @@ namespace PL.CartWindows
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
 
-        private Cart cart;
+        public Cart cart;
 
         private Action action;
 
@@ -40,6 +40,7 @@ namespace PL.CartWindows
 
         }
 
+        // make acxeption visible if text is empty anf unvisible otherwise
         private void CustomerNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (((TextBox)sender).Text=="")
@@ -52,6 +53,7 @@ namespace PL.CartWindows
             }
         }
 
+        // make acxeption visible if text is empty anf unvisible otherwise
         private void CustomerAddressTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (((TextBox)sender).Text == "")
@@ -64,11 +66,11 @@ namespace PL.CartWindows
             }
         }
 
+        // make acxeption visible if text is empty anf unvisible otherwise
         private void CustomerEmailTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (((TextBox)sender).Text == "")
             {
-                CustomerEmailExceptionLable.Content = "please enter your Email address!";
                 CustomerEmailExceptionLable.Visibility = Visibility.Visible;
             }
             else
@@ -77,26 +79,49 @@ namespace PL.CartWindows
             }
         }
 
+        // place order
         private void PlaceOrder(object sender, RoutedEventArgs e)
         {
-            if(CustomerAddressExceptionLable.Visibility == Visibility.Visible||
-                CustomerEmailExceptionLable.Visibility==Visibility.Visible||
-                CustomerNameExceptionLable.Visibility==Visibility.Visible)
+            // if all details hasn't entered show message
+            if (CustomerAddressExceptionLable.Visibility == Visibility.Visible ||
+                CustomerEmailExceptionLable.Visibility == Visibility.Visible ||
+                CustomerNameExceptionLable.Visibility == Visibility.Visible)
             {
                 MessageBox.Show("please enter all details!");
             }
             else try
                 {
+                    // place order
                     int orderID = bl.Cart.PlaceOrder(cart);
-                    MessageBox.Show("Your order has been confirmed! \nyour tracking number is "+ orderID);
+                    MessageBox.Show("Your order has been confirmed! \nyour tracking number is " + orderID);
+
+                    // close two previouse windows
                     action();
+
                     this.Close();
 
                 }
                 catch (UnvalidEmail ex)
                 {
-                    CustomerEmailExceptionLable.Content = "Unvalid Email address!";
+                    MessageBox.Show("your email address is not valid!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    CustomerEmailTextBox.Clear();
                     CustomerEmailExceptionLable.Visibility = Visibility.Visible;
+                }
+                catch (UnvalidName)
+                {
+                    MessageBox.Show("your name is not valid!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    CustomerEmailTextBox.Clear();
+                    CustomerNameExceptionLable.Visibility = Visibility.Visible;
+                }
+                catch (UnvalidAddress)
+                {
+                    MessageBox.Show("your name is not valid!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    CustomerEmailTextBox.Clear();
+                    CustomerEmailExceptionLable.Visibility = Visibility.Visible;
+                }
+                catch
+                {
+                    MessageBox.Show("can't find one of the products", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
         }
 

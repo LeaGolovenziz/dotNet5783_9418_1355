@@ -131,8 +131,8 @@ namespace Bllmplementation
                         product.InStock = true;
 
                     // count the amount of the product in the cart
-                    if (cart.OrderItems != null)
-                        product.AmountInCart = cart.OrderItems.Where(x => x.ID == productID).Count();
+                    if (cart.OrderItems != null&& cart.OrderItems.Exists(x => x.ID == productID))
+                        product.AmountInCart = cart.OrderItems.Find(x => x.ID == productID)!.ProductAmount;
                     else
                         product.AmountInCart = 0;
 

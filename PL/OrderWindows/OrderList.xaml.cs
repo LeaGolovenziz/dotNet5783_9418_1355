@@ -18,7 +18,9 @@ namespace PL.OrderWindows
 
         void resetOrders()
         {
-            Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
+            Orders = new ObservableCollection<OrderForList?>(from item in bl.Order.GetOrderList()
+                                                             orderby item.OrderID
+                                                             select item);
 
             this.DataContext = Orders;
         }

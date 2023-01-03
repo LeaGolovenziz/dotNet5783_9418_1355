@@ -15,10 +15,16 @@
             <RowDefinition Height="93*"/>
             <RowDefinition Height="273*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="OrderIDTextBox" PreviewTextInput="IDprev" HorizontalAlignment="Left" Margin="363,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Height="24"/>
-        <Label x:Name="OrderIDLable" Content="Order ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Margin="294,20,0,0" Height="26"/>
-        <Button x:Name="trackOrderButton" Content="Track order" HorizontalAlignment="Left" Margin="536,0,0,0" VerticalAlignment="Center" Height="26" Width="144" Click="trackOrderButton_Click"/>
-
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="OrderIDTextBox" Grid.Column="1" PreviewTextInput="IDprev" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Height="24"/>
+            <Label x:Name="OrderIDLable" Grid.Column="0" Content="Order ID:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="80" Margin="0" Height="26"/>
+            <Button x:Name="trackOrderButton" Grid.Column="2" Content="Track order" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Height="26" Width="144" Click="trackOrderButton_Click"/>
+        </Grid>
         <Grid x:Name="StatusGridView" Grid.Row="1" Visibility="Hidden">
             <Label x:Name="statusLabel" Grid.Row="0" Content="Order status:" HorizontalAlignment="Left" Margin="256,32,0,0" VerticalAlignment="Top" Width="132" Height="34"/>
             <TextBlock x:Name="statysTextBlock" HorizontalAlignment="Left" Margin="393,33,0,0" Grid.Row="0" TextWrapping="Wrap" Text="{Binding Path=OrderStatus, Mode=TwoWay}" VerticalAlignment="Top" Width="169" Height="34"/>

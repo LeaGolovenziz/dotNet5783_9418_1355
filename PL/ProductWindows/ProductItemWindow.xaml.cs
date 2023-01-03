@@ -28,31 +28,31 @@ namespace PL.ProductWindows
         private Action<ProductItem?> addToCartAction;
 
         private ProductItem ProductItem;
+
         Cart Cart;
 
-        public ProductItemWindow()
-        {
-            InitializeComponent();
-        }
         public ProductItemWindow(int id,Cart cart, Action<ProductItem?> action)
         {
             InitializeComponent();
 
             try
-            {
-                ProductItem = bl.Product.GetProductFromCatalog(id, cart);
+            { 
+                ProductItem = bl.Product.GetProductFromCatalog(id, cart); 
             }
-            catch(DoesntExist ex) { }
+            // incase the product doesn't exists
+            catch (DoesntExist ex)
+            {
+                MessageBox.Show("can't find the product","ERROR",MessageBoxButton.OK,MessageBoxImage.Error);    
+                Close();
+            }
 
             Cart = cart;
-
-            ProductItem.AmountInCart = bl.Cart.AmountOf(Cart, id);
 
             this.DataContext = ProductItem;
 
             this.addToCartAction = action;
 
-
+            // try to upload the product image if exists
             try
             {
                 Uri resourceUri = new Uri(ProductItem.Image, UriKind.Absolute);
@@ -61,18 +61,13 @@ namespace PL.ProductWindows
             // incase there is no image
             catch (Exception ex) { }
 
-            mainGrid.IsEnabled = false;
         }
-        private void closeButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        private void closeButton_Click(object sender, RoutedEventArgs e) => this.Close();
 
 
-        private void addToCartButton_Click(object sender, RoutedEventArgs e)
-        {
-                addToCartAction(ProductItem);
-        }
+        // add product item to cart and update its amount in the cart window
+        private void addToCartButton_Click(object sender, RoutedEventArgs e) => addToCartAction(ProductItem);
+        
 
     }
     

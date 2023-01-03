@@ -15,9 +15,9 @@ namespace PL
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) => new ManagerWindow().Show();
+        private void Button_Click(object sender, RoutedEventArgs e) => new ManagerWindow().ShowDialog();
 
-        private void Button_Click_1(object sender, RoutedEventArgs e) => new BuyerWindow().Show();
+        private void Button_Click_1(object sender, RoutedEventArgs e) => new BuyerWindow().ShowDialog();
 
 
     }
