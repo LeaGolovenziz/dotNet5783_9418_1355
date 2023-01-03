@@ -21,8 +21,8 @@
                 <ColumnDefinition  Width="*"/>
                 <ColumnDefinition  Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="manager"  Grid.Column="0" HorizontalAlignment="Center" Margin="200,0,0,0" Width="120" Height="70" Click="Button_Click"/>
-            <Button Content="buyer" Grid.Column="1" HorizontalAlignment="Center"  Margin="0,0,200,0" Height="70" VerticalAlignment="Top" Width="120" Click="Button_Click_1"/>
+            <Button Content="manager" HorizontalAlignment="Right" Height="70" Click="Button_Click" Margin="0,0,25,0" Width="270"/>
+            <Button Content="buyer" Grid.Column="1" HorizontalAlignment="Left" Height="70" VerticalAlignment="Center" Width="270" Click="Button_Click_1" Margin="25,0,0,0"/>
 
         </Grid>
 
