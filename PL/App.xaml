@@ -25,6 +25,13 @@
         <Style x:Key="labkesStyle" TargetType="Label">
             <Setter Property="FontStyle" Value="Italic"/>
             <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="textBlocktStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Ariel"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </Application.Resources>
 </Application>

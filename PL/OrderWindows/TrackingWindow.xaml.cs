@@ -6,6 +6,7 @@ using System.Windows;
 using static BO.Enums;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections.Specialized;
 
 namespace PL.OrderWindows
 {
@@ -23,8 +24,8 @@ namespace PL.OrderWindows
         {
             InitializeComponent();
 
-            this.DataContext = orderTracking;
-            this.DataContext = Tracking;
+            StatusGridView.DataContext = orderTracking;
+            trackingListView.DataContext = Tracking;
         }
 
         private void trackOrderButton_Click(object sender, RoutedEventArgs e)
@@ -41,6 +42,10 @@ namespace PL.OrderWindows
                 {
                     orderTracking = bl.Order.TrackOrder(orderID);
                     Tracking = new ObservableCollection<Tuple<DateTime?, OrderStatus?>>(orderTracking.Tracking);
+                    
+                    StatusGridView.Visibility = Visibility.Visible;
+                    trackingListView.Visibility = Visibility.Visible;
+
                 }
                 catch (DoesntExist ex)
                 {
@@ -48,8 +53,6 @@ namespace PL.OrderWindows
                 }
             }
             OrderIDTextBox.Clear();
-
-
         }
 
         private void IDprev(object sender, System.Windows.Input.TextCompositionEventArgs e)

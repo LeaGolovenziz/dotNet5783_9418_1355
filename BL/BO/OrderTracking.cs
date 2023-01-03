@@ -18,7 +18,7 @@ namespace BO
             set
             {
                 orderID = value;
-                if (PropertyChanged != null)
+                if (PropertyChanged != null && !orderID.Equals(value))
                     PropertyChanged(this, new PropertyChangedEventArgs("OrderID"));
             }
         }
@@ -33,7 +33,7 @@ namespace BO
             set
             {
                 orderStatus = value;
-                if (PropertyChanged != null)
+                if (PropertyChanged != null && orderStatus.Equals(value))
                     PropertyChanged(this, new PropertyChangedEventArgs("OrderStatus"));
             }
         }
