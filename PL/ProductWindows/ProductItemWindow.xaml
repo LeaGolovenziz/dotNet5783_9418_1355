@@ -55,6 +55,6 @@
         <Button x:Name="addToCartButton" Content="add to cart" HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.719,-2.324" Click="addToCartButton_Click" Height="37" Width="76" Grid.Row="1"/>
         <Button x:Name="closeButton" Content="close" HorizontalAlignment="Left" Margin="680,10,0,15" RenderTransformOrigin="0.719,-2.324" Click="closeButton_Click" Width="81" Grid.Row="1" />
         <Label x:Name="amountInCartLable" Content="amount in cart: " Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="101,0,0,0" Grid.Row="1" Height="42" Width="200" FontSize="16"/>
-        <TextBlock x:Name="amountInCartTextBox" Text="{Binding AmountInCart}" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="229,16,0,0" Grid.Row="1" Height="18" Width="30" FontSize="16" IsEnabled="False"/>
+        <TextBlock x:Name="amountInCartTextBox" Text="{Binding AmountInCart,Mode=TwoWay}" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="229,16,0,0" Grid.Row="1" Height="18" Width="30" FontSize="16" IsEnabled="False"/>
     </Grid>
 </Window>

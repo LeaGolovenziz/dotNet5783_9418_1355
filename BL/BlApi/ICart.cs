@@ -23,13 +23,13 @@ namespace BlApi
         /// <returns>Cart</returns>
         public Cart UpdateProductAmountInCart(Cart cart, int productID, int amount);
         /// <summary>
-        /// gets a cart and creates a new order
+        /// gets a cart and creates a new order, returns the new orders id
         /// </summary>
         /// <param name="cart"></param>
         /// <param name="name"></param>
         /// <param name="email"></param>
         /// <param name="address"></param>
-        public void PlaceOrder(Cart cart);
+        public int PlaceOrder(Cart cart);
         /// <summary>
         /// gets a cart and products id and returns the amount un cart of the product
         /// </summary>
