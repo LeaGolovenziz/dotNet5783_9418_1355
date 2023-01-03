@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="mainGrid" Width="640" Height="300" VerticalAlignment="Center">
+        <Grid x:Name="mainGrid" Width="640" Height="378" VerticalAlignment="Center" Margin="80,0,80,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -31,34 +31,34 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
-            <Label x:Name="IdLable" Content="ID:" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0" />
+            <Label x:Name="IdLable" Content="ID:" Grid.Column="0" HorizontalAlignment="Left" Margin="36,0,0,0" Width="137" />
             <TextBox x:Name="idTextBox" Grid.Column="1" VerticalAlignment="Center" Height="30" Text="{Binding Path=ID, Mode=TwoWay}" PreviewTextInput="allowOnlyNumbers" MaxLength="6" />
             <Label x:Name="idExceptionLable"  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Enter 6 numbers!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
-            <Label x:Name="categoryLable" Content="Category:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <Label x:Name="categoryLable" Content="Category:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="36,0,160,0"/>
             <ComboBox x:Name="categoryComboBox" Grid.Column="1" VerticalAlignment="Center" Height="30" Grid.Row="1" Text="{Binding Path=Category, Mode=TwoWay}" />
             <Label x:Name="isCategoryLable" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose category!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
-            <Label x:Name="nameLable" Content="Name:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <Label x:Name="nameLable" Content="Name:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="36,0,160,0"/>
             <TextBox x:Name="nameTextBox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="30" Text="{Binding Path=Name, Mode=TwoWay}" PreviewTextInput ="allowOnlyLetters" />
             <Label x:Name="nameExceptionLable" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The name you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
-            <Label x:Name="priceLable" Content="Price:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <Label x:Name="priceLable" Content="Price:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Width="137" Margin="36,0,0,0"/>
             <TextBox x:Name="priceTextBox" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Height="30" PreviewTextInput="allowOnlyNumbers" Text="{Binding Path=Price, Mode=TwoWay}" MaxLength="4" />
             <Label x:Name="priceExceptionLable" Grid.Column="3" Grid.Row="3" VerticalContentAlignment="Center" HorizontalAlignment="Center" Content="The price you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
-            <Label x:Name="InStockLable" Content="Amount in stock:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <Label x:Name="InStockLable" Content="Amount in stock:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Width="137" Margin="36,0,0,0"/>
             <TextBox x:Name="inStockTextBox" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Height="30" Text="{Binding Path=InStock, Mode=TwoWay}" PreviewTextInput="allowOnlyNumbers" MaxLength="4"/>
             <Label x:Name="inStockExceptionLable" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The amount you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
-            <Label x:Name="ImageLable" Content="Image:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0"/>
+            <Label x:Name="ImageLable" Content="Image:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Width="137" Margin="36,0,160,0"/>
             <Image x:Name="ProductImage" Grid.Column="1" Grid.Row="5" Source="{Binding Path=Image, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" Stretch="Uniform" />
             <Button x:Name="AddImageButton" Content="add image" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddImageButton_Click" Height="26" Width="128" Margin="14,0,0,0"/>
         </Grid>
 
-        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"  Click="updateButton_Click" Height="37" Width="100" Grid.Row="1"/>
-        <Button x:Name="addButton" Content="add" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"  Click="addButton_Click" Height="37" Width="76" Grid.Row="1"/>
-        <Button x:Name="closeButton" Content="close" HorizontalAlignment="Right" Margin="5,10"  Click="closeButton_Click" Width="50" Grid.Row="1" />
+        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Center" VerticalAlignment="Center"  Click="updateButton_Click" Height="45" Width="532" Grid.Row="1"/>
+        <Button x:Name="addButton" Content="add" HorizontalAlignment="Center" VerticalAlignment="Center"  Click="addButton_Click" Height="45" Width="508" Grid.Row="1"/>
+        <Button x:Name="closeButton" Content="close" HorizontalAlignment="Right" Margin="0,44,5,10"  Click="closeButton_Click" Width="69" Grid.Row="1" />
     </Grid>
 
 

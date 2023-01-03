@@ -11,11 +11,11 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="100*" MinHeight="320"/>
+            <RowDefinition Height="auto" MinHeight="50.4"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="mainGrid" Height="300" VerticalAlignment="Center" IsEnabled="False" Margin="80,10,225,10">
+        <Grid x:Name="mainGrid" Height="300" VerticalAlignment="Center" IsEnabled="False" Margin="80,0,225,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -30,22 +30,22 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
-            <Label x:Name="IdLable" Content="ID:" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center"  Margin="80,0,80,0" />
+            <Label x:Name="IdLable"  Width="96" Content="ID:" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"  HorizontalAlignment="Left"  Margin="100,0,80,0" />
             <TextBox x:Name="idTextBox" Text="{Binding ID}" Grid.Column="1" VerticalAlignment="Center" Height="30" />
 
-            <Label x:Name="nameLable" Content="Name:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="80,0,80,0"/>
+            <Label x:Name="nameLable"  Width="96" Content="Name:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"  Margin="100,0,80,0" VerticalAlignment="Center"/>
             <TextBox x:Name="nameTextBox" Text="{Binding Name}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="30" />
 
-            <Label x:Name="priceLable" Content="Price:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="80,0,80,0"/>
+            <Label x:Name="priceLable" Content="Price:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="100,0,80,0"  Width="96"/>
             <TextBox x:Name="priceTextBox" Text="{Binding Price}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="30" />
 
-            <Label x:Name="categoryLable" Content="Category:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="80,0,80,0"/>
+            <Label x:Name="categoryLable" Content="Category:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left"  Margin="100,0,0,0" Width="96"/>
             <TextBox x:Name="categoryTextBox" Text="{Binding Category}" Grid.Column="1" VerticalAlignment="Center" Height="30" Grid.Row="3"/>
 
-            <Label x:Name="InStockLable" Content="Is in stock:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="80,0,80,0"/>
+            <Label x:Name="InStockLable" Width="96" Content="Is in stock:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left"  Margin="100,0,0,0"/>
             <TextBox x:Name="inStockTextBox" Text="{Binding InStock}" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Height="30"  MaxLength="4"/>
 
-            <Label x:Name="ImageLable" Content="Image:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="80,0,80,0"/>
+            <Label x:Name="ImageLable"  Width="96" Content="Image:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="left" VerticalAlignment="Center" Margin="100,0,80,0"/>
             <Image x:Name="ProductImage" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" Stretch="Uniform" />
         </Grid>
         <Grid x:Name="lowGrid" Grid.Row="1">
@@ -55,9 +55,9 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        <Button x:Name="addToCartButton" Content="add to cart" HorizontalAlignment="Center" Margin="15" VerticalAlignment="Center" Grid.Column="2"  Click="addToCartButton_Click"/>
-        <Button x:Name="closeButton" Content="close" Grid.Column="3" HorizontalAlignment="Right" Margin="10,10"  Click="closeButton_Click"  />
-        <Label x:Name="amountInCartLable" Content="amount in cart: " Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
+            <Button x:Name="addToCartButton" Content="add to cart" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"  Click="addToCartButton_Click" Width="300" Height="30"/>
+            <Button x:Name="closeButton" Content="close" Grid.Column="3" HorizontalAlignment="Left" Margin="96,10,0,10"  Click="closeButton_Click" Width="54"  />
+            <Label x:Name="amountInCartLable" Content="amount in cart: " Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
             <TextBlock x:Name="amountInCartTextBox" Text="{Binding AmountInCart,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" IsEnabled="False"/>
         </Grid>
     </Grid>

@@ -49,11 +49,15 @@ namespace PL.OrderWindows
 
             // The checkBoxes of the status of the order
             if (order.OrderStatus.ToString() == "Sent")
+            {
                 orderShippedcheckBox.IsChecked = true;
+                SaveButtun.Content = "close";
+            }
             else if (order.OrderStatus.ToString() == "Delivered")
             {
                 orderDeliveredcheckBox.IsChecked = true;
                 orderShippedcheckBox.IsChecked = true;
+                SaveButtun.Content = "close";
             }
 
             this.action = action;

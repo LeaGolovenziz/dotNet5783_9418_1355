@@ -52,7 +52,7 @@ namespace PL.ProductWindows
             {
                 order = bl.Order.GetOrderDetails(id);
             }
-            catch(DoesntExist ex)
+            catch (DoesntExist ex)
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -112,25 +112,32 @@ namespace PL.ProductWindows
         // Adding product to an order
         private void AddOrderItem_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if ((ProductForList)ProductListView.SelectedItem == null)
             {
-                int productID = ((ProductForList)ProductListView.SelectedItem).ID;
-
-                order = bl.Order.AddNewOrderItem(order.ID, productID);
-
-                action(order, productID);
-
-                MessageBox.Show("product added to the order!");
+                MessageBox.Show("Coose a product to add", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (ProductNotInStock ex)
+            else
             {
-                MessageBox.Show("The product is out of stock :(", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    int productID = ((ProductForList)ProductListView.SelectedItem).ID;
+
+                    order = bl.Order.AddNewOrderItem(order.ID, productID);
+
+                    action(order, productID);
+
+                    MessageBox.Show("product added to the order!", "Attention", MessageBoxButton.OK,MessageBoxImage.Information);
+                }
+                catch (ProductNotInStock ex)
+                {
+                    MessageBox.Show("The product is out of stock :(", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (DoesntExist ex)
+                {
+                    MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                Close();
             }
-            catch(DoesntExist ex)
-            {
-                MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            Close();
         }
 
         private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
