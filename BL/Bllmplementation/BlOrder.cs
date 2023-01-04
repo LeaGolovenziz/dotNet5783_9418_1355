@@ -184,7 +184,7 @@ namespace Bllmplementation
                     throw new AlreadyShipped();
 
                 // update the ship date to now ( - ship the order)
-                dalOrder.ShipDate = DateTime.Now;
+                dalOrder.ShipDate = DateTime.Now;                
 
                 // update the order (the ship date) of dal
                 dal.Order.Update(dalOrder);
@@ -273,15 +273,29 @@ namespace Bllmplementation
                 if(product.InStock==0)
                     throw new ProductNotInStock();
 
-                DO.OrderItem dalOrderItem = new DO.OrderItem
+                int? newAmount;
+                try
                 {
-                    ID = productID,
-                    OrderID = orderID,
-                    Price = product.Price,
-                    ProductAmount = 1
-                };
+                    DO.OrderItem orderItem = dal.OrderItem.Get(productID, orderID);
+                    orderItem.ProductAmount++;
+                    dal.OrderItem.Update(orderItem);
 
-                dal.OrderItem.Add(dalOrderItem);
+                }
+                catch (NotFound ex)
+                {
+
+
+
+                    DO.OrderItem dalOrderItem = new DO.OrderItem
+                    {
+                        ID = productID,
+                        OrderID = orderID,
+                        Price = product.Price,
+                        ProductAmount = 1
+                    };
+
+                    dal.OrderItem.Add(dalOrderItem);
+                }
 
                 return GetOrderDetails(orderID);
             }

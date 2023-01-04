@@ -43,10 +43,6 @@ namespace PL.OrderWindows
             orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
             OrderItemsDataGrid.ItemsSource = orderItems;
 
-            // The check box that says "the order confirmed" always checked and not enabled
-            orderConfirmedcheckBox.IsChecked = true;
-            orderConfirmedcheckBox.IsEnabled = false;
-
             // The checkBoxes of the status of the order
             if (order.OrderStatus.ToString() == "Sent")
             {
@@ -68,8 +64,8 @@ namespace PL.OrderWindows
         {
             try
             {
-                order = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount);
-                orderDetailsGrid.DataContext=order;
+                double? price = bl.Order.UpdateOrderDetails(orderItem.OrderID, orderItem.ID, newAmount).Price;
+                order.Price = price;
 
                 int index = orderItems.IndexOf(orderItem);
                 orderItems.RemoveAt(index);
@@ -102,6 +98,8 @@ namespace PL.OrderWindows
 
                 updateOrderItem(orderItem, int.Parse(newAmountTextBox.Text));
             }
+            else
+                MessageBox.Show("Enter an amount in the text box", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         // If the order Delivered - prevent deliverimg it
@@ -113,7 +111,13 @@ namespace PL.OrderWindows
         {
             order = newOrder;
             orderDetailsGrid.DataContext = order;
-            orderItems.Add(order.OrderItems.FirstOrDefault(item => item.ID == productID));
+
+            // updates the collection with the new updated order item
+            OrderItem newOrderItem=order.OrderItems.FirstOrDefault(x=>x.ID==productID)!;
+            OrderItem oLDorderItem = orderItems.FirstOrDefault(x=>x.ID==productID)!;
+            orderItems.Remove(oLDorderItem);            
+            orderItems.Add(newOrderItem);
+
         }
 
         // Adds an orderItem to the order
@@ -146,8 +150,9 @@ namespace PL.OrderWindows
             {
                 try
                 {
-                    order = bl.Order.ShipOrder(order.ID);
-                    orderDetailsGrid.DataContext = order;
+                    bl.Order.ShipOrder(order.ID);
+                    order.OrderStatus = BO.Enums.OrderStatus.Sent;
+                    order.ShipDate= DateTime.Now;
                 }
                 catch (AlreadyShipped ex)
                 {
@@ -166,8 +171,9 @@ namespace PL.OrderWindows
             {
                 try
                 {
-                    order = bl.Order.DeliverOrder(order.ID);
-                    orderDetailsGrid.DataContext = order;
+                    bl.Order.DeliverOrder(order.ID);
+                    order.OrderStatus = BO.Enums.OrderStatus.Delivered;
+                    order.DeliveryDate = DateTime.Now;
                 }
                 catch (AlreadyDelivered ex)
                 {

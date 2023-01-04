@@ -34,7 +34,7 @@ namespace BO
             set
             {
                 orderStatus = value;
-                if (PropertyChanged != null && !orderStatus.Equals(value))
+                if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("OrderStatus"));
             }
         }
@@ -54,7 +54,7 @@ namespace BO
             set
             {
                 shipDate = value;
-                if (PropertyChanged != null && !shipDate.Equals(value))
+                if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ShipDate"));
             }
         }
@@ -69,7 +69,7 @@ namespace BO
             set
             {
                 deliveryDate = value;
-                if (PropertyChanged != null && !deliveryDate.Equals(value))
+                if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("DeliveryDate"));
             }
         }
@@ -84,7 +84,7 @@ namespace BO
             set
             {
                 orederItems = value;
-                if (PropertyChanged != null && !orederItems.Equals(value))
+                if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("OrderItems"));
             }
         }
@@ -99,7 +99,7 @@ namespace BO
             set
             {
                 price = value;
-                if (PropertyChanged != null && !price.Equals(value))
+                if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Price"));
             }
         }
