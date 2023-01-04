@@ -1,6 +1,7 @@
 ﻿using BO;
 using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,6 +42,26 @@ namespace PL.ProductWindows
             newProduct = bl.Product.GetProductDetails(id);
 
             mainGrid.DataContext = newProduct;
+
+            // try to upload the product image if exists
+            // try by name
+            try
+            {
+                Uri resourceUri = new Uri(Directory.GetCurrentDirectory().Replace("bin", newProduct.Image), UriKind.Absolute); ;
+                ProductImage.Source = new BitmapImage(resourceUri);
+            }
+            // incase there is no image with this name
+            catch (Exception) 
+            {
+                // try with full path
+                try
+                {
+                    Uri resourceUri = new Uri(newProduct.Image, UriKind.Absolute); ;
+                    ProductImage.Source = new BitmapImage(resourceUri);
+                }
+                // incase there is no image with this path
+                catch (Exception) { }
+            }
 
             this.action = action;
 
@@ -167,6 +188,7 @@ namespace PL.ProductWindows
                 bitmap.UriSource = new Uri(selectedFileName);
                 bitmap.EndInit();
                 ProductImage.Source = bitmap;
+                newProduct.Image = dlg.FileName;
             }
         }
 
