@@ -131,9 +131,21 @@ namespace PL.ProductWindows
                     MessageBox.Show("product updated!");
                     Close();
                 }
-                catch (DoesntExist ex)
+                catch (DoesntExist )
                 {
                     MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -152,9 +164,21 @@ namespace PL.ProductWindows
                     MessageBox.Show("product added!");
                     this.Close();
                 }
-                catch (IdAlreadyExist ex)
+                catch (IdAlreadyExist )
                 {
                     MessageBox.Show("There is already a product with this ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 

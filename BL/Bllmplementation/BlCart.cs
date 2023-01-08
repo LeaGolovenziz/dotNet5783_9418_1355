@@ -34,6 +34,18 @@ namespace Bllmplementation
             {
                 throw new DoesntExist(ex);
             }
+            catch(DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);  
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch(DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
             if (cart.OrderItems == null)
             { cart.OrderItems = new List<BO.OrderItem>();
                 cart.Price = 0;
@@ -112,6 +124,18 @@ namespace Bllmplementation
             {
                 throw new DoesntExist();
             }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
 
             // creating a new BO order
             BO.Order order = new BO.Order()
@@ -162,6 +186,18 @@ namespace Bllmplementation
                 catch (NotFound e)
                 {
                     throw new DoesntExist(e);
+                }
+                catch (DO.FileSavingError ex)
+                {
+                    throw new BO.FileSavingError(ex);
+                }
+                catch (DO.FileLoadingError ex)
+                {
+                    throw new BO.FileLoadingError(ex);
+                }
+                catch (DO.XmlFormatError ex)
+                {
+                    throw new BO.XmlFormatError(ex);
                 }
             }
             return order.ID;

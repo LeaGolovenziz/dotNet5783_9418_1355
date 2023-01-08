@@ -9,9 +9,9 @@
     {
         public AlreadyExist() : base("The object already exists") { }
     }
-    public class nullvalue : Exception
+    public class Nullvalue : Exception
     {
-        public nullvalue() : base("NULL value") { }
+        public Nullvalue() : base("NULL value") { }
     }
     [Serializable]
     public class DalConfigException : Exception

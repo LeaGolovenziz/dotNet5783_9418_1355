@@ -92,10 +92,23 @@ namespace PL.CartWindows
                 {
                     MessageBox.Show("product is not in stock!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                catch (DoesntExist ex)
+                catch (DoesntExist)
                 {
                     MessageBox.Show("can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
         }
         private void SubButton(object sender, RoutedEventArgs e)
         {
@@ -128,17 +141,29 @@ namespace PL.CartWindows
                     }
                 }
             }
-            catch (ProductNotInStock ex)
+            catch (ProductNotInStock)
             {
                 MessageBox.Show("product is not in stock!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (DoesntExist ex)
+            catch (DoesntExist)
             {
                 MessageBox.Show("can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (UnvalidAmount ex)
+            catch (UnvalidAmount)
             {
                 MessageBox.Show("unvalid product's amount", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileSavingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileLoadingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (XmlFormatError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -180,6 +205,18 @@ namespace PL.CartWindows
             catch (UnvalidAmount ex)
             {
                 MessageBox.Show("unvalid product's amount", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileSavingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileLoadingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (XmlFormatError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

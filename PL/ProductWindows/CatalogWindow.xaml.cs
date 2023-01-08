@@ -134,6 +134,18 @@ namespace PL.ProductWindows
             {
                 MessageBox.Show("can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (FileSavingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileLoadingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (XmlFormatError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
 
         }

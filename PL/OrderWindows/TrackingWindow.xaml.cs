@@ -50,6 +50,18 @@ namespace PL.OrderWindows
                 {
                     MessageBox.Show("There is no order with this ID", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             OrderIDTextBox.Clear();
         }

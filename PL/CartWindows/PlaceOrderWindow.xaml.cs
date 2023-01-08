@@ -43,7 +43,7 @@ namespace PL.CartWindows
         // make acxeption visible if text is empty anf unvisible otherwise
         private void CustomerNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text=="")
+            if (((TextBox)sender).Text == "")
             {
                 CustomerNameExceptionLable.Visibility = Visibility.Visible;
             }
@@ -89,7 +89,7 @@ namespace PL.CartWindows
             {
                 MessageBox.Show("please enter all details!");
             }
-            else try
+                else try
                 {
                     // place order
                     int orderID = bl.Cart.PlaceOrder(cart);
@@ -123,6 +123,7 @@ namespace PL.CartWindows
                 {
                     MessageBox.Show("can't find one of the products", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+        
         }
 
     }

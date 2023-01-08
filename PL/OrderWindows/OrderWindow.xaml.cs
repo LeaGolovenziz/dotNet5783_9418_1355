@@ -37,6 +37,18 @@ namespace PL.OrderWindows
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (FileSavingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileLoadingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (XmlFormatError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             orderDetailsGrid.DataContext = order;
 
             // The orderItems of the window
@@ -85,6 +97,18 @@ namespace PL.OrderWindows
             catch (DoesntExist ex)
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileSavingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileLoadingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (XmlFormatError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             newAmountTextBox.Clear();
         }
@@ -159,6 +183,18 @@ namespace PL.OrderWindows
                     MessageBox.Show("The order has been alredy shipped", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     Close();
                 }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -184,6 +220,18 @@ namespace PL.OrderWindows
                 {
                     MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -197,6 +245,18 @@ namespace PL.OrderWindows
             catch (DoesntExist ex)
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileSavingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileLoadingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (XmlFormatError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             MessageBox.Show("order saved!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);

@@ -56,6 +56,18 @@ namespace PL.ProductWindows
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (FileSavingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileLoadingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (XmlFormatError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         // Sorts the products by the chosen category
@@ -135,6 +147,18 @@ namespace PL.ProductWindows
                 catch (DoesntExist ex)
                 {
                     MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 Close();
             }
