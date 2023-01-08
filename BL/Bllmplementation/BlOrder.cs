@@ -1,9 +1,8 @@
 ﻿using BO;
-using Dal;
 using DalApi;
 using DO;
 using IOrder = BlApi.IOrder;
-using nullvalue = BO.nullvalue;
+using Nullvalue = BO.Nullvalue;
 using Order = BO.Order;
 using OrderItem = BO.OrderItem;
 
@@ -41,7 +40,7 @@ namespace Bllmplementation
             {
                 OrderItem tempOrderItem = item.CopyPropTo(new OrderItem());
                 // calculate total price of the order item as product price * product ampount
-                tempOrderItem.TotalPrice = ((item ?? throw new nullvalue()).Price ?? throw new nullvalue()) * ((item ?? throw new nullvalue()).ProductAmount ?? throw new nullvalue());
+                tempOrderItem.TotalPrice = ((item ?? throw new Nullvalue()).Price ?? throw new Nullvalue()) * ((item ?? throw new Nullvalue()).ProductAmount ?? throw new Nullvalue());
                 tempOrderItem.Name = dal.Product.Get((int)item?.ID).Name;
 
                 blOrder.OrderItems.Add(tempOrderItem);
@@ -65,9 +64,9 @@ namespace Bllmplementation
         {
             BO.Enums.OrderStatus? orderStatus;
             // the status
-            if ((order ?? throw new nullvalue()).DeliveryDate != null && (order ?? throw new nullvalue()).DeliveryDate <= DateTime.Now)
+            if ((order ?? throw new Nullvalue()).DeliveryDate != null && (order ?? throw new Nullvalue()).DeliveryDate <= DateTime.Now)
                 orderStatus = BO.Enums.OrderStatus.Delivered;
-            else if ((order ?? throw new nullvalue()).ShipDate != null && (order ?? throw new nullvalue()).ShipDate <= DateTime.Now)
+            else if ((order ?? throw new Nullvalue()).ShipDate != null && (order ?? throw new Nullvalue()).ShipDate <= DateTime.Now)
                 orderStatus = BO.Enums.OrderStatus.Sent;
             else
                 orderStatus = BO.Enums.OrderStatus.Confirmed;
@@ -98,6 +97,18 @@ namespace Bllmplementation
             catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
+            }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
             }
         }
 
@@ -147,6 +158,18 @@ namespace Bllmplementation
             {
                 throw new DoesntExist(e);
             }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
         }
 
         IEnumerable<OrderForList?> IOrder.GetOrderList()
@@ -159,14 +182,14 @@ namespace Bllmplementation
             orders = dalOrders.Select(order => new OrderForList
             {
                 // the ID the
-                OrderID = (order ?? throw new nullvalue()).ID!,
+                OrderID = (order ?? throw new Nullvalue()).ID!,
                 // the customer's name
-                CustomerName = (order ?? throw new nullvalue()).CustomerName!,
+                CustomerName = (order ?? throw new Nullvalue()).CustomerName!,
                 OrderStatus = getOrderStatus(order),
                 // the amount
-                Amount = orderItems.Where(x => (x ?? throw new nullvalue()).OrderID == (order ?? throw new nullvalue()).ID).Sum(x => (x ?? throw new nullvalue()).ProductAmount),
+                Amount = orderItems.Where(x => (x ?? throw new Nullvalue()).OrderID == (order ?? throw new Nullvalue()).ID).Sum(x => (x ?? throw new Nullvalue()).ProductAmount),
                 // the price
-                Price = orderItems.Where(x => (x ?? throw new nullvalue()).OrderID == (order ?? throw new nullvalue()).ID).Sum(x => (x ?? throw new nullvalue()).Price * (x ?? throw new nullvalue()).ProductAmount)
+                Price = orderItems.Where(x => (x ?? throw new Nullvalue()).OrderID == (order ?? throw new Nullvalue()).ID).Sum(x => (x ?? throw new Nullvalue()).Price * (x ?? throw new Nullvalue()).ProductAmount)
             }); ;
 
             return orders;
@@ -184,7 +207,7 @@ namespace Bllmplementation
                     throw new AlreadyShipped();
 
                 // update the ship date to now ( - ship the order)
-                dalOrder.ShipDate = DateTime.Now;                
+                dalOrder.ShipDate = DateTime.Now;
 
                 // update the order (the ship date) of dal
                 dal.Order.Update(dalOrder);
@@ -195,6 +218,18 @@ namespace Bllmplementation
             catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
+            }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
             }
         }
 
@@ -241,6 +276,18 @@ namespace Bllmplementation
             {
                 throw new DoesntExist(ex);
             }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
         }
 
         public OrderForList GetOrderForList(int orderID)
@@ -255,13 +302,25 @@ namespace Bllmplementation
                 // copy the rest of the properties
                 orderForList.OrderID = dalOrder.ID;
                 orderForList.OrderStatus = (BO.Enums.OrderStatus)getOrderStatus(dalOrder)!;
-                orderForList.Amount = dal.OrderItem.GeOrderItems(orderID).Sum(orderItem => (orderItem ?? throw new nullvalue()).ProductAmount);
-                orderForList.Price = dal.OrderItem.GeOrderItems(orderID).Where(orderItem => (orderItem ?? throw new nullvalue()).OrderID == orderID).Sum(orderItem => (orderItem ?? throw new nullvalue()).Price * (orderItem ?? throw new nullvalue()).ProductAmount);
+                orderForList.Amount = dal.OrderItem.GeOrderItems(orderID).Sum(orderItem => (orderItem ?? throw new Nullvalue()).ProductAmount);
+                orderForList.Price = dal.OrderItem.GeOrderItems(orderID).Where(orderItem => (orderItem ?? throw new Nullvalue()).OrderID == orderID).Sum(orderItem => (orderItem ?? throw new Nullvalue()).Price * (orderItem ?? throw new Nullvalue()).ProductAmount);
                 return orderForList;
             }
             catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
+            }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
             }
         }
 
@@ -270,7 +329,7 @@ namespace Bllmplementation
             try
             {
                 DO.Product product = dal.Product.Get(productID);
-                if(product.InStock==0)
+                if (product.InStock == 0)
                     throw new ProductNotInStock();
 
                 int? newAmount;
@@ -283,9 +342,6 @@ namespace Bllmplementation
                 }
                 catch (NotFound ex)
                 {
-
-
-
                     DO.OrderItem dalOrderItem = new DO.OrderItem
                     {
                         ID = productID,
@@ -299,9 +355,21 @@ namespace Bllmplementation
 
                 return GetOrderDetails(orderID);
             }
-            catch(NotFound ex)
+            catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
+            }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
             }
 
         }

@@ -12,7 +12,7 @@ public class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public int Add(Product product)
     {
-        if (DataSource.lstPruducts.Exists(x => (x ?? throw new nullvalue()).ID == product.ID))
+        if (DataSource.lstPruducts.Exists(x => (x ?? throw new Nullvalue()).ID == product.ID))
             throw new AlreadyExist();
         DataSource.lstPruducts.Add(product);
         return product.ID;
@@ -26,7 +26,7 @@ public class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public Product Get(int id)
     {
-        return GetIf(product => (product ?? throw new nullvalue()).ID == id);
+        return GetIf(product => (product ?? throw new Nullvalue()).ID == id);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public class DalProduct : IProduct
     /// <param name="product"></param>
     public void Update(Product product)
     {
-        int index = DataSource.lstPruducts.FindIndex(x => (x ?? throw new nullvalue()).ID == product.ID);
+        int index = DataSource.lstPruducts.FindIndex(x => (x ?? throw new Nullvalue()).ID == product.ID);
         if (index == -1)
             throw new NotFound();
         DataSource.lstPruducts[index] = product;

@@ -9,9 +9,9 @@
     {
         public AlreadyExist() : base("The object already exists") { }
     }
-    public class nullvalue : Exception
+    public class Nullvalue : Exception
     {
-        public nullvalue() : base("NULL value") { }
+        public Nullvalue() : base("NULL value") { }
     }
     [Serializable]
     public class DalConfigException : Exception
@@ -20,7 +20,7 @@
         public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
     }
 
-    public class FileLoadingError:Exception
+    public class FileLoadingError : Exception
     {
         public FileLoadingError() : base("The file can't be load") { }
     }
@@ -30,9 +30,9 @@
         public FileSavingError() : base("The file can't be save") { }
     }
 
-    public class XmlFormatError:Exception
+    public class XmlFormatError : Exception
     {
-        public XmlFormatError(string field): base(field+" format isn't valid") { }
+        public XmlFormatError(string field) : base(field + " format isn't valid") { }
     }
 
 }

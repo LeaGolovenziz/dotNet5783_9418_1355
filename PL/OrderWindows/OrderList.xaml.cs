@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace PL.OrderWindows
 {
@@ -57,7 +56,7 @@ namespace PL.OrderWindows
         private void UpdateOrder(OrderForList orderForList)
         {
             var item = Orders.FirstOrDefault(order => order.OrderID == orderForList.OrderID);
-            if(item != null)
+            if (item != null)
                 Orders[Orders.IndexOf(item)] = orderForList;
         }
 
@@ -67,7 +66,7 @@ namespace PL.OrderWindows
             // get the Order selected from the list
             OrderForList orderForList = (OrderForList)OrderListView.SelectedItem;
 
-            if(orderForList!=null)
+            if (orderForList != null)
             {
                 new OrderWindow(orderForList.OrderID, UpdateOrder).ShowDialog();
             }

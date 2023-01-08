@@ -1,9 +1,8 @@
 ﻿using BO;
 using DalApi;
 using DO;
-using System.Reflection.Metadata.Ecma335;
 using IProduct = BlApi.IProduct;
-using nullvalue = BO.nullvalue;
+using Nullvalue = BO.Nullvalue;
 
 namespace Bllmplementation
 {
@@ -38,6 +37,18 @@ namespace Bllmplementation
             {
                 throw new IdAlreadyExist(ex);
             }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
         }
 
         void IProduct.DeleteProduct(int productID)
@@ -45,7 +56,7 @@ namespace Bllmplementation
             // gets the order items list from dal
             IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.Get();
             // checks foreach order item if contains the current product
-            if (orderItems.FirstOrDefault(OrderItem => (OrderItem ?? throw new nullvalue()).ID == productID) == null)
+            if (orderItems.FirstOrDefault(OrderItem => (OrderItem ?? throw new Nullvalue()).ID == productID) == null)
                 throw new ProductExistInOrder();
 
             // if the product doesn't exists in any order deletes the product from dal
@@ -57,6 +68,18 @@ namespace Bllmplementation
             catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
+            }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
             }
         }
 
@@ -84,6 +107,18 @@ namespace Bllmplementation
             {
                 throw new DoesntExist(ex);
             }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
         }
 
         BO.Product IProduct.GetProductDetails(int productID)
@@ -109,6 +144,18 @@ namespace Bllmplementation
             {
                 throw new DoesntExist(ex);
             }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
         }
 
         ProductItem IProduct.GetProductFromCatalog(int productID, Cart cart)
@@ -131,7 +178,7 @@ namespace Bllmplementation
                         product.InStock = true;
 
                     // count the amount of the product in the cart
-                    if (cart.OrderItems != null&& cart.OrderItems.Exists(x => x.ID == productID))
+                    if (cart.OrderItems != null && cart.OrderItems.Exists(x => x.ID == productID))
                         product.AmountInCart = cart.OrderItems.Find(x => x.ID == productID)!.ProductAmount;
                     else
                         product.AmountInCart = 0;
@@ -144,6 +191,18 @@ namespace Bllmplementation
             catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
+            }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
             }
         }
 

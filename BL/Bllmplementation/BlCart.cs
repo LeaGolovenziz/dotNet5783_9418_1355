@@ -15,9 +15,9 @@ namespace Bllmplementation
 
         public int AmountOf(Cart cart, int productID)
         {
-            if (cart.OrderItems==null)
-              return 0;
-            return (int)(cart.OrderItems.FirstOrDefault(x => x.ID == productID)?.ProductAmount??0);
+            if (cart.OrderItems == null)
+                return 0;
+            return (int)(cart.OrderItems.FirstOrDefault(x => x.ID == productID)?.ProductAmount ?? 0);
         }
 
         Cart ICart.AddProductToCart(Cart cart, int productID)
@@ -34,18 +34,31 @@ namespace Bllmplementation
             {
                 throw new DoesntExist(ex);
             }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
             if (cart.OrderItems == null)
-            { cart.OrderItems = new List<BO.OrderItem>();
+            {
+                cart.OrderItems = new List<BO.OrderItem>();
                 cart.Price = 0;
             }
 
             // if product's already in the order
-            if ( cart.OrderItems.Exists(x => x.ID == productID))
+            if (cart.OrderItems.Exists(x => x.ID == productID))
             {
                 // find the index of the product 
                 int index = cart.OrderItems.FindIndex(x => x.ID == productID);
                 // chek if there is enough in stock
-                if(dal.Product.Get(productID).InStock - cart.OrderItems.ElementAt(index).ProductAmount <= 0)
+                if (dal.Product.Get(productID).InStock - cart.OrderItems.ElementAt(index).ProductAmount <= 0)
                 {
                     throw new ProductNotInStock();
                 }
@@ -112,6 +125,18 @@ namespace Bllmplementation
             {
                 throw new DoesntExist();
             }
+            catch (DO.FileSavingError ex)
+            {
+                throw new BO.FileSavingError(ex);
+            }
+            catch (DO.FileLoadingError ex)
+            {
+                throw new BO.FileLoadingError(ex);
+            }
+            catch (DO.XmlFormatError ex)
+            {
+                throw new BO.XmlFormatError(ex);
+            }
 
             // creating a new BO order
             BO.Order order = new BO.Order()
@@ -162,6 +187,18 @@ namespace Bllmplementation
                 catch (NotFound e)
                 {
                     throw new DoesntExist(e);
+                }
+                catch (DO.FileSavingError ex)
+                {
+                    throw new BO.FileSavingError(ex);
+                }
+                catch (DO.FileLoadingError ex)
+                {
+                    throw new BO.FileLoadingError(ex);
+                }
+                catch (DO.XmlFormatError ex)
+                {
+                    throw new BO.XmlFormatError(ex);
                 }
             }
             return order.ID;

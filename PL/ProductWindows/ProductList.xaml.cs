@@ -1,5 +1,4 @@
 ﻿using BO;
-using Dal;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -55,6 +54,18 @@ namespace PL.ProductWindows
             catch (DoesntExist ex)
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileSavingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (FileLoadingError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (XmlFormatError)
+            {
+                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -126,7 +137,7 @@ namespace PL.ProductWindows
 
                     action(order, productID);
 
-                    MessageBox.Show("product added to the order!", "Attention", MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show("product added to the order!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (ProductNotInStock ex)
                 {
@@ -135,6 +146,18 @@ namespace PL.ProductWindows
                 catch (DoesntExist ex)
                 {
                     MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 Close();
             }

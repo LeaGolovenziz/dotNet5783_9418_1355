@@ -62,8 +62,23 @@
     {
         public wasntShipped() : base("The order wasn't shipped") { }
     }
-    public class nullvalue : blExceptions
+    public class Nullvalue : blExceptions
     {
-        public nullvalue() : base("NULL value") { }
+        public Nullvalue() : base("NULL value") { }
+    }
+
+    public class FileLoadingError : blExceptions
+    {
+        public FileLoadingError(DO.FileLoadingError ex) : base("The file can't be load", ex) { }
+    }
+
+    public class FileSavingError : blExceptions
+    {
+        public FileSavingError(DO.FileSavingError ex) : base("The file can't be save", ex) { }
+    }
+
+    public class XmlFormatError : blExceptions
+    {
+        public XmlFormatError(DO.XmlFormatError ex) : base("wrong xml element format", ex) { }
     }
 }

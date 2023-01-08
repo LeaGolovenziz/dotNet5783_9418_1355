@@ -25,15 +25,15 @@ namespace BO
         /// Unique Price of the product
         /// </summary>
         public double? Price { get; set; }
-        
+
         /// <summary>
         /// unique amount of products
         /// </summary>
-        public int? ProductAmount { get=>productAmount; set { productAmount = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ProductAmount")); } }
+        public int? ProductAmount { get => productAmount; set { productAmount = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ProductAmount")); } }
         /// <summary>
         /// Unique Total price of the Ordered Item
         /// </summary>
-        public double? TotalPrice { get=>totalPrice; set { totalPrice = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TotalPrice")); } }
+        public double? TotalPrice { get => totalPrice; set { totalPrice = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("TotalPrice")); } }
 
         /// <summary>
         /// returns a string of the ordered item's details

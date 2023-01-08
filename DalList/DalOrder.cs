@@ -25,7 +25,7 @@ public class DalOrder : IOrder
     /// <exception cref="Exception"></exception>
     public Order Get(int id)
     {
-        return GetIf(order => (order ?? throw new nullvalue()).ID == id);
+        return GetIf(order => (order ?? throw new Nullvalue()).ID == id);
     }
 
     /// <summary>
@@ -43,7 +43,7 @@ public class DalOrder : IOrder
     /// <param name="order"></param>
     public void Update(Order order)
     {
-        int index = DataSource.lstOreders.FindIndex(x => (x ?? throw new nullvalue()).ID == order.ID);
+        int index = DataSource.lstOreders.FindIndex(x => (x ?? throw new Nullvalue()).ID == order.ID);
         if (index == -1)
             throw new NotFound();
         DataSource.lstOreders[index] = order;
