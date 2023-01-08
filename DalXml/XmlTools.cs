@@ -15,12 +15,12 @@ namespace Dal
         static string dir = @"xml\";
         public static string configPath = @"Config.xml";
 
-        //static XmlTools()
-        //{
-        //    // if the xml folderdoesn't exists create the folder
-        //    if (!Directory.Exists(dir))
-        //        Directory.CreateDirectory(dir);
-        //}
+        static XmlTools()
+        {
+            // if the xml folderdoesn't exists create the folder
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+        }
 
         /// <summary>
         /// loads the products file
@@ -30,6 +30,8 @@ namespace Dal
         /// <exception cref="FileLoadingError"></exception>
         public static XElement LoadListFromXMLElement(string filePath)
         {
+            XNamespace Xdir = dir;
+
             try
             {
                 if (File.Exists(dir + filePath))
@@ -38,7 +40,7 @@ namespace Dal
                 }
                 else
                 {
-                    XElement rootElem = new XElement(dir + filePath);
+                    XElement rootElem = new XElement(/*Xdir + filePath*/"products");
                     rootElem.Save(dir + filePath);
                     return rootElem;
                 }

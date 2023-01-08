@@ -76,7 +76,7 @@ namespace Dal
         {
             List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
 
-            return orderItems.Where(orderItem => (orderItem ?? throw new nullvalue()).OrderID == orderID);
+            return orderItems.Where(orderItem => (orderItem ?? throw new Nullvalue()).OrderID == orderID);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Dal
         {
             List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
 
-            return orderItems.FirstOrDefault(orderItem => (orderItem ?? throw new nullvalue()).OrderID == orderID && (orderItem ?? throw new nullvalue()).ID == productID) ?? throw new NotFound();
+            return orderItems.FirstOrDefault(orderItem => (orderItem ?? throw new Nullvalue()).OrderID == orderID && (orderItem ?? throw new Nullvalue()).ID == productID) ?? throw new NotFound();
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Dal
         /// <exception cref="nullvalue"></exception>
         public DO.OrderItem Get(int id)
         {
-            return GetIf(OrderItem => (OrderItem ?? throw new nullvalue()).OrderItemID == id);
+            return GetIf(OrderItem => (OrderItem ?? throw new Nullvalue()).OrderItemID == id);
         }
 
         /// <summary>

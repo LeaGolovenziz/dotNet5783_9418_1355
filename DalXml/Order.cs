@@ -89,7 +89,7 @@ namespace Dal
         /// <exception cref="nullvalue"></exception>
         public DO.Order Get(int id)
         {
-            return GetIf(order => (order ?? throw new nullvalue()).ID == id);
+            return GetIf(order => (order ?? throw new Nullvalue()).ID == id);
         }
 
         /// <summary>

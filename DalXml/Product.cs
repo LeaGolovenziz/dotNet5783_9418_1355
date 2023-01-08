@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 
@@ -168,17 +169,19 @@ namespace Dal
             {
                 throw new FileLoadingError();
             }
-            IEnumerable<DO.Product> products = from product in ProductRoot.Elements()
-                                               select new DO.Product()
-                                               {
-                                                   ID = Convert.ToInt32(product.Element("id") ?? throw new XmlFormatError("id")),
-                                                   Name = (string?)product.Element("name") ?? throw new XmlFormatError("name"),
-                                                   Category = (DO.Enums.Category?)(int?)product.Element("category") ?? throw new XmlFormatError("category"),
-                                                   Price = (double?)product.Element("price") ?? throw new XmlFormatError("price"),
-                                                   InStock = (int?)product.Element("amount") ?? throw new XmlFormatError("amount"),
-                                                   Image = Convert.ToString(product.Element("image") ?? throw new XmlFormatError("image"))!
-                                               };
-            return func != null ? (IEnumerable<DO.Product?>)products.Where(x => func(x)) : (IEnumerable<DO.Product?>)products;
+            IEnumerable<DO.Product?> products = (from product in ProductRoot.Elements()
+                                                 select new DO.Product()
+                                                 {
+                                                     ID = Convert.ToInt32(product.Element("id") ?? throw new XmlFormatError("id")),
+                                                     Name = (string?)product.Element("name") ?? throw new XmlFormatError("name"),
+                                                     Category = (DO.Enums.Category?)(int?)product.Element("category") ?? throw new XmlFormatError("category"),
+                                                     Price = (double?)product.Element("price") ?? throw new XmlFormatError("price"),
+                                                     InStock = (int?)product.Element("amount") ?? throw new XmlFormatError("amount"),
+                                                     Image = Convert.ToString(product.Element("image") ?? throw new XmlFormatError("image"))!
+                                                 }
+                                                 as DO.Product?);
+                                                
+            return func != null ? products.Where(x => func(x)) : products;
         }
 
         /// <summary>
@@ -189,7 +192,7 @@ namespace Dal
         /// <exception cref="nullvalue"></exception>
         public DO.Product Get(int id)
         {
-            return GetIf(product => (product ?? throw new nullvalue()).ID == id);
+            return GetIf(product => (product ?? throw new Nullvalue()).ID == id);
         }
 
         /// <summary>
