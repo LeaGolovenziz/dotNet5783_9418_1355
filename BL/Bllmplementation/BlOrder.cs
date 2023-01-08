@@ -1,5 +1,4 @@
 ﻿using BO;
-using Dal;
 using DalApi;
 using DO;
 using IOrder = BlApi.IOrder;
@@ -208,7 +207,7 @@ namespace Bllmplementation
                     throw new AlreadyShipped();
 
                 // update the ship date to now ( - ship the order)
-                dalOrder.ShipDate = DateTime.Now;                
+                dalOrder.ShipDate = DateTime.Now;
 
                 // update the order (the ship date) of dal
                 dal.Order.Update(dalOrder);
@@ -330,7 +329,7 @@ namespace Bllmplementation
             try
             {
                 DO.Product product = dal.Product.Get(productID);
-                if(product.InStock==0)
+                if (product.InStock == 0)
                     throw new ProductNotInStock();
 
                 int? newAmount;
@@ -356,7 +355,7 @@ namespace Bllmplementation
 
                 return GetOrderDetails(orderID);
             }
-            catch(NotFound ex)
+            catch (NotFound ex)
             {
                 throw new DoesntExist(ex);
             }

@@ -1,12 +1,9 @@
 ﻿using BO;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows;
 using static BO.Enums;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Collections.Specialized;
 
 namespace PL.OrderWindows
 {
@@ -28,7 +25,7 @@ namespace PL.OrderWindows
         private void trackOrderButton_Click(object sender, RoutedEventArgs e)
         {
             // If the order ID is too short
-            if (OrderIDTextBox.Text.Length!=6)
+            if (OrderIDTextBox.Text.Length != 6)
             {
                 MessageBox.Show("The ID is unvalid, enter 6 digits", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -39,7 +36,7 @@ namespace PL.OrderWindows
                 {
                     orderTracking = bl.Order.TrackOrder(int.Parse(OrderIDTextBox.Text));
                     Tracking = orderTracking.Tracking;
-                    
+
                     StatusGridView.Visibility = Visibility.Visible;
                     trackingListView.Visibility = Visibility.Visible;
 

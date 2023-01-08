@@ -1,10 +1,8 @@
-﻿using BO;
-using PL.OrderWindows;
+﻿using PL.OrderWindows;
 using PL.ProductWindows;
-using System.IO;
 using System;
+using System.IO;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace PL
 {

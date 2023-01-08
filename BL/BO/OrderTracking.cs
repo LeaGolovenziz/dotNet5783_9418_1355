@@ -1,10 +1,9 @@
-﻿using System.ComponentModel;
-using static BO.Enums;
+﻿using static BO.Enums;
 
 namespace BO
 {
     public class OrderTracking
-    { 
+    {
         /// <summary>
         /// unique ID of the order
         /// </summary>

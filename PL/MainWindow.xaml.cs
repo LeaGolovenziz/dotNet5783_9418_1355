@@ -1,7 +1,5 @@
-﻿
-using PL.ProductWindows;
+﻿using System;
 using System.IO;
-using System;
 using System.Windows;
 
 namespace PL

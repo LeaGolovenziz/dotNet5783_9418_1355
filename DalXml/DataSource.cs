@@ -1,5 +1,4 @@
 ﻿using Dal;
-using System.Collections.Generic;
 using System.Xml.Linq;
 
 Test_LinqToXml_and_XmlSerializer();

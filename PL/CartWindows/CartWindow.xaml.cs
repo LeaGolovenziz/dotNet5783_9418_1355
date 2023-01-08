@@ -1,14 +1,9 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace PL.CartWindows

@@ -1,7 +1,6 @@
 ﻿using BO;
 using DalApi;
 using DO;
-using System.Reflection.Metadata.Ecma335;
 using IProduct = BlApi.IProduct;
 using Nullvalue = BO.Nullvalue;
 
@@ -179,7 +178,7 @@ namespace Bllmplementation
                         product.InStock = true;
 
                     // count the amount of the product in the cart
-                    if (cart.OrderItems != null&& cart.OrderItems.Exists(x => x.ID == productID))
+                    if (cart.OrderItems != null && cart.OrderItems.Exists(x => x.ID == productID))
                         product.AmountInCart = cart.OrderItems.Find(x => x.ID == productID)!.ProductAmount;
                     else
                         product.AmountInCart = 0;
