@@ -4,7 +4,6 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -27,7 +26,7 @@ namespace PL.ProductWindows
         }
 
         // constructor for add product window
-        public ProductWindow(Action<ProductForList> action):this()
+        public ProductWindow(Action<ProductForList> action) : this()
         {
             this.action = action;
 
@@ -37,7 +36,7 @@ namespace PL.ProductWindows
         }
 
         // constructor for update product window
-        public ProductWindow(Action<ProductForList> action,int id):this()
+        public ProductWindow(Action<ProductForList> action, int id) : this()
         {
             newProduct = bl.Product.GetProductDetails(id);
 
@@ -51,7 +50,7 @@ namespace PL.ProductWindows
                 ProductImage.Source = new BitmapImage(resourceUri);
             }
             // incase there is no image with this name
-            catch (Exception) 
+            catch (Exception)
             {
                 // try with full path
                 try
@@ -131,7 +130,7 @@ namespace PL.ProductWindows
                     MessageBox.Show("product updated!");
                     Close();
                 }
-                catch (DoesntExist )
+                catch (DoesntExist)
                 {
                     MessageBox.Show("Can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -164,7 +163,7 @@ namespace PL.ProductWindows
                     MessageBox.Show("product added!");
                     this.Close();
                 }
-                catch (IdAlreadyExist )
+                catch (IdAlreadyExist)
                 {
                     MessageBox.Show("There is already a product with this ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }

@@ -1,5 +1,4 @@
 ﻿using BO;
-using Dal;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -138,7 +137,7 @@ namespace PL.ProductWindows
 
                     action(order, productID);
 
-                    MessageBox.Show("product added to the order!", "Attention", MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show("product added to the order!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (ProductNotInStock ex)
                 {

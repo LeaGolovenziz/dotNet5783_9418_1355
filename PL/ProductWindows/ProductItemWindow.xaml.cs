@@ -1,20 +1,8 @@
 ﻿using BO;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.ProductWindows
 {
@@ -31,18 +19,18 @@ namespace PL.ProductWindows
 
         Cart Cart;
 
-        public ProductItemWindow(int id,Cart cart, Action<ProductItem?> action)
+        public ProductItemWindow(int id, Cart cart, Action<ProductItem?> action)
         {
             InitializeComponent();
 
             try
-            { 
-                ProductItem = bl.Product.GetProductFromCatalog(id, cart); 
+            {
+                ProductItem = bl.Product.GetProductFromCatalog(id, cart);
             }
             // incase the product doesn't exists
-            catch (DoesntExist )
+            catch (DoesntExist)
             {
-                MessageBox.Show("can't find the product","ERROR",MessageBoxButton.OK,MessageBoxImage.Error);    
+                MessageBox.Show("can't find the product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 Close();
             }
             catch (FileSavingError)
@@ -79,8 +67,8 @@ namespace PL.ProductWindows
 
         // add product item to cart and update its amount in the cart window
         private void addToCartButton_Click(object sender, RoutedEventArgs e) => addToCartAction(ProductItem);
-        
+
 
     }
-    
+
 }
