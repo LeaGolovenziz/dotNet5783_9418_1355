@@ -151,7 +151,7 @@ namespace Dal
         /// <exception cref="nullvalue"></exception>
         public DO.Product Get(int id)
         {
-            return GetIf(product => (product ?? throw new nullvalue()).ID == id);
+            return GetIf(product => (product ?? throw new Nullvalue()).ID == id);
         }
 
         /// <summary>
