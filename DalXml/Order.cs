@@ -1,6 +1,7 @@
 ﻿using DalApi;
 using DO;
 using System.IO;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Dal
@@ -20,7 +21,11 @@ namespace Dal
             }
             catch
             {
-
+                XElement configRoot = XElement.Load(XmlTools.configPath);
+                int.TryParse(configRoot.Element("orderID")!.Value, out int nextSeqNum);
+                order.ID = nextSeqNum;
+                nextSeqNum++;
+                configRoot.Element("orderID")!.SetValue(nextSeqNum);
                 orders.Add(order);
                 // Try to save the file with the additional product
                 try

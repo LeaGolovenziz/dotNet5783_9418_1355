@@ -13,6 +13,7 @@ namespace Dal
     {
         // xml files' folders name
         static string dir = @"xml\";
+        public static string configPath = @"Config.xml";
 
         //static XmlTools()
         //{
