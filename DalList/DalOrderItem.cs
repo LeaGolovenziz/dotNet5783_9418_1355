@@ -66,13 +66,12 @@ public class DalOrderItem : IOrderItem
     ///  return the list of order's items
     /// </summary>
     /// <returns>List<Order></Order></returns>
-    public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? func)
+    public IEnumerable<OrderItem?> Get(Func<OrderItem?, bool>? func = null)
     {
         if (func != null)
-            if (func != null)
-                return (from item in DataSource.lstOrderItems
-                        where func(item)
-                        select item).ToList();
+            return (from item in DataSource.lstOrderItems
+                    where func(item)
+                    select item).ToList();
         return DataSource.lstOrderItems;
     }
 
