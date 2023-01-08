@@ -102,7 +102,6 @@ namespace Dal
             catch 
             {
                 throw new FileSavingError();
-
             }
         }
         
