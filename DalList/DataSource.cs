@@ -39,7 +39,7 @@ public static class DataSource
 
         string[] streets = { "Ben Guryon", "Habrosh", "Hazait", "Vaitzman", "Begin" };
 
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 50; i++)
         {
             // create new product
             Product product = new Product();

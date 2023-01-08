@@ -53,7 +53,7 @@ public class DalOrder : IOrder
     ///  return the list of orders
     /// </summary>
     /// <returns>List<Order></returns>
-    public IEnumerable<Order?> Get(Func<Order?, bool>? func)
+    public IEnumerable<Order?> Get(Func<Order?, bool>? func = null)
     {
         if (func != null)
             return (from item in DataSource.lstOreders

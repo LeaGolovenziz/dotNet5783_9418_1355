@@ -54,13 +54,12 @@ public class DalProduct : IProduct
     /// return the list of products
     /// </summary>
     /// <returns>List<Order></returns>
-    public IEnumerable<Product?> Get(Func<Product?, bool>? func)
+    public IEnumerable<Product?> Get(Func<Product?, bool>? func = null)
     {
         if (func != null)
-            if (func != null)
-                return (from item in DataSource.lstPruducts
-                        where func(item)
-                        select item).ToList();
+            return (from item in DataSource.lstPruducts
+                    where func(item)
+                    select item).ToList();
         return DataSource.lstPruducts;
     }
     /// <summary>

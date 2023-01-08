@@ -20,4 +20,19 @@
         public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
     }
 
+    public class FileLoadingError:Exception
+    {
+        public FileLoadingError() : base("The file can't be load") { }
+    }
+
+    public class FileSavingError : Exception
+    {
+        public FileSavingError() : base("The file can't be save") { }
+    }
+
+    public class XmlFormatError:Exception
+    {
+        public XmlFormatError(string field): base(field+" format isn't valid") { }
+    }
+
 }
