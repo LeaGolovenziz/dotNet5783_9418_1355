@@ -152,6 +152,18 @@ namespace Dal
             }
         }
 
+        static DO.Product? GetProduct(XElement product) =>
+        product.ToIntNullable("ID") is null ? null : new DO.Product()
+        {
+            ID = Convert.ToInt32(product.Element("id") ?? throw new XmlFormatError("id")),
+            Name = (string?)product.Element("name") ?? throw new XmlFormatError("name"),
+            Category = (DO.Enums.Category?)(int?)product.Element("category") ?? throw new XmlFormatError("category"),
+            Price = (double?)product.Element("price") ?? throw new XmlFormatError("price"),
+            InStock = (int?)product.Element("amount") ?? throw new XmlFormatError("amount"),
+            Image = Convert.ToString(product.Element("image") ?? throw new XmlFormatError("image"))!
+        
+        };
+
         /// <summary>
         /// Returns list of all the products, if gets a condition - by it
         /// </summary>
@@ -161,27 +173,31 @@ namespace Dal
         /// <exception cref="XmlFormatError"></exception>
         public IEnumerable<DO.Product?> Get(Func<DO.Product?, bool>? func = null)
         {
-            try
-            {
-                XmlTools.LoadListFromXMLElement(path);
-            }
-            catch
-            {
-                throw new FileLoadingError();
-            }
-            IEnumerable<DO.Product?> products = (from product in ProductRoot.Elements()
-                                                 select new DO.Product()
-                                                 {
-                                                     ID = Convert.ToInt32(product.Element("id") ?? throw new XmlFormatError("id")),
-                                                     Name = (string?)product.Element("name") ?? throw new XmlFormatError("name"),
-                                                     Category = (DO.Enums.Category?)(int?)product.Element("category") ?? throw new XmlFormatError("category"),
-                                                     Price = (double?)product.Element("price") ?? throw new XmlFormatError("price"),
-                                                     InStock = (int?)product.Element("amount") ?? throw new XmlFormatError("amount"),
-                                                     Image = Convert.ToString(product.Element("image") ?? throw new XmlFormatError("image"))!
-                                                 }
-                                                 as DO.Product?);
-                                                
-            return func != null ? products.Where(x => func(x)) : products;
+            if (func == null)
+                return XmlTools.LoadListFromXMLElement("products").Elements().Select(product => GetProduct(product));
+            else
+                return XmlTools.LoadListFromXMLElement("products").Elements().Select(product => GetProduct(product)).Where(product => func(product));
+            //try
+            //{
+            //    XmlTools.LoadListFromXMLElement(path);
+            //}
+            //catch
+            //{
+            //    throw new FileLoadingError();
+            //}
+            //IEnumerable<DO.Product?> products = (IEnumerable<DO.Product?>)(from product in ProductRoot.Elements()
+            //                                   select new DO.Product()
+            //                                   {
+            //                                       ID = Convert.ToInt32(product.Element("id") ?? throw new XmlFormatError("id")),
+            //                                       Name = (string?)product.Element("name") ?? throw new XmlFormatError("name"),
+            //                                       Category = (DO.Enums.Category?)(int?)product.Element("category") ?? throw new XmlFormatError("category"),
+            //                                       Price = (double?)product.Element("price") ?? throw new XmlFormatError("price"),
+            //                                       InStock = (int?)product.Element("amount") ?? throw new XmlFormatError("amount"),
+            //                                       Image = Convert.ToString(product.Element("image") ?? throw new XmlFormatError("image"))!
+            //                                   });
+
+
+            //return func != null ? products.Where(x => func(x)) : products;
         }
 
         /// <summary>
