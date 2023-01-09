@@ -143,7 +143,6 @@ namespace Dal
         {
             internal static int itemOrderID = 100000;
             internal static int orderID = 100000;
-
             public static int ItemOrderID
             {
                 get { return itemOrderID++; }
