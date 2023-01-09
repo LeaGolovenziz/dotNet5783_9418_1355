@@ -107,7 +107,7 @@ namespace Dal
                         DO.OrderItem orderItem = new DO.OrderItem();
 
                         // gets the next available id
-                        orderItem.ID = config.itemOrderID;
+                        orderItem.OrderItemID = config.itemOrderID;
                         DO.Product p = ((DO.Product)(products[i + j])!);
                         orderItem.ID = p.ID;
                         orderItem.Price = p.Price;
