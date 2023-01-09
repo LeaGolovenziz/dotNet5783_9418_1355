@@ -289,7 +289,6 @@ namespace PL.OrderWindows
 
         private void OrderItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
     }
 }
