@@ -209,7 +209,9 @@ namespace Bllmplementation
         IEnumerable<ProductForList?> IProduct.GetProductsList()
         {
             // foreach DO product in th elist creat BO ProductForList and adds it to the list
-            return dal.Product.Get().Select(product => product.CopyPropTo(new ProductForList()));
+            IEnumerable<DO.Product?> p = dal.Product.Get();
+            IEnumerable<ProductForList?> pfl = p.Select(product => product.CopyPropTo(new ProductForList()));
+            return pfl;
         }
 
         public ProductForList GetProductForList(int productID)

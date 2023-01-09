@@ -8,6 +8,7 @@ namespace Dal
 {
     internal class Order : IOrder
     {
+        string rootName = "orders";
         string orderPath = @"Order.xml";
 
         /// <summary>
@@ -18,7 +19,7 @@ namespace Dal
         /// <exception cref="FileSavingError"></exception>
         public int Add(DO.Order order)
         {
-            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath);
+            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath,rootName);
 
             try
             {
@@ -47,7 +48,7 @@ namespace Dal
         /// <exception cref="NotImplementedException"></exception>
         public void Delete(int id)
         {
-            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath);
+            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath, rootName);
 
             orders.Remove(Get(id));
 
@@ -61,7 +62,7 @@ namespace Dal
         /// <exception cref="NotImplementedException"></exception>
         public void Update(DO.Order order)
         {
-            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath);
+            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath, rootName);
 
             orders.Remove(Get(order.ID));
             orders.Add(order);
@@ -76,7 +77,7 @@ namespace Dal
         /// <returns>IEnumerable<DO.Order?></returns>
         public IEnumerable<DO.Order?> Get(Func<DO.Order?, bool>? func = null)
         {
-            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath);
+            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath, rootName);
 
             return func == null ? orders : orders.Where(func);
         }
@@ -100,7 +101,7 @@ namespace Dal
         /// <exception cref="NotFound"></exception>
         public DO.Order GetIf(Func<DO.Order?, bool>? func)
         {
-            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath);
+            List<DO.Order?> orders = XmlTools.LoadListFromXMLSerializer<DO.Order?>(orderPath, rootName);
 
             return orders.FirstOrDefault(func!) ?? throw new NotFound();
         }

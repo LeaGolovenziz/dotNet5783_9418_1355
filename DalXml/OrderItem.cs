@@ -6,6 +6,7 @@ namespace Dal
 {
     internal class OrderItem : IOrderItem
     {
+        string rootName = "ordersItem";
         string orderItemPath = @"OrderItem.xml";
 
         /// <summary>
@@ -16,7 +17,7 @@ namespace Dal
         /// <exception cref="NotImplementedException"></exception>
         public int Add(DO.OrderItem orderItem)
         {
-            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
+            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
             try
             {
@@ -44,7 +45,7 @@ namespace Dal
         /// <param name="id"></param>
         public void Delete(int id)
         {
-            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
+            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
             orderItems.Remove(Get(id));
 
@@ -58,7 +59,7 @@ namespace Dal
         /// <exception cref="NotImplementedException"></exception>
         public void Update(DO.OrderItem orderItem)
         {
-            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
+            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
             orderItems.Remove(Get(orderItem.ID));
             orderItems.Add(orderItem);
@@ -74,7 +75,7 @@ namespace Dal
         /// <exception cref="nullvalue"></exception>
         public IEnumerable<DO.OrderItem?> GeOrderItems(int orderID)
         {
-            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
+            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
             return orderItems.Where(orderItem => (orderItem ?? throw new Nullvalue()).OrderID == orderID);
         }
@@ -89,7 +90,7 @@ namespace Dal
         /// <exception cref="NotFound"></exception>
         public DO.OrderItem Get(int productID, int orderID)
         {
-            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
+            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
             return orderItems.FirstOrDefault(orderItem => (orderItem ?? throw new Nullvalue()).OrderID == orderID && (orderItem ?? throw new Nullvalue()).ID == productID) ?? throw new NotFound();
         }
@@ -101,7 +102,7 @@ namespace Dal
         /// <returns>IEnumerable<DO.OrderItem?></returns>
         public IEnumerable<DO.OrderItem?> Get(Func<DO.OrderItem?, bool>? func = null)
         {
-            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
+            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
             return func == null ? orderItems : orderItems.Where(func);
         }
@@ -125,7 +126,7 @@ namespace Dal
         /// <exception cref="NotFound"></exception>
         public DO.OrderItem GetIf(Func<DO.OrderItem?, bool>? func)
         {
-            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath);
+            List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
             return orderItems.FirstOrDefault(func) ?? throw new NotFound();
         }
