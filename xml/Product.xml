@@ -400,4 +400,20 @@
     <InStock>5</InStock>
     <Image>PL\images\Tulip.jpg</Image>
   </Product>
+  <Product>
+    <ID>123456</ID>
+    <Name>peach tree</Name>
+    <Category>Trees</Category>
+    <Price>50</Price>
+    <InStock>20</InStock>
+    <Image />
+  </Product>
+  <Product>
+    <ID>861421</ID>
+    <Name>Black coral snake plant</Name>
+    <Category>Pots</Category>
+    <Price>90</Price>
+    <InStock>1</InStock>
+    <Image>PL\images\Black coral snake plant.jpg</Image>
+  </Product>
 </products>
