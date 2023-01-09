@@ -297,14 +297,6 @@
     <Image>PL\images\Parlor palm.jpg</Image>
   </Product>
   <Product>
-    <ID>583284</ID>
-    <Name>Garden gloves</Name>
-    <Category>Tools</Category>
-    <Price>144</Price>
-    <InStock>38</InStock>
-    <Image>PL\images\Garden gloves.jpg</Image>
-  </Product>
-  <Product>
     <ID>213423</ID>
     <Name>Potting soil</Name>
     <Category>Soils</Category>
@@ -399,5 +391,13 @@
     <Price>75</Price>
     <InStock>2</InStock>
     <Image>PL\images\Watering can.jpg</Image>
+  </Product>
+  <Product>
+    <ID>583284</ID>
+    <Name>Garden gloves</Name>
+    <Category>Tools</Category>
+    <Price>144</Price>
+    <InStock>3</InStock>
+    <Image>PL\images\Garden gloves.jpg</Image>
   </Product>
 </products>

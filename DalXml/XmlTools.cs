@@ -17,7 +17,6 @@ namespace Dal
                 Directory.CreateDirectory(dir);
         }
 
-
         public static int? ToIntNullable(this XElement element, string name) =>
         int.TryParse((string?)element.Element(name), out var result) ? (int?)result : null;
 
@@ -29,8 +28,6 @@ namespace Dal
         /// <exception cref="FileLoadingError"></exception>
         public static XElement LoadListFromXMLElement(string filePath, XElement root)
         {
-            XNamespace Xdir = dir;
-
             try
             {
                 if (File.Exists(dir + filePath))
@@ -44,7 +41,7 @@ namespace Dal
                     return rootElem;
                 }
             }
-            catch
+            catch (Exception)
             {
                 throw new FileLoadingError();
             }
@@ -62,7 +59,7 @@ namespace Dal
             {
                 rootElem.Save(dir + filePath);
             }
-            catch
+            catch (Exception)
             {
                 throw new FileSavingError();
             }
@@ -88,7 +85,7 @@ namespace Dal
                     return new List<T?>()!;
                 }
             }
-            catch
+            catch (Exception)
             {
                 throw new FileLoadingError();
             }
@@ -104,12 +101,10 @@ namespace Dal
                 x.Serialize(file, list);
                 file.Close();
             }
-            catch
+            catch (Exception)
             {
                 throw new FileSavingError();
-
             }
         }
-
     }
 }

@@ -41,15 +41,7 @@ namespace Dal
         /// <returns></returns>
         public int Add(DO.Product product)
         {
-            // Try to load the file of the products
-            try
-            {
-                XmlTools.LoadListFromXMLElement(path, ProductRoot);
-            }
-            catch
-            {
-                throw new FileLoadingError();
-            }
+            XmlTools.LoadListFromXMLElement(path, ProductRoot);
 
             //try to find the product in the file - if doesnt exist add it
             try
@@ -57,19 +49,11 @@ namespace Dal
                 Get(product.ID);
                 throw new AlreadyExist();
             }
-            catch (DO.NotFound)
+            catch (NotFound)
             {
                 add(product);
 
-                // Try to save the file with the additional product
-                try
-                {
-                    XmlTools.SaveListToXMLElement(ProductRoot, path);
-                }
-                catch
-                {
-                    throw new FileSavingError();
-                }
+                XmlTools.SaveListToXMLElement(ProductRoot, path);
             }
             return product.ID;
         }
@@ -101,25 +85,11 @@ namespace Dal
         /// <exception cref="FileSavingError"></exception>
         public void Delete(int id)
         {
-            try
-            {
-                XmlTools.LoadListFromXMLElement(path, ProductRoot);
-            }
-            catch
-            {
-                throw new FileLoadingError();
-            }
+            XmlTools.LoadListFromXMLElement(path, ProductRoot);
 
             delete(id);
 
-            try
-            {
-                XmlTools.SaveListToXMLElement(ProductRoot, path);
-            }
-            catch
-            {
-                throw new FileSavingError();
-            }
+            XmlTools.SaveListToXMLElement(ProductRoot, path);
         }
 
         /// <summary>
@@ -130,26 +100,13 @@ namespace Dal
         /// <exception cref="FileSavingError"></exception>
         public void Update(DO.Product product)
         {
-            try
-            {
-                XmlTools.LoadListFromXMLElement(path, ProductRoot);
-            }
-            catch
-            {
-                throw new FileLoadingError();
-            }
+
+            XmlTools.LoadListFromXMLElement(path, ProductRoot);
 
             delete(product.ID);
             add(product);
 
-            try
-            {
-                XmlTools.SaveListToXMLElement(ProductRoot, path);
-            }
-            catch
-            {
-                throw new FileSavingError();
-            }
+            XmlTools.SaveListToXMLElement(ProductRoot, path);
         }
 
         /// <summary>
@@ -161,25 +118,14 @@ namespace Dal
         /// <exception cref="XmlFormatError"></exception>
         public IEnumerable<DO.Product?> Get(Func<DO.Product?, bool>? func = null)
         {
-            //List<DO.Product?> products = XmlTools.LoadListFromXMLSerializer<DO.Product?>(path, ProductRoot.Name.ToString());
+            ProductRoot = XmlTools.LoadListFromXMLElement(path, ProductRoot);
 
-
-            //return func == null ? products.AsEnumerable() : products.Where(func);
-
-            try
-            {
-                ProductRoot=XmlTools.LoadListFromXMLElement(path, ProductRoot);
-            }
-            catch
-            {
-                throw new FileLoadingError();
-            }
             var products = from product in ProductRoot.Elements()
                            select new DO.Product()
                            {
                                ID = Convert.ToInt32(product.Element("ID")!.Value),
-                               Name =product.Element("Name")!.Value,
-                               Category = (DO.Enums.Category)Enum.Parse(typeof(DO.Enums.Category),product.Element("Category")!.Value),
+                               Name = product.Element("Name")!.Value,
+                               Category = (DO.Enums.Category)Enum.Parse(typeof(DO.Enums.Category), product.Element("Category")!.Value),
                                Price = Convert.ToDouble(product.Element("Price")!.Value),
                                InStock = Convert.ToInt32(product.Element("InStock")!.Value),
                                Image = product.Element("Image")!.Value
