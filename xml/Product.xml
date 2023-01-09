@@ -1,1 +1,403 @@
-﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Product><ID>565957</ID><Name>Cypress tree</Name><Price>96</Price><Category>Trees</Category><InStock>0</InStock><Image>PL\images\Cypress tree.jpg</Image></Product><Product><ID>853035</ID><Name>Rose</Name><Price>85</Price><Category>Flowers</Category><InStock>1</InStock><Image>PL\images\Rose.jpg</Image></Product><Product><ID>927365</ID><Name>Black coral snake plant</Name><Price>159</Price><Category>Pots</Category><InStock>2</InStock><Image>PL\images\Black coral snake plant.jpg</Image></Product><Product><ID>122655</ID><Name>Watering can</Name><Price>174</Price><Category>Tools</Category><InStock>3</InStock><Image>PL\images\Watering can.jpg</Image></Product><Product><ID>821531</ID><Name>Fast acting iron</Name><Price>189</Price><Category>Soils</Category><InStock>4</InStock><Image>PL\images\Fast acting iron.jpg</Image></Product><Product><ID>953999</ID><Name>Apple tree</Name><Price>93</Price><Category>Trees</Category><InStock>5</InStock><Image>PL\images\Apple tree.jpg</Image></Product><Product><ID>608905</ID><Name>Tulip</Name><Price>193</Price><Category>Flowers</Category><InStock>6</InStock><Image>PL\images\Tulip.jpg</Image></Product><Product><ID>194639</ID><Name>Whale fin snake plant</Name><Price>197</Price><Category>Pots</Category><InStock>7</InStock><Image>PL\images\Whale fin snake plant.jpg</Image></Product><Product><ID>872886</ID><Name>Soil soker hose</Name><Price>180</Price><Category>Tools</Category><InStock>8</InStock><Image>PL\images\Soil soker hose.jpg</Image></Product><Product><ID>520859</ID><Name>Fast a thing gypsum</Name><Price>184</Price><Category>Soils</Category><InStock>9</InStock><Image>PL\images\Fast a thing gypsum.jpg</Image></Product><Product><ID>357231</ID><Name>Peach tree</Name><Price>155</Price><Category>Trees</Category><InStock>10</InStock><Image>PL\images\Peach tree.jpg</Image></Product><Product><ID>959525</ID><Name>Orchid</Name><Price>187</Price><Category>Flowers</Category><InStock>11</InStock><Image>PL\images\Orchid.jpg</Image></Product><Product><ID>629615</ID><Name>Calathea ornata</Name><Price>195</Price><Category>Pots</Category><InStock>12</InStock><Image>PL\images\Calathea ornata.jpg</Image></Product><Product><ID>114825</ID><Name>Pruner</Name><Price>112</Price><Category>Tools</Category><InStock>13</InStock><Image>PL\images\Pruner.jpg</Image></Product><Product><ID>607160</ID><Name>Fast acting lime</Name><Price>169</Price><Category>Soils</Category><InStock>14</InStock><Image>PL\images\Fast acting lime.jpg</Image></Product><Product><ID>298638</ID><Name>Cherry tree</Name><Price>168</Price><Category>Trees</Category><InStock>15</InStock><Image>PL\images\Cherry tree.jpg</Image></Product><Product><ID>466939</ID><Name>Iris</Name><Price>70</Price><Category>Flowers</Category><InStock>16</InStock><Image>PL\images\Iris.jpg</Image></Product><Product><ID>882090</ID><Name>Moonshine snake plant</Name><Price>77</Price><Category>Pots</Category><InStock>17</InStock><Image>PL\images\Moonshine snake plant.jpg</Image></Product><Product><ID>391120</ID><Name>Bypass loppers</Name><Price>122</Price><Category>Tools</Category><InStock>18</InStock><Image>PL\images\Bypass loppers.jpg</Image></Product><Product><ID>136288</ID><Name>Compost starter</Name><Price>90</Price><Category>Soils</Category><InStock>19</InStock><Image>PL\images\Compost starter.jpg</Image></Product><Product><ID>447088</ID><Name>Berry bushes</Name><Price>131</Price><Category>Trees</Category><InStock>20</InStock><Image>PL\images\Berry bushes.jpg</Image></Product><Product><ID>997527</ID><Name>Lily</Name><Price>96</Price><Category>Flowers</Category><InStock>21</InStock><Image>PL\images\Lily.jpg</Image></Product><Product><ID>495012</ID><Name>Calathea makoyana</Name><Price>145</Price><Category>Pots</Category><InStock>22</InStock><Image>PL\images\Calathea makoyana.jpg</Image></Product><Product><ID>499106</ID><Name>Grip trowel</Name><Price>121</Price><Category>Tools</Category><InStock>23</InStock><Image>PL\images\Grip trowel.jpg</Image></Product><Product><ID>293971</ID><Name>Bone mael</Name><Price>94</Price><Category>Soils</Category><InStock>24</InStock><Image>PL\images\Bone mael.jpg</Image></Product><Product><ID>951187</ID><Name>Beech tree</Name><Price>187</Price><Category>Trees</Category><InStock>25</InStock><Image>PL\images\Beech tree.jpg</Image></Product><Product><ID>415061</ID><Name>Anemone</Name><Price>153</Price><Category>Flowers</Category><InStock>26</InStock><Image>PL\images\Anemone.jpg</Image></Product><Product><ID>851601</ID><Name>Calathea orbifolia</Name><Price>122</Price><Category>Pots</Category><InStock>27</InStock><Image>PL\images\Calathea orbifolia.jpg</Image></Product><Product><ID>773284</ID><Name>Saw</Name><Price>176</Price><Category>Tools</Category><InStock>28</InStock><Image>PL\images\Saw.jpg</Image></Product><Product><ID>376440</ID><Name>Organic potting mix</Name><Price>172</Price><Category>Soils</Category><InStock>29</InStock><Image>PL\images\Organic potting mix.jpg</Image></Product><Product><ID>749161</ID><Name>Maple tree</Name><Price>124</Price><Category>Trees</Category><InStock>30</InStock><Image>PL\images\Maple tree.jpg</Image></Product><Product><ID>955033</ID><Name>Daisy</Name><Price>93</Price><Category>Flowers</Category><InStock>31</InStock><Image>PL\images\Daisy.jpg</Image></Product><Product><ID>573549</ID><Name>Majesty palm</Name><Price>106</Price><Category>Pots</Category><InStock>32</InStock><Image>PL\images\Majesty palm.jpg</Image></Product><Product><ID>553028</ID><Name>Hedge shear</Name><Price>145</Price><Category>Tools</Category><InStock>33</InStock><Image>PL\images\Hedge shear.jpg</Image></Product><Product><ID>206382</ID><Name>Organic cactus mix</Name><Price>135</Price><Category>Soils</Category><InStock>34</InStock><Image>PL\images\Organic cactus mix.jpg</Image></Product><Product><ID>705815</ID><Name>Redbud tree</Name><Price>190</Price><Category>Trees</Category><InStock>35</InStock><Image>PL\images\Redbud tree.jpg</Image></Product><Product><ID>305718</ID><Name>Aster</Name><Price>76</Price><Category>Flowers</Category><InStock>36</InStock><Image>PL\images\Aster.jpg</Image></Product><Product><ID>489100</ID><Name>Parlor palm</Name><Price>181</Price><Category>Pots</Category><InStock>37</InStock><Image>PL\images\Parlor palm.jpg</Image></Product><Product><ID>714542</ID><Name>Garden gloves</Name><Price>162</Price><Category>Tools</Category><InStock>38</InStock><Image>PL\images\Garden gloves.jpg</Image></Product><Product><ID>304235</ID><Name>Potting soil</Name><Price>182</Price><Category>Soils</Category><InStock>39</InStock><Image>PL\images\Potting soil.jpg</Image></Product><Product><ID>401075</ID><Name>Cotton tree</Name><Price>123</Price><Category>Trees</Category><InStock>40</InStock><Image>PL\images\Cotton tree.jpg</Image></Product><Product><ID>242488</ID><Name>Sunflower</Name><Price>156</Price><Category>Flowers</Category><InStock>41</InStock><Image>PL\images\Sunflower.jpg</Image></Product><Product><ID>606242</ID><Name>Bamboo palm</Name><Price>118</Price><Category>Pots</Category><InStock>42</InStock><Image>PL\images\Bamboo palm.jpg</Image></Product><Product><ID>830690</ID><Name>Tree staking kit</Name><Price>101</Price><Category>Tools</Category><InStock>43</InStock><Image>PL\images\Tree staking kit.jpg</Image></Product><Product><ID>825437</ID><Name>Moss max</Name><Price>62</Price><Category>Soils</Category><InStock>44</InStock><Image>PL\images\Moss max.jpg</Image></Product><Product><ID>524209</ID><Name>Treaty tree</Name><Price>79</Price><Category>Trees</Category><InStock>45</InStock><Image>PL\images\Treaty tree.jpg</Image></Product><Product><ID>171759</ID><Name>Lavender</Name><Price>174</Price><Category>Flowers</Category><InStock>46</InStock><Image>PL\images\Lavender.jpg</Image></Product><Product><ID>657303</ID><Name>Peach lily</Name><Price>171</Price><Category>Pots</Category><InStock>47</InStock><Image>PL\images\Peach lily.jpg</Image></Product><Product><ID>558503</ID><Name>Pump and spray applicator</Name><Price>192</Price><Category>Tools</Category><InStock>48</InStock><Image>PL\images\Pump and spray applicator.jpg</Image></Product><Product><ID>916979</ID><Name>Iron tone</Name><Price>137</Price><Category>Soils</Category><InStock>49</InStock><Image>PL\images\Iron tone.jpg</Image></Product></ArrayOfProduct>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<products>
+  <Product>
+    <ID>853478</ID>
+    <Name>Cypress tree</Name>
+    <Category>Trees</Category>
+    <Price>141</Price>
+    <InStock>0</InStock>
+    <Image>PL\images\Cypress tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>453041</ID>
+    <Name>Rose</Name>
+    <Category>Flowers</Category>
+    <Price>83</Price>
+    <InStock>1</InStock>
+    <Image>PL\images\Rose.jpg</Image>
+  </Product>
+  <Product>
+    <ID>861421</ID>
+    <Name>Black coral snake plant</Name>
+    <Category>Pots</Category>
+    <Price>90</Price>
+    <InStock>2</InStock>
+    <Image>PL\images\Black coral snake plant.jpg</Image>
+  </Product>
+  <Product>
+    <ID>716738</ID>
+    <Name>Fast acting iron</Name>
+    <Category>Soils</Category>
+    <Price>64</Price>
+    <InStock>4</InStock>
+    <Image>PL\images\Fast acting iron.jpg</Image>
+  </Product>
+  <Product>
+    <ID>556698</ID>
+    <Name>Apple tree</Name>
+    <Category>Trees</Category>
+    <Price>91</Price>
+    <InStock>5</InStock>
+    <Image>PL\images\Apple tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>748671</ID>
+    <Name>Tulip</Name>
+    <Category>Flowers</Category>
+    <Price>180</Price>
+    <InStock>6</InStock>
+    <Image>PL\images\Tulip.jpg</Image>
+  </Product>
+  <Product>
+    <ID>204433</ID>
+    <Name>Whale fin snake plant</Name>
+    <Category>Pots</Category>
+    <Price>146</Price>
+    <InStock>7</InStock>
+    <Image>PL\images\Whale fin snake plant.jpg</Image>
+  </Product>
+  <Product>
+    <ID>949438</ID>
+    <Name>Soil soker hose</Name>
+    <Category>Tools</Category>
+    <Price>153</Price>
+    <InStock>8</InStock>
+    <Image>PL\images\Soil soker hose.jpg</Image>
+  </Product>
+  <Product>
+    <ID>218743</ID>
+    <Name>Fast a thing gypsum</Name>
+    <Category>Soils</Category>
+    <Price>138</Price>
+    <InStock>9</InStock>
+    <Image>PL\images\Fast a thing gypsum.jpg</Image>
+  </Product>
+  <Product>
+    <ID>311569</ID>
+    <Name>Peach tree</Name>
+    <Category>Trees</Category>
+    <Price>176</Price>
+    <InStock>10</InStock>
+    <Image>PL\images\Peach tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>346877</ID>
+    <Name>Orchid</Name>
+    <Category>Flowers</Category>
+    <Price>184</Price>
+    <InStock>11</InStock>
+    <Image>PL\images\Orchid.jpg</Image>
+  </Product>
+  <Product>
+    <ID>289829</ID>
+    <Name>Calathea ornata</Name>
+    <Category>Pots</Category>
+    <Price>135</Price>
+    <InStock>12</InStock>
+    <Image>PL\images\Calathea ornata.jpg</Image>
+  </Product>
+  <Product>
+    <ID>775620</ID>
+    <Name>Pruner</Name>
+    <Category>Tools</Category>
+    <Price>191</Price>
+    <InStock>13</InStock>
+    <Image>PL\images\Pruner.jpg</Image>
+  </Product>
+  <Product>
+    <ID>495344</ID>
+    <Name>Fast acting lime</Name>
+    <Category>Soils</Category>
+    <Price>167</Price>
+    <InStock>14</InStock>
+    <Image>PL\images\Fast acting lime.jpg</Image>
+  </Product>
+  <Product>
+    <ID>134926</ID>
+    <Name>Cherry tree</Name>
+    <Category>Trees</Category>
+    <Price>62</Price>
+    <InStock>15</InStock>
+    <Image>PL\images\Cherry tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>294044</ID>
+    <Name>Iris</Name>
+    <Category>Flowers</Category>
+    <Price>174</Price>
+    <InStock>16</InStock>
+    <Image>PL\images\Iris.jpg</Image>
+  </Product>
+  <Product>
+    <ID>830272</ID>
+    <Name>Moonshine snake plant</Name>
+    <Category>Pots</Category>
+    <Price>51</Price>
+    <InStock>17</InStock>
+    <Image>PL\images\Moonshine snake plant.jpg</Image>
+  </Product>
+  <Product>
+    <ID>932902</ID>
+    <Name>Bypass loppers</Name>
+    <Category>Tools</Category>
+    <Price>142</Price>
+    <InStock>18</InStock>
+    <Image>PL\images\Bypass loppers.jpg</Image>
+  </Product>
+  <Product>
+    <ID>498512</ID>
+    <Name>Compost starter</Name>
+    <Category>Soils</Category>
+    <Price>139</Price>
+    <InStock>19</InStock>
+    <Image>PL\images\Compost starter.jpg</Image>
+  </Product>
+  <Product>
+    <ID>924376</ID>
+    <Name>Berry bushes</Name>
+    <Category>Trees</Category>
+    <Price>76</Price>
+    <InStock>20</InStock>
+    <Image>PL\images\Berry bushes.jpg</Image>
+  </Product>
+  <Product>
+    <ID>501814</ID>
+    <Name>Lily</Name>
+    <Category>Flowers</Category>
+    <Price>128</Price>
+    <InStock>21</InStock>
+    <Image>PL\images\Lily.jpg</Image>
+  </Product>
+  <Product>
+    <ID>791551</ID>
+    <Name>Calathea makoyana</Name>
+    <Category>Pots</Category>
+    <Price>193</Price>
+    <InStock>22</InStock>
+    <Image>PL\images\Calathea makoyana.jpg</Image>
+  </Product>
+  <Product>
+    <ID>781953</ID>
+    <Name>Grip trowel</Name>
+    <Category>Tools</Category>
+    <Price>59</Price>
+    <InStock>23</InStock>
+    <Image>PL\images\Grip trowel.jpg</Image>
+  </Product>
+  <Product>
+    <ID>372778</ID>
+    <Name>Bone mael</Name>
+    <Category>Soils</Category>
+    <Price>116</Price>
+    <InStock>24</InStock>
+    <Image>PL\images\Bone mael.jpg</Image>
+  </Product>
+  <Product>
+    <ID>366113</ID>
+    <Name>Beech tree</Name>
+    <Category>Trees</Category>
+    <Price>110</Price>
+    <InStock>25</InStock>
+    <Image>PL\images\Beech tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>181128</ID>
+    <Name>Anemone</Name>
+    <Category>Flowers</Category>
+    <Price>147</Price>
+    <InStock>26</InStock>
+    <Image>PL\images\Anemone.jpg</Image>
+  </Product>
+  <Product>
+    <ID>440732</ID>
+    <Name>Calathea orbifolia</Name>
+    <Category>Pots</Category>
+    <Price>98</Price>
+    <InStock>27</InStock>
+    <Image>PL\images\Calathea orbifolia.jpg</Image>
+  </Product>
+  <Product>
+    <ID>961196</ID>
+    <Name>Saw</Name>
+    <Category>Tools</Category>
+    <Price>61</Price>
+    <InStock>28</InStock>
+    <Image>PL\images\Saw.jpg</Image>
+  </Product>
+  <Product>
+    <ID>987563</ID>
+    <Name>Organic potting mix</Name>
+    <Category>Soils</Category>
+    <Price>157</Price>
+    <InStock>29</InStock>
+    <Image>PL\images\Organic potting mix.jpg</Image>
+  </Product>
+  <Product>
+    <ID>445944</ID>
+    <Name>Maple tree</Name>
+    <Category>Trees</Category>
+    <Price>137</Price>
+    <InStock>30</InStock>
+    <Image>PL\images\Maple tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>676956</ID>
+    <Name>Daisy</Name>
+    <Category>Flowers</Category>
+    <Price>102</Price>
+    <InStock>31</InStock>
+    <Image>PL\images\Daisy.jpg</Image>
+  </Product>
+  <Product>
+    <ID>729154</ID>
+    <Name>Majesty palm</Name>
+    <Category>Pots</Category>
+    <Price>53</Price>
+    <InStock>32</InStock>
+    <Image>PL\images\Majesty palm.jpg</Image>
+  </Product>
+  <Product>
+    <ID>910625</ID>
+    <Name>Hedge shear</Name>
+    <Category>Tools</Category>
+    <Price>142</Price>
+    <InStock>33</InStock>
+    <Image>PL\images\Hedge shear.jpg</Image>
+  </Product>
+  <Product>
+    <ID>934861</ID>
+    <Name>Organic cactus mix</Name>
+    <Category>Soils</Category>
+    <Price>76</Price>
+    <InStock>34</InStock>
+    <Image>PL\images\Organic cactus mix.jpg</Image>
+  </Product>
+  <Product>
+    <ID>431518</ID>
+    <Name>Redbud tree</Name>
+    <Category>Trees</Category>
+    <Price>139</Price>
+    <InStock>35</InStock>
+    <Image>PL\images\Redbud tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>406643</ID>
+    <Name>Aster</Name>
+    <Category>Flowers</Category>
+    <Price>152</Price>
+    <InStock>36</InStock>
+    <Image>PL\images\Aster.jpg</Image>
+  </Product>
+  <Product>
+    <ID>917727</ID>
+    <Name>Parlor palm</Name>
+    <Category>Pots</Category>
+    <Price>162</Price>
+    <InStock>37</InStock>
+    <Image>PL\images\Parlor palm.jpg</Image>
+  </Product>
+  <Product>
+    <ID>583284</ID>
+    <Name>Garden gloves</Name>
+    <Category>Tools</Category>
+    <Price>144</Price>
+    <InStock>38</InStock>
+    <Image>PL\images\Garden gloves.jpg</Image>
+  </Product>
+  <Product>
+    <ID>213423</ID>
+    <Name>Potting soil</Name>
+    <Category>Soils</Category>
+    <Price>133</Price>
+    <InStock>39</InStock>
+    <Image>PL\images\Potting soil.jpg</Image>
+  </Product>
+  <Product>
+    <ID>998067</ID>
+    <Name>Cotton tree</Name>
+    <Category>Trees</Category>
+    <Price>151</Price>
+    <InStock>40</InStock>
+    <Image>PL\images\Cotton tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>649180</ID>
+    <Name>Sunflower</Name>
+    <Category>Flowers</Category>
+    <Price>110</Price>
+    <InStock>41</InStock>
+    <Image>PL\images\Sunflower.jpg</Image>
+  </Product>
+  <Product>
+    <ID>264771</ID>
+    <Name>Bamboo palm</Name>
+    <Category>Pots</Category>
+    <Price>99</Price>
+    <InStock>42</InStock>
+    <Image>PL\images\Bamboo palm.jpg</Image>
+  </Product>
+  <Product>
+    <ID>726350</ID>
+    <Name>Tree staking kit</Name>
+    <Category>Tools</Category>
+    <Price>123</Price>
+    <InStock>43</InStock>
+    <Image>PL\images\Tree staking kit.jpg</Image>
+  </Product>
+  <Product>
+    <ID>761281</ID>
+    <Name>Moss max</Name>
+    <Category>Soils</Category>
+    <Price>199</Price>
+    <InStock>44</InStock>
+    <Image>PL\images\Moss max.jpg</Image>
+  </Product>
+  <Product>
+    <ID>866407</ID>
+    <Name>Treaty tree</Name>
+    <Category>Trees</Category>
+    <Price>92</Price>
+    <InStock>45</InStock>
+    <Image>PL\images\Treaty tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>954087</ID>
+    <Name>Lavender</Name>
+    <Category>Flowers</Category>
+    <Price>190</Price>
+    <InStock>46</InStock>
+    <Image>PL\images\Lavender.jpg</Image>
+  </Product>
+  <Product>
+    <ID>702643</ID>
+    <Name>Peach lily</Name>
+    <Category>Pots</Category>
+    <Price>93</Price>
+    <InStock>47</InStock>
+    <Image>PL\images\Peach lily.jpg</Image>
+  </Product>
+  <Product>
+    <ID>670738</ID>
+    <Name>Pump and spray applicator</Name>
+    <Category>Tools</Category>
+    <Price>76</Price>
+    <InStock>48</InStock>
+    <Image>PL\images\Pump and spray applicator.jpg</Image>
+  </Product>
+  <Product>
+    <ID>434782</ID>
+    <Name>Iron tone</Name>
+    <Category>Soils</Category>
+    <Price>106</Price>
+    <InStock>49</InStock>
+    <Image>PL\images\Iron tone.jpg</Image>
+  </Product>
+  <Product>
+    <ID>837662</ID>
+    <Name>Watering can</Name>
+    <Category>Tools</Category>
+    <Price>75</Price>
+    <InStock>2</InStock>
+    <Image>PL\images\Watering can.jpg</Image>
+  </Product>
+</products>

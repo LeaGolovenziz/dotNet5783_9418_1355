@@ -61,6 +61,7 @@ namespace Dal
                     // add the product to the list
                     products.Add(product);
 
+
                 }
 
                 for (int i = 0; i < 20; i++)
@@ -116,9 +117,22 @@ namespace Dal
                         orderItems.Add(orderItem);
                     }
                 }
-                XmlTools.SaveListToXMLSerializer(products, @"Product.xml");
-                XmlTools.SaveListToXMLSerializer(orders, @"Order.xml");
-                XmlTools.SaveListToXMLSerializer(orderItems, @"OrderItem.xml");
+                XElement initialize = new XElement("products",
+                    from product in products
+                    select new XElement
+                    ("Product",
+                new XElement("ID", product?.ID),
+                new XElement("Name", product?.Name),
+                new XElement("Category", product?.Category),
+                new XElement("Price", product?.Price),
+                new XElement("InStock", product?.InStock),
+                new XElement("Image", product?.Image)));
+
+                initialize.Save(@"..\..\..\..\xml\Product.xml");
+
+
+                XmlTools.SaveListToXMLSerializer(orders, @"..\..\..\..\xml\Order.xml");
+                XmlTools.SaveListToXMLSerializer(orderItems, @"..\..\..\..\xml\OrderItem.xml");
 
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }

@@ -26,10 +26,10 @@ namespace Dal
                 Get(order.ID);
                 throw new AlreadyExist();
             }
-            catch
+            catch (NotFound)
             {
                 XElement configRoot = XElement.Load(XmlTools.configPath);
-                int.TryParse(configRoot.Element("orderID")!.Value, out int nextSeqNum);
+                int nextSeqNum = (int)configRoot.Element("orderID")!;
                 order.ID = nextSeqNum;
                 nextSeqNum++;
                 configRoot.Element("orderID")!.SetValue(nextSeqNum);

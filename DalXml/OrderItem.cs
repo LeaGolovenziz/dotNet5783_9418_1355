@@ -24,13 +24,13 @@ namespace Dal
                 Get(orderItem.ID);
                 throw new AlreadyExist();
             }
-            catch
+            catch(NotFound)
             {
                 XElement configRoot = XElement.Load(XmlTools.configPath);
-                int.TryParse(configRoot.Element("orderID")!.Value, out int nextSeqNum);
+                int nextSeqNum = (int)configRoot.Element("orderItemID")!;
                 orderItem.ID = nextSeqNum;
                 nextSeqNum++;
-                configRoot.Element("orderID")!.SetValue(nextSeqNum);
+                configRoot.Element("orderItemID")!.SetValue(nextSeqNum);
 
                 orderItems.Add(orderItem);
 
@@ -128,10 +128,8 @@ namespace Dal
         {
             List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
-            return orderItems.FirstOrDefault(func) ?? throw new NotFound();
+            return orderItems.FirstOrDefault(func!) ?? throw new NotFound();
         }
-
-
     }
 }
 

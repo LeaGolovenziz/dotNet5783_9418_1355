@@ -51,13 +51,13 @@ namespace Dal
                 throw new FileLoadingError();
             }
 
-            // try to find the product in the file - if doesnt exist add it
-            //try
-            //{
-            //    Get(product.ID);
-            //    throw new AlreadyExist();
-            //}
-            //catch (DO.NotFound)
+            //try to find the product in the file - if doesnt exist add it
+            try
+            {
+                Get(product.ID);
+                throw new AlreadyExist();
+            }
+            catch (DO.NotFound)
             {
                 add(product);
 
@@ -84,15 +84,21 @@ namespace Dal
             try
             {
                 (from product in ProductRoot.Elements()
-                 where (int)product.Element("id")! == id
+                 where (int)product.Element("ID")! == id
                  select product).FirstOrDefault()?.Remove();
             }
-            catch
+            catch (NotFound)
             {
                 throw new NotFound();
             }
         }
 
+        /// <summary>
+        /// Deletes a product from the file of products
+        /// </summary>
+        /// <param name="id"></param>
+        /// <exception cref="FileLoadingError"></exception>
+        /// <exception cref="FileSavingError"></exception>
         public void Delete(int id)
         {
             try
@@ -155,40 +161,40 @@ namespace Dal
         /// <exception cref="XmlFormatError"></exception>
         public IEnumerable<DO.Product?> Get(Func<DO.Product?, bool>? func = null)
         {
-            List<DO.Product?> products = XmlTools.LoadListFromXMLSerializer<DO.Product?>(path, ProductRoot.Name.ToString());
+            //List<DO.Product?> products = XmlTools.LoadListFromXMLSerializer<DO.Product?>(path, ProductRoot.Name.ToString());
 
 
-            return func == null ? products.AsEnumerable() : products.Where(func);
+            //return func == null ? products.AsEnumerable() : products.Where(func);
 
-            //try
-            //{
-            //    XmlTools.LoadListFromXMLElement(path, ProductRoot);
-            //}
-            //catch
-            //{
-            //    throw new FileLoadingError();
-            //}
-            //var products = from product in ProductRoot.Elements()
-            //               select new DO.Product()
-            //               {
-            //                   ID = (int)product.Element("ID")!,
-            //                   Name = (string?)product.Element("Name"),
-            //                   Category = (DO.Enums.Category?)(int?)product.Element("Category"),
-            //                   Price = (double?)product.Element("Price"),
-            //                   InStock = (int?)product.Element("InStock"),
-            //                   Image = (string)(product.Element("Image"))!
-            //               };
+            try
+            {
+                ProductRoot=XmlTools.LoadListFromXMLElement(path, ProductRoot);
+            }
+            catch
+            {
+                throw new FileLoadingError();
+            }
+            var products = from product in ProductRoot.Elements()
+                           select new DO.Product()
+                           {
+                               ID = Convert.ToInt32(product.Element("ID")!.Value),
+                               Name =product.Element("Name")!.Value,
+                               Category = (DO.Enums.Category)Enum.Parse(typeof(DO.Enums.Category),product.Element("Category")!.Value),
+                               Price = Convert.ToDouble(product.Element("Price")!.Value),
+                               InStock = Convert.ToInt32(product.Element("InStock")!.Value),
+                               Image = product.Element("Image")!.Value
+                           };
 
 
-            //return func != null ? products.Cast<DO.Product?>().Where(x => func(x)) : products.Cast<DO.Product?>();
+            return func != null ? products.Cast<DO.Product?>().Where(func) : products.Cast<DO.Product?>();
         }
 
 
         /// <summary>
-        /// 
+        /// gets an ID and returns the product with this ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>DO.Product</returns>
         /// <exception cref="nullvalue"></exception>
         public DO.Product Get(int id)
         {
@@ -196,15 +202,14 @@ namespace Dal
         }
 
         /// <summary>
-        /// 
+        /// Gets a condition and returns an product with this condition
         /// </summary>
         /// <param name="func"></param>
-        /// <returns></returns>
+        /// <returns>DO.Product</returns>
         /// <exception cref="NotFound"></exception>
         public DO.Product GetIf(Func<DO.Product?, bool>? func)
         {
             return Get(func).FirstOrDefault() ?? throw new NotFound();
         }
-
     }
 }

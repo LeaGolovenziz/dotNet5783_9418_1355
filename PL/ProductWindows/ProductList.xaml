@@ -22,9 +22,9 @@ VerticalAlignment="Stretch" Width="auto" Margin="5">
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox x:Name="CategorySelector" Grid.Column="2" SelectionChanged="CategorySelector_SelectionChanged" Margin="10,5"/>
+            <ComboBox x:Name="CategorySelector" Grid.Column="2" SelectionChanged="CategorySelector_SelectionChanged" Margin="10,5,10,5"/>
             <Label x:Name="categoryLabel" Grid.Column="1" Content="Category:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
-            <Button x:Name="clearCategoryButton" Height="40" Content="Clear selection" Grid.Column="0" HorizontalAlignment="Right" Margin="0" Click="clearCategoryButton_Click" />
+            <Button x:Name="clearCategoryButton" Height="40" Content="Clear selection" Grid.Column="0" HorizontalAlignment="Left" Margin="327,9,0,0" Click="clearCategoryButton_Click" VerticalAlignment="Top" />
         </Grid>
         <ListView x:Name="ProductListView" SelectionMode="Single" HorizontalAlignment="Center" Margin="10" ItemsSource="{Binding}" Grid.Row="1" FontSize="18" MouseDoubleClick="ProductListView_MouseDoubleClick" SelectionChanged="ProductListView_SelectionChanged">
             <ListView.View>
