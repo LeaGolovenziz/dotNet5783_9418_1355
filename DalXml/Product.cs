@@ -44,7 +44,7 @@ namespace Dal
             // Try to load the file of the products
             try
             {
-                XmlTools.LoadListFromXMLElement(path);
+                XmlTools.LoadListFromXMLElement(path,ProductRoot);
             }
             catch
             {
@@ -52,12 +52,12 @@ namespace Dal
             }
 
             // try to find the product in the file - if doesnt exist add it
-            try
-            {
-                Get(product.ID);
-                throw new AlreadyExist();
-            }
-            catch
+            //try
+            //{
+            //    Get(product.ID);
+            //    throw new AlreadyExist();
+            //}
+            //catch (DO.NotFound)
             {
                 add(product);
 
@@ -97,7 +97,7 @@ namespace Dal
         {
             try
             {
-                XmlTools.LoadListFromXMLElement(path);
+                XmlTools.LoadListFromXMLElement(path, ProductRoot);
             }
             catch
             {
@@ -126,7 +126,7 @@ namespace Dal
         {
             try
             {
-                XmlTools.LoadListFromXMLElement(path);
+                XmlTools.LoadListFromXMLElement(path, ProductRoot);
             }
             catch
             {
@@ -168,9 +168,9 @@ namespace Dal
         public IEnumerable<DO.Product?> Get(Func<DO.Product?, bool>? func = null)
         {
             if (func == null)
-                return XmlTools.LoadListFromXMLElement("products").Elements().Select(product => GetProduct(product));
+                return XmlTools.LoadListFromXMLElement(path, ProductRoot).Elements().Select(product => GetProduct(product));
             else
-                return XmlTools.LoadListFromXMLElement("products").Elements().Select(product => GetProduct(product)).Where(product => func(product));
+                return XmlTools.LoadListFromXMLElement(path, ProductRoot).Elements().Select(product => GetProduct(product)).Where(product => func(product));
             //try
             //{
             //    XmlTools.LoadListFromXMLElement(path);
@@ -216,34 +216,5 @@ namespace Dal
             return Get(func).FirstOrDefault() ?? throw new NotFound();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="product"></param>
-        /// <exception cref="FileLoadingError"></exception>
-        /// <exception cref="FileSavingError"></exception>
-        public void Update(DO.Product product)
-        {
-            try
-            {
-                XmlTools.LoadListFromXMLElement(path);
-            }
-            catch
-            {
-                throw new FileLoadingError();
-            }
-
-            delete(product.ID);
-            add(product);
-
-            try
-            {
-                XmlTools.SaveListToXMLElement(ProductRoot, path);
-            }
-            catch
-            {
-                throw new FileSavingError();
-            }
-        }
     }
 }

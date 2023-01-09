@@ -1,2 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<products>
+  <product>
+    <id>342138</id>
+    <name>Cypress tree</name>
+    <category>Trees</category>
+    <price>198</price>
+    <amount>0</amount>
+    <image>PL\images\Cypress tree.jpg</image>
+  </product>
+</products>

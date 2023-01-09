@@ -7,7 +7,7 @@ namespace Dal
     static class XmlTools
     {
         // xml files' folders name
-        static string dir = @"xml\";
+        static string dir = @"..\xml\";
         public static string configPath = @"Config.xml";
 
         static XmlTools()
@@ -15,16 +15,13 @@ namespace Dal
             // if the xml folderdoesn't exists create the folder
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
-            Test_LinqToXml_and_XmlSerializer();
+            //Test_LinqToXml_and_XmlSerializer();
 
         }
 
         static void Test_LinqToXml_and_XmlSerializer()
         {
-            DalApi.IProduct dalProducts = new Dal.Product();
-            DalApi.IOrderItem dal = new Dal.OrderItem();
-            DalApi.IOrder dalOrders = new Dal.Order();
-
+            DalApi.IDal dal =DalApi.Factory.Get();
 
             Random rand = new Random();
 
@@ -60,7 +57,7 @@ namespace Dal
                     {
                         product.ID = rand.Next(100000, 999999);
                     }
-                    while (dalProducts.Get(x => x.Value.ID == product.ID) != null);
+                    while (dal.Product.Get(x => x!.Value.ID == product.ID).FirstOrDefault() != null);
 
                     // select the name of the product from the names array
                     product.Name = productsNamesArray[i];
@@ -74,7 +71,7 @@ namespace Dal
                     product.Image = "PL\\images\\" + product.Name + ".jpg";
 
                     // add the product to the list
-                    dalProducts.Add(product);
+                    dal.Product.Add(product);
 
                 }
 
@@ -115,7 +112,7 @@ namespace Dal
                     else
                         order.DeliveryDate = null;
 
-                    dalOrders.Add(order);
+                    dal.Order.Add(order);
 
                 }
                 for (int i = 0; i < 20; i++)
@@ -131,13 +128,13 @@ namespace Dal
                         nextSeqNum++;
                         configRoot.Element("orderItemID")!.SetValue(nextSeqNum);
 
-                        DO.Product p = ((DO.Product)(dalProducts.Get().ToList()[i + j])!);
+                        DO.Product p = ((DO.Product)(dal.Product.Get().ToList()[i + j])!);
                         orderItem.ID = p.ID;
                         orderItem.Price = p.Price;
                         orderItem.OrderID = 100000 + i;
                         orderItem.ProductAmount = rand.Next(1, 10);
 
-                        dal.Add(orderItem);
+                        dal.OrderItem.Add(orderItem);
                     }
                 }
             }
@@ -153,7 +150,7 @@ namespace Dal
         /// <param name="filePath"></param>
         /// <returns></returns>
         /// <exception cref="FileLoadingError"></exception>
-        public static XElement LoadListFromXMLElement(string filePath)
+        public static XElement LoadListFromXMLElement(string filePath, XElement root)
         {
             XNamespace Xdir = dir;
 
@@ -165,7 +162,7 @@ namespace Dal
                 }
                 else
                 {
-                    XElement rootElem = new XElement(/*Xdir + filePath*/"products");
+                    XElement rootElem = new XElement(root.Name);
                     rootElem.Save(dir + filePath);
                     return rootElem;
                 }
