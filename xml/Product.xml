@@ -17,14 +17,6 @@
     <Image>PL\images\Rose.jpg</Image>
   </Product>
   <Product>
-    <ID>861421</ID>
-    <Name>Black coral snake plant</Name>
-    <Category>Pots</Category>
-    <Price>90</Price>
-    <InStock>2</InStock>
-    <Image>PL\images\Black coral snake plant.jpg</Image>
-  </Product>
-  <Product>
     <ID>716738</ID>
     <Name>Fast acting iron</Name>
     <Category>Soils</Category>
@@ -399,5 +391,21 @@
     <Price>144</Price>
     <InStock>3</InStock>
     <Image>PL\images\Garden gloves.jpg</Image>
+  </Product>
+  <Product>
+    <ID>123456</ID>
+    <Name>peach tree</Name>
+    <Category>Trees</Category>
+    <Price>50</Price>
+    <InStock>20</InStock>
+    <Image />
+  </Product>
+  <Product>
+    <ID>861421</ID>
+    <Name>Black coral snake plant</Name>
+    <Category>Pots</Category>
+    <Price>90</Price>
+    <InStock>1</InStock>
+    <Image>PL\images\Black coral snake plant.jpg</Image>
   </Product>
 </products>

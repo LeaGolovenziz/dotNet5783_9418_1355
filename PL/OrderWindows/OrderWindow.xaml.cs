@@ -30,43 +30,48 @@ namespace PL.OrderWindows
             try
             {
                 order = bl.Order.GetOrderDetails(OrderID);
+
+                orderDetailsGrid.DataContext = order;
+
+                // The orderItems of the window
+                orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
+                OrderItemsDataGrid.ItemsSource = orderItems;
+
+                // The checkBoxes of the status of the order
+                if (order.OrderStatus.ToString() == "Sent")
+                {
+                    orderShippedcheckBox.IsChecked = true;
+                    SaveButtun.Content = "close";
+                }
+                else if (order.OrderStatus.ToString() == "Delivered")
+                {
+                    orderDeliveredcheckBox.IsChecked = true;
+                    orderShippedcheckBox.IsChecked = true;
+                    SaveButtun.Content = "close";
+                }
+
+                this.action = action;
             }
             catch (DoesntExist ex)
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
             }
             catch (FileSavingError)
             {
                 MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
             }
             catch (FileLoadingError)
             {
                 MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
             }
             catch (XmlFormatError)
             {
                 MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
             }
-            orderDetailsGrid.DataContext = order;
-
-            // The orderItems of the window
-            orderItems = new ObservableCollection<OrderItem>(order.OrderItems);
-            OrderItemsDataGrid.ItemsSource = orderItems;
-
-            // The checkBoxes of the status of the order
-            if (order.OrderStatus.ToString() == "Sent")
-            {
-                orderShippedcheckBox.IsChecked = true;
-                SaveButtun.Content = "close";
-            }
-            else if (order.OrderStatus.ToString() == "Delivered")
-            {
-                orderDeliveredcheckBox.IsChecked = true;
-                orderShippedcheckBox.IsChecked = true;
-                SaveButtun.Content = "close";
-            }
-
-            this.action = action;
         }
 
         // Updates the amount of the orderItem
