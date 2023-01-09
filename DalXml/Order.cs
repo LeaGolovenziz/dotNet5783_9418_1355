@@ -33,7 +33,7 @@ namespace Dal
                 order.ID = nextSeqNum;
                 nextSeqNum++;
                 configRoot.Element("orderID")!.SetValue(nextSeqNum);
-
+                configRoot.Save(XmlTools.configPath);
                 orders.Add(order);
 
                 XmlTools.SaveListToXMLSerializer(orders, orderPath);

@@ -28,9 +28,10 @@ namespace Dal
             {
                 XElement configRoot = XElement.Load(XmlTools.configPath);
                 int nextSeqNum = (int)configRoot.Element("orderItemID")!;
-                orderItem.ID = nextSeqNum;
+                orderItem.OrderItemID = nextSeqNum;
                 nextSeqNum++;
                 configRoot.Element("orderItemID")!.SetValue(nextSeqNum);
+                configRoot.Save(XmlTools.configPath);
 
                 orderItems.Add(orderItem);
 
