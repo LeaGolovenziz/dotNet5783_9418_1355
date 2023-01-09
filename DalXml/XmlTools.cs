@@ -10,12 +10,12 @@ namespace Dal
         static string dir = @"xml\";
         public static string configPath = @"Config.xml";
 
-        //static XmlTools()
-        //{
-        //    // if the xml folderdoesn't exists create the folder
-        //    if (!Directory.Exists(dir))
-        //        Directory.CreateDirectory(dir);
-        //}
+        static XmlTools()
+        {
+            // if the xml folderdoesn't exists create the folder
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+        }
 
         /// <summary>
         /// loads the products file
