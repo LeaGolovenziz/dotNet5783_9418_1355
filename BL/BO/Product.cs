@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using static BO.Enums;
 
 namespace BO
@@ -12,7 +11,7 @@ namespace BO
         /// <summary>
         /// Unique ID of product
         /// </summary>
-        public int ID { get => iD; set { iD = value; if(PropertyChanged!=null) PropertyChanged(this, new PropertyChangedEventArgs("ID")); } }
+        public int ID { get => iD; set { iD = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ID")); } }
         /// <summary>
         /// Unique name of product
         /// </summary>

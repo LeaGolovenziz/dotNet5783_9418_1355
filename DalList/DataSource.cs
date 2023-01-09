@@ -107,7 +107,7 @@ public static class DataSource
                 OrderItem orderItem = new OrderItem();
 
                 orderItem.OrderItemID = config.ItemOrderID;
-                Product p = (Product)lstPruducts[i+j]!;
+                Product p = (Product)lstPruducts[i + j]!;
                 orderItem.ID = p.ID;
                 orderItem.Price = p.Price;
                 orderItem.OrderID = 100000 + i;

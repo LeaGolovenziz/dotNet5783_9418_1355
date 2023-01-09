@@ -1,10 +1,8 @@
 ﻿using BO;
-using Dal;
 using PL.ProductWindows;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,7 +31,7 @@ namespace PL.OrderWindows
             {
                 order = bl.Order.GetOrderDetails(OrderID);
             }
-            catch(DoesntExist ex)
+            catch (DoesntExist ex)
             {
                 MessageBox.Show("Can't find the order", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -137,9 +135,9 @@ namespace PL.OrderWindows
             orderDetailsGrid.DataContext = order;
 
             // updates the collection with the new updated order item
-            OrderItem newOrderItem=order.OrderItems.FirstOrDefault(x=>x.ID==productID)!;
-            OrderItem oLDorderItem = orderItems.FirstOrDefault(x=>x.ID==productID)!;
-            orderItems.Remove(oLDorderItem);            
+            OrderItem newOrderItem = order.OrderItems.FirstOrDefault(x => x.ID == productID)!;
+            OrderItem oLDorderItem = orderItems.FirstOrDefault(x => x.ID == productID)!;
+            orderItems.Remove(oLDorderItem);
             orderItems.Add(newOrderItem);
 
         }
@@ -176,7 +174,7 @@ namespace PL.OrderWindows
                 {
                     bl.Order.ShipOrder(order.ID);
                     order.OrderStatus = BO.Enums.OrderStatus.Sent;
-                    order.ShipDate= DateTime.Now;
+                    order.ShipDate = DateTime.Now;
                 }
                 catch (AlreadyShipped ex)
                 {

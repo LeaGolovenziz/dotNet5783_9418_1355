@@ -69,16 +69,16 @@
 
     public class FileLoadingError : blExceptions
     {
-        public FileLoadingError(DO.FileLoadingError ex) : base("The file can't be load",ex) { }
+        public FileLoadingError(DO.FileLoadingError ex) : base("The file can't be load", ex) { }
     }
 
     public class FileSavingError : blExceptions
     {
-        public FileSavingError(DO.FileSavingError ex) : base("The file can't be save",ex) { }
+        public FileSavingError(DO.FileSavingError ex) : base("The file can't be save", ex) { }
     }
 
     public class XmlFormatError : blExceptions
     {
-        public XmlFormatError(DO.XmlFormatError ex) : base("wrong xml element format",ex) { }
+        public XmlFormatError(DO.XmlFormatError ex) : base("wrong xml element format", ex) { }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace BO
 {
-    public class Cart:INotifyPropertyChanged
+    public class Cart : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -29,7 +29,7 @@ namespace Dal
                 new XElement("image", product.Image));
 
         /// <summary>
-        /// helper function to Add
+        /// helper function
         /// </summary>
         /// <param name="product"></param>
         private void add(DO.Product product) => ProductRoot.Add(create(product));
@@ -75,7 +75,7 @@ namespace Dal
         }
 
         /// <summary>
-        /// helper function to Delete
+        /// helper function
         /// </summary>
         /// <param name="id"></param>
         /// <exception cref="NotFound"></exception>
@@ -93,12 +93,6 @@ namespace Dal
             }
         }
 
-        /// <summary>
-        /// Gets an ID and deletes from the file of products the product with this ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <exception cref="FileLoadingError"></exception>
-        /// <exception cref="FileSavingError"></exception>
         public void Delete(int id)
         {
             try
@@ -201,10 +195,10 @@ namespace Dal
         }
 
         /// <summary>
-        /// Gets an ID and returns the product with this ID
+        /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>DO.Product</returns>
+        /// <returns></returns>
         /// <exception cref="nullvalue"></exception>
         public DO.Product Get(int id)
         {
@@ -212,14 +206,44 @@ namespace Dal
         }
 
         /// <summary>
-        /// Gets a condition and returns the product with this condition
+        /// 
         /// </summary>
         /// <param name="func"></param>
-        /// <returns>DO.Product</returns>
+        /// <returns></returns>
         /// <exception cref="NotFound"></exception>
         public DO.Product GetIf(Func<DO.Product?, bool>? func)
         {
             return Get(func).FirstOrDefault() ?? throw new NotFound();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <exception cref="FileLoadingError"></exception>
+        /// <exception cref="FileSavingError"></exception>
+        public void Update(DO.Product product)
+        {
+            try
+            {
+                XmlTools.LoadListFromXMLElement(path);
+            }
+            catch
+            {
+                throw new FileLoadingError();
+            }
+
+            delete(product.ID);
+            add(product);
+
+            try
+            {
+                XmlTools.SaveListToXMLElement(ProductRoot, path);
+            }
+            catch
+            {
+                throw new FileSavingError();
+            }
         }
     }
 }
