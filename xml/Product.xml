@@ -177,14 +177,6 @@
     <Image>PL\images\Beech tree.jpg</Image>
   </Product>
   <Product>
-    <ID>860873</ID>
-    <Name>Anemone</Name>
-    <Category>Flowers</Category>
-    <Price>114</Price>
-    <InStock>26</InStock>
-    <Image>PL\images\Anemone.jpg</Image>
-  </Product>
-  <Product>
     <ID>631934</ID>
     <Name>Calathea orbifolia</Name>
     <Category>Pots</Category>
@@ -415,5 +407,13 @@
     <Price>90</Price>
     <InStock>1</InStock>
     <Image>PL\images\Black coral snake plant.jpg</Image>
+  </Product>
+  <Product>
+    <ID>860873</ID>
+    <Name>Anemone</Name>
+    <Category>Flowers</Category>
+    <Price>114</Price>
+    <InStock>25</InStock>
+    <Image>PL\images\Anemone.jpg</Image>
   </Product>
 </products>
