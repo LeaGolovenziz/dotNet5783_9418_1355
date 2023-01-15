@@ -1,6 +1,7 @@
 ﻿using BO;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 using IOrder = BlApi.IOrder;
 using Nullvalue = BO.Nullvalue;
 using Order = BO.Order;
@@ -73,6 +74,7 @@ namespace Bllmplementation
             return orderStatus;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Order DeliverOrder(int orderID)
         {
             try
@@ -112,6 +114,7 @@ namespace Bllmplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Order GetOrderDetails(int orderID)
         {
             // if the order's ID is unvalid - throw an exception
@@ -130,6 +133,7 @@ namespace Bllmplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public OrderTracking TrackOrder(int orderID)
         {
             try
@@ -172,6 +176,7 @@ namespace Bllmplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         IEnumerable<OrderForList?> IOrder.GetOrderList()
         {
             IEnumerable<OrderForList> orders;
@@ -195,6 +200,7 @@ namespace Bllmplementation
             return orders;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         Order IOrder.ShipOrder(int orderID)
         {
             try
@@ -233,6 +239,7 @@ namespace Bllmplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         Order IOrder.UpdateOrderDetails(int orderID, int productID, int amountToChange)
         {
             try
@@ -290,6 +297,7 @@ namespace Bllmplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public OrderForList GetOrderForList(int orderID)
         {
             if (orderID <= 0)
@@ -324,6 +332,7 @@ namespace Bllmplementation
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Order AddNewOrderItem(int orderID, int productID)
         {
             try

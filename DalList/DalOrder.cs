@@ -1,10 +1,12 @@
 ﻿using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 
 public class DalOrder : IOrder
 {
+    [MethodImpl(MethodImplOptions.Synchronized)]
     /// <summary>
     /// adds the order to the orders list and return it's id
     /// </summary>
@@ -17,6 +19,7 @@ public class DalOrder : IOrder
         return order.ID;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     /// <summary>
     ///  gets an id and return the order with this id
     /// </summary>
@@ -28,6 +31,7 @@ public class DalOrder : IOrder
         return GetIf(order => (order ?? throw new Nullvalue()).ID == id);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     /// <summary>
     /// gets an ID and deletes the order with this ID
     /// </summary>
@@ -37,6 +41,7 @@ public class DalOrder : IOrder
         DataSource.lstOreders.Remove(Get(id));
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     /// <summary>
     /// gets an order and updetes it
     /// </summary>
@@ -49,6 +54,7 @@ public class DalOrder : IOrder
         DataSource.lstOreders[index] = order;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     /// <summary>
     ///  return the list of orders
     /// </summary>
@@ -61,6 +67,8 @@ public class DalOrder : IOrder
                     select item).ToList();
         return DataSource.lstOreders;
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     /// <summary>
     ///  returns Order who meets the condition
     /// </summary>

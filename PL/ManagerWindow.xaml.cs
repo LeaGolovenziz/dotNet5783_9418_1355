@@ -33,5 +33,7 @@ namespace PL
         {
             // to prevent failure
         }
+
+        private void MenuItem_Click_ShowOrderTracking(object sender, RoutedEventArgs e)=>new SimulationWindow().Show();
     }
 }

@@ -33,7 +33,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{1E38BE83-47E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{C624CCE1-486A-4F28-9528-C7E970871AC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXmlInitializer", "DalXmlInitializer\DalXmlInitializer.csproj", "{583EC24C-A681-49DA-84AC-37EBA48A3E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXmlInitializer", "DalXmlInitializer\DalXmlInitializer.csproj", "{583EC24C-A681-49DA-84AC-37EBA48A3E0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Simulator\Simulator.csproj", "{6F23D4CA-578D-4D24-A94F-EF7F6974A411}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{583EC24C-A681-49DA-84AC-37EBA48A3E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{583EC24C-A681-49DA-84AC-37EBA48A3E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{583EC24C-A681-49DA-84AC-37EBA48A3E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F23D4CA-578D-4D24-A94F-EF7F6974A411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F23D4CA-578D-4D24-A94F-EF7F6974A411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F23D4CA-578D-4D24-A94F-EF7F6974A411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F23D4CA-578D-4D24-A94F-EF7F6974A411}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

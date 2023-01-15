@@ -1,0 +1,50 @@
+﻿<Window x:Class="PL.SimulationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="SimulationWindow" Height="450" Width="1000">
+    <Grid Name ="MainGrid" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="500*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+              VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <Button x:Name="buttonStart" Content="Start tracking" HorizontalAlignment="Right" Grid.Column="0"  Margin="15,0"  FontSize="9" Click="buttonStart_Click"/>
+            <Button x:Name="buttonStop" Content="Stop tracking" HorizontalAlignment="Left"  Grid.Column="1"  FontSize="9" />
+        </Grid>
+        <ListView x:Name="OrderListView" ItemsSource="{Binding Orders}" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" FontSize="18">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Order's ID" DisplayMemberBinding="{Binding OrderID}" Width="120"/>
+                    <GridViewColumn Header="Customer's Name" DisplayMemberBinding="{Binding CustomerName}" Width="200"/>
+                    <GridViewColumn Header="Order's status" DisplayMemberBinding="{Binding OrderStatus}" Width="120"/>
+                    <GridViewColumn Header="Products Amount" DisplayMemberBinding="{Binding Amount}" Width="180"/>
+                    <GridViewColumn Header="Total price" DisplayMemberBinding="{Binding Price}" Width="120"/>
+                    <GridViewColumn  Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button  Width="130" Content="tracking history" Height="45"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ProgressBar x:Name="progressBar" Width="130" Height="45" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
