@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        
         Title="SimulationWindow" Height="450" Width="1000">
     <Grid Name ="MainGrid" Margin="10">
         <Grid.RowDefinitions>
@@ -19,9 +19,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <Button x:Name="buttonStart" Content="Start tracking" HorizontalAlignment="Right" Grid.Column="0"  Margin="15,0"  FontSize="9" Click="buttonStart_Click"/>
-            <Button x:Name="buttonStop" Content="Stop tracking" HorizontalAlignment="Left"  Grid.Column="1"  FontSize="9" />
+            <Button x:Name="buttonStop" Content="Stop tracking" HorizontalAlignment="Left"  Grid.Column="1"  FontSize="9" Click="buttonStop_Click" />
         </Grid>
-        <ListView x:Name="OrderListView" ItemsSource="{Binding Orders}" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" FontSize="18">
+        <ListView x:Name="OrderListView" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" FontSize="18">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Order's ID" DisplayMemberBinding="{Binding OrderID}" Width="120"/>
