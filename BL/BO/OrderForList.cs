@@ -13,6 +13,10 @@ namespace BO
         /// </summary>
         public string? CustomerName { get; set; }
         /// <summary>
+        /// Unique custumer's ID of order
+        /// </summary>
+        public int CustomerID { get; set; }
+        /// <summary>
         /// unique name of costumer
         /// </summary>
         public OrderStatus? OrderStatus { get; set; }

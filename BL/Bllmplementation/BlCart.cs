@@ -13,6 +13,12 @@ namespace Bllmplementation
         /// </summary>
         private IDal? dal = DalApi.Factory.Get();
 
+        /// <summary>
+        /// returns the ampunt of the product in the cart
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="productID"></param>
+        /// <returns>int</returns>
         public int AmountOf(Cart cart, int productID)
         {
             if (cart.OrderItems == null)
@@ -91,7 +97,7 @@ namespace Bllmplementation
             return cart;
         }
 
-        int ICart.PlaceOrder(Cart cart)
+        int ICart.PlaceOrder(Cart cart,BO.User user)
         {
             // checking validity of customers details:
 
@@ -144,6 +150,7 @@ namespace Bllmplementation
                 CustomerAdress = cart.CustomerAddress,
                 CustomerEmail = cart.CustomerEmail,
                 CustomerName = cart.CustomerName,
+                CustomerID=user.ID,
                 OrderStatus = BO.Enums.OrderStatus.Confirmed,
                 OrderDate = DateTime.Now,
                 Price = 0,
@@ -157,6 +164,7 @@ namespace Bllmplementation
                 CustomerAdress = cart.CustomerAddress,
                 CustomerEmail = cart.CustomerEmail,
                 CustomerName = cart.CustomerName,
+                CustomerID=user.ID
             };
 
             order.ID = dal.Order.Add(tOrder);

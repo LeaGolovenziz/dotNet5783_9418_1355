@@ -17,6 +17,10 @@
         /// unique object of cart's interface
         /// </summary>
         public ICart Cart { get; }
+        /// <summary>
+        /// unique object of user's interface
+        /// </summary>
+        public IUser User { get; }
 
     }
 }

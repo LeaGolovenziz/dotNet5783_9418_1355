@@ -7,6 +7,8 @@ namespace BO
     /// </summary>
     internal static class Copy
     {
+        #region Copy from stract to class
+
         /// <summary>
         /// Generic ectention copying function of struct Source to class Target
         /// </summary>
@@ -54,6 +56,21 @@ namespace BO
         }
 
         /// <summary>
+        ///  Generic ectention copying function of ienumerable of struct to ienumerable of class
+        /// </summary>
+        /// <typeparam name="Source"></typeparam>
+        /// <typeparam name="Target"></typeparam>
+        /// <param name="sources"></param>
+        /// <returns>IEnumerable<Target></returns>
+        public static IEnumerable<Target> CopyListTo<Source, Target>(this IEnumerable<Source> sources) where Target : new()
+        => from source in sources
+           select source.CopyPropTo(new Target());
+
+        #endregion
+
+        #region Copy from class to struct
+
+        /// <summary>
         /// Generic ectention copying function of class Source to struct Target
         /// </summary>
         /// <typeparam name="Source"></typeparam>
@@ -69,17 +86,6 @@ namespace BO
         }
 
         /// <summary>
-        ///  Generic ectention copying function of ienumerable of struct to ienumerable of class
-        /// </summary>
-        /// <typeparam name="Source"></typeparam>
-        /// <typeparam name="Target"></typeparam>
-        /// <param name="sources"></param>
-        /// <returns>IEnumerable<Target></returns>
-        public static IEnumerable<Target> CopyListTo<Source, Target>(this IEnumerable<Source> sources) where Target : new()
-        => from source in sources
-           select source.CopyPropTo(new Target());
-
-        /// <summary>
         /// Generic ectention copying function of ienumerable of class to ienumerable of struct
         /// </summary>
         /// <typeparam name="Source"></typeparam>
@@ -89,5 +95,8 @@ namespace BO
         public static IEnumerable<Target> CopyListToStruct<Source, Target>(this IEnumerable<Source> sources) where Target : struct
             => from source in sources
                select source.CopyPropTo(new Target());
+
+        #endregion
+
     }
 }

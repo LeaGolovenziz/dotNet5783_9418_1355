@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 
 namespace Dal;
 
@@ -12,6 +13,7 @@ public static class DataSource
     internal static List<Order?> lstOreders = new List<Order?>();
     internal static List<OrderItem?> lstOrderItems = new List<OrderItem?>();
     internal static List<Product?> lstPruducts = new List<Product?>();
+    internal static List<User?> lstUsers = new List<User?>();
 
     static DataSource()
     {
@@ -19,6 +21,8 @@ public static class DataSource
     }
     private static void s_Initialize()
     {
+        #region Create products
+
         // array of product's possible names
         string[] productsNamesArray = { "Cypress tree", "Rose", "Black coral snake plant", "Watering can", "Fast acting iron",
                                         "Apple tree", "Tulip", "Whale fin snake plant", "Soil soker hose", "Fast a thing gypsum",
@@ -66,6 +70,39 @@ public static class DataSource
             lstPruducts.Add(product);
         }
 
+        #endregion
+
+        #region create users
+        for (int i = 0; i < 5; i++)
+        {
+            // create new user
+            User user = new User();
+
+            // draws an id while there's alredy a product in the list with the same id
+            do
+            {
+                user.ID = rand.Next(100000000, 999999999);
+            }
+            while (lstUsers.Exists(x => x.Value.ID == user.ID));
+
+            // draw a name and last name from the names and last names arrays
+            string custumerFirstName = firstNames[rand.Next(0, 4)];
+            string custumerLastName = lastNames[rand.Next(0, 4)];
+
+            user.Name = custumerFirstName + " " + custumerLastName;
+
+            user.Password= rand.Next(100000, 999999).ToString();
+
+            user.IsManeger = false;
+
+            lstUsers.Add(user);
+
+        }
+
+        #endregion
+
+        #region Create orders
+
         for (int i = 0; i < 20; i++)
         {
             // create new order
@@ -73,12 +110,15 @@ public static class DataSource
 
             // gets the next available id
             order.ID = config.OrderID;
-            // draw a name and last name from the names and last names arrays
-            string custumerFirstName = firstNames[rand.Next(0, 4)];
-            string custumerLastName = lastNames[rand.Next(0, 4)];
 
-            order.CustomerName = custumerFirstName + " " + custumerLastName;
-            order.CustomerEmail = custumerFirstName + custumerLastName + "@gmail.com";
+            User? user = lstUsers.ElementAt(rand.Next(0, 4));
+
+            order.CustomerID = (int)user?.ID!;
+
+            order.CustomerName = user?.Name;
+
+            order.CustomerEmail = user?.Name + "@gmail.com";
+
             // draw a city and a street fron the cities and streeats arrays
             order.CustomerAdress = streets[rand.Next(0, 4)] + " " + rand.Next(1, 100) + " " + cities[rand.Next(0, 4)];
             // draw a date in the rang between last year and two months ago
@@ -100,6 +140,11 @@ public static class DataSource
 
             lstOreders.Add(order);
         }
+
+        #endregion
+
+        #region Create orders items
+
         for (int i = 0; i < 20; i++)
         {
             for (int j = 0; j < 2; j++)
@@ -117,7 +162,11 @@ public static class DataSource
             }
         }
 
+        #endregion
+
     }
+
+    #region Add to lists functions
 
     private static void addOrder(Order or)
     {
@@ -131,6 +180,8 @@ public static class DataSource
     {
         lstOrderItems.Add(orit);
     }
+
+    #endregion
 
     internal static class config
     {

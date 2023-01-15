@@ -14,6 +14,8 @@ namespace PL.CartWindows
 
         public Cart cart;
 
+        public User user=new User();
+
         private Action action;
 
         public PlaceOrderWindow(Cart cart, Action action)
@@ -80,7 +82,7 @@ namespace PL.CartWindows
             else try
                 {
                     // place order
-                    int orderID = bl.Cart.PlaceOrder(cart);
+                    int orderID = bl.Cart.PlaceOrder(cart,user);
                     MessageBox.Show("Your order has been confirmed! \nyour tracking number is " + orderID);
 
                     // close two previouse windows

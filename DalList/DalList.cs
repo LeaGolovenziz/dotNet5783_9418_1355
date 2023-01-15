@@ -11,11 +11,14 @@ namespace Dal
 
         public IOrderItem OrderItem { get; }
 
+        public IUser User { get; }
+
         private DalList()
         {
             Order = new DalOrder();
             Product = new DalProduct();
             OrderItem = new DalOrderItem();
+            User = new DalUser(); 
         }
 
     }
