@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 
 namespace BlApi
 {
@@ -29,7 +30,7 @@ namespace BlApi
         /// <param name="name"></param>
         /// <param name="email"></param>
         /// <param name="address"></param>
-        public int PlaceOrder(Cart cart);
+        public int PlaceOrder(Cart cart,BO.User user);
         /// <summary>
         /// gets a cart and products id and returns the amount un cart of the product
         /// </summary>

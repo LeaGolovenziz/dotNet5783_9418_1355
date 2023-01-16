@@ -14,6 +14,10 @@ public struct Order
     /// </summary>
     public string? CustomerName { get; set; }
     /// <summary>
+    /// Unique custumer's ID of order
+    /// </summary>
+    public int CustomerID { get; set; }
+    /// <summary>
     /// Unique austumer's email of order
     /// </summary>
     public string? CustomerEmail { get; set; }

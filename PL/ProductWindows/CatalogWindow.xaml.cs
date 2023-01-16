@@ -30,6 +30,7 @@ namespace PL.ProductWindows
             var Products = new ObservableCollection<ProductItem?>((IEnumerable<ProductItem?>)(from item in bl.Product.GetProductsList()
                                                                                               let amount = bl.Cart.AmountOf(cart, item.ID)
                                                                                               let isInStock = bl.Product.GetProductDetails(item.ID).InStock > 0 ? true : false
+                                                                                              where isInStock== true || amount>0
                                                                                               select new ProductItem
                                                                                               {
                                                                                                   ID = item.ID,

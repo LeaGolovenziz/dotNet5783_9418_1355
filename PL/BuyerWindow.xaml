@@ -18,6 +18,6 @@
             <MenuItem Header="                              New order"  Height="39"  Width="400" FontSize="18" Grid.Column="0" Click="MenuItem_OpenCatalog"/>
             <MenuItem Header="                              Track order" Height="39" Width="400" FontSize="18" Grid.Column="0" Click="MenuItem_TrackOrder"/>
         </Menu>
-        <MediaElement x:Name="video" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="1"  Volume="0.05" Position="00:00:00" IsMuted="True" />
+        <MediaElement x:Name="video" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="1"  Volume="0.05" Position="00:00:00"  />
     </Grid>
 </Window>

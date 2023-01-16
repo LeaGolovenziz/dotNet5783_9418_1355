@@ -6,9 +6,11 @@ namespace Dal
 {
     static class XmlTools
     {
+        #region Directories
         // xml files' folders name
         static string dir = @"..\xml\";
         public static string configPath = dir + @"Config.xml";
+        #endregion
 
         static XmlTools()
         {
@@ -17,8 +19,7 @@ namespace Dal
                 Directory.CreateDirectory(dir);
         }
 
-        public static int? ToIntNullable(this XElement element, string name) =>
-        int.TryParse((string?)element.Element(name), out var result) ? (int?)result : null;
+        #region LinqToXml Functions
 
         /// <summary>
         /// loads the products file
@@ -65,6 +66,9 @@ namespace Dal
             }
         }
 
+        #endregion
+
+        #region Serializer function
         public static List<T?> LoadListFromXMLSerializer<T>(string filePath,string rootName)
         {
             try
@@ -91,7 +95,6 @@ namespace Dal
             }
         }
 
-
         public static void SaveListToXMLSerializer<T>(List<T?> list, string filePath)
         {
             try
@@ -106,5 +109,7 @@ namespace Dal
                 throw new FileSavingError();
             }
         }
+
+        #endregion
     }
 }

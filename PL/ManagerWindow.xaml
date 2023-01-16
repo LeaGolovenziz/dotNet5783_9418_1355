@@ -19,6 +19,6 @@
             <MenuItem Header="                      Orders list" Height="39" Width="250" FontSize="18" Grid.Column="0" Click="MenuItem_Click_ShowOrderList"/>
             <MenuItem Header="                      Orders tracking" Height="39" Width="300" FontSize="18" Grid.Column="0" Click="MenuItem_Click_ShowOrderTracking"/>
         </Menu>
-        <MediaElement x:Name="video" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="1" Volume="0.05" Position="00:00:00" IsMuted="True" />
+        <MediaElement x:Name="video" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="1" Volume="0.05" Position="00:00:00"  />
     </Grid>
 </Window>

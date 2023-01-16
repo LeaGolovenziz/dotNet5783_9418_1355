@@ -190,6 +190,8 @@ namespace Bllmplementation
                 OrderID = (order ?? throw new Nullvalue()).ID!,
                 // the customer's name
                 CustomerName = (order ?? throw new Nullvalue()).CustomerName!,
+                // the customer's id
+                CustomerID = (order ?? throw new Nullvalue()).CustomerID!,  
                 OrderStatus = getOrderStatus(order),
                 // the amount
                 Amount = orderItems.Where(x => (x ?? throw new Nullvalue()).OrderID == (order ?? throw new Nullvalue()).ID).Sum(x => (x ?? throw new Nullvalue()).ProductAmount),

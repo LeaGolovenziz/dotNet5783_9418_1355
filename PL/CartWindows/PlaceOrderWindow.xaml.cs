@@ -14,6 +14,8 @@ namespace PL.CartWindows
 
         public Cart cart;
 
+        public User user=new User();
+
         private Action action;
 
         public PlaceOrderWindow(Cart cart, Action action)

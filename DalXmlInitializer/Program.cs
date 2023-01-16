@@ -10,8 +10,12 @@ namespace Dal
             List<Product?> products = new List<Product?>();
             List<Order?> orders = new List<Order?>();
             List<OrderItem?> orderItems = new List<OrderItem?>();
+            List<User?> users = new List<User?>();
+
 
             Random rand = new Random();
+
+            #region Data arreys
 
             // array of product's possible names
             string[] productsNamesArray = { "Cypress tree", "Rose", "Black coral snake plant", "Watering can", "Fast acting iron",
@@ -25,7 +29,6 @@ namespace Dal
                                             "Cotton tree", "Sunflower", "Bamboo palm", "Tree staking kit", "Moss max",
                                             "Treaty tree", "Lavender", "Peach lily", "Pump and spray applicator", "Iron tone" };
 
-
             string[] firstNames = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi" };
 
             string[] lastNames = { "Cohen", "Levi", "Israel", "Goldenkoif", "Kachanelbuge" };
@@ -33,8 +36,13 @@ namespace Dal
             string[] cities = { "Jerusalem", "Ramat Gan", "Bnei Brak", "Beit Shemesh", "Ashdod" };
 
             string[] streets = { "Ben Guryon", "Habrosh", "Hazait", "Vaitzman", "Begin" };
+
+            #endregion
+
             try
             {
+                #region Create products
+
                 for (int i = 0; i < 50; i++)
                 {
                     // create new product
@@ -64,6 +72,39 @@ namespace Dal
 
                 }
 
+                #endregion
+
+                #region create users
+                for (int i = 0; i < 5; i++)
+                {
+                    // create new user
+                    User user = new User();
+
+                    // draws an id while there's alredy a product in the list with the same id
+                    do
+                    {
+                        user.ID = rand.Next(100000000, 999999999);
+                    }
+                    while (users.Exists(x => x.Value.ID == user.ID));
+
+                    // draw a name and last name from the names and last names arrays
+                    string custumerFirstName = firstNames[rand.Next(0, 4)];
+                    string custumerLastName = lastNames[rand.Next(0, 4)];
+
+                    user.Name = custumerFirstName + " " + custumerLastName;
+
+                    user.Password = rand.Next(100000, 999999).ToString();
+
+                    user.IsManeger = false;
+
+                    users.Add(user);
+
+                }
+
+                #endregion
+
+                #region Create Orders
+
                 for (int i = 0; i < 20; i++)
                 {
                     // create new order
@@ -72,12 +113,14 @@ namespace Dal
                     // gets the next available id
                     order.ID = config.OrderID;
 
-                    // draw a name and last name from the names and last names arrays
-                    string custumerFirstName = firstNames[rand.Next(0, 4)];
-                    string custumerLastName = lastNames[rand.Next(0, 4)];
+                    User? user = users.ElementAt(rand.Next(0, 4));
 
-                    order.CustomerName = custumerFirstName + " " + custumerLastName;
-                    order.CustomerEmail = custumerFirstName + custumerLastName + "@gmail.com";
+                    order.CustomerID = (int)user?.ID!;
+
+                    order.CustomerName = user?.Name;
+
+                    order.CustomerEmail = user?.Name + "@gmail.com";
+
                     // draw a city and a street fron the cities and streeats arrays
                     order.CustomerAdress = streets[rand.Next(0, 4)] + " " + rand.Next(1, 100) + " " + cities[rand.Next(0, 4)];
                     // draw a date in the rang between last year and two months ago
@@ -100,6 +143,11 @@ namespace Dal
                     orders.Add(order);
 
                 }
+
+                #endregion
+
+                #region Create orders items
+
                 for (int i = 0; i < 20; i++)
                 {
                     for (int j = 0; j < 2; j++)
@@ -107,7 +155,7 @@ namespace Dal
                         DO.OrderItem orderItem = new DO.OrderItem();
 
                         // gets the next available id
-                        orderItem.OrderItemID = config.itemOrderID;
+                        orderItem.OrderItemID = config.ItemOrderID;
                         DO.Product p = ((DO.Product)(products[i + j])!);
                         orderItem.ID = p.ID;
                         orderItem.Price = p.Price;
@@ -117,6 +165,10 @@ namespace Dal
                         orderItems.Add(orderItem);
                     }
                 }
+
+                #endregion
+
+                #region Save lists to xml
                 XElement initialize = new XElement("products",
                     from product in products
                     select new XElement
@@ -133,6 +185,10 @@ namespace Dal
 
                 XmlTools.SaveListToXMLSerializer(orders, @"..\..\..\..\xml\Order.xml");
                 XmlTools.SaveListToXMLSerializer(orderItems, @"..\..\..\..\xml\OrderItem.xml");
+                XmlTools.SaveListToXMLSerializer(users, @"..\..\..\..\xml\Users.xml");
+
+
+                #endregion
 
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }

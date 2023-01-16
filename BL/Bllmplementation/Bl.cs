@@ -11,11 +11,15 @@ namespace Bllmplementation
 
         public ICart Cart { get; }
 
+        public IUser User { get; }
+
+
         public Bl()
         {
             Product = new BlProduct();
             Order = new BlOrder();
             Cart = new BlCart();
+            User = new BlUser();
         }
 
     }
