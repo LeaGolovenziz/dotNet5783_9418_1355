@@ -12,7 +12,9 @@
             <GradientStop Color="FloralWhite"
                           Offset="1"/>
         </LinearGradientBrush>
-
+        <Style x:Key="controlStyle" TargetType="Control">
+            <Setter Property="FontSize" Value="17"/>
+        </Style>
         <Style  TargetType="Button">
             <Setter Property="Background" Value="{StaticResource MyButtonBackground}"/>
             <Setter Property="FontSize" Value="17"/>

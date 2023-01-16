@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:convertor="clr-namespace:PL.Convertors"
         mc:Ignorable="d"
         
         Title="SimulationWindow" Height="450" Width="1000">
+    <Window.Resources>
+        <convertor:StatusToColorConvertor
+            x:Key="statusToColorConvertor"/>
+    </Window.Resources>
+
     <Grid Name ="MainGrid" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="60*"/>
@@ -28,7 +34,16 @@
                 <GridView>
                     <GridViewColumn Header="Order's ID" DisplayMemberBinding="{Binding OrderID}" Width="120"/>
                     <GridViewColumn Header="Customer's Name" DisplayMemberBinding="{Binding CustomerName}" Width="200"/>
-                    <GridViewColumn Header="Order's status" DisplayMemberBinding="{Binding OrderStatus}" Width="120"/>
+                    <GridViewColumn x:Name="statusColumn" Header="Order's status" Width="120">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderStatus}"                                                
+                                                Foreground="{Binding OrderStatus, Converter={StaticResource statusToColorConvertor}}"
+ />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                   
                     <GridViewColumn Header="Products Amount" DisplayMemberBinding="{Binding Amount}" Width="180"/>
                     <GridViewColumn Header="Total price" DisplayMemberBinding="{Binding Price}" Width="120"/>
                     <GridViewColumn  Width="150">

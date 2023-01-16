@@ -75,13 +75,13 @@ namespace PL.CartWindows
                 CustomerEmailExceptionLable.Visibility == Visibility.Visible ||
                 CustomerNameExceptionLable.Visibility == Visibility.Visible)
             {
-                MessageBox.Show("please enter all details!");
+                MessageBox.Show("please enter all details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else try
                 {
                     // place order
                     int orderID = bl.Cart.PlaceOrder(cart);
-                    MessageBox.Show("Your order has been confirmed! \nyour tracking number is " + orderID);
+                    MessageBox.Show("Your order has been confirmed! \nyour tracking number is " + orderID, "ATTENTION", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     // close two previouse windows
                     action();

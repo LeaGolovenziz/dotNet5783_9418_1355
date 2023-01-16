@@ -24,8 +24,6 @@ namespace PL.ProductWindows
         private CollectionView? view;
         public ObservableCollection<ProductItem?> Products { get; set; }
 
-
-
         // get all products and creates an observeable Product Items list of them
         public ObservableCollection<ProductItem?> GetAllCatalog()
         {
@@ -47,7 +45,6 @@ namespace PL.ProductWindows
             return Products;
         }
 
-
         public CatalogWindow()
         {
             InitializeComponent();
@@ -57,8 +54,6 @@ namespace PL.ProductWindows
             // get enums list for combo box
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
         }
-
-
 
         // sort catalog by category
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -94,7 +89,7 @@ namespace PL.ProductWindows
             // open a wondow with its details and option to add to cart
             if (product != null)
             {
-                new ProductItemWindow(product.ID, cart, addToCartAction).ShowDialog();
+                new ProductItemWindow(product.ID, cart, addToCartAction).Show();
             }
         }
 
@@ -108,7 +103,7 @@ namespace PL.ProductWindows
             }
             // open a window with cart deatails
             else
-                new CartWindow(cart, updateFromCartAction, Close).ShowDialog();
+                new CartWindow(cart, updateFromCartAction, Close).Show();
         }
 
 

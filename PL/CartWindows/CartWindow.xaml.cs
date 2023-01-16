@@ -21,6 +21,7 @@ namespace PL.CartWindows
         public OrderItem orderItem = new OrderItem();
 
         private Action closePrevWindow;
+
         private Action<OrderItem> updateCartAction;
 
         public CartWindow(Cart cart, Action<OrderItem> updateCartAction, Action closePrevWindow)
@@ -223,7 +224,7 @@ namespace PL.CartWindows
         }
 
         // open place order window
-        private void PlaceOrder(object sender, RoutedEventArgs e) => new PlaceOrderWindow(cart, CloseAction).ShowDialog();
+        private void PlaceOrder(object sender, RoutedEventArgs e) => new PlaceOrderWindow(cart, CloseAction).Show();
 
 
         // clear cart

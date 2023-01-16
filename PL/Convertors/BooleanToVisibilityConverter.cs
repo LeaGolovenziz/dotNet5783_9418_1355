@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PL.OrderWindows.Convertors
+namespace PL.Convertors
 {
     public class BooleanTrueToVisibilityConverter : IValueConverter
     {

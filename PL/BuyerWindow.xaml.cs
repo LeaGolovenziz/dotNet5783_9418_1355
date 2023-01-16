@@ -27,9 +27,9 @@ namespace PL
             catch (Exception ex) { }
         }
 
-        private void MenuItem_OpenCatalog(object sender, RoutedEventArgs e) => new CatalogWindow().ShowDialog();
+        private void MenuItem_OpenCatalog(object sender, RoutedEventArgs e) => new CatalogWindow().Show();
 
-        private void MenuItem_TrackOrder(object sender, RoutedEventArgs e) => new TrackingWindow().ShowDialog();
+        private void MenuItem_TrackOrder(object sender, RoutedEventArgs e) => new TrackingWindow().Show();
 
     }
 }

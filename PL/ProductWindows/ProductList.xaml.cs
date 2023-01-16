@@ -94,7 +94,7 @@ namespace PL.ProductWindows
         private void AddNewProduct_Click(object sender, RoutedEventArgs e)
         {
             // Sending a delegate to the window that adding a product
-            new ProductWindow(addProduct).ShowDialog();
+            new ProductWindow(addProduct).Show();
         }
 
         // Delegate that updates product to the list
@@ -114,7 +114,7 @@ namespace PL.ProductWindows
                 ProductForList product = (ProductForList)ProductListView.SelectedItem;
                 if (product != null)
                 {
-                    new ProductWindow(updateProduct, product.ID).ShowDialog();
+                    new ProductWindow(updateProduct, product.ID).Show();
                     CategorySelector.SelectedItem = null;
                 }
             }

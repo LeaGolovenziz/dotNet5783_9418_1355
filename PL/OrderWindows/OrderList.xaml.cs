@@ -68,7 +68,7 @@ namespace PL.OrderWindows
 
             if (orderForList != null)
             {
-                new OrderWindow(orderForList.OrderID, UpdateOrder).ShowDialog();
+                new OrderWindow(orderForList.OrderID, UpdateOrder).Show();
             }
         }
 

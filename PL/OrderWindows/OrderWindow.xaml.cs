@@ -155,7 +155,7 @@ namespace PL.OrderWindows
         // Adds an orderItem to the order
         private void addProductButton_Click(object sender, RoutedEventArgs e)
         {
-            new ProductList(addOrderItem, order.ID).ShowDialog();
+            new ProductList(addOrderItem, order.ID).Show();
             OrderItemsDataGrid.DataContext = orderItems;
         }
 
