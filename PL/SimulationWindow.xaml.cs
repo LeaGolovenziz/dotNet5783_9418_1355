@@ -16,7 +16,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Simulator;
 using System.Timers;
 
 
@@ -34,25 +33,25 @@ namespace PL
         BackgroundWorker backgroundWorker;
         public ObservableCollection<OrderForList?> Orders { get; set; }
 
+        private volatile bool stopSimulation;
+
         public SimulationWindow()
         {
-            //DataContext = "{Binding RelativeSource={RelativeSource Self}}"
 
             InitializeComponent();
-            Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
+            Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList().OrderBy(x=>x.CustomerName));
             OrderListView.DataContext = Orders;
 
             backgroundWorker = new BackgroundWorker();
 
-            backgroundWorker.DoWork += BwDeliver_DoWork;
-            backgroundWorker.ProgressChanged += BwDeliver_ProgressChanged;
-            backgroundWorker.RunWorkerCompleted += BwDeliver_RunWorkerCompleted;
+            backgroundWorker.DoWork += BwDeliver_DoWork!;
+            backgroundWorker.ProgressChanged += BwDeliver_ProgressChanged!;
+            backgroundWorker.RunWorkerCompleted += BwDeliver_RunWorkerCompleted!;
 
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.WorkerSupportsCancellation = true;
-
-            backgroundWorker.RunWorkerAsync();
         }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             if (buttonClose.Visibility == Visibility.Hidden)
@@ -74,42 +73,52 @@ namespace PL
                 }
                 else
                 {
-                    SimulatorC.startSimulation();
                     Thread.Sleep(1000);
 
-                    // TODO: Report only when changed actually occured
                     backgroundWorker.ReportProgress((int)stopwatch.ElapsedMilliseconds);
                 }
             }
         }
         private void BwDeliver_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
-            OrderListView.DataContext = Orders;
+            int currentTime = e.ProgressPercentage;
 
-            System.TimeSpan time = System.TimeSpan.FromMilliseconds(e.ProgressPercentage);
+            foreach (BO.OrderForList orderForList in Orders)
+            {
+                if (stopSimulation)
+                    break;
 
-            clockTextBlock.Text = time.ToString(@"hh\:mm\:ss");
+                BO.Order order = bl.Order.GetOrderDetails(orderForList.OrderID);
 
-            //int precent = e.ProgressPercentage;
-            //progressBar
+                if (order.DeliveryDate == null)
+                {
+                    if (order.ShipDate != null && (order.ShipDate - order.OrderDate).Value.TotalDays <= currentTime)
+                    {
+                        bl.Order.DeliverOrder(order.ID);
+                    }
+                    else if (order.OrderDate != null && (order.OrderDate - DateTime.Now).Value.TotalDays <= currentTime)
+                    {
+                        bl.Order.ShipOrder(order.ID);
+                    }
+                    Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList().OrderBy(x => x.CustomerName));
+                    OrderListView.DataContext = Orders;
+
+                    System.TimeSpan time = System.TimeSpan.FromMilliseconds(e.ProgressPercentage);
+                    clockTextBlock.Text = time.ToString(@"hh\:mm\:ss");
+
+                    break;
+                }
+            }
         }
         private void BwDeliver_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled == true)
             {
-                SimulatorC.stopSimulation();
+                stopSimulation = true;   
                 MessageBox.Show("The simulation has canceled", "Pay attention", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
                 MessageBox.Show("The simulation has finished!", "Pay attention", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            //Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
-            //OrderListView.DataContext = Orders;
-
-            backgroundWorker.DoWork -= BwDeliver_DoWork;
-            backgroundWorker.ProgressChanged -= BwDeliver_ProgressChanged;
-            backgroundWorker.RunWorkerCompleted -= BwDeliver_RunWorkerCompleted;
 
             buttonStop.Visibility = Visibility.Hidden;
             buttonClose.Visibility = Visibility.Visible;
@@ -123,6 +132,10 @@ namespace PL
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
+            
+            backgroundWorker.DoWork -= BwDeliver_DoWork!;
+            backgroundWorker.ProgressChanged -= BwDeliver_ProgressChanged!;
+            backgroundWorker.RunWorkerCompleted -= BwDeliver_RunWorkerCompleted!;
             this.Close();
         }
 
@@ -136,14 +149,15 @@ namespace PL
             }
         }
 
-        //private void buttonStart_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (backgroundWorker.IsBusy != true)
-        //    {
-        //        this.Cursor = Cursors.Wait;
-        //        backgroundWorker.RunWorkerAsync();
+        private void buttonStart_Click(object sender, RoutedEventArgs e)
+        {
+            if (backgroundWorker.IsBusy != true)
+            {
+                stopSimulation = false;
 
-        //    }
-        //}
+                this.Cursor = Cursors.Wait;
+                backgroundWorker.RunWorkerAsync();
+            }
+        }
     }
 }

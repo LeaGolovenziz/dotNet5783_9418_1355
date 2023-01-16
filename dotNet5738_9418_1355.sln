@@ -35,8 +35,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXmlInitializer", "DalXmlInitializer\DalXmlInitializer.csproj", "{583EC24C-A681-49DA-84AC-37EBA48A3E0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Simulator\Simulator.csproj", "{6F23D4CA-578D-4D24-A94F-EF7F6974A411}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,10 +77,6 @@ Global
 		{583EC24C-A681-49DA-84AC-37EBA48A3E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{583EC24C-A681-49DA-84AC-37EBA48A3E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{583EC24C-A681-49DA-84AC-37EBA48A3E0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F23D4CA-578D-4D24-A94F-EF7F6974A411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F23D4CA-578D-4D24-A94F-EF7F6974A411}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F23D4CA-578D-4D24-A94F-EF7F6974A411}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F23D4CA-578D-4D24-A94F-EF7F6974A411}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

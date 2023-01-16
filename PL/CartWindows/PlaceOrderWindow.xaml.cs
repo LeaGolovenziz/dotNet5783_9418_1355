@@ -82,7 +82,7 @@ namespace PL.CartWindows
             else try
                 {
                     // place order
-                    int orderID = bl.Cart.PlaceOrder(cart, user);
+                    int orderID = bl.Cart.PlaceOrder(cart,user);
                     MessageBox.Show("Your order has been confirmed! \nyour tracking number is " + orderID, "ATTENTION", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     // close two previouse windows
