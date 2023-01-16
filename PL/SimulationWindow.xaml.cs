@@ -29,13 +29,14 @@ namespace PL
     {
         private BlApi.IBl bl = BlApi.Factory.Get();
 
+        private BO.Order order;
+
         BackgroundWorker backgroundWorker;
         public ObservableCollection<OrderForList?> Orders { get; set; }
 
         public SimulationWindow()
         {
             //DataContext = "{Binding RelativeSource={RelativeSource Self}}"
-
 
             InitializeComponent();
             Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
@@ -49,32 +50,22 @@ namespace PL
 
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.WorkerSupportsCancellation = true;
+
+            backgroundWorker.RunWorkerAsync();
         }
         protected override void OnClosing(CancelEventArgs e)
         {
-            e.Cancel = true;
+            if (buttonClose.Visibility == Visibility.Hidden)
+                e.Cancel = true;
         }
 
-        private void buttonStart_Click(object sender, RoutedEventArgs e)
-        {
-            if(backgroundWorker.IsBusy!=true)
-            {
-                    this.Cursor = Cursors.Wait;
-                    backgroundWorker.RunWorkerAsync();
-            }
-        }
-
-        private void buttunCancel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void BwDeliver_DoWork(object sender, DoWorkEventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            while(true/*bl.Order.GetOrderList().ToList().Exists(order=> order.OrderStatus==BO.Enums.OrderStatus.Sent || order.OrderStatus == BO.Enums.OrderStatus.Confirmed)*/)
+            while (bl.Order.GetOrderList().ToList().Exists(order => order.OrderStatus == BO.Enums.OrderStatus.Sent || order.OrderStatus == BO.Enums.OrderStatus.Confirmed))
             {
                 if (backgroundWorker.CancellationPending == true)
                 {
@@ -84,48 +75,75 @@ namespace PL
                 else
                 {
                     SimulatorC.startSimulation();
-                    Thread.Sleep(500);
+                    Thread.Sleep(1000);
 
-                    if (backgroundWorker.WorkerReportsProgress == true)
-                        backgroundWorker.ReportProgress((int)stopwatch.ElapsedMilliseconds);
+                    // TODO: Report only when changed actually occured
+                    backgroundWorker.ReportProgress((int)stopwatch.ElapsedMilliseconds);
                 }
             }
         }
         private void BwDeliver_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //progressBar
-
             Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
             OrderListView.DataContext = Orders;
 
             System.TimeSpan time = System.TimeSpan.FromMilliseconds(e.ProgressPercentage);
-            String timeText = time.ToString();
+
+            clockTextBlock.Text = time.ToString(@"hh\:mm\:ss");
 
             //int precent = e.ProgressPercentage;
-
-            ////progressBar
-
-            //if (precent > 50)
-            //    (sender as OrderForList)!.OrderStatus = Enums.OrderStatus.Delivered;
+            //progressBar
         }
         private void BwDeliver_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled == true)
             {
                 SimulatorC.stopSimulation();
+                MessageBox.Show("The simulation has canceled", "Pay attention", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            else
+                MessageBox.Show("The simulation has finished!", "Pay attention", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
-            OrderListView.DataContext = Orders;
-            
+            //Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
+            //OrderListView.DataContext = Orders;
 
+            backgroundWorker.DoWork -= BwDeliver_DoWork;
+            backgroundWorker.ProgressChanged -= BwDeliver_ProgressChanged;
+            backgroundWorker.RunWorkerCompleted -= BwDeliver_RunWorkerCompleted;
 
+            buttonStop.Visibility = Visibility.Hidden;
+            buttonClose.Visibility = Visibility.Visible;
         }
 
         private void buttonStop_Click(object sender, RoutedEventArgs e)
         {
-            if (backgroundWorker.WorkerSupportsCancellation)
+            if (backgroundWorker.WorkerSupportsCancellation == true)
                 backgroundWorker.CancelAsync();
         }
+
+        private void buttonClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void histoyButton_Click(object sender, RoutedEventArgs e)
+        {
+            BO.OrderForList orderForList = (sender as Button).DataContext as BO.OrderForList;
+            if (orderForList != null)
+            {
+                order = bl.Order.GetOrderDetails(orderForList.OrderID);
+                MessageBox.Show("Order's details:");
+            }
+        }
+
+        //private void buttonStart_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (backgroundWorker.IsBusy != true)
+        //    {
+        //        this.Cursor = Cursors.Wait;
+        //        backgroundWorker.RunWorkerAsync();
+
+        //    }
+        //}
     }
 }

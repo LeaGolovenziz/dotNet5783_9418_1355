@@ -17,17 +17,10 @@ namespace Simulator
         private static BlApi.IBl bl = BlApi.Factory.Get();
         private static volatile bool stop;
 
-        //        private static Thread sim;
-
-        //private static List<BO.OrderForList> orders;
-
-        static SimulatorC()
-        {
-            stop = false; 
-        }
-
         public static void runsim()
         {
+            stop = false;
+
             DateTime dt = DateTime.Now;
             int IdOfOrderToUpdate = 0;
 
@@ -48,7 +41,7 @@ namespace Simulator
                             dt = (DateTime)order.ShipDate;
                         }
                     }
-                    else /*if (order.OrderDate != null)*/
+                    else if (order.OrderDate != null)
                     {
                         if (order.OrderDate < dt)
                         {

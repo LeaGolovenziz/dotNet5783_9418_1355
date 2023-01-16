@@ -15,11 +15,13 @@
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
               VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="469*"/>
+                <ColumnDefinition Width="348*"/>
+                <ColumnDefinition Width="163*"/>
             </Grid.ColumnDefinitions >
-            <Button x:Name="buttonStart" Content="Start tracking" HorizontalAlignment="Right" Grid.Column="0"  Margin="15,0"  FontSize="9" Click="buttonStart_Click"/>
-            <Button x:Name="buttonStop" Content="Stop tracking" HorizontalAlignment="Left"  Grid.Column="1"  FontSize="9" Click="buttonStop_Click" />
+            <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Grid.Column="2" Width="100" Margin="59,2,0,2"  FontSize="9" Click="buttonClose_Click" Visibility="Hidden"/>
+            <Button x:Name="buttonStop" Content="Stop tracking" HorizontalAlignment="Center" Width="242" FontSize="9" Click="buttonStop_Click" Margin="0,2,0,2" Grid.Column="1" />
+            <TextBlock x:Name="clockTextBlock" HorizontalAlignment="Left" Margin="25,0,0,0" Width="100" TextWrapping="Wrap" Height="20"/>
         </Grid>
         <ListView x:Name="OrderListView" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" FontSize="18">
             <ListView.View>
@@ -32,7 +34,7 @@
                     <GridViewColumn  Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button  Width="130" Content="tracking history" Height="45"/>
+                                <Button x:Name="histoyButton"  Width="130" Content="tracking history" Height="45" Click="histoyButton_Click"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
