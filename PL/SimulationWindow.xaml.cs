@@ -16,7 +16,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Simulator;
 using System.Timers;
 
 
@@ -36,11 +35,8 @@ namespace PL
 
         private volatile bool stopSimulation;
 
-        //private bool stopSimulation, isBusy, isOrdersChanged;
-
         public SimulationWindow()
         {
-            //DataContext = "{Binding RelativeSource={RelativeSource Self}}"
 
             InitializeComponent();
             Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList().OrderBy(x=>x.CustomerName));
@@ -56,44 +52,6 @@ namespace PL
             backgroundWorker.WorkerSupportsCancellation = true;
         }
 
-        //public void runsim(int currentTime)
-        //{
-        //    isOrdersChanged = false;
-
-        //    // Find the order to update
-        //    foreach (BO.OrderForList orderForList in bl.Order.GetOrderList())
-        //    {
-        //        if (stopSimulation)
-        //            break;
-
-        //        BO.Order order = bl.Order.GetOrderDetails(orderForList.OrderID);
-
-        //        if (order.DeliveryDate == null)
-        //        {
-        //            if (order.ShipDate != null && (order.ShipDate - order.OrderDate).Value.TotalDays <= currentTime)
-        //            {
-        //                bl.Order.DeliverOrder(order.ID);
-        //            }
-        //            else if (order.OrderDate != null && (order.OrderDate - DateTime.Now).Value.TotalDays <= currentTime)
-        //            {
-        //                bl.Order.ShipOrder(order.ID);
-        //            }
-        //            isOrdersChanged = true;
-        //        }
-        //    }
-        //    isBusy = false;
-        //}
-
-        //public void startSimulation(int currentTime)
-        //{
-        //    if (!isBusy)
-        //    {
-        //        Thread sim = new Thread(()=>runsim(currentTime));
-
-        //        sim.Start();
-        //        isBusy= true;   
-        //    }
-        //}
         protected override void OnClosing(CancelEventArgs e)
         {
             if (buttonClose.Visibility == Visibility.Hidden)
@@ -161,10 +119,6 @@ namespace PL
             }
             else
                 MessageBox.Show("The simulation has finished!", "Pay attention", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            //Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList());
-            //OrderListView.DataContext = Orders;
-
 
             buttonStop.Visibility = Visibility.Hidden;
             buttonClose.Visibility = Visibility.Visible;
