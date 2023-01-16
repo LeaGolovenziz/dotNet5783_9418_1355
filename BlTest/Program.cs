@@ -9,6 +9,7 @@ namespace BlTest
     internal class Program
     {
         private static IBl iBl = Factory.Get();
+        User user = new User();
         static void Main()
         {
             // gets customer details for cart
@@ -345,7 +346,7 @@ namespace BlTest
                                     case 'p':
                                         cart = getCartDetails(cart);
 
-                                        iBl.Cart.PlaceOrder(cart);
+                                        iBl.Cart.PlaceOrder(cart,user);
 
                                         break;
 

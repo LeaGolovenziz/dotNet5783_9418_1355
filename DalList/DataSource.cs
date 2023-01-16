@@ -134,7 +134,7 @@ public static class DataSource
             // about 60% of the shipped orders have a delivery date
             if (i < 10)
                 // draw a date in the range between the ship date and 2 days after
-                order.DeliveryDate = (order.ShipDate ?? throw new Nullvalue()).Add(new TimeSpan(rand.Next(1, 2), 0, 0, 0));
+                order.DeliveryDate = (order.ShipDate ?? throw new Nullvalue()).Add(new TimeSpan(rand.Next(1, 7), 0, 0, 0));
             else
                 order.DeliveryDate = null;
 

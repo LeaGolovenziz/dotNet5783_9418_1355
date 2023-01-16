@@ -11,6 +11,8 @@
     <Window.Resources>
         <convertor:StatusToColorConvertor
             x:Key="statusToColorConvertor"/>
+        <convertor:StatusToProgressConvertor
+            x:Key="statusToProgressConvertor"/>
     </Window.Resources>
 
     <Grid Name ="MainGrid" Margin="10">
@@ -25,8 +27,9 @@
                 <ColumnDefinition Width="348*"/>
                 <ColumnDefinition Width="163*"/>
             </Grid.ColumnDefinitions >
-            <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Grid.Column="2" Width="100" Margin="59,2,0,2"  FontSize="9" Click="buttonClose_Click" Visibility="Hidden"/>
-            <Button x:Name="buttonStop" Content="Stop tracking" HorizontalAlignment="Center" Width="242" FontSize="9" Click="buttonStop_Click" Margin="0,2,0,2" Grid.Column="1" />
+            <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Grid.Column="2" Width="100" Margin="59,5,0,5"  FontSize="9" Click="buttonClose_Click" Visibility="Hidden"/>
+            <Button x:Name="buttonStop" Content="Stop tracking" HorizontalAlignment="Left" Width="242" FontSize="9" Click="buttonStop_Click" Margin="15,5" Grid.Column="1" />
+            <Button x:Name="buttonStart" Content="start tracking" HorizontalAlignment="Right" Width="242" FontSize="9" Click="buttonStart_Click" Margin="15,5" Grid.Column="0" />
             <TextBlock x:Name="clockTextBlock" HorizontalAlignment="Left" Margin="25,0,0,0" Width="100" TextWrapping="Wrap" Height="20"/>
         </Grid>
         <ListView x:Name="OrderListView" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" FontSize="18">
@@ -37,26 +40,17 @@
                     <GridViewColumn x:Name="statusColumn" Header="Order's status" Width="120">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding OrderStatus}"                                                
-                                                Foreground="{Binding OrderStatus, Converter={StaticResource statusToColorConvertor}}"
- />
+                                <TextBlock Text="{Binding OrderStatus}" FontWeight="Bold"
+                                Foreground="{Binding OrderStatus, Converter={StaticResource statusToColorConvertor}}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                   
                     <GridViewColumn Header="Products Amount" DisplayMemberBinding="{Binding Amount}" Width="180"/>
                     <GridViewColumn Header="Total price" DisplayMemberBinding="{Binding Price}" Width="120"/>
-                    <GridViewColumn  Width="150">
+                    <GridViewColumn  Header="Order's progress" Width="120">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="histoyButton"  Width="130" Content="tracking history" Height="45" Click="histoyButton_Click"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="150">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ProgressBar x:Name="progressBar" Width="130" Height="45" />
+                                <ProgressBar Width="100" Height="15" Value="{Binding OrderStatus, Converter={StaticResource statusToProgressConvertor}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
