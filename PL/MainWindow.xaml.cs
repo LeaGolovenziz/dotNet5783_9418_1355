@@ -64,21 +64,21 @@ namespace PL
             try
             {
                 var user = bl.User.Get().ToList().Find(x => x.Password == passwordBox.Password && x.Name == NameBox.Text && x.IsManeger == false);
-                if (user != null)//varifyig the customer is a customer and not a worker 
+                if (user != null) //varifyig the customer is a customer and not a worker 
                 {
                     new BuyerWindow(user).ShowDialog();
                     CustomerMode();
                 }
                 else
                 {
-                    MessageBox.Show("incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     passwordBox.Clear();
                 }
             }
             catch (DoesntExist)
             {
 
-                MessageBox.Show("incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 passwordBox.Clear();
             }
         }
@@ -190,12 +190,12 @@ namespace PL
                     ManegerMode();
                 }
                 else
-                    MessageBox.Show("incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Incorrect menager name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
             catch (DoesntExist)
             {
-                MessageBox.Show("incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Incorrect menager name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -222,14 +222,17 @@ namespace PL
                 var user = bl.User.Get(Convert.ToInt32(txbEnterId.Text));
                 if (user.Name != txbEnterName.Text)
                 {
-                    MessageBox.Show("the name does not matched to the customer ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The name does not matched to the customer ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                else
+                {
                     bl.User.ResetPassword(Convert.ToInt32(txbEnterId.Text), txbEnterYourNewP.Text);
-                    MessageBox.Show("succsesfully reset password!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Succsesfully reset password!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
             catch (DoesntExist)
             {
-                MessageBox.Show("incorrect user name or ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Incorrect user name or ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -243,7 +246,6 @@ namespace PL
         {
             resetPasword.Visibility = Visibility.Hidden;
             GridPassword.Visibility = Visibility.Visible;
-
         }
 
         /// <summary>
@@ -256,7 +258,5 @@ namespace PL
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
-
     }
 }

@@ -65,9 +65,9 @@ namespace Bllmplementation
         {
             BO.Enums.OrderStatus? orderStatus;
             // the status
-            if ((order ?? throw new Nullvalue()).DeliveryDate != null && (order ?? throw new Nullvalue()).DeliveryDate <= DateTime.Now)
+            if ((order ?? throw new Nullvalue()).DeliveryDate != null)
                 orderStatus = BO.Enums.OrderStatus.Delivered;
-            else if ((order ?? throw new Nullvalue()).ShipDate != null && (order ?? throw new Nullvalue()).ShipDate <= DateTime.Now)
+            else if ((order ?? throw new Nullvalue()).ShipDate != null)
                 orderStatus = BO.Enums.OrderStatus.Sent;
             else
                 orderStatus = BO.Enums.OrderStatus.Confirmed;

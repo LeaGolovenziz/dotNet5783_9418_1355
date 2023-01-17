@@ -62,7 +62,7 @@ namespace Dal
         {
             List<DO.OrderItem?> orderItems = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(orderItemPath, rootName);
 
-            orderItems.Remove(Get(orderItem.ID));
+            orderItems.Remove(Get(orderItem.OrderItemID));
             orderItems.Add(orderItem);
 
             XmlTools.SaveListToXMLSerializer(orderItems, orderItemPath);
