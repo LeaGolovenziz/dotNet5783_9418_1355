@@ -28,67 +28,67 @@
         </Grid>
         <Grid x:Name="orderDetailsGrid" Grid.Row="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="486*"/>
-                <ColumnDefinition Width="763*"/>
+                <ColumnDefinition Width="227*"/>
+                <ColumnDefinition Width="423*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="orderDetailsTableGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="340" Width="420">
+            <Grid x:Name="orderDetailsTableGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="340" Width="372">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="155*"/>
-                    <ColumnDefinition Width="203*"/>
+                    <ColumnDefinition Width="79*"/>
+                    <ColumnDefinition Width="131*"/>
 
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="13*"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="5*"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto" MinHeight="24"/>
                     <RowDefinition Height="auto" MinHeight="26"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="5*"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="5*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="ID:" HorizontalAlignment="Left" Height="26" Width="135"  FontSize="15"/>
+                <Label Content="ID:" HorizontalAlignment="Center" Height="26" Width="135"  FontSize="15"/>
                 <TextBlock x:Name="iDTextBox" Grid.Row="0" Grid.Column="1" Text="{Binding ID, Mode=TwoWay}" VerticalAlignment="Top" Height="20" Margin="6,6,9,0"/>
 
-                <Label Content="Customer's name:" HorizontalAlignment="Center" Grid.Row="1" Height="26" Width="155" Margin="0,7,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <Label Content="Customer's name:" HorizontalAlignment="Left" Grid.Row="1" Height="26" Width="154" Margin="-5,7,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                 <TextBlock x:Name="nameTextBox" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" Text="{Binding CustomerName, Mode=TwoWay}" Width="198" Height="20" Margin="5,6,0,0" VerticalAlignment="Top"/>
 
-                <Label Content="Customer's gmail:" HorizontalAlignment="Center" Grid.Row="3" Height="26" Width="155"/>
+                <Label Content="Customer's gmail:" HorizontalAlignment="Left" Grid.Row="3" Height="26" Width="154" Grid.ColumnSpan="2" Margin="-5,0,0,0"/>
                 <TextBlock x:Name="gmailTextBox" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Text="{Binding CustomerEmail}" Width="198" Height="20" Margin="5,0,0,0"/>
 
-                <Label Content="Customer's address:" HorizontalAlignment="Center" Grid.Row="4" Height="26" Width="155"/>
+                <Label Content="Customer's address:" HorizontalAlignment="Left" Grid.Row="4" Height="26" Width="154" Grid.ColumnSpan="2" Margin="-5,0,0,0"/>
                 <TextBlock x:Name="addressTextBox" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" Text="{Binding CustomerAdress, Mode=TwoWay}" Width="198" Height="20" Margin="5,0,0,0"/>
 
-                <Label Content="Status:" HorizontalAlignment="Center" Grid.Row="6" Height="26" Width="155"/>
-                <CheckBox x:Name="orderConfirmedcheckBox" IsChecked="True" IsEnabled="False" Grid.Row="6" Content="Order has been confirmed"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="230" FontSize="15" Margin="0,6,0,0" Grid.Column="1"/>
+                <Label Content="Status:" HorizontalAlignment="Left" Grid.Row="6" Height="26" Width="154" Grid.ColumnSpan="2" Margin="-5,0,0,0"/>
+                <CheckBox x:Name="orderConfirmedcheckBox" IsChecked="True" IsEnabled="False" Grid.Row="6" Content="Order has been confirmed"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="230" FontSize="15" Margin="0,6,0,0" Grid.Column="1" Grid.RowSpan="2"/>
                 <CheckBox x:Name="orderShippedcheckBox"  Grid.Row="7" Content="Order has been shipped" HorizontalAlignment="Left" Width="230" Margin="0,6,0,0" FontSize="15" Checked="orderShippedcheckBox_Checked" Visibility="Visible" Grid.Column="1"/>
                 <CheckBox x:Name="orderDeliveredcheckBox" 
                           Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsChecked, Converter={StaticResource booleanTrueToVisibilityConverter}}" 
                           Grid.Row="8" Content="Order has been Delivered" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="230" Grid.Column="1" Margin="0,6,0,0" FontSize="15" Checked="orderDeliveredcheckBox_Checked_1"/>
 
-                <Label Content="Order date:" HorizontalAlignment="Center" Grid.Row="10" Height="26" Width="155"/>
+                <Label Content="Order date:" HorizontalAlignment="Left" Grid.Row="10" Height="26" Width="154" Grid.ColumnSpan="2" Margin="-5,0,0,0"/>
                 <TextBlock x:Name="orderDateTextBlock" Grid.Column="1"  Text="{Binding OrderDate, Mode=TwoWay}" HorizontalAlignment="Left"  Margin="3,0,0,0" Grid.Row="10" Width="227" Height="20"/>
 
                 <Label Content="Ship date:"                    
                        Visibility="{Binding ElementName=orderShippedcheckBox, Path=IsChecked, Converter={StaticResource booleanTrueToVisibilityConverter}}" 
-                       HorizontalAlignment="Center" Grid.Row="11" Height="26" Width="155"/>
+                       HorizontalAlignment="Center" Grid.Row="11" Height="26" Width="154"/>
                 <TextBlock x:Name="shipDateTextBlock" Grid.Column="1" HorizontalAlignment="Left"  Margin="3,0,0,0" Grid.Row="11" Text="{Binding ShipDate, Mode=TwoWay}" Width="225" Height="20" />
 
                 <Label Content="Delivery date:"
                        Visibility="{Binding ElementName=orderDeliveredcheckBox, Path=IsChecked, Converter={StaticResource booleanTrueToVisibilityConverter}}" 
-                       HorizontalAlignment="Center" Grid.Row="12" Height="26"  Width="155"  />
+                       HorizontalAlignment="Center" Grid.Row="12" Height="26"  Width="154"  />
                 <TextBlock x:Name="deliveryDateTextBlock" Grid.Column="1" Text="{Binding DeliveryDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="3,0,0,0" Grid.Row="12" Width="225" Height="20"/>
 
-                <Label Content="Total price:" HorizontalAlignment="Center" Grid.Row="14" Height="39" Width="155"/>
+                <Label Content="Total price:" HorizontalAlignment="Left" Grid.Row="14" Height="39" Width="154" Grid.ColumnSpan="2" Margin="-5,0,0,0"/>
                 <TextBlock x:Name="priceTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" Grid.Row="14" Text="{Binding Price, Mode=TwoWay}"  Width="155" Height="20"/>
             </Grid>
 

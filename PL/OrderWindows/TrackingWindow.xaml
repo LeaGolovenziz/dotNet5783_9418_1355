@@ -39,11 +39,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-
-
         </Grid>
 
-        <ListView x:Name="OrderListView" ItemsSource="{Binding}" Grid.Row="0" FontSize="18" Margin="130,25" MouseDoubleClick="OrderListView_MouseDoubleClick" SelectionChanged="OrderListView_SelectionChanged">
+        <ListView x:Name="OrderListView" ItemsSource="{Binding orders}" Grid.Row="0" FontSize="18" Margin="130,25" MouseDoubleClick="OrderListView_MouseDoubleClick" SelectionChanged="OrderListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Order's ID" DisplayMemberBinding="{Binding OrderID}" Width="120"/>

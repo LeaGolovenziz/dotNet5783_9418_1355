@@ -23,9 +23,12 @@ namespace PL.OrderWindows
 
         public TrackingWindow(User user)
         {
+            //DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+
             InitializeComponent();
 
             orders = bl.Order.GetOrderList().Where(x => x.CustomerID == user.ID);
+
             OrderListView.DataContext = orders;
 
             this.user = user;
