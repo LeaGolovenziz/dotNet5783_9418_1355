@@ -24,6 +24,8 @@ namespace PL.ProductWindows
         private CollectionView? view;
         public ObservableCollection<ProductItem?> Products { get; set; }
 
+        User user;
+
         // get all products and creates an observeable Product Items list of them
         public ObservableCollection<ProductItem?> GetAllCatalog()
         {
@@ -46,9 +48,11 @@ namespace PL.ProductWindows
             return Products;
         }
 
-        public CatalogWindow()
+        public CatalogWindow(User user)
         {
             InitializeComponent();
+
+            this.user=user; 
 
             Products = GetAllCatalog();
 
@@ -104,7 +108,7 @@ namespace PL.ProductWindows
             }
             // open a window with cart deatails
             else
-                new CartWindow(cart, updateFromCartAction, Close).Show();
+                new CartWindow(cart, updateFromCartAction, Close, user).Show();
         }
 
 

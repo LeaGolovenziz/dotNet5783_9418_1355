@@ -1,6 +1,7 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using static BO.Enums;
@@ -15,29 +16,34 @@ namespace PL.OrderWindows
         private BlApi.IBl bl = BlApi.Factory.Get();
 
         public OrderTracking orderTracking;
+        public IEnumerable<OrderForList?> orders;
         public List<Tuple<DateTime?, OrderStatus?>> Tracking;
 
-        public TrackingWindow()
+        User user;
+
+        public TrackingWindow(User user)
         {
             InitializeComponent();
+
+            orders = bl.Order.GetOrderList().Where(x => x.CustomerID == user.ID);
+            OrderListView.DataContext = orders;
+
+            this.user = user;
         }
 
-        private void trackOrderButton_Click(object sender, RoutedEventArgs e)
+        private void OrderListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            // If the order ID is too short
-            if (OrderIDTextBox.Text.Length != 6)
-            {
-                MessageBox.Show("The ID is unvalid, enter 6 digits", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            OrderForList orderForList=OrderListView.SelectedItem as OrderForList;
 
-            else
+            // If the order ID is too short
+            if (orderForList != null)
             {
                 try
                 {
-                    orderTracking = bl.Order.TrackOrder(int.Parse(OrderIDTextBox.Text));
+                    orderTracking = bl.Order.TrackOrder(orderForList.OrderID);
                     Tracking = orderTracking.Tracking;
 
-                    StatusGridView.Visibility = Visibility.Visible;
+                    trackingGrid.Visibility = Visibility.Visible;
                     trackingListView.Visibility = Visibility.Visible;
 
                     StatusGridView.DataContext = orderTracking;
@@ -59,8 +65,8 @@ namespace PL.OrderWindows
                 {
                     MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
             }
-            OrderIDTextBox.Clear();
         }
 
         private void IDprev(object sender, System.Windows.Input.TextCompositionEventArgs e)
@@ -69,5 +75,11 @@ namespace PL.OrderWindows
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        private void OrderListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
+
     }
 }

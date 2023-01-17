@@ -11,34 +11,48 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="68*"/>
-            <RowDefinition Height="93*"/>
-            <RowDefinition Height="273*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="OrderIDTextBox" Grid.Column="1" PreviewTextInput="IDprev" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Height="24"/>
-            <Label x:Name="OrderIDLable" Grid.Column="0" Content="Order ID:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="80" Margin="0" Height="26"/>
-            <Button x:Name="trackOrderButton" Grid.Column="2" Content="Track order" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Height="26" Width="144" Click="trackOrderButton_Click"/>
-        </Grid>
-        <Grid x:Name="StatusGridView" Grid.Row="1" Visibility="Hidden">
-            <Label x:Name="statusLabel" Grid.Row="0" Content="Order status:" HorizontalAlignment="Left" Margin="256,32,0,0" VerticalAlignment="Top" Width="132" Height="34"/>
-            <TextBlock x:Name="statysTextBlock" HorizontalAlignment="Left" Margin="393,33,0,0" Grid.Row="0" TextWrapping="Wrap" Text="{Binding Path=OrderStatus}" VerticalAlignment="Top" Width="169" Height="34"/>
+
+        <Grid x:Name="trackingGrid" Grid.Row="1" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="StatusGridView" Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="statusLabel" Grid.Column="0" Content="Order status:" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Width="132" />
+                <TextBlock x:Name="statysTextBlock" HorizontalAlignment="Left" Margin="5" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=OrderStatus}" VerticalAlignment="Center" Width="169" Height="34"/>
+            </Grid>
+
+            <ListView x:Name="trackingListView" Grid.Row="1" ItemsSource="{Binding}" FontSize="20" FontFamily="Arial" FontWeight="Bold" FontStyle="Italic"  Margin="150,5">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=Item1}" Width="250"/>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Item2}" Width="250"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+
         </Grid>
 
-        <ListView x:Name="trackingListView" Visibility="Hidden" Grid.Row="2" Margin="167,50,168,50" ItemsSource="{Binding}" FontSize="20" FontFamily="Arial" FontWeight="Bold" FontStyle="Italic">
+        <ListView x:Name="OrderListView" ItemsSource="{Binding}" Grid.Row="0" FontSize="18" Margin="130,25" MouseDoubleClick="OrderListView_MouseDoubleClick" SelectionChanged="OrderListView_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=Item1}" Width="230"/>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Item2}" Width="230"/>
+                    <GridViewColumn Header="Order's ID" DisplayMemberBinding="{Binding OrderID}" Width="120"/>
+                    <GridViewColumn Header="Order's status" DisplayMemberBinding="{Binding OrderStatus}" Width="120"/>
+                    <GridViewColumn Header="Products Amount" DisplayMemberBinding="{Binding Amount}" Width="180"/>
+                    <GridViewColumn Header="Total price" DisplayMemberBinding="{Binding Price}" Width="120"/>
                 </GridView>
             </ListView.View>
         </ListView>
-
 
     </Grid>
 </Window>

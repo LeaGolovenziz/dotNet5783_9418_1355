@@ -29,9 +29,7 @@ namespace Dal
                                             "Cotton tree", "Sunflower", "Bamboo palm", "Tree staking kit", "Moss max",
                                             "Treaty tree", "Lavender", "Peach lily", "Pump and spray applicator", "Iron tone" };
 
-            string[] firstNames = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi" };
-
-            string[] lastNames = { "Cohen", "Levi", "Israel", "Goldenkoif", "Kachanelbuge" };
+            string[] Names = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi" };
 
             string[] cities = { "Jerusalem", "Ramat Gan", "Bnei Brak", "Beit Shemesh", "Ashdod" };
 
@@ -75,31 +73,44 @@ namespace Dal
                 #endregion
 
                 #region create users
-                for (int i = 0; i < 5; i++)
-                {
-                    // create new user
-                    User user = new User();
 
+                User user=new User();
+
+                for (int i = 0; i < 4; i++)
+                {
                     // draws an id while there's alredy a product in the list with the same id
                     do
                     {
-                        user.ID = rand.Next(100000000, 999999999);
+                        user.ID = 100000000 + i;
                     }
                     while (users.Exists(x => x.Value.ID == user.ID));
 
-                    // draw a name and last name from the names and last names arrays
-                    string custumerFirstName = firstNames[rand.Next(0, 4)];
-                    string custumerLastName = lastNames[rand.Next(0, 4)];
+                    user.Name = Names[i];
 
-                    user.Name = custumerFirstName + " " + custumerLastName;
-
-                    user.Password = rand.Next(100000, 999999).ToString();
-
+                    user.Password = (111110 + i).ToString();
                     user.IsManeger = false;
 
                     users.Add(user);
 
                 }
+
+                #region Create maneger
+
+                // draws an id while there's alredy a product in the list with the same id
+                do
+                {
+                    user.ID = 100000004;
+                }
+                while (users.Exists(x => x.Value.ID == user.ID));
+
+                user.Name = Names[4];
+
+                user.Password = (100004).ToString();
+
+                user.IsManeger = true;
+
+                users.Add(user);
+                #endregion
 
                 #endregion
 
@@ -113,13 +124,13 @@ namespace Dal
                     // gets the next available id
                     order.ID = config.OrderID;
 
-                    User? user = users.ElementAt(rand.Next(0, 4));
+                    User? customer = users.ElementAt(rand.Next(0, 4));
 
-                    order.CustomerID = (int)user?.ID!;
+                    order.CustomerID = (int)customer?.ID!;
 
-                    order.CustomerName = user?.Name;
+                    order.CustomerName = customer?.Name;
 
-                    order.CustomerEmail = user?.Name + "@gmail.com";
+                    order.CustomerEmail = customer?.Name + "@gmail.com";
 
                     // draw a city and a street fron the cities and streeats arrays
                     order.CustomerAdress = streets[rand.Next(0, 4)] + " " + rand.Next(1, 100) + " " + cities[rand.Next(0, 4)];
