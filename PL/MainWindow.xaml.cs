@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace PL
 {
@@ -61,27 +62,31 @@ namespace PL
         /// <param name="e"></param>
         private void ButtonCustomerEnter_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var user = bl.User.Get().ToList().Find(x => x.Password == passwordBox.Password && x.Name == NameBox.Text && x.IsManeger == false);
-                if (user != null) //varifyig the customer is a customer and not a worker 
+            if (NameBox.Text == "" || passwordBox.Password == "")
+                MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+                try
                 {
-                    new BuyerWindow(user).ShowDialog();
-                    CustomerMode();
+                    var user = bl.User.Get().ToList().Find(x => x.Password == passwordBox.Password && x.Name == NameBox.Text && x.IsManeger == false);
+                    if (user != null) //varifyig the customer is a customer and not a worker 
+                    {
+                        new BuyerWindow(user).ShowDialog();
+                        CustomerMode();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        passwordBox.Clear();
+                    }
                 }
-                else
+                catch (DoesntExist)
                 {
+
                     MessageBox.Show("Incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     passwordBox.Clear();
                 }
-            }
-            catch (DoesntExist)
-            {
-
-                MessageBox.Show("Incorrect user name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                passwordBox.Clear();
-            }
         }
+    
 
         /// <summary>
         /// clears data of the password and name
@@ -113,6 +118,7 @@ namespace PL
             GridLogCustomer.Visibility = Visibility.Visible;
             btnEnterCustomer.Visibility = Visibility.Hidden;
             btnWorkerEnter.Visibility = Visibility.Visible;
+            btnEnterCustomer.Visibility = Visibility.Hidden;
             isManeger = true;
         }
 
@@ -134,6 +140,8 @@ namespace PL
             GridUser.Visibility = Visibility.Hidden;
             GridLogCustomer.Visibility = Visibility.Visible;
             btnWorkerEnter.Visibility = Visibility.Hidden;
+            btnWorkerEnter.Visibility = Visibility.Hidden;
+            btnEnterCustomer.Visibility = Visibility.Visible;
             isManeger = false;
         }
 
@@ -181,21 +189,26 @@ namespace PL
         /// <param name="e"></param>
         private void ButtonMenagerEnter_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (NameBox.Text == "" || passwordBox.Password== "")
+                MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                var maneger = bl.User.Get().ToList().Find(x => x.Password == passwordBox.Password && x.Name == NameBox.Text && x.IsManeger==true);
-                if (maneger != null)
+                try
                 {
-                    new ManagerWindow().ShowDialog();
-                    ManegerMode();
-                }
-                else
-                    MessageBox.Show("Incorrect menager name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    var maneger = bl.User.Get().ToList().Find(x => x.Password == passwordBox.Password && x.Name == NameBox.Text && x.IsManeger == true);
+                    if (maneger != null)
+                    {
+                        new ManagerWindow().ShowDialog();
+                        ManegerMode();
+                    }
+                    else
+                        MessageBox.Show("Incorrect menager name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            }
-            catch (DoesntExist)
-            {
-                MessageBox.Show("Incorrect menager name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (DoesntExist)
+                {
+                    MessageBox.Show("Incorrect menager name or password!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -217,22 +230,28 @@ namespace PL
         /// <param name="e"></param>
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (txbEnterId.Text == "" || txbEnterName.Text == "" || txbEnterYourNewP.Text == "")
+                MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                var user = bl.User.Get(Convert.ToInt32(txbEnterId.Text));
-                if (user.Name != txbEnterName.Text)
+                try
                 {
-                    MessageBox.Show("The name does not matched to the customer ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    var user = bl.User.Get(Convert.ToInt32(txbEnterId.Text));
+                    if (user.Name != txbEnterName.Text)
+                    {
+                        MessageBox.Show("The name does not matched to the customer ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        bl.User.ResetPassword(Convert.ToInt32(txbEnterId.Text), txbEnterYourNewP.Text);
+                        MessageBox.Show("Succsesfully reset password!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
-                else
+                catch (DoesntExist)
                 {
-                    bl.User.ResetPassword(Convert.ToInt32(txbEnterId.Text), txbEnterYourNewP.Text);
-                    MessageBox.Show("Succsesfully reset password!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Incorrect user name or ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-            catch (DoesntExist)
-            {
-                MessageBox.Show("Incorrect user name or ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
