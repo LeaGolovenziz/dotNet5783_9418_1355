@@ -99,13 +99,13 @@ namespace Dal
                 // draws an id while there's alredy a product in the list with the same id
                 do
                 {
-                    user.ID = 100000004;
+                    user.ID = 100000005;
                 }
                 while (users.Exists(x => x.Value.ID == user.ID));
 
                 user.Name = Names[5];
 
-                user.Password = (100004).ToString();
+                user.Password = (100005).ToString();
 
                 user.IsManeger = true;
 
@@ -124,7 +124,7 @@ namespace Dal
                     // gets the next available id
                     order.ID = config.OrderID;
 
-                    User? customer = users.ElementAt(rand.Next(0, 3));
+                    User? customer = users.ElementAt(rand.Next(0, 4));
 
                     order.CustomerID = (int)customer?.ID!;
 

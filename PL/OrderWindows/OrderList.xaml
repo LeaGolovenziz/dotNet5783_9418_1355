@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions >
             <ComboBox x:Name="OrderStatusSelector" Grid.Column="1" Margin="132,11,125,0" SelectionChanged="OrderStatusSelector_SelectionChanged" Height="26" VerticalAlignment="Top"/>
             <Label x:Name="OrderStatusLabel" Grid.Column="1" Content="Order's Status:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="36"  FontSize="18"/>
-            <Button x:Name="button" Content="Clear selection" HorizontalAlignment="Left" Margin="286,10,0,9"   FontSize="9" Click="button_Click"/>
+            <Button x:Name="button" Content="Clear selection" HorizontalAlignment="Left" Margin="257,10,0,9"   FontSize="9" Click="button_Click" Width="133"/>
         </Grid>
         <ListView x:Name="OrderListView" ItemsSource="{Binding}" Grid.Row="1" FontSize="18" MouseDoubleClick="OrderListView_MouseDoubleClick" SelectionChanged="OrderListView_SelectionChanged">
             <ListView.View>
