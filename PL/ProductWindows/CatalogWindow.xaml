@@ -25,7 +25,7 @@
             <ComboBox x:Name="CategorySelector" Grid.Column="3" SelectionChanged="CategorySelector_SelectionChanged" Margin="5,10"/>
             <Label x:Name="categoryLabel" Grid.Column="2" Content="Category:" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="10"/>
             <Button x:Name="ClearButton" Content="Clear selection" HorizontalAlignment="Right" Margin="0,8"  Click="ClearButton_Click" Width="150" Grid.Column="1"/>
-            <Button x:Name="GroupButton" Content="sort bt category" Grid.Column="0" HorizontalAlignment="Center" Margin="0,5" Width="150"  Click="GroupCatalog" />
+            <Button x:Name="GroupButton" Content="sort by category" Grid.Column="0" HorizontalAlignment="Center" Margin="0,5" Width="150"  Click="GroupCatalog" />
         </Grid>
         <ListView x:Name="ProductListView" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center"  FontSize="18"  MouseDoubleClick="ProductListView_MouseDoubleClick" Margin="0" Grid.Row="1" SelectionMode="Single" SelectionChanged="ProductListView_SelectionChanged_1" >
             <ListView.View>

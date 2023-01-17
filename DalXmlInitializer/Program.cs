@@ -29,7 +29,7 @@ namespace Dal
                                             "Cotton tree", "Sunflower", "Bamboo palm", "Tree staking kit", "Moss max",
                                             "Treaty tree", "Lavender", "Peach lily", "Pump and spray applicator", "Iron tone" };
 
-            string[] Names = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi" };
+            string[] Names = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi", "Adina" };
 
             string[] cities = { "Jerusalem", "Ramat Gan", "Bnei Brak", "Beit Shemesh", "Ashdod" };
 
@@ -99,13 +99,13 @@ namespace Dal
                 // draws an id while there's alredy a product in the list with the same id
                 do
                 {
-                    user.ID = 100000004;
+                    user.ID = 100000005;
                 }
                 while (users.Exists(x => x.Value.ID == user.ID));
 
-                user.Name = Names[4];
+                user.Name = Names[5];
 
-                user.Password = (100004).ToString();
+                user.Password = (100005).ToString();
 
                 user.IsManeger = true;
 

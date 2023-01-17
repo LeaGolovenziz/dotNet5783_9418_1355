@@ -96,13 +96,13 @@ public static class DataSource
         // draws an id while there's alredy a product in the list with the same id
         do
         {
-            user.ID = 100000004;
+            user.ID = 100000005;
         }
         while (lstUsers.Exists(x => x.Value.ID == user.ID));
 
-        user.Name = Names[4];
+        user.Name = Names[5];
 
-        user.Password = (100004).ToString();
+        user.Password = (100005).ToString();
 
         user.IsManeger = true;
 
