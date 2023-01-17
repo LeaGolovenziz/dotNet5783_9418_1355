@@ -125,7 +125,7 @@ public static class DataSource
             // gets the next available id
             order.ID = config.OrderID;
 
-            User? customer = lstUsers.ElementAt(rand.Next(0, 4));
+            User? customer = lstUsers.ElementAt(rand.Next(0, 3));
 
             order.CustomerID = (int)customer?.ID!;
 

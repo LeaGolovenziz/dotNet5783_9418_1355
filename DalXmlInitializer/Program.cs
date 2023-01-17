@@ -124,7 +124,7 @@ namespace Dal
                     // gets the next available id
                     order.ID = config.OrderID;
 
-                    User? customer = users.ElementAt(rand.Next(0, 4));
+                    User? customer = users.ElementAt(rand.Next(0, 3));
 
                     order.CustomerID = (int)customer?.ID!;
 
