@@ -15,7 +15,7 @@ namespace PL.Convertors
         // return the appropriate color according to the status
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            BO.Enums.OrderStatus status = (BO.Enums.OrderStatus)value;
+            BO.Enums.OrderStatus status = (BO.Enums.OrderStatus)Enum.Parse(typeof(BO.Enums.OrderStatus), value.ToString()!);
 
             if (status == BO.Enums.OrderStatus.Confirmed)
                 return Brushes.Red;

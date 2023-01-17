@@ -44,18 +44,17 @@ namespace PL
 
             backgroundWorker = new BackgroundWorker();
 
-            backgroundWorker.DoWork += BwDeliver_DoWork!;
-            backgroundWorker.ProgressChanged += BwDeliver_ProgressChanged!;
-            backgroundWorker.RunWorkerCompleted += BwDeliver_RunWorkerCompleted!;
+            if (bl.Order.GetOrderList().ToList().Exists(order => order.OrderStatus == BO.Enums.OrderStatus.Sent || order.OrderStatus == BO.Enums.OrderStatus.Confirmed))
+            {
+                backgroundWorker.DoWork += BwDeliver_DoWork!;
+                backgroundWorker.ProgressChanged += BwDeliver_ProgressChanged!;
+                backgroundWorker.RunWorkerCompleted += BwDeliver_RunWorkerCompleted!;
 
-            backgroundWorker.WorkerReportsProgress = true;
-            backgroundWorker.WorkerSupportsCancellation = true;
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            if (buttonClose.Visibility == Visibility.Hidden)
-                e.Cancel = true;
+                backgroundWorker.WorkerReportsProgress = true;
+                backgroundWorker.WorkerSupportsCancellation = true;
+            }
+            else
+                buttonStart.Visibility = Visibility.Hidden;
         }
 
 
@@ -114,29 +113,28 @@ namespace PL
         {
             if (e.Cancelled == true)
             {
-                stopSimulation = true;   
+                buttonStart.Visibility = Visibility.Visible;
+                stopSimulation = true;
                 MessageBox.Show("The simulation has canceled", "Pay attention", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
+            {
+                buttonStart.Visibility = Visibility.Hidden;
                 MessageBox.Show("The simulation has finished!", "Pay attention", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            this.Cursor = Cursors.Arrow;
 
             buttonStop.Visibility = Visibility.Hidden;
-            buttonClose.Visibility = Visibility.Visible;
         }
 
         private void buttonStop_Click(object sender, RoutedEventArgs e)
         {
             if (backgroundWorker.WorkerSupportsCancellation == true)
+            {
                 backgroundWorker.CancelAsync();
-        }
-
-        private void buttonClose_Click(object sender, RoutedEventArgs e)
-        {
-            
-            backgroundWorker.DoWork -= BwDeliver_DoWork!;
-            backgroundWorker.ProgressChanged -= BwDeliver_ProgressChanged!;
-            backgroundWorker.RunWorkerCompleted -= BwDeliver_RunWorkerCompleted!;
-            this.Close();
+                buttonStop.Visibility = Visibility.Hidden;
+            }
         }
 
         private void histoyButton_Click(object sender, RoutedEventArgs e)
@@ -154,10 +152,24 @@ namespace PL
             if (backgroundWorker.IsBusy != true)
             {
                 stopSimulation = false;
+                buttonStop.Visibility = Visibility.Visible;
+                buttonStart.Visibility = Visibility.Hidden;
 
                 this.Cursor = Cursors.Wait;
                 backgroundWorker.RunWorkerAsync();
             }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (backgroundWorker.WorkerSupportsCancellation == true)
+            {
+                backgroundWorker.CancelAsync();
+                backgroundWorker.DoWork -= BwDeliver_DoWork!;
+                backgroundWorker.ProgressChanged -= BwDeliver_ProgressChanged!;
+                backgroundWorker.RunWorkerCompleted -= BwDeliver_RunWorkerCompleted!;
+            }
+            Thread.Sleep(1000);
         }
     }
 }

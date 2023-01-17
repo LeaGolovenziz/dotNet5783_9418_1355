@@ -7,7 +7,7 @@
         xmlns:convertor="clr-namespace:PL.Convertors"
         mc:Ignorable="d"
         
-        Title="SimulationWindow" Height="450" Width="1000">
+        Title="SimulationWindow" Height="450" Width="1000" Closing="Window_Closing">
     <Window.Resources>
         <convertor:StatusToColorConvertor
             x:Key="statusToColorConvertor"/>
@@ -24,12 +24,12 @@
               VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="469*"/>
-                <ColumnDefinition Width="348*"/>
+                <ColumnDefinition Width="114*"/>
+                <ColumnDefinition Width="234*"/>
                 <ColumnDefinition Width="163*"/>
             </Grid.ColumnDefinitions >
-            <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Grid.Column="2" Width="100" Margin="59,5,0,5"  FontSize="9" Click="buttonClose_Click" Visibility="Hidden"/>
-            <Button x:Name="buttonStop" Content="Stop tracking" HorizontalAlignment="Left" Width="242" FontSize="9" Click="buttonStop_Click" Margin="15,5" Grid.Column="1" />
-            <Button x:Name="buttonStart" Content="start tracking" HorizontalAlignment="Right" Width="242" FontSize="9" Click="buttonStart_Click" Margin="15,5" Grid.Column="0" />
+            <Button x:Name="buttonStop" Content="Stop tracking" Visibility="Hidden" HorizontalAlignment="Left" Width="242" FontSize="9" Click="buttonStop_Click" Margin="15,5,0,5" Grid.Column="1" Grid.ColumnSpan="2" />
+            <Button x:Name="buttonStart" Content="start tracking" HorizontalAlignment="Left" Width="242" FontSize="9" Click="buttonStart_Click" Margin="212,5,0,5" Grid.Column="0" />
             <TextBlock x:Name="clockTextBlock" HorizontalAlignment="Left" Margin="25,0,0,0" Width="100" TextWrapping="Wrap" Height="20"/>
         </Grid>
         <ListView x:Name="OrderListView" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" FontSize="18">

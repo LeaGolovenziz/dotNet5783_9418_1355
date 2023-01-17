@@ -153,14 +153,6 @@
     <Image>PL\images\Bypass loppers.jpg</Image>
   </Product>
   <Product>
-    <ID>100609</ID>
-    <Name>Compost starter</Name>
-    <Category>Soils</Category>
-    <Price>58</Price>
-    <InStock>19</InStock>
-    <Image>PL\images\Compost starter.jpg</Image>
-  </Product>
-  <Product>
     <ID>627181</ID>
     <Name>Berry bushes</Name>
     <Category>Trees</Category>
@@ -399,5 +391,13 @@
     <Price>193</Price>
     <InStock>49</InStock>
     <Image>PL\images\Iron tone.jpg</Image>
+  </Product>
+  <Product>
+    <ID>100609</ID>
+    <Name>Compost starter</Name>
+    <Category>Soils</Category>
+    <Price>58</Price>
+    <InStock>19</InStock>
+    <Image>PL\images\Compost starter.jpg</Image>
   </Product>
 </products>
