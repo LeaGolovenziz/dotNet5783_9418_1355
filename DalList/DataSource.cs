@@ -100,7 +100,7 @@ public static class DataSource
         }
         while (lstUsers.Exists(x => x.Value.ID == user.ID));
 
-        user.Name = Names[4];
+        user.Name = Names[5];
 
         user.Password = (100004).ToString();
 

@@ -29,7 +29,7 @@ namespace Dal
                                             "Cotton tree", "Sunflower", "Bamboo palm", "Tree staking kit", "Moss max",
                                             "Treaty tree", "Lavender", "Peach lily", "Pump and spray applicator", "Iron tone" };
 
-            string[] Names = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi" };
+            string[] Names = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi", "Adina" };
 
             string[] cities = { "Jerusalem", "Ramat Gan", "Bnei Brak", "Beit Shemesh", "Ashdod" };
 
@@ -103,7 +103,7 @@ namespace Dal
                 }
                 while (users.Exists(x => x.Value.ID == user.ID));
 
-                user.Name = Names[4];
+                user.Name = Names[5];
 
                 user.Password = (100004).ToString();
 
