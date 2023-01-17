@@ -66,6 +66,14 @@ namespace Dal
                 return (User)DataSource.lstUsers.Find(x => func!(x))!;
             throw new NotFound();
         }
+
+        public void ResetPassword(int ID, string password)
+        {
+            User user = Get(ID);
+            user.Password = password;
+            Update(user);
+        }
+
         /// <summary>
         /// gets a user and updetes it
         /// </summary>

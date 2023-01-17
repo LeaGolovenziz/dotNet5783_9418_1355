@@ -24,13 +24,18 @@ namespace PL.CartWindows
 
         private Action<OrderItem> updateCartAction;
 
-        public CartWindow(Cart cart, Action<OrderItem> updateCartAction, Action closePrevWindow)
+        User user;
+
+        public CartWindow(Cart cart, Action<OrderItem> updateCartAction, Action closePrevWindow, User user)
         {
             InitializeComponent();
 
             Items = new ObservableCollection<OrderItem>(cart.OrderItems);
 
             ItemListView.DataContext = Items;
+
+            this.user = user;
+
 
             this.cart = cart;
 
@@ -224,7 +229,7 @@ namespace PL.CartWindows
         }
 
         // open place order window
-        private void PlaceOrder(object sender, RoutedEventArgs e) => new PlaceOrderWindow(cart, CloseAction).Show();
+        private void PlaceOrder(object sender, RoutedEventArgs e) => new PlaceOrderWindow(cart, CloseAction, user).Show();
 
 
         // clear cart

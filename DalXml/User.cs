@@ -102,5 +102,12 @@ namespace Dal
 
             return users.FirstOrDefault(func!) ?? throw new NotFound();
         }
+
+        public void ResetPassword(int ID, string password)
+        {
+            DO.User user = Get(ID);
+            user.Password = password;
+            Update(user);
+        }
     }
 }

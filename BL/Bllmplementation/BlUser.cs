@@ -18,7 +18,7 @@ namespace Bllmplementation
         private IDal? dal = DalApi.Factory.Get();
         public void AddUser(BO.User user)
         {
-            if (user.ID <= 0)
+            if (user.ID <= 0||user.ID.ToString().Length!=9)
                 throw new UnvalidID();
 
             // creates new DO user and copy into it the BO user's details
@@ -53,12 +53,25 @@ namespace Bllmplementation
            return dal.User.Get(userID).CopyPropTo(new BO.User());
         }
 
+        public IEnumerable<BO.User?> Get()
+        {
+            // foreach DO user in th elist creat BO user and adds it to the list
+            IEnumerable<DO.User?> p = dal.User.Get();
+            IEnumerable<BO.User?> pfl = p.Select(product => product.CopyPropTo(new BO.User()));
+            return pfl;
+        }
+
         public IEnumerable<OrderForList> GetUsersOrders(int userID)
         {
             if (dal.User.Get(userID).IsManeger == true)
                 return BlApi.Factory.Get().Order.GetOrderList()!;
            else
                 return BlApi.Factory.Get().Order.GetOrderList().Where(order => (order ?? throw new BO.Nullvalue()).CustomerID == userID)!;
+        }
+
+        public void ResetPassword(int ID, string password)
+        {
+            dal.User.ResetPassword(ID, password);
         }
     }
 }

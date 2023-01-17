@@ -1,4 +1,5 @@
-﻿using PL.OrderWindows;
+﻿using BO;
+using PL.OrderWindows;
 using PL.ProductWindows;
 using System;
 using System.IO;
@@ -13,9 +14,12 @@ namespace PL
 
     public partial class BuyerWindow : Window
     {
-        public BuyerWindow()
+        User user;
+        public BuyerWindow(User user)
         {
             InitializeComponent();
+
+            this.user = user;   
 
             // try to upload the openning video if exists
             try
@@ -27,9 +31,9 @@ namespace PL
             catch (Exception ex) { }
         }
 
-        private void MenuItem_OpenCatalog(object sender, RoutedEventArgs e) => new CatalogWindow().Show();
+        private void MenuItem_OpenCatalog(object sender, RoutedEventArgs e) => new CatalogWindow(user).Show();
 
-        private void MenuItem_TrackOrder(object sender, RoutedEventArgs e) => new TrackingWindow().Show();
+        private void MenuItem_TrackOrder(object sender, RoutedEventArgs e) => new TrackingWindow(user).Show();
 
     }
 }

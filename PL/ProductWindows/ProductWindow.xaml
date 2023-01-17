@@ -57,7 +57,7 @@
         </Grid>
 
         <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Center" VerticalAlignment="Center"  Click="updateButton_Click" Height="45" Width="532" Grid.Row="1"/>
-        <Button x:Name="addButton" Content="add" HorizontalAlignment="Center" VerticalAlignment="Center"  Click="addButton_Click" Height="45" Width="508" Grid.Row="1"/>
+        <Button x:Name="addButton" Content="add" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="addButton_Click" Height="45" Width="508" Grid.Row="1" Margin="0,22,0,0"/>
         <Button x:Name="closeButton" Content="close" HorizontalAlignment="Right" Margin="0,22,10,10"  Click="closeButton_Click" Width="99" Grid.Row="1" />
     </Grid>
 

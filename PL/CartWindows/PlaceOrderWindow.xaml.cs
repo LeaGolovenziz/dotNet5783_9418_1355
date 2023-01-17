@@ -18,30 +18,22 @@ namespace PL.CartWindows
 
         private Action action;
 
-        public PlaceOrderWindow(Cart cart, Action action)
+        public PlaceOrderWindow(Cart cart, Action action, User user)
         {
             InitializeComponent();
 
             this.cart = cart;
 
+            this.user= user;
+
             this.action = action;
 
             this.DataContext = this.cart;
 
+            cart.CustomerName = user.Name;
+
         }
 
-        // make acxeption visible if text is empty anf unvisible otherwise
-        private void CustomerNameTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (((TextBox)sender).Text == "")
-            {
-                CustomerNameExceptionLable.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                CustomerNameExceptionLable.Visibility = Visibility.Hidden;
-            }
-        }
 
         // make acxeption visible if text is empty anf unvisible otherwise
         private void CustomerAddressTextBox_LostFocus(object sender, RoutedEventArgs e)

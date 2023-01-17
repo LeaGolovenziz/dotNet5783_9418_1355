@@ -11,9 +11,13 @@ namespace BlApi
     {
         public void AddUser(User user);
 
+        public IEnumerable<User?> Get();
+
         public User Get(int userID);
 
         public IEnumerable<OrderForList> GetUsersOrders(int userID);
+
+        public void ResetPassword(int ID, string password);
 
     }
 }
