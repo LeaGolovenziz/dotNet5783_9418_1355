@@ -68,10 +68,10 @@ public static class DataSource
 
         #region create users
 
-        string[] Names = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi" };
+        string[] Names = { "Sara", "Rebeka", "Rachel", "Leah", "Naomi", "Adina"};
         User user = new User();
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
 
             // draws an id while there's alredy a product in the list with the same id

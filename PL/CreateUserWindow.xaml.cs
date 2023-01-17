@@ -39,31 +39,39 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            try 
+            if (txbID.Text == "" || txbName.Text == "" || txbPassword.Text == "")
+                MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                bl.User.AddUser(user);
-            }
-            catch (UnvalidID)
-            {
-                MessageBox.Show("Unvalid ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (IdAlreadyExist)
-            {
-                MessageBox.Show("There is already a user with this ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (FileSavingError)
-            {
-                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (FileLoadingError)
-            {
-                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (XmlFormatError)
-            {
-                MessageBox.Show("we are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    bl.User.AddUser(user);
+                    MessageBox.Show("User has added", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                catch (UnvalidID)
+                {
+                    MessageBox.Show("Unvalid ID, you should enter 9 numbers!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (IdAlreadyExist)
+                {
+                    MessageBox.Show("There is already a user with this ID!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    txbID.Clear();
+                }
+                catch (FileSavingError)
+                {
+                    MessageBox.Show("We are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (FileLoadingError)
+                {
+                    MessageBox.Show("We are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (XmlFormatError)
+                {
+                    MessageBox.Show("We are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

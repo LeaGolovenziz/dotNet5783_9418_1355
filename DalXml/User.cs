@@ -12,7 +12,7 @@ namespace Dal
     internal class User : IUser
     {
         string rootName = "users";
-        string userPath = @"User.xml";
+        string userPath = @"Users.xml";
 
         /// <summary>
         /// Adds a new user to the file of the users
