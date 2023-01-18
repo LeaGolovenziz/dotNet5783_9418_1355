@@ -31,7 +31,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBox x:Name="NameBox" Grid.Column="1" Grid.Row="4" Grid.RowSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" />
+            <TextBox x:Name="NameBox" MaxLength="26" Grid.Column="1" Grid.Row="4" Grid.RowSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" />
             <Label x:Name="lblEnterNmae"  Grid.Column="1" Content="Enter  your name" Grid.Row="3" Grid.ColumnSpan="2" Height="Auto" Width="Auto"  />
             <PasswordBox x:Name="passwordBox" Grid.Column="1" Grid.Row="6" Height="Auto" Margin="0,0,0,5" MaxLength="6"/>
             <Label x:Name="lblEnterCode"  Grid.Column="1" Content="Enter  your Password" Grid.Row="5" Grid.ColumnSpan="2" Height="Auto" Width="Auto" />

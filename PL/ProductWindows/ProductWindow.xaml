@@ -40,7 +40,7 @@
             <Label x:Name="isCategoryLable" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose category!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
             <Label x:Name="nameLable" Content="Name:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="36,0,160,0"/>
-            <TextBox x:Name="nameTextBox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="30" Text="{Binding Path=Name, Mode=TwoWay}" PreviewTextInput ="allowOnlyLetters" />
+            <TextBox x:Name="nameTextBox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="30" Text="{Binding Path=Name, Mode=TwoWay}" PreviewTextInput ="allowOnlyLetters" MaxLength="26" />
             <Label x:Name="nameExceptionLable" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The name you entered isn't valid!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
             <Label x:Name="priceLable" Content="Price:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Width="137" Margin="36,0,0,0"/>

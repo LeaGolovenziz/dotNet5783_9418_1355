@@ -41,14 +41,6 @@
     <Image>PL\images\Fast acting iron.jpg</Image>
   </Product>
   <Product>
-    <ID>187142</ID>
-    <Name>Apple tree</Name>
-    <Category>Trees</Category>
-    <Price>174</Price>
-    <InStock>5</InStock>
-    <Image>PL\images\Apple tree.jpg</Image>
-  </Product>
-  <Product>
     <ID>814509</ID>
     <Name>Tulip</Name>
     <Category>Flowers</Category>
@@ -103,22 +95,6 @@
     <Price>181</Price>
     <InStock>12</InStock>
     <Image>PL\images\Calathea ornata.jpg</Image>
-  </Product>
-  <Product>
-    <ID>185302</ID>
-    <Name>Pruner</Name>
-    <Category>Tools</Category>
-    <Price>118</Price>
-    <InStock>13</InStock>
-    <Image>PL\images\Pruner.jpg</Image>
-  </Product>
-  <Product>
-    <ID>731756</ID>
-    <Name>Fast acting lime</Name>
-    <Category>Soils</Category>
-    <Price>152</Price>
-    <InStock>14</InStock>
-    <Image>PL\images\Fast acting lime.jpg</Image>
   </Product>
   <Product>
     <ID>872026</ID>
@@ -399,5 +375,29 @@
     <Price>142</Price>
     <InStock>0</InStock>
     <Image>PL\images\Calathea orbifolia.jpg</Image>
+  </Product>
+  <Product>
+    <ID>187142</ID>
+    <Name>Apple tree</Name>
+    <Category>Trees</Category>
+    <Price>174</Price>
+    <InStock>4</InStock>
+    <Image>PL\images\Apple tree.jpg</Image>
+  </Product>
+  <Product>
+    <ID>185302</ID>
+    <Name>Pruner</Name>
+    <Category>Tools</Category>
+    <Price>118</Price>
+    <InStock>13</InStock>
+    <Image>PL\images\Pruner.jpg</Image>
+  </Product>
+  <Product>
+    <ID>731756</ID>
+    <Name>Fast acting lime</Name>
+    <Category>Soils</Category>
+    <Price>152</Price>
+    <InStock>14</InStock>
+    <Image>PL\images\Fast acting lime.jpg</Image>
   </Product>
 </products>
