@@ -283,7 +283,11 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        // prevent white spaces
+        /// <summary>
+        /// prevent white spaces
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void preventWhiteSpaces(object sender, KeyEventArgs e)
         {
             e.Handled = e.Key == Key.Space;
