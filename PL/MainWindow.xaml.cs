@@ -62,7 +62,7 @@ namespace PL
         /// <param name="e"></param>
         private void ButtonCustomerEnter_Click(object sender, RoutedEventArgs e)
         {
-            if (NameBox.Text.Length == 0 || passwordBox.Password.Length == 0)
+            if (NameBox.Text.Length==0 || NameBox.Text.StartsWith(' ') == true || passwordBox.Password.Length == 0)
                 MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 try
@@ -189,7 +189,7 @@ namespace PL
         /// <param name="e"></param>
         private void ButtonMenagerEnter_Click(object sender, RoutedEventArgs e)
         {
-            if (NameBox.Text.Length == 0 || passwordBox.Password.Length == 0)
+            if (NameBox.Text.Length==0 || NameBox.Text.StartsWith(' ') == true || passwordBox.Password.Length == 0)
                 MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
@@ -230,7 +230,7 @@ namespace PL
         /// <param name="e"></param>
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-            if (txbEnterId.Text.Length == 0 || txbEnterName.Text.Length == 0 || txbEnterYourNewP.Text.Length == 0)
+            if (txbEnterId.Text.Length == 0 || txbEnterName.Text.Length==0|| txbEnterName.Text.StartsWith(' ') == true || txbEnterYourNewP.Text.Length == 0)
                 MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
@@ -281,6 +281,12 @@ namespace PL
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        // prevent white spaces
+        private void preventWhiteSpaces(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
         }
     }
 }

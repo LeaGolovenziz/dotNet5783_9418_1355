@@ -41,7 +41,7 @@ namespace PL
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (txbID.Text.==0|| txbName.Text.Length == 0 || txbPassword.Text.Length == 0)
+            if (txbID.Text.Length == 0 || txbName.Text.Length==0 || txbName.Text.StartsWith(' ') == true || txbPassword.Text.Length == 0)
                 MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
@@ -73,6 +73,12 @@ namespace PL
                     MessageBox.Show("We are sorry, there was a system error. try again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        // prevent white spaces
+        private void preventWhiteSpaces(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
         }
     }
 }

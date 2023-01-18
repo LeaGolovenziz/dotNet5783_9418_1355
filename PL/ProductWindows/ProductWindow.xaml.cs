@@ -89,7 +89,7 @@ namespace PL.ProductWindows
             else
                 isCategoryLable.Visibility = Visibility.Hidden;
 
-            if (nameTextBox.Text.Length == 0)
+            if (nameTextBox.Text.Length == 0 || nameTextBox.Text.StartsWith(' ') == true)
             {
                 nameExceptionLable.Visibility = Visibility.Visible;
                 flag = false;
@@ -213,6 +213,12 @@ namespace PL.ProductWindows
                 ProductImage.Source = bitmap;
                 newProduct.Image = dlg.FileName;
             }
+        }
+
+        // prevent white spaces
+        private void preventWhiteSpaces(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
