@@ -140,6 +140,12 @@ namespace PL.CartWindows
                         Items.RemoveAt(index);
                         SelectedItemGrid.Visibility = Visibility.Hidden;
                     }
+
+                    if (cart.Price == 0)
+                    {
+                        MessageBox.Show("Your cart is empty, closing cart window", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Close();
+                    }
                 }
             }
             catch (ProductNotInStock)
@@ -175,6 +181,12 @@ namespace PL.CartWindows
             {
                 Delete(orderItem);
                 SelectedItemGrid.Visibility = Visibility.Hidden;
+            }
+
+            if (cart.Price == 0)
+            {
+                MessageBox.Show("Your cart is empty, closing cart window", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                Close();
             }
 
         }
@@ -229,8 +241,10 @@ namespace PL.CartWindows
         }
 
         // open place order window
-        private void PlaceOrder(object sender, RoutedEventArgs e) => new PlaceOrderWindow(cart, CloseAction, user).Show();
-
+        private void PlaceOrder(object sender, RoutedEventArgs e)
+        {
+            new PlaceOrderWindow(cart, CloseAction, user).Show();
+        }
 
         // clear cart
         private void button_clearCart(object sender, RoutedEventArgs e)
@@ -239,6 +253,9 @@ namespace PL.CartWindows
             {
                 Delete(orderItem);
             }
+            middleGrid.Visibility = Visibility.Hidden;
+            MessageBox.Show("Your cart has been emptied", "Attentiob", MessageBoxButton.OK, MessageBoxImage.Information);
+            Close();
         }
     }
 }

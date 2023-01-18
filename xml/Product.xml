@@ -217,14 +217,6 @@
     <Image>PL\images\Anemone.jpg</Image>
   </Product>
   <Product>
-    <ID>621315</ID>
-    <Name>Calathea orbifolia</Name>
-    <Category>Pots</Category>
-    <Price>142</Price>
-    <InStock>27</InStock>
-    <Image>PL\images\Calathea orbifolia.jpg</Image>
-  </Product>
-  <Product>
     <ID>893639</ID>
     <Name>Saw</Name>
     <Category>Tools</Category>
@@ -257,14 +249,6 @@
     <Image>PL\images\Daisy.jpg</Image>
   </Product>
   <Product>
-    <ID>413270</ID>
-    <Name>Majesty palm</Name>
-    <Category>Pots</Category>
-    <Price>124</Price>
-    <InStock>32</InStock>
-    <Image>PL\images\Majesty palm.jpg</Image>
-  </Product>
-  <Product>
     <ID>147372</ID>
     <Name>Hedge shear</Name>
     <Category>Tools</Category>
@@ -295,14 +279,6 @@
     <Price>128</Price>
     <InStock>36</InStock>
     <Image>PL\images\Aster.jpg</Image>
-  </Product>
-  <Product>
-    <ID>434594</ID>
-    <Name>Parlor palm</Name>
-    <Category>Pots</Category>
-    <Price>125</Price>
-    <InStock>37</InStock>
-    <Image>PL\images\Parlor palm.jpg</Image>
   </Product>
   <Product>
     <ID>192258</ID>
@@ -399,5 +375,29 @@
     <Price>156</Price>
     <InStock>49</InStock>
     <Image>PL\images\Iron tone.jpg</Image>
+  </Product>
+  <Product>
+    <ID>434594</ID>
+    <Name>Parlor palm</Name>
+    <Category>Pots</Category>
+    <Price>125</Price>
+    <InStock>36</InStock>
+    <Image>PL\images\Parlor palm.jpg</Image>
+  </Product>
+  <Product>
+    <ID>413270</ID>
+    <Name>Majesty palm</Name>
+    <Category>Pots</Category>
+    <Price>124</Price>
+    <InStock>31</InStock>
+    <Image>PL\images\Majesty palm.jpg</Image>
+  </Product>
+  <Product>
+    <ID>621315</ID>
+    <Name>Calathea orbifolia</Name>
+    <Category>Pots</Category>
+    <Price>142</Price>
+    <InStock>0</InStock>
+    <Image>PL\images\Calathea orbifolia.jpg</Image>
   </Product>
 </products>

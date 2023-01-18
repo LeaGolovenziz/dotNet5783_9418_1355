@@ -103,7 +103,7 @@
                         <ColumnDefinition Width="781*"/>
                         <ColumnDefinition Width="155*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView x:Name="OrderItemsDataGrid" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single" Grid.Column="0"  RenderTransformOrigin="0.717,0.61" Margin="20,20,3,81" SelectionChanged="OrderItemsDataGrid_SelectionChanged" >
+                    <ListView x:Name="OrderItemsDataGrid" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0"  RenderTransformOrigin="0.717,0.61" Margin="20,20,3,81" SelectionChanged="OrderItemsDataGrid_SelectionChanged" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding ID}" Header="Product ID" Width="100"  />
