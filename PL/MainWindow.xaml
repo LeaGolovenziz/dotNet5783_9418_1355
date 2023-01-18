@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid x:Name="General">
-        <Grid x:Name="GridPassword" Margin="10,0,0,10" Visibility="Hidden" >
+        <Grid x:Name="GridPassword" Margin="10,0,0,10" Visibility="Visible" >
             <Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="123*" />
@@ -35,6 +35,21 @@
             <Label x:Name="lblEnterNmae"  Grid.Column="1" Content="Enter  your name" Grid.Row="3" Grid.ColumnSpan="2" Height="Auto" Width="Auto"  />
             <PasswordBox x:Name="passwordBox" Grid.Column="1" Grid.Row="6" Height="Auto" Margin="0,0,0,5" MaxLength="6"/>
             <Label x:Name="lblEnterCode"  Grid.Column="1" Content="Enter  your Password" Grid.Row="5" Grid.ColumnSpan="2" Height="Auto" Width="Auto" />
+            <Label x:Name="lblTriggerPassword" Foreground="Red" Grid.Column="0" Content="Enter 6 digits!" HorizontalAlignment="Left" Grid.Row="6" Height="Auto" Width="156" Grid.ColumnSpan="2" Margin="118,0,0,0"  >
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=passwordBox,Path=IsMouseOver}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
             <Button x:Name="btnEnterCustomer" Grid.Column="1" Content="Enter"  Grid.Row="9"  Height="29"  Click="ButtonCustomerEnter_Click"/>
             <Button x:Name="Clear" Content="Cancel" Grid.Row="11"  Click="Button_Click_clear" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" />
             <Button x:Name="back_Btn" Content="Back" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top" Height="28" Grid.RowSpan="2" Width="122" Click="LogInBack_Click"/>
@@ -99,10 +114,10 @@
                 <Label Name="enterYourId" Content="Enter your id:" Grid.Row="2" Grid.Column="2" Canvas.Left="16" Canvas.Top="58" Height="40" Width="134" FontSize="16" HorizontalAlignment="Left" ></Label>
                 <Label Name="enterYourName" Content="Enter your name:" Grid.Row="3" Grid.Column="2" Canvas.Left="14" Canvas.Top="114" Height="40" Width="136" FontSize="16" HorizontalAlignment="Left" ></Label>
                 <Label Name="enterYourNewP" Content="Enter your new password:" Grid.Row="3" Grid.Column="2" Canvas.Left="13" Canvas.Top="168" Height="40" Width="217" FontSize="16" HorizontalAlignment="Left" ></Label>
-                <TextBox x:Name="txbEnterId" Grid.Row="2" Grid.Column="3" Canvas.Left="21" Canvas.Top="89" Height="16" Width="115"  PreviewTextInput="allowOnlyNumbers" MaxLength="6" ></TextBox>
+                <TextBox x:Name="txbEnterId" Grid.Row="2" Grid.Column="3" Canvas.Left="21" Canvas.Top="89" Height="16" Width="115"  PreviewTextInput="allowOnlyNumbers" MaxLength="9" ></TextBox>
                 <TextBox x:Name="txbEnterName" Grid.Row="2" Grid.Column="4" Canvas.Left="20" Canvas.Top="149" Height="16" Width="119" ></TextBox>
                 <Button x:Name="btnEnter" Content="Enter" Grid.Row="2" Grid.Column="4" Canvas.Left="76" Canvas.Top="241" Height="30" Width="131" Click="btnEnter_Click" />
-                <TextBox x:Name="txbEnterYourNewP" Grid.Row="2" Grid.Column="4" Canvas.Left="18" Canvas.Top="201" Height="16" Width="119" MaxLength="9" > </TextBox>
+                <TextBox x:Name="txbEnterYourNewP" Grid.Row="2" Grid.Column="4" Canvas.Left="18" Canvas.Top="201" Height="16" Width="119" MaxLength="6" ></TextBox>
                 <Button x:Name="closeButtom" Content="x" Canvas.Left="284" Canvas.Top="-2" Width="16" FontSize="15" Click="closeButtom_Click"></Button>
 
             </Canvas>

@@ -41,7 +41,7 @@ namespace PL
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (txbID.Text == "" || txbName.Text == "" || txbPassword.Text == "")
+            if (txbID.Text.==0|| txbName.Text.Length == 0 || txbPassword.Text.Length == 0)
                 MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {

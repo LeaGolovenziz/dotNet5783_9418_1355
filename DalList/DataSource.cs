@@ -139,14 +139,14 @@ public static class DataSource
             order.OrderDate = DateTime.Now.Add(new TimeSpan(rand.Next(-360, 0), 0, 0, 0));
 
             // about 80% of the orders have a ship date
-            if (i < 16)
+            if (i < 13)
                 // draw a date in the range between the order date and 7 days after
                 order.ShipDate = (order.OrderDate ?? throw new Nullvalue()).Add(new TimeSpan(rand.Next(1, 7), 0, 0, 0));
             else
                 order.ShipDate = null;
 
             // about 60% of the shipped orders have a delivery date
-            if (i < 10)
+            if (i < 7)
                 // draw a date in the range between the ship date and 2 days after
                 order.DeliveryDate = (order.ShipDate ?? throw new Nullvalue()).Add(new TimeSpan(rand.Next(1, 7), 0, 0, 0));
             else

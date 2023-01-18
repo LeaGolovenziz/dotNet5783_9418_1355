@@ -16,7 +16,7 @@
 
         </Grid.RowDefinitions>
 
-        <Grid x:Name="trackingGrid" Grid.Row="1" Visibility="Visible">
+        <Grid x:Name="trackingGrid" Grid.Row="1" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="5*"/>
@@ -28,10 +28,10 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="statusLabel" Grid.Column="0" Content="Order status:" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Width="132" />
-                <TextBlock x:Name="statysTextBlock" HorizontalAlignment="Left" Margin="5,19,0,0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=OrderStatus}" Width="169" Height="30" VerticalAlignment="Top"/>
+                <TextBlock x:Name="statysTextBlock" HorizontalAlignment="Left" Margin="5,10,0,0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=OrderStatus}" Width="169" Height="30" VerticalAlignment="Top"/>
             </Grid>
 
-            <ListView x:Name="trackingListView" Grid.Row="1" ItemsSource="{Binding}" FontSize="20" FontFamily="Arial" FontWeight="Bold" FontStyle="Italic"  Margin="150,5,150,80">
+            <ListView x:Name="trackingListView" Grid.Row="1" ItemsSource="{Binding}" FontSize="20" FontFamily="Arial" FontWeight="Bold" FontStyle="Italic"  Margin="200,5,200,80">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=Item1}" Width="250"/>
@@ -41,7 +41,7 @@
             </ListView>
         </Grid>
 
-        <ListView x:Name="OrderListView" ItemsSource="{Binding orders}" Grid.Row="0" FontSize="18" Margin="130,25" MouseDoubleClick="OrderListView_MouseDoubleClick" SelectionChanged="OrderListView_SelectionChanged">
+        <ListView x:Name="OrderListView"  ItemsSource="{Binding}" Grid.Row="0" FontSize="18" Margin="170,25" MouseDoubleClick="OrderListView_MouseDoubleClick" SelectionChanged="OrderListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Order's ID" DisplayMemberBinding="{Binding OrderID}" Width="120"/>

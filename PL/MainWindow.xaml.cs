@@ -62,7 +62,7 @@ namespace PL
         /// <param name="e"></param>
         private void ButtonCustomerEnter_Click(object sender, RoutedEventArgs e)
         {
-            if (NameBox.Text == "" || passwordBox.Password == "")
+            if (NameBox.Text.Length == 0 || passwordBox.Password.Length == 0)
                 MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 try
@@ -189,7 +189,7 @@ namespace PL
         /// <param name="e"></param>
         private void ButtonMenagerEnter_Click(object sender, RoutedEventArgs e)
         {
-            if (NameBox.Text == "" || passwordBox.Password== "")
+            if (NameBox.Text.Length == 0 || passwordBox.Password.Length == 0)
                 MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
@@ -230,7 +230,7 @@ namespace PL
         /// <param name="e"></param>
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-            if (txbEnterId.Text == "" || txbEnterName.Text == "" || txbEnterYourNewP.Text == "")
+            if (txbEnterId.Text.Length == 0 || txbEnterName.Text.Length == 0 || txbEnterYourNewP.Text.Length == 0)
                 MessageBox.Show("Fill in all the details!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
@@ -246,6 +246,11 @@ namespace PL
                     {
                         bl.User.ResetPassword(Convert.ToInt32(txbEnterId.Text), txbEnterYourNewP.Text);
                         MessageBox.Show("Succsesfully reset password!", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                        resetPasword.Visibility = Visibility.Hidden;
+                        GridPassword.Visibility=Visibility.Visible; 
+                        txbEnterId.Clear();
+                        txbEnterName.Clear();
+                        txbEnterYourNewP.Clear();
                     }
                 }
                 catch (DoesntExist)

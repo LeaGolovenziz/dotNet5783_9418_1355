@@ -22,6 +22,7 @@ namespace Dal
         /// <exception cref="FileSavingError"></exception>
         public int Add(DO.User user)
         {
+
             List<DO.User?> users = XmlTools.LoadListFromXMLSerializer<DO.User?>(userPath, rootName);
 
             try

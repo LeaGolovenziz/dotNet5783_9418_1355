@@ -78,11 +78,27 @@ namespace PL
                 }
             }
         }
+
+        private IEnumerable<OrderForList?> shuffel()
+        {
+            int n = Orders.Count;
+            Random random = new Random();   
+            while(n>1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                OrderForList? orderForList = Orders[k];
+                Orders[k] = Orders[n];
+                Orders[n] = orderForList;
+            }
+            return Orders;
+        }
+
         private void BwDeliver_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int currentTime = e.ProgressPercentage;
 
-            foreach (BO.OrderForList orderForList in Orders)
+            foreach (BO.OrderForList orderForList in shuffel())
             {
                 if (stopSimulation)
                     break;
