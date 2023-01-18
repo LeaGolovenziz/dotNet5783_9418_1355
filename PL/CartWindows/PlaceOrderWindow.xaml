@@ -30,7 +30,7 @@
             </Grid.RowDefinitions>
 
             <Label x:Name="customerNameLable" Content="Name:" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0" FontSize="16" />
-            <TextBox x:Name="customerNameTextBox" Text="{Binding CustomerName}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Height="30"  IsEnabled="False"/>
+            <TextBox x:Name="customerNameTextBox" Text="{Binding CustomerName}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Height="30" IsEnabled="False"/>
             <Label x:Name="CustomerNameExceptionLable" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Content="please enter your name!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
             <Label x:Name="CustomerAddressLable" Content="Address:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0" FontSize="16"/>
@@ -42,7 +42,7 @@
             <Label x:Name="CustomerEmailExceptionLable" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="please enter your Email address!" FontWeight="Bold" FontStyle="Italic" Foreground="Red" Visibility="Hidden"/>
 
             <Label x:Name="priceLable" Content="Price:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,160,0" FontSize="16"/>
-            <TextBox x:Name="priceTextBox" Text="{Binding Price}" IsEnabled="False" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Height="30" MaxLength="4"/>
+            <TextBox x:Name="priceTextBox" Text="{Binding Price}" IsEnabled="False" Grid.Row="3" Grid.Column="1" PreviewKeyDown="preventWhiteSpaces" PreviewTextInput="allowOnlyNumbers" VerticalAlignment="Center" Height="30" MaxLength="4"/>
         </Grid>
         <Button Content="Place order" FontSize="25" Grid.Row="2" Click="PlaceOrder" Height="67" Grid.RowSpan="2" VerticalAlignment="Bottom"/>
     </Grid>
