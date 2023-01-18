@@ -1,7 +1,10 @@
 ﻿using BO;
 using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PL.CartWindows
 {
@@ -14,7 +17,7 @@ namespace PL.CartWindows
 
         public Cart cart;
 
-        public User user=new User();
+        public User user = new User();
 
         private Action action;
 
@@ -24,7 +27,7 @@ namespace PL.CartWindows
 
             this.cart = cart;
 
-            this.user= user;
+            this.user = user;
 
             this.action = action;
 
@@ -38,7 +41,7 @@ namespace PL.CartWindows
         // make acxeption visible if text is empty anf unvisible otherwise
         private void CustomerAddressTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text == "")
+            if (((TextBox)sender).Text == "" || ((TextBox)sender).Text == " ")
             {
                 CustomerAddressExceptionLable.Visibility = Visibility.Visible;
             }
@@ -51,7 +54,7 @@ namespace PL.CartWindows
         // make acxeption visible if text is empty anf unvisible otherwise
         private void CustomerEmailTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text == "")
+            if (((TextBox)sender).Text == "" || ((TextBox)sender).Text == " ")
             {
                 CustomerEmailExceptionLable.Visibility = Visibility.Visible;
             }
@@ -74,7 +77,7 @@ namespace PL.CartWindows
             else try
                 {
                     // place order
-                    int orderID = bl.Cart.PlaceOrder(cart,user);
+                    int orderID = bl.Cart.PlaceOrder(cart, user);
                     MessageBox.Show("Your order has been confirmed! \nyour tracking number is " + orderID, "ATTENTION", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     // close two previouse windows
@@ -106,6 +109,17 @@ namespace PL.CartWindows
                     MessageBox.Show("can't find one of the products", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
+        }
+        // prevent white spaces
+        private void preventWhiteSpaces(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
+        // makes sure the user can enter only numbers
+        private void allowOnlyNumbers(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
     }

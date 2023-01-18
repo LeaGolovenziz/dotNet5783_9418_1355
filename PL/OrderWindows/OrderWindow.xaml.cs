@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PL.OrderWindows
 {
@@ -92,12 +93,10 @@ namespace PL.OrderWindows
             catch (ProductNotInStock ex)
             {
                 MessageBox.Show("There is no such amount in stock of this product", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
             }
             catch (UnvalidAmount ex)
             {
                 MessageBox.Show("The amount you entered is unvalid, enter again", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
             }
             catch (DoesntExist ex)
             {
@@ -290,5 +289,11 @@ namespace PL.OrderWindows
         private void OrderItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
+        // prevent white spaces
+        private void preventWhiteSpaces(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
+
     }
 }
