@@ -37,13 +37,14 @@ namespace PL
 
         public SimulationWindow()
         {
-
             InitializeComponent();
+
             Orders = new ObservableCollection<OrderForList?>(bl.Order.GetOrderList().OrderBy(x=>x.CustomerName));
             OrderListView.DataContext = Orders;
 
             backgroundWorker = new BackgroundWorker();
 
+            // If all of the orders has delivered - don't allow to simulate
             if (bl.Order.GetOrderList().ToList().Exists(order => order.OrderStatus == BO.Enums.OrderStatus.Sent || order.OrderStatus == BO.Enums.OrderStatus.Confirmed))
             {
                 backgroundWorker.DoWork += BwDeliver_DoWork!;
@@ -60,9 +61,11 @@ namespace PL
 
         private void BwDeliver_DoWork(object sender, DoWorkEventArgs e)
         {
+            // Start to run the clock
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
+            // While there are orders that havn't delivered - (send) and deliver them
             while (bl.Order.GetOrderList().ToList().Exists(order => order.OrderStatus == BO.Enums.OrderStatus.Sent || order.OrderStatus == BO.Enums.OrderStatus.Confirmed))
             {
                 if (backgroundWorker.CancellationPending == true)
@@ -79,10 +82,12 @@ namespace PL
             }
         }
 
+        // mixing the list of orders
         private IEnumerable<OrderForList?> shuffel()
         {
             int n = Orders.Count;
-            Random random = new Random();   
+            Random random = new Random(); 
+            
             while(n>1)
             {
                 n--;
@@ -98,6 +103,7 @@ namespace PL
         {
             int currentTime = e.ProgressPercentage;
 
+            // Go over the orders - if there is an order that hasn't been sent or delivered - do it
             foreach (BO.OrderForList orderForList in shuffel())
             {
                 if (stopSimulation)
@@ -156,6 +162,7 @@ namespace PL
         private void histoyButton_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderForList orderForList = (sender as Button).DataContext as BO.OrderForList;
+
             if (orderForList != null)
             {
                 order = bl.Order.GetOrderDetails(orderForList.OrderID);
