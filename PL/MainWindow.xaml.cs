@@ -70,7 +70,7 @@ namespace PL
                     var user = bl.User.Get().ToList().Find(x => x.Password == passwordBox.Password && x.Name == NameBox.Text && x.IsManeger == false);
                     if (user != null) //varifyig the customer is a customer and not a worker 
                     {
-                        new BuyerWindow(user).ShowDialog();
+                        new BuyerWindow(user).Show();
                         CustomerMode();
                     }
                     else
@@ -198,7 +198,7 @@ namespace PL
                     var maneger = bl.User.Get().ToList().Find(x => x.Password == passwordBox.Password && x.Name == NameBox.Text && x.IsManeger == true);
                     if (maneger != null)
                     {
-                        new ManagerWindow().ShowDialog();
+                        new ManagerWindow().Show();
                         ManegerMode();
                     }
                     else
