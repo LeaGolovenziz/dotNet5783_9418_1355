@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace Dal
 {
-    public static class XmlTools
+     static class XmlTools
     {
         #region Directories
         // xml files' folders name
