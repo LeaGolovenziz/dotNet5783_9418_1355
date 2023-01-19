@@ -79,7 +79,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Button Content="Maneger" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="2"  Height="Auto" VerticalAlignment="Stretch" Click="Button_Click_WorkerMode" ClipToBounds="True"/>
+                <Button Content="Manager" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="2"  Height="Auto" VerticalAlignment="Stretch" Click="Button_Click_WorkerMode" ClipToBounds="True"/>
                 <Button Content="Customer"  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Height="Auto" Click="Button_Click_CustomerMode"  Grid.RowSpan="1" ClipToBounds="True"/>
 
             </Grid>
